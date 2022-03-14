@@ -1,0 +1,64 @@
+package com.lotzy.skcrew.sql.effects;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.*;
+import ch.njol.util.Kleenean;
+import com.lotzy.skcrew.sql.Util;
+import com.zaxxer.hikari.HikariDataSource;
+import org.bukkit.event.Event;
+import javax.sql.DataSource;
+import java.util.*;
+
+public class EffSyncExecuteStatement extends Effect {
+
+    static {
+        Skript.registerEffect(EffSyncExecuteStatement.class,
+                "sync[hronously] execute %string% (in|on) %datasource% " +
+                        "[and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %-objects%]");
+    }
+    
+    private Expression<String> exprquery;
+    private Expression<HikariDataSource> dataSource;
+    private VariableString var;
+    private boolean isLocal;
+    private boolean isList;
+
+    @Override
+    protected void execute(Event e) {
+        DataSource ds = dataSource.getSingle(e);
+        String query = exprquery.getSingle(e);
+        String baseVariable = var != null ? var.toString(e).toLowerCase(Locale.ENGLISH) : null;
+        if (ds == null) return;
+        Object res = Util.executeStatement(ds, baseVariable, query, isList);
+        if (res instanceof String string) {
+            Skript.warning(string);
+            return;
+        }
+        ((Map<String, Object>) res).forEach((name, value) -> Util.setVariable(e, name, value, isLocal));               
+    }
+
+    @Override
+    public String toString(Event e, boolean debug) {
+        return "sync execute " + exprquery.toString(e, debug) + " in " + dataSource.toString(e, debug);
+    }
+
+    @Override
+    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+                        SkriptParser.ParseResult parseResult) {
+        
+        exprquery = (Expression<String>) exprs[0];
+        
+        dataSource = (Expression<HikariDataSource>) exprs[1];
+        Expression<?> expr = exprs[2];
+        if (expr instanceof Variable) {
+            Variable<?> varExpr = (Variable<?>) expr;
+            var = varExpr.getName();
+            isLocal = varExpr.isLocal();
+            isList = varExpr.isList();
+        } else if (expr != null) {
+            Skript.error(expr + " is not a variable");
+            return false;
+        }
+        return true;
+    }
+}

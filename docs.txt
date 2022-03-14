@@ -1,0 +1,11 @@
+on start spectate [of %entitydata%]
+	event values:
+		event-player
+		event-entity
+
+on stop spectate [of %entitydata%]
+	event values:
+		event-player
+		event-entity
+
+		

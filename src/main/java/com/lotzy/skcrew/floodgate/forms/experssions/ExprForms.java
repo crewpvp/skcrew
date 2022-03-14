@@ -1,0 +1,46 @@
+package com.lotzy.skcrew.floodgate.forms.experssions;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.ExpressionType;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
+import com.lotzy.skcrew.floodgate.forms.Form;
+import com.lotzy.skcrew.floodgate.forms.SkriptForm;
+import javax.annotation.Nullable;
+import org.bukkit.event.Event;
+
+public class ExprForms extends SimpleExpression<Form> {
+
+    static {
+        Skript.registerExpression(ExprForms.class, Form.class, ExpressionType.SIMPLE, "all forms");
+    }
+
+    @Override
+    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+        return true;
+    }
+
+    @Override
+    @Nullable
+    protected Form[] get(Event e) {
+        return SkriptForm.getFormManager().getTrackedForms().toArray(new Form[0]);
+    }
+
+    @Override
+    public boolean isSingle() {
+        return false;
+    }
+
+    @Override
+    public Class<? extends Form> getReturnType() {
+        return Form.class;
+    }
+
+    @Override
+    public String toString(@Nullable Event e, boolean debug) {
+        return "all forms";
+    }
+
+}

@@ -1,0 +1,86 @@
+package com.lotzy.skcrew.permissions;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.ExpressionType;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+
+public class ExprPlayerPermissions extends SimpleExpression<String> {
+
+    static {
+        Skript.registerExpression(ExprPlayerPermissions.class, String.class, ExpressionType.COMBINED,
+            "%player%'s perm[ission][s]", "perm[ission][s] of %player%" );
+    }
+
+    private Expression<Player> player;
+
+    @Override
+    public Class<? extends String> getReturnType() {
+        return String.class;
+    }
+
+    @Override
+    public Class[] acceptChange(Changer.ChangeMode mode) {
+        if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) {
+                return new Class[] { String[].class };
+        }
+        return null;
+    }
+
+    @Override
+    public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
+        if (delta[0] == null)
+            return;
+        Player p = player.getSingle(e);
+        String[] permissions = Arrays.stream(delta).toArray(String[]::new);
+        if (Changer.ChangeMode.ADD == mode) {
+            Skript instance = Skript.getInstance();
+
+            for(String permission : permissions) {
+                p.addAttachment(instance,permission,true);
+            }
+        } else if (Changer.ChangeMode.REMOVE == mode){
+            for(String permission : permissions) {
+                p.getEffectivePermissions().forEach(ppermission -> {
+                    ppermission.getAttachment().unsetPermission(permission);
+                });
+            }
+        }
+        p.recalculatePermissions();
+        p.updateCommands();
+    }
+
+    @Override
+    protected String[] get(Event e) {
+        final Set<String> permissions = new HashSet<>();
+        for (final PermissionAttachmentInfo permission : player.getSingle(e).getEffectivePermissions())
+            permissions.add(permission.getPermission());
+        return permissions.toArray(new String[0]);
+    }
+
+    @Override
+    public boolean isSingle() {
+        return false;
+    }
+
+    @Override
+    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+        player = (Expression<Player>) exprs[0];
+        return true;
+    }
+
+    @Override
+    public String toString(Event e, boolean debug) {
+        return "permissions of player "+player.toString(e,debug);
+    }
+
+}

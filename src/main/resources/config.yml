@@ -1,0 +1,27 @@
+sql:
+  enabled: true
+  driver-class-name: "default"
+gui:
+  enabled: true
+runtime:
+  enabled: true
+paper:
+  enabled: true
+url:
+  enabled: true
+files:
+  enabled: true
+world:
+  enabled: true
+permissions:
+  enabled: true
+interpretate:
+  enabled: true
+stringutils:
+  enabled: true
+floodgate:
+  enabled: true
+map:
+  enabled: true
+other:
+  enabled: true
