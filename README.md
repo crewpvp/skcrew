@@ -8,7 +8,7 @@ Skript addon contains favorite addons and something more
 (First of all, I developed this for personal use, but maybe it will be useful to someone)
 
 ### What's new?
-- [Floodgate](https://github.com/GeyserMC/Floodgate) api with cumulus (bedrock forms) support
+- [Floodgate](https://github.com/GeyserMC/Floodgate) api with cumulus (bedrock forms) support (syntax like skript-gui, easy to learn)
 - Run code from text, it can be not only single line
 - InventoryDragEvent - its fired when player hold righclick with cursor item
 - Give or drop effect, its something like (if player doesn't have space for item, it will be dropper near)
