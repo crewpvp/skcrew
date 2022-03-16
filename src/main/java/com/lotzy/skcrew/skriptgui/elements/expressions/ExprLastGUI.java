@@ -3,6 +3,10 @@ package com.lotzy.skcrew.skriptgui.elements.expressions;
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -13,6 +17,13 @@ import javax.annotation.Nullable;
 import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 
+@Name("SkriptGUI - Last GUI/GUI from ID")
+@Description("It is used to return the last created/edited gui or a gui from a string id.")
+@Examples({
+		"open the created gui for player",
+		"open the gui with the id \"globalGUI\" for player"
+})
+@Since("1.0")
 public class ExprLastGUI extends SimpleExpression<GUI> {
 
 	static {

@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -11,6 +15,10 @@ import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
+@Name("SkriptGUI - All guis")
+@Description("Get all currently created guis")
+@Examples("set {_guis::*} to all guis")
+@Since("1.0")
 public class ExprGUIs extends SimpleExpression<GUI> {
 
 	static {

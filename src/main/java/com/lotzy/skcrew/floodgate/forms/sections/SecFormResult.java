@@ -2,6 +2,11 @@ package com.lotzy.skcrew.floodgate.forms.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -19,6 +24,15 @@ import java.util.List;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 
+@Name("Forms - Result")
+@Description({"This executed when custom form submit",
+        "Can only be used in custom form section"})
+@Examples({"create custom form named \"custom form\":",
+        "\tinput named \"enter password\"",
+        "\trun on form result:",
+        "\t\tbroadcast input 1 value"})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class SecFormResult extends EffectSection {
     static {
         Skript.registerSection(SecFormResult.class,"run on form (result|submit)" );

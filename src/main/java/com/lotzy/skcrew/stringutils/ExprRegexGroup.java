@@ -2,6 +2,10 @@ package com.lotzy.skcrew.stringutils;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -11,6 +15,10 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+@Name("StringUtils - Regex match")
+@Description("Get matched group using regular expression in text")
+@Examples({"set {_group::*} to regex group 1 of \"123123123123\" matched to \"123\""})
+@Since("1.0")
 public class ExprRegexGroup extends SimpleExpression<String> {
 
     static {

@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.runtime;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,11 +13,16 @@ import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Runtime - Amount of processor cores")
+@Description("Return amount of processor cores on the machine")
+@Examples({"on load:",
+        "\tbroadcast \"%amount of processor cores%\""})
+@Since("1.0")
 public class ExprProcessorCores extends SimpleExpression<Number> {
 
     static {
         Skript.registerExpression(ExprProcessorCores.class, Number.class,
-                ExpressionType.SIMPLE, "processor's cores amount",
+                ExpressionType.SIMPLE, "processor['s] cores amount",
                         "[amount of] processor cores");
     }
 

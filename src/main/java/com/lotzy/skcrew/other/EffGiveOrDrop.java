@@ -2,6 +2,10 @@ package com.lotzy.skcrew.other;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -11,11 +15,16 @@ import javax.annotation.Nullable;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+@Name("Other - Give or drop")
+@Description("Give exp or items to player if he has space, else drop items near")
+@Examples({"command /drop:",
+        "\tgive or drop (999 of dirt, 1234 of stone) to player"})
+@Since("1.0")
 
 public class EffGiveOrDrop extends Effect {
 

@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.world.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -15,6 +19,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
+@Name("World - Delete world")
+@Description("Delete world by world type or world name")
+@Examples({"command /deleteworld <text>:",
+        "\ttrigger:",
+        "\t\tdelete world arg-1"})
+@Since("1.0")
 public class EffDeleteWorld extends Effect {
     static {
         Skript.registerEffect(EffDeleteWorld.class,

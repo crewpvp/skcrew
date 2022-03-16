@@ -2,12 +2,21 @@ package com.lotzy.skcrew.world.conditions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.Chunk;
 
+@Name("World - Chunk is loaded")
+@Description("Check if chunk loaded")
+@Examples({"command /test:",
+        "\tbroadcast \"%chunk at player is loaded%\""})
+@Since("1.0")
 public class CondChunkLoaded extends Condition {
 
     static {

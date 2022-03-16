@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -13,6 +17,14 @@ import javax.annotation.Nullable;
 import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 
+@Name("SkriptGUI - Global GUI IDS")
+@Description("A list of the identifiers of all registered global GUIs.")
+@Examples({"command /guis:",
+		"\ttrigger:",
+		"\t\tloop all of the registered gui identifiers:",
+		"\t\t\tsend loop-string"
+})
+@Since("1.0")
 public class ExprGUIIdentifiers extends SimpleExpression<String> {
 
 	static {

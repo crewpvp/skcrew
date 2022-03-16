@@ -2,6 +2,11 @@ package com.lotzy.skcrew.floodgate.forms.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -22,6 +27,16 @@ import org.geysermc.cumulus.ModalForm;
 import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.util.FormImage;
 
+@Name("Forms - Button section")
+@Description({"Create buttons on modal or simple form",
+            "Cannot be used on custom forms"})
+@Examples({"create modal form named \"Modal form\":",
+        "\tbutton named \"I like skript!\":",
+        "\t\tbroadcast \"Thank you!!!\"",
+        "\tbutton named \"I didnt like skript!\":",
+        "\t\tbroadcast \"USE DENIZEN INSTEAD!!!\""})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class SecFormButton extends EffectSection {
     static {
         Skript.registerSection(SecFormButton.class,

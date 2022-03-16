@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.file.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -15,6 +19,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.bukkit.event.Event;
 
+@Name("Files - Create file dir")
+@Description("Create directory or file")
+@Examples({"on load:",
+        "\tcreate file \"eula.txt\" with content \"eula=true\""})
+@Since("1.0")
 public class EffCreateFileDir extends Effect {
 
     static {

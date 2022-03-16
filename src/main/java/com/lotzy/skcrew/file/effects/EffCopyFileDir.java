@@ -3,6 +3,10 @@ package com.lotzy.skcrew.file.effects;
 import org.bukkit.event.Event;
  
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -17,6 +21,11 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
  
+@Name("Files - Copy")
+@Description("Copy file or directory")
+@Examples({"on load:",
+        "\tcopy file \"eula.txt\" to file \"plugins/\""})
+@Since("1.0")
 public class EffCopyFileDir extends Effect {
 
     static {

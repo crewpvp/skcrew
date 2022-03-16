@@ -10,6 +10,10 @@ import java.util.List;
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -17,6 +21,13 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import javax.swing.event.ChangeEvent;
 
+@Name("Files - File content")
+@Description("Set or get content of file")
+@Examples({"on load:",
+        "\tset {_file} to content of file \"eula.txt\"",
+        "\treplace all \"false\" with \"true\" in {_file}",
+        "\tset content of file \"eula.txt\" to {_file}"})
+@Since("1.0")
 public class ExprContent extends SimpleExpression<String> {
 
     static {

@@ -1,8 +1,18 @@
 package com.lotzy.skcrew.file.expressions;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import java.nio.file.Path;
 
+@Name("Files - Absolute file")
+@Description({"Return absolute file of file or directory",
+            "Like '/path to file/file' (path from root of machine filesystem)"})
+@Examples({"on load:",
+        "\tset {_file} to absolute of file \"eula.txt\""})
+@Since("1.0")
 public class ExprAbsolutePath extends SimplePropertyExpression<Path,Path> {
 
     static {

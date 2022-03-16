@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.world.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +14,11 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
+@Name("World - Loaded chunks")
+@Description("Get all loaded chunks")
+@Examples({"on load",
+        "\tbroadcast \"%amount of loaded chunk in world(\"world\"%\""})
+@Since("1.0")
 public class ExprLoadedChunks extends SimpleExpression<Chunk> {
 
     static {

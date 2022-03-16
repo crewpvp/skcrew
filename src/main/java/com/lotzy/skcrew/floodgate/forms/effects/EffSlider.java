@@ -1,6 +1,11 @@
 package com.lotzy.skcrew.floodgate.forms.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -16,6 +21,11 @@ import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.CustomForm;
 
+@Name("Forms - Custom Slider")
+@Description("Create slider on custom forms")
+@Examples("Slider named \"slider\" with min 5 and max 10")
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class EffSlider extends Effect {
 
     static {

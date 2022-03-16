@@ -13,6 +13,9 @@ public class TypeDataSource {
     static {
         Classes.registerClass(new ClassInfo<>(HikariDataSource.class, "datasource")
                 .user("datasources?")
+                .description("Represents datasource (com.zaxxer.hikari.HikariDataSource class)")
+                .since("1.0")
+                .name("datasource")
                 .parser(new Parser<HikariDataSource>() {
                     @Override
                     public HikariDataSource parse(String s, ParseContext context) {

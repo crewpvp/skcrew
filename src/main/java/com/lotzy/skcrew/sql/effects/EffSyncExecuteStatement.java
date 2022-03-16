@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.sql.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.sql.Util;
@@ -8,7 +12,12 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.event.Event;
 import javax.sql.DataSource;
 import java.util.*;
-
+@Name("SQL - Sync execute statement")
+@Description({"Executes statement in sql database",
+        "(return values if used in functions, but can affect server performance)"})
+@Examples({"on load:",
+        "\tsync execute \"select nick from accounts\" and store in {_d::*}"})
+@Since("1.0")
 public class EffSyncExecuteStatement extends Effect {
 
     static {

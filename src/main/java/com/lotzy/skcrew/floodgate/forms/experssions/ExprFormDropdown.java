@@ -2,6 +2,11 @@ package com.lotzy.skcrew.floodgate.forms.experssions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -10,7 +15,6 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.floodgate.forms.Form;
 import com.lotzy.skcrew.floodgate.forms.events.FormSubmitEvent;
 import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
@@ -18,6 +22,13 @@ import javax.annotation.Nullable;
 import org.geysermc.cumulus.response.CustomFormResponse;
 import org.geysermc.cumulus.util.ComponentType;
 
+@Name("Forms - Dropdown result")
+@Description({"Get result of dropdown by index",
+        "Can be used in custom form result section"})
+@Examples({"on result:",
+        "\tbroadcast \"%dropdown 1 value%\""})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class ExprFormDropdown extends SimpleExpression<Integer> {
 
     static {

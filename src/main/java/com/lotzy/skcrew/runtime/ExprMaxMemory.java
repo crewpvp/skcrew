@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.runtime;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,11 +13,16 @@ import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Runtime - Max memory")
+@Description("Return allocated memory of jvm in bytes")
+@Examples({"on load:",
+        "\tbroadcast \"%max memory/(1024*1024)%\""})
+@Since("1.0")
 public class ExprMaxMemory extends SimpleExpression<Number> {
 
     static {
         Skript.registerExpression(ExprMaxMemory.class, Number.class,
-                ExpressionType.SIMPLE, "[the] [server'[s]] max memory",
+                ExpressionType.SIMPLE, "[the] [server['s]] max memory",
                         "max memory of server");
     }
 

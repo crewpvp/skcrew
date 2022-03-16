@@ -9,6 +9,10 @@ import java.util.List;
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -17,6 +21,11 @@ import ch.njol.util.Kleenean;
 import java.util.NoSuchElementException;
 import javax.swing.event.ChangeEvent;
 
+@Name("Files - Line of file")
+@Description("Return or set specific line of file")
+@Examples({"on load:",
+        "\tset line 1 of file \"eula.txt\" to \"eula=true\""})
+@Since("1.0")
 public class ExprLine extends SimpleExpression<String> {
 
     static {

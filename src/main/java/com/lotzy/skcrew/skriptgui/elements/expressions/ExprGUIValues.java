@@ -3,6 +3,10 @@ package com.lotzy.skcrew.skriptgui.elements.expressions;
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -29,6 +33,13 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+@Name("SkriptGUI - GUI Values")
+@Description("Different utility values for a GUI. Some are available in vanilla Skript. Not all values are available for the GUI close section.")
+@Examples({"create a gui with virtual chest inventory:",
+			"\tmake gui 10 with water bucket:",
+			"\t\tset the clicked-item to lava bucket"
+})
+@Since("1.0")
 public class ExprGUIValues extends SimpleExpression<Object> {
 
 	static {

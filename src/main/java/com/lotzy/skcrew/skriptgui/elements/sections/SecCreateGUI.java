@@ -2,6 +2,10 @@ package com.lotzy.skcrew.skriptgui.elements.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -16,6 +20,13 @@ import com.lotzy.skcrew.Skcrew;
 import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 
+@Name("SkriptGUI - Create / Edit GUI")
+@Description("The base of creating and editing GUIs.")
+@Examples({"create a gui with virtual chest inventory with 3 rows named \"My GUI\"",
+			"edit gui last gui:",
+			"\tset the gui-inventory-name to \"New GUI Name!\"",
+})
+@Since("1.0")
 public class SecCreateGUI extends EffectSection {
 
 	static {

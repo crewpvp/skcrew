@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.runtime;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,12 +15,17 @@ import org.bukkit.event.Event;
 import ch.njol.skript.util.Timespan;
 import javax.annotation.Nullable;
 
+@Name("Runtime - Server uptime")
+@Description("Return timespan with server working time")
+@Examples({"on load:",
+        "\tbroadcast \"%uptime of server%\""})
+@Since("1.0")
 public class ExprServerUptime extends SimpleExpression<Timespan> {
 
     static {
         Skript.registerExpression(ExprServerUptime.class, Timespan.class,
                 ExpressionType.SIMPLE, "[the] uptime of server",
-                        "[the] server'[s] uptime");
+                        "[the] server['s] uptime");
     }
 
     @Override

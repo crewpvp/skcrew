@@ -3,6 +3,11 @@ package com.lotzy.skcrew.skriptgui.elements.conditions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -10,6 +15,11 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import javax.annotation.Nullable;
 
+@Name("SkirptGUI - Player has gui")
+@Description("Check if player has opened gui")
+@Examples({"if player has gui:",
+            "\tbroadcast \"yes\""})
+@Since("1.0")
 public class CondHasGUI extends Condition {
 
 	static {

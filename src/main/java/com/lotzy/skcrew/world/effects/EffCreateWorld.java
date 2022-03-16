@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.world.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +15,12 @@ import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.event.Event;
 
+@Name("World - Create world")
+@Description("Create default world or superflat with specifed name")
+@Examples({"command /createworld <text>:",
+        "\ttrigger:",
+        "\t\tcreate world arg-1"})
+@Since("1.0")
 public class EffCreateWorld extends Effect {
     static {
         Skript.registerEffect(EffCreateWorld.class,

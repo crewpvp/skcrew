@@ -3,6 +3,11 @@ package com.lotzy.skcrew.floodgate.forms.experssions;
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -22,6 +27,13 @@ import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.impl.ModalFormImpl;
 import org.geysermc.cumulus.impl.SimpleFormImpl;
 
+@Name("Forms - Content")
+@Description({"Get or set content of form",
+        "Can be used in modal and simple forms"})
+@Examples({"create modal form with name \"modal form\":",
+        "\tset form's content to \"Hello world!\""})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class ExprFormContent extends SimpleExpression<String> {
 
     static {

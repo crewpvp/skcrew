@@ -2,6 +2,10 @@ package com.lotzy.skcrew.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -12,6 +16,15 @@ import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
+@Name("SkritGUI - GUI Properties")
+@Description("Different properties of the GUI. They can be modified.")
+@Examples({"edit gui last gui:",
+			"\tset the gui-inventory-name to \"New GUI Name!\"",
+			"\tset the gui-size to 3 # Sets the number of rows to 3 (if possible)",
+			"\tset the gui-shape to \"xxxxxxxxx\", \"x-------x\", and \"xxxxxxxxx\"",
+			"\tset the gui-lock-status to false # Players can take items from this GUI now"
+})
+@Since("1.0")
 public class ExprGUIProperties extends SimpleExpression<Object> {
 
 	static {

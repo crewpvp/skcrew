@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -16,6 +20,10 @@ import com.lotzy.skcrew.skriptgui.elements.sections.SecMakeGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
+@Name("SkriptGUI - Next GUI Slot")
+@Description("An expression that returns the number/character of the next open slot in a GUI.")
+@Examples("make the next gui slot with dirt named \"Slot: %the next gui slot%\"")
+@Since("1.0")
 public class ExprNextGUISlot extends SimpleExpression<Character> {
 
 	@Nullable

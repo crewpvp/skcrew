@@ -1,12 +1,27 @@
 package com.lotzy.skcrew.skriptgui.elements.expressions;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Since;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 import javax.annotation.Nullable;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
+@Name("SkriptGUI - ID of GUI")
+@Description({
+		"An expression that returns the ID of a GUI if the GUI is a global GUI.",
+		"This expression may be used to change the ID of a global GUI.",
+		"It may also be used to register a GUI as a global GUI."
+})
+@Examples({
+		"send \"%id of {gui}%\" to player",
+		"set id of {gui} to \"new id\"",
+})
+@Since("1.0")
 public class ExprIDOfGUI extends SimplePropertyExpression<GUI, String> {
 
 	static {

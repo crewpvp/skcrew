@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.world.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -8,11 +12,16 @@ import ch.njol.util.Kleenean;
 import org.bukkit.Chunk;
 import org.bukkit.event.Event;
 
+@Name("World - Load chunk")
+@Description("Load specifed chunk")
+@Examples({"on load:",
+        "\tload (chunk at spawn point of world(\"world\")"})
+@Since("1.0")
 public class EffLoadChunk extends Effect {
     static {
         Skript.registerEffect(EffLoadChunk.class,
-            "load chunk %chunk%",
-            "load chunk %chunk% without gen[erate]");
+            "load %chunk%",
+            "load %chunk% without gen[erate]");
     }
 
     private Expression<Chunk> expr;

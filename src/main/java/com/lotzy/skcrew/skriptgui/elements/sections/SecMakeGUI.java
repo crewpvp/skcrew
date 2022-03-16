@@ -3,6 +3,10 @@ package com.lotzy.skcrew.skriptgui.elements.sections;
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.config.SectionNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -20,6 +24,14 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import javax.annotation.Nullable;
 
+
+@Name("SkriptGUI - Close GUI section")
+@Description("A section that will run when the user closes the GUI. This section is optional.")
+@Examples({"create a gui with virtual chest inventory with 3 rows named \"My GUI\"",
+			"\trun on gui close:",
+			"\t\tsend \"You just closed this GUI!\" to player"
+})
+@Since("1.0")
 public class SecMakeGUI extends EffectSection {
 
 	static {

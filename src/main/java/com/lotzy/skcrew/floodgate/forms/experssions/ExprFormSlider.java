@@ -2,6 +2,11 @@ package com.lotzy.skcrew.floodgate.forms.experssions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -17,6 +22,13 @@ import javax.annotation.Nullable;
 import org.geysermc.cumulus.response.CustomFormResponse;
 import org.geysermc.cumulus.util.ComponentType;
 
+@Name("Forms - Slider result")
+@Description({"Get result of slider by index",
+        "Can be used in custom form result section"})
+@Examples({"on result:",
+        "\tbroadcast \"%slider 1 value%\""})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class ExprFormSlider extends SimpleExpression<Number> {
 
     static {

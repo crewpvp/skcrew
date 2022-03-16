@@ -1,12 +1,22 @@
 package com.lotzy.skcrew.floodgate.forms.experssions;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.floodgate.forms.Form;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 
+@Name("Forms - ID")
+@Description("Get or set id of form to make it global")
+@Examples("set id of last created form to \"MyGlobalForm\"")
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class ExprIDOfForm extends SimplePropertyExpression<Form, String> {
 
     static {

@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.sql.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.effects.Delay;
 import ch.njol.skript.lang.*;
 import ch.njol.skript.variables.Variables;
@@ -16,6 +20,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Name("SQL - Async execute statement")
+@Description({"Executes statement in sql database",
+        "(cannot return values if used in functions, but not affect server performance)"})
+@Examples({"on load:",
+        "\texecute \"select nick from accounts\" and store in {_d::*}"})
+@Since("1.0")
 public class EffAsyncExecuteStatement extends Effect {
     private static final ExecutorService threadPool =
             Executors.newCachedThreadPool();

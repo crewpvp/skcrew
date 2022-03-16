@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.world.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +13,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
+@Name("World - Unload world")
+@Description("Unload specifed world")
+@Examples({"on disconnect:",
+        "\tunload player's world"})
+@Since("1.0")
 public class EffUnloadWorld extends Effect {
     static {
         Skript.registerEffect(EffUnloadWorld.class,

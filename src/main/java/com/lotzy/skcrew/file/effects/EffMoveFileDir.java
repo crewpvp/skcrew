@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.file.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,6 +17,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import org.bukkit.event.Event;
 
+
+@Name("Files - Move")
+@Description("Move file or directory")
+@Examples({"on load:",
+        "\tmove file \"eula.txt\" to file \"plugins/\""})
+@Since("1.0")
 public class EffMoveFileDir extends Effect {
 
     static {

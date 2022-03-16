@@ -2,6 +2,10 @@ package com.lotzy.skcrew.stringutils;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -10,6 +14,11 @@ import ch.njol.util.Kleenean;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 
+
+@Name("StringUtils - Split text")
+@Description("Split text every number of symbols")
+@Examples({"set {_text::*} to \"123123123123\" split eveny 3 symbols"})
+@Since("1.0")
 public class ExprSplitEveryNumber extends SimpleExpression<String> {
 
     static {

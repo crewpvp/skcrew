@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -12,6 +16,11 @@ import java.util.List;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 
+@Name("SkriptGUI - Paginated List")
+@Description("Returns the \"pages\" of a list based on the given number of lines per page.")
+@Examples({"# The SECOND set of 36 items in the \"guiItems\" list. This represents the elements from indexes 37 to 72",
+			"set {_guiPage2::*} to page 2 of {_guiItems::*} with 36 lines"})
+@Since("1.0")
 public class ExprPaginatedList extends SimpleExpression<Object> {
 
 	static {

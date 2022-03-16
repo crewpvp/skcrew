@@ -2,12 +2,21 @@ package com.lotzy.skcrew.world.conditions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import java.io.File;
 
+@Name("World - World exists")
+@Description("Check if world exists")
+@Examples({"on load:",
+        "\tbroadcast \"%world \"world\" exists%\""})
+@Since("1.0")
 public class CondWorldExists extends Condition {
 
     static {

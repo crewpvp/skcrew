@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.other;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,6 +17,12 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+
+@Name("Other - Added items")
+@Description("Added items in inventory drag event")
+@Examples({"on inventory drag:",
+        "\tbroadcast \"%added items%\""})
+@Since("1.0")
 public class ExprNewItems extends SimpleExpression<ItemStack> {
 
     static {

@@ -2,12 +2,22 @@ package com.lotzy.skcrew.stringutils;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import java.util.regex.Pattern;
 
+
+@Name("StringUtils - Regex is matched")
+@Description("Check text is matched to regular expression")
+@Examples({"if \"1361\" is regex matches \"1..1\":",
+        "\tbroadcast \"yes\""})
+@Since("1.0")
 public class CondRegexMatched extends Condition {
 
     static {

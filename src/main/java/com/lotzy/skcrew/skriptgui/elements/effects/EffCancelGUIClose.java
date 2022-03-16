@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.skriptgui.elements.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -13,6 +17,11 @@ import javax.annotation.Nullable;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
+@Name("SkriptGUI - Cancel close")
+@Description({"Cancel or uncancel gui close",
+        "Its cancel close inventory event",
+        "Can be used only in gui close section"})
+@Since("1.0")
 public class EffCancelGUIClose extends Effect {
 
 	static {

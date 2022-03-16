@@ -2,6 +2,11 @@ package com.lotzy.skcrew.floodgate.forms.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SkriptParser;
@@ -17,6 +22,15 @@ import java.util.List;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 
+@Name("Forms - Open Close section")
+@Description("This executed when form is opened or closed")
+@Examples({"create simple form named \"Simple form\":",
+        "\trun on form close:",
+        "\t\tbroadcast \"closed\"",
+        "\trun on form open:",
+        "\t\tbroadcast \"opened\""})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class SecFormOpenClose extends Section {
 
     static {

@@ -2,6 +2,10 @@ package com.lotzy.skcrew.permissions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -14,6 +18,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
+@Name("Permissions - player's permissions")
+@Description("Add, remove, player's permissions")
+@Examples({"on join:",
+        "\tadd \"some.permission\" to player's perms"})
+@Since("1.0")
 public class ExprPlayerPermissions extends SimpleExpression<String> {
 
     static {

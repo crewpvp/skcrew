@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.file.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -18,6 +22,13 @@ import java.util.LinkedList;
 import java.util.List;
 import org.bukkit.event.Event;
 
+@Name("Files - Files in directory")
+@Description("Return files from directory as path type")
+@Examples({"on load:",
+        "\tset {_files::*} to all files from file \"plugins/\"",
+        "\tloop {_files::*}:",
+        "\t\tbroadcast name of loop-value"})
+@Since("1.0")
 public class ExprAllFileDirectory extends SimpleExpression<Path> implements FileVisitor<Path> {
 
     static {

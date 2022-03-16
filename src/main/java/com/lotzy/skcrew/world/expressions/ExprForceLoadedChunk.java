@@ -1,11 +1,24 @@
 package com.lotzy.skcrew.world.expressions;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import javax.annotation.Nullable;
 import org.bukkit.Chunk;
 import org.bukkit.event.Event;
 
+@Name("World - Force loaded chunk")
+@Description("Stop chunk to unloading")
+@Examples({"command /chunkforceload:",
+        "\ttrigger:",
+        "\t\tif force load of chunk at player is true:",
+        "\t\t\tset force load of chunk at player to false",
+        "\t\telse:",
+        "\t\t\tset force load of chunk at player to true"})
+@Since("1.0")
 public class ExprForceLoadedChunk extends SimplePropertyExpression<Chunk, Boolean> {
 
         static {

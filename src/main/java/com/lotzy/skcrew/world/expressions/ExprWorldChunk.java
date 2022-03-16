@@ -2,6 +2,10 @@ package com.lotzy.skcrew.world.expressions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -10,6 +14,11 @@ import ch.njol.util.Kleenean;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 
+@Name("World - Chunk")
+@Description("Get chunk by his coordinates")
+@Examples({"on load:",
+        "\tset {_chunk} to chunk at 16, 16 in world(\"world\")"})
+@Since("1.0")
 public class ExprWorldChunk extends SimpleExpression<Chunk> {
 
     static {

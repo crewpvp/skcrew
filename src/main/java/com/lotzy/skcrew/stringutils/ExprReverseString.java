@@ -2,12 +2,21 @@ package com.lotzy.skcrew.stringutils;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
+
+@Name("StringUtils - Reverse text")
+@Description("Mirror text")
+@Examples({"set {_text} to reversed \"321\""})
+@Since("1.0")
 public class ExprReverseString extends SimpleExpression<String> {
 
     static {

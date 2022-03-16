@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.file.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -17,6 +21,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.bukkit.event.Event;
 
+@Name("Files - Zip")
+@Description("Zip file or directory")
+@Examples({"on load:",
+        "\tzip file \"world/\" to file \"backupworld.zip\""})
+@Since("1.0")
 public class EffZipFileDir extends Effect {
 
     static {

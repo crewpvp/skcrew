@@ -1,6 +1,11 @@
 package com.lotzy.skcrew.floodgate.forms.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SectionSkriptEvent;
@@ -13,6 +18,12 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecFormOpenClose;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 
+@Name("Forms - Cancel close")
+@Description({"Cancel or uncancel form close",
+        "Its simply reopen form if cancelled",
+        "Can be used only in form close section"})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class EffCancelFormClose extends Effect {
 
     static {

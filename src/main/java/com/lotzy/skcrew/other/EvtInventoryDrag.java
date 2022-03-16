@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.other;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -12,6 +16,11 @@ import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 
+@Name("Other - inventory drag event")
+@Description("Run when player hold righclick with cursor item in inventory")
+@Examples({"on inventory drag:",
+        "\tbroadcast \"%player% %event-inventory%\""})
+@Since("1.0")
 public class EvtInventoryDrag extends SkriptEvent {
 	static {
 		Skript.registerEvent("InventoryDrag", EvtInventoryDrag.class, InventoryDragEvent.class, "inventory drag");

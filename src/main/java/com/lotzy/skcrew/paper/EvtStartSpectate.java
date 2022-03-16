@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.paper;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
@@ -13,6 +17,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
+@Name("Paper - Start spectate event")
+@Description("Called when player start spectate entity")
+@Examples({"on start spectate of player:",
+        "\tbroadcast \"%player% %event-entity%\""})
+@Since("1.0")
 public class EvtStartSpectate extends SkriptEvent {
 	static {
 		Skript.registerEvent("StartSpectate", EvtStartSpectate.class, PlayerStartSpectatingEntityEvent.class, "start spectate", "start spectate of %entitydata%");

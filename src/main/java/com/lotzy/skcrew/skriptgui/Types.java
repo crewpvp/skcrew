@@ -17,6 +17,8 @@ public class Types {
 		Classes.registerClass(new ClassInfo<>(GUI.class, "guiinventory")
 			.user("gui inventor(y|ies)?")
 			.name("GUI")
+			.description("Represents a skript-gui GUI (com.lotzy.skcrew.skriptgui.gui.GUI class)")
+			.since("1.0")
 			.parser(new Parser<GUI>() {
 				@Override
 				public boolean canParse(ParseContext ctx) {
@@ -44,9 +46,9 @@ public class Types {
 			Classes.registerClass(new ClassInfo<>(SlotType.class, "slottype")
 				.user("slot types?")
 				.name("Slot Types")
-				.description("Represents the slot type in an Inventory Click Event.")
+				.description("Represents the slot type in an Inventory Click Event (org.bukkit.event.inventory.InventoryType.SlotType class)")
 				.examples(slotTypes.getAllNames())
-				.since("1.0.0")
+				.since("1.0")
 				.parser(new Parser<SlotType>() {
 					@Override
 					@Nullable

@@ -2,6 +2,11 @@ package com.lotzy.skcrew.floodgate.forms.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,6 +18,19 @@ import java.util.List;
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.util.FormType;
 
+
+@Name("Forms - Custom form")
+@Description("Create custom form")
+@Examples({"create custom form named \"custom form\":",
+        "\trun on form close:",
+        "\t\tbroadcast \"closed\"",
+        "\trun on form open:",
+        "\t\tbroadcast \"opened\"",
+        "\tinput named \"enter password\"",
+        "\trun on form result:",
+        "\t\tbroadcast input 1 value"})
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class SecCreateCustomForm extends EffectSection {
     static {
         Skript.registerSection(SecCreateCustomForm.class,

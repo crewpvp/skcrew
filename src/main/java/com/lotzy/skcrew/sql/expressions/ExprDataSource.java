@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.sql.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,7 +17,11 @@ import org.bukkit.event.Event;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Name("SQL - Database")
+@Description("Return database for execute statements")
+@Examples({"on load:",
+        "\tset {database} to database \"mysql://IP:3306/DATABASE?user=USERNAME&password=PASSWORD&useSSL=false\""})
+@Since("1.0")
 public class ExprDataSource extends SimpleExpression<HikariDataSource> {
     private static final Map<String, HikariDataSource> connectionCache = new HashMap<>();
 

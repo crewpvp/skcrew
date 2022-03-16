@@ -4,11 +4,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 
+@Name("Files - is File exist")
+@Description("Check your's file for existance on disk")
+@Examples({"on load:",
+        "\tif file \"eula.txt\" is exists:",
+        "\t\tbroadcast \"yes\""})
+@Since("1.0")
 public class CondFileExists extends Condition {
 
     static {

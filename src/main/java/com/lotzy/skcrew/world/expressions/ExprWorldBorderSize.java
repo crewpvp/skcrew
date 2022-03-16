@@ -2,6 +2,10 @@ package com.lotzy.skcrew.world.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -13,6 +17,12 @@ import javax.annotation.Nullable;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
+
+@Name("World - Size of world border")
+@Description("Get or set size of world border")
+@Examples({"on load:",
+        "\tset border size of world(\"world\") to 256"})
+@Since("1.0")
 public class ExprWorldBorderSize extends SimpleExpression<Number> {
 
     static {

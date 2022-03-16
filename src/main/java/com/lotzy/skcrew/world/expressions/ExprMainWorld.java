@@ -2,6 +2,10 @@ package com.lotzy.skcrew.world.expressions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -10,6 +14,11 @@ import ch.njol.util.Kleenean;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
+@Name("World - Main world")
+@Description("Return main world of server")
+@Examples({"on load:",
+        "\tbroadcast name of main world"})
+@Since("1.0")
 public class ExprMainWorld extends SimpleExpression<World> {
 
     static {

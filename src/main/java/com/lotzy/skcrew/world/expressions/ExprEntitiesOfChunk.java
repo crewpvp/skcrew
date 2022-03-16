@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.world.expressions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +14,12 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 
+@Name("World - Entities in chunk")
+@Description("Get all entities in specifed chunk")
+@Examples({"command /mobs:",
+        "\ttrigger:",
+        "\t\tsend \"%amount of entities in player's chunk%\""})
+@Since("1.0")
 public class ExprEntitiesOfChunk extends SimpleExpression<Entity> {
 
     static {

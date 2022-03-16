@@ -10,6 +10,9 @@ public class TypeFormType {
     static {
         Classes.registerClass(new ClassInfo<>(FormType.class, "typeform")
                 .user("typeforms?")
+                .name("Form type")
+                .description("Represent a form type (org.geysermc.cumulus.util.FormType class)")
+                .since("1.0")
                 .parser(new Parser<FormType>() {
                     @Override
                     public FormType parse(String s, ParseContext context) {

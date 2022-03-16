@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.file.conditions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +14,12 @@ import java.nio.file.Path;
 import java.util.regex.Pattern;
 import org.bukkit.event.Event;
 
+@Name("Files - is Directory")
+@Description("Check if file is directory")
+@Examples({"on load:",
+        "\tif file \"eula.txt\" is directory:",
+        "\t\tbroadcast \"yes\""})
+@Since("1.0")
 public class CondFileIsDir extends Condition {
 
     static {

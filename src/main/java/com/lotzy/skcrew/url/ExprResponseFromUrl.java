@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.url;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -17,6 +21,11 @@ import java.util.logging.Logger;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("URL - Response")
+@Description("Return html text from address")
+@Examples({"on load:",
+        "\tbroadcast \"%response from url \"\"https://google.com\"\"%\""})
+@Since("1.0")
 public class ExprResponseFromUrl extends SimpleExpression<String> {
 
     static {

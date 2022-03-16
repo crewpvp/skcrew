@@ -2,12 +2,20 @@ package com.lotzy.skcrew.stringutils;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
+@Name("StringUtils - Regex replace")
+@Description("Replace text using regular expression")
+@Examples({"set {_text} to regex replace \"3.*\" with \"\" in \"123123123123\""})
+@Since("1.0")
 public class ExprRegexReplace extends SimpleExpression<String> {
 
     static {

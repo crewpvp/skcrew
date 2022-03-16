@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.permissions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.util.StringMode;
@@ -10,6 +14,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 
+@Name("Permissions - execute as op")
+@Description("Make sender execute command with operator privilegies")
+@Examples({"command /sudo <text>:",
+        "\ttrigger:",
+        "\t\tmake sender execute command arg-1 as op"})
+@Since("1.0")
 public class EffRunAsOp extends Effect {
     static {
         Skript.registerEffect(EffRunAsOp.class,

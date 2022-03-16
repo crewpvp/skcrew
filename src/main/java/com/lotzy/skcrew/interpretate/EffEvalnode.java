@@ -6,6 +6,10 @@ import ch.njol.skript.SkriptConfig;
 import ch.njol.skript.config.Node;
 import ch.njol.skript.config.SectionNode;
 import ch.njol.skript.config.SimpleNode;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.skript.log.SkriptLogger;
@@ -14,6 +18,11 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import org.bukkit.event.Event;
 
+@Name("Interpretate - Evalnode")
+@Description("Run code block from text")
+@Examples({"on load:",
+        "\tevalnode \"if 1 is 2:\",\"  broadcast \"\"yes\"\"\"\""})
+@Since("1.0")
 public class EffEvalnode extends Effect {
 
     static {

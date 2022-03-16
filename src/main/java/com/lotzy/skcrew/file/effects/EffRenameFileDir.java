@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.file.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -12,6 +16,11 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import org.bukkit.event.Event;
 
+@Name("Files - Rename")
+@Description("Rename file or directory")
+@Examples({"on load:",
+        "\trename file \"eula.txt\" to \"noteula.txt\""})
+@Since("1.0")
 public class EffRenameFileDir extends Effect {
 
     static {

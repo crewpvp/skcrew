@@ -1,6 +1,11 @@
 package com.lotzy.skcrew.floodgate;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,6 +18,11 @@ import org.geysermc.floodgate.api.player.FloodgatePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@Name("Forms - Bedrock version")
+@Description("Get version of bedrock player")
+@RequiredPlugins("Floodgate")
+@Examples("\tbroadcast be version of player")
+@Since("1.0")
 public class ExprBedrockVersion extends SimpleExpression<String> {
 
     static {

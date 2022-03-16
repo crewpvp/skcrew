@@ -1,6 +1,10 @@
 package com.lotzy.skcrew.runtime;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +13,11 @@ import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Runtime - Used memory")
+@Description("Return currently used bytes of allocated memory of jvm")
+@Examples({"on load:",
+        "\tbroadcast \"%used memory of server%\""})
+@Since("1.0")
 public class ExprUsedMemory extends SimpleExpression<Number> {
 
     static {

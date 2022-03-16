@@ -1,13 +1,21 @@
 package com.lotzy.skcrew.interpretate;
 
-import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 
-
+@Name("Interpretate - evaluate")
+@Description({"Run code line from text",
+    "This is faster than evalnode, but less functional"})
+@Examples({"on load:",
+        "\tevaluate \"broadcast \"\"yes\"\"\"\""})
+@Since("1.0")
 public class EffEvaluate extends Effect {
 
     static {

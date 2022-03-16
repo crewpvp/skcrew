@@ -9,6 +9,9 @@ public class TypeForm {
     static {
         Classes.registerClass(new ClassInfo<>(Form.class, "form")
                 .user("forms?")
+                .name("Form")
+                .description("Represent a form (com.lotzy.skcrew.floodgate.forms.Form class)")
+                .since("1.0")
                 .parser(new Parser<Form>() {
                     @Override
                     public Form parse(String s, ParseContext context) {

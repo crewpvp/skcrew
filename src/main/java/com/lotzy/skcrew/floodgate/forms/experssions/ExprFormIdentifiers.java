@@ -1,6 +1,11 @@
 package com.lotzy.skcrew.floodgate.forms.experssions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.doc.RequiredPlugins;
+import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -13,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
 
+@Name("Forms - IDS")
+@Description("Get IDS of global forms")
+@RequiredPlugins("Floodgate")
+@Since("1.0")
 public class ExprFormIdentifiers extends SimpleExpression<String> {
 
     static {
