@@ -25,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
 public class CondFloodgatePlayer extends Condition {
 
     static {
-        Skript.registerCondition(CondFloodgatePlayer.class, "%player% (is|does) [from] floodgate",
-                "%player% (is|does)(n't| not) [from] floodgate");
+        Skript.registerCondition(CondFloodgatePlayer.class, "%player% [(is|does)] from floodgate",
+                "%player% [(is|does)](n't| not) from floodgate");
     }
 
     private Expression<Player> player;
