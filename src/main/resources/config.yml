@@ -21,6 +21,8 @@ stringutils:
   enabled: true
 floodgate:
   enabled: true
+via:
+  enabled: true
 map:
   enabled: true
 other:
