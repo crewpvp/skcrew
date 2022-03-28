@@ -28,7 +28,7 @@ public final class Skcrew extends JavaPlugin {
         }
         config = YamlConfiguration.loadConfiguration(configFile);
         try {
-            if  (config.getBoolean("files.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.file"); 
+            if  (config.getBoolean("files.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.files"); 
             if  (config.getBoolean("paper.enabled")) {
                 if (Skript.classExists("com.destroystokyo.paper.event.player.PlayerStartSpectatingEntityEvent")
                         && Skript.classExists("com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent")) {
@@ -45,6 +45,13 @@ public final class Skcrew extends JavaPlugin {
                     Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), this);
                 } else {
                     Bukkit.getLogger().info("[Skcrew] Floodgate is not installed, disabling 'floodgate' support");
+                }
+            }
+            if  (config.getBoolean("via.enabled")) {
+                if (Bukkit.getPluginManager().getPlugin("ViaVersion").isEnabled()) {
+                    addonInstance.loadClasses("com.lotzy.skcrew.via");
+                } else {
+                    Bukkit.getLogger().info("[Skcrew] ViaVersion is not installed, disabling 'via' support");
                 }
             }
             if  (config.getBoolean("interpretate.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.interpretate"); 
