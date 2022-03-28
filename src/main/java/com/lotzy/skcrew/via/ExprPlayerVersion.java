@@ -51,7 +51,7 @@ public class ExprPlayerVersion extends SimpleExpression<String> {
             return new String[] {"1.14.4"};
         } else if (ver < 600) {
             return new String[] {"1.15.2"};
-        } else if (ver < 801) {
+        } else if (ver < 755) {
             return new String[] {"1.16.5"};
         } else if (ver < 757) {
             return new String[] {"1.17.1"};
