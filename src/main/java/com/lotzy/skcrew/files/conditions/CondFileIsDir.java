@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.file.conditions;
+package com.lotzy.skcrew.files.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -14,17 +14,17 @@ import java.nio.file.Path;
 import java.util.regex.Pattern;
 import org.bukkit.event.Event;
 
-@Name("Files - is File")
-@Description("Check if file is file")
+@Name("Files - is Directory")
+@Description("Check if file is directory")
 @Examples({"on load:",
-        "\tif file \"eula.txt\" is file:",
+        "\tif file \"eula.txt\" is directory:",
         "\t\tbroadcast \"yes\""})
 @Since("1.0")
-public class CondFileIsFile extends Condition {
+public class CondFileIsDir extends Condition {
 
     static {
-        Skript.registerCondition(CondFileIsFile.class,
-            "%path% is file","%path% is(n't| not) file");
+        Skript.registerCondition(CondFileIsDir.class,
+            "%path% is dir[ectory]","%path% is(n't| not) dir[ectory]");
     }
     private Expression<Path> path;
 
@@ -39,12 +39,12 @@ public class CondFileIsFile extends Condition {
     @Override
     public boolean check(Event e) {
         Path p = path.getSingle(e);
-        return isNegated()!= (Files.exists(p) ? Files.isRegularFile(p) : Pattern.compile("\\.\\w+$").matcher(p.toString()).find());
+        return isNegated()!= (Files.exists(p) ? Files.isDirectory(p) : !Pattern.compile("\\.\\w+$").matcher(p.toString()).find());
     }
 
     @Override
     public String toString(Event e, boolean debug) {
-        return path.toString(e, debug) + " is " + (isNegated() ? " not" : "" ) + " file";
+        return path.toString(e, debug) + " is " + (isNegated() ? " not" : "" ) + " directory";
     }
 
 }

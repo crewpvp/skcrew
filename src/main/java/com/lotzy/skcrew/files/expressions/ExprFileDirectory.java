@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.file.expressions;
+package com.lotzy.skcrew.files.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

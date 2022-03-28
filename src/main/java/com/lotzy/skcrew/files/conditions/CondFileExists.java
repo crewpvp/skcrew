@@ -1,5 +1,8 @@
-package com.lotzy.skcrew.file.conditions;
+package com.lotzy.skcrew.files.conditions;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -9,23 +12,20 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.regex.Pattern;
-import org.bukkit.event.Event;
 
-@Name("Files - is Directory")
-@Description("Check if file is directory")
+@Name("Files - is File exist")
+@Description("Check your's file for existance on disk")
 @Examples({"on load:",
-        "\tif file \"eula.txt\" is directory:",
+        "\tif file \"eula.txt\" is exists:",
         "\t\tbroadcast \"yes\""})
 @Since("1.0")
-public class CondFileIsDir extends Condition {
+public class CondFileExists extends Condition {
 
     static {
-        Skript.registerCondition(CondFileIsDir.class,
-            "%path% is dir[ectory]","%path% is(n't| not) dir[ectory]");
+        Skript.registerCondition(CondFileExists.class,
+            "%path% (is|does) exist[s]","%path% (is|does)(n't| not) exist[s]");
     }
+
     private Expression<Path> path;
 
     @Override
@@ -37,14 +37,13 @@ public class CondFileIsDir extends Condition {
     }
 
     @Override
-    public boolean check(Event e) {
-        Path p = path.getSingle(e);
-        return isNegated()!= (Files.exists(p) ? Files.isDirectory(p) : !Pattern.compile("\\.\\w+$").matcher(p.toString()).find());
+    public boolean check(Event e) {  
+        return isNegated() != Files.exists(path.getSingle(e));
     }
 
     @Override
     public String toString(Event e, boolean debug) {
-        return path.toString(e, debug) + " is " + (isNegated() ? " not" : "" ) + " directory";
+        return path.toString(e, debug) + " is " + (isNegated() ? " missing" : " available");
     }
 
 }

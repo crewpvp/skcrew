@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.file.expressions;
+package com.lotzy.skcrew.files.expressions;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

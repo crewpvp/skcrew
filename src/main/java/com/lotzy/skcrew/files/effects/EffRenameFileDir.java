@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.file.effects;
+package com.lotzy.skcrew.files.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

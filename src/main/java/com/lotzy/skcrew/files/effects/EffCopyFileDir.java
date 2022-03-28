@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.file.effects;
+package com.lotzy.skcrew.files.effects;
 
 import org.bukkit.event.Event;
  

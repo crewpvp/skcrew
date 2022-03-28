@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.file.types;
+package com.lotzy.skcrew.files.types;
 
 import java.nio.file.Path;
 import ch.njol.skript.classes.ClassInfo;
