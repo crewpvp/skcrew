@@ -23,7 +23,8 @@ import org.bukkit.inventory.ItemStack;
 @Name("Other - Give or drop")
 @Description("Give exp or items to player if he has space, else drop items near")
 @Examples({"command /drop:",
-        "\tgive or drop (999 of dirt, 1234 of stone) to player"})
+        "\ttrigger:",
+        "\t\tgive or drop (999 of dirt, 1234 of stone) to player"})
 @Since("1.0")
 
 public class EffGiveOrDrop extends Effect {
