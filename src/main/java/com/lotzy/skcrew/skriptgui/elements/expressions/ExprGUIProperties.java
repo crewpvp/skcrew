@@ -16,7 +16,7 @@ import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
-@Name("SkritGUI - GUI Properties")
+@Name("SkriptGUI - GUI Properties")
 @Description("Different properties of the GUI. They can be modified.")
 @Examples({"edit gui last gui:",
 			"\tset the gui-inventory-name to \"New GUI Name!\"",
