@@ -19,7 +19,7 @@ import org.bukkit.event.Event;
 @Name("Files - Delete")
 @Description("Delete directory or file")
 @Examples({"on load:",
-        "\tdelete file \"world_nether/"})
+        "\tdelete file \"world_nether\""})
 @Since("1.0")
 public class EffDeleteFileDir extends Effect {
 
