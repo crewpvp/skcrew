@@ -14,7 +14,7 @@ public class TypePath {
                 .defaultExpression(new EventValueExpression<>(Path.class))
                 .user("paths?")
                 .name("Path")
-                .description("Represents a abstract file (java.nio.file.Path class")
+                .description("Represents a abstract file (java.nio.file.Path class)")
                 .since("1.0")
                 .parser(new Parser<Path>() {
 
