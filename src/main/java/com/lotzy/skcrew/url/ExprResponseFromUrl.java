@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 @Name("URL - Response")
 @Description("Return html text from address")
 @Examples({"on load:",
-        "\tbroadcast \"%response from url \"\"https://google.com\"\"%\""})
+        "\tbroadcast \"%response from url \"https://google.com\"%\""})
 @Since("1.0")
 public class ExprResponseFromUrl extends SimpleExpression<String> {
 

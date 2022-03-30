@@ -22,7 +22,7 @@ import org.bukkit.World;
 import org.bukkit.event.Event;
 
 @Name("World - Copy world")
-@Description("Copy world by name or world type")
+@Description("Copy world by name or world instance")
 @Examples({"on load:",
         "\tcopy world \"world\" named \"backupworld\""})
 @Since("1.0")

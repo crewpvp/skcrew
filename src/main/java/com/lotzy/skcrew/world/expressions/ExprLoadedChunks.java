@@ -16,8 +16,8 @@ import org.bukkit.event.Event;
 
 @Name("World - Loaded chunks")
 @Description("Get all loaded chunks")
-@Examples({"on load",
-        "\tbroadcast \"%amount of loaded chunk in world(\"world\"%\""})
+@Examples({"on load:",
+        "\tbroadcast \"%amount of loaded chunk in world(\"world\")%\""})
 @Since("1.0")
 public class ExprLoadedChunks extends SimpleExpression<Chunk> {
 
