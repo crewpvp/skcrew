@@ -20,6 +20,7 @@ Skript addon contains favorite addons and something more
 - Url response expression
 - Full world management effects and expressions
 - ViaVersion player protocol expression
+
 Every part can be disabled in config file, something like in [SkBee](https://github.com/ShaneBeee/SkBee) addon
 
 **[Documentation](https://skcrew.crewpvp.xyz)**
