@@ -37,7 +37,7 @@ public class CondWorldExists extends Condition {
 
     @Override
     public boolean check(Event e) {
-        return isNegated() != (new File(expr.getSingle(e).toString() + "/level.dat")).isFile();
+        return isNegated() != (new File("./"+expr.getSingle(e) + "/level.dat")).isFile();
     }
 
     @Override
