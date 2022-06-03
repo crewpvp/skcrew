@@ -44,6 +44,7 @@ public class ExprFileDirectory extends SimpleExpression<Path> {
         LinkedList<Path> finalPaths = new LinkedList<>();
         String[] pathsList = paths.getArray(e);
         for (String path : pathsList) {
+            if(path.isBlank()) path = ".";
             finalPaths.add(Paths.get(path.replaceAll("^(?!((\\.)?\\.\\/))", "")));
         }
         return finalPaths.toArray(new Path[finalPaths.size()]);
