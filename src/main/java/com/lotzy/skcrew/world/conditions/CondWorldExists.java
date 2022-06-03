@@ -10,19 +10,22 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.regex.Pattern;
 
 @Name("World - World exists")
 @Description("Check if world exists")
 @Examples({"on load:",
-        "\tbroadcast \"%world \"world\" exists%\""})
+        "\tbroadcast \"%world \"world\" is exists%\""})
 @Since("1.0")
 public class CondWorldExists extends Condition {
 
     static {
         Skript.registerCondition(CondWorldExists.class,
-            "world %string% [is] exist[s]",
-            "world %string% (does|is)(n't| not) exist[s]");
+            "world %string% (is exist[s]|[is] available)",
+            "world %string% (does|is)(n't| not) (exist[s]|available)");
     }
 
     private Expression<String> expr;
@@ -37,7 +40,8 @@ public class CondWorldExists extends Condition {
 
     @Override
     public boolean check(Event e) {
-        return isNegated() != (new File("./"+expr.getSingle(e) + "/level.dat")).isFile();
+        Path p = Paths.get(expr.getSingle(e)+"/level.dat");
+        return isNegated() != (Files.exists(p) ? Files.isRegularFile(p) : Pattern.compile("\\.\\w+$").matcher(p.toString()).find());
     }
 
     @Override
