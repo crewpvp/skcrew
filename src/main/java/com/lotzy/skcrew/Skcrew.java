@@ -40,7 +40,7 @@ public final class Skcrew extends JavaPlugin {
             if  (config.getBoolean("other.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.other"); 
             if  (config.getBoolean("map.enabled"))   addonInstance.loadClasses("com.lotzy.skcrew.map"); 
             if  (config.getBoolean("floodgate.enabled")) {
-                if (Bukkit.getPluginManager().getPlugin("Floodgate").isEnabled()) {
+                if (Bukkit.getPluginManager().getPlugin("Floodgate")!=null && Bukkit.getPluginManager().getPlugin("Floodgate").isEnabled()) {
                     addonInstance.loadClasses("com.lotzy.skcrew.floodgate");
                     Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), this);
                 } else {
@@ -48,7 +48,7 @@ public final class Skcrew extends JavaPlugin {
                 }
             }
             if  (config.getBoolean("via.enabled")) {
-                if (Bukkit.getPluginManager().getPlugin("ViaVersion").isEnabled()) {
+                if (Bukkit.getPluginManager().getPlugin("ViaVersion")!=null && Bukkit.getPluginManager().getPlugin("ViaVersion").isEnabled()) {
                     addonInstance.loadClasses("com.lotzy.skcrew.via");
                 } else {
                     Bukkit.getLogger().info("[Skcrew] ViaVersion is not installed, disabling 'via' support");
