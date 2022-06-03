@@ -1,8 +1,9 @@
 name: Skcrew
-version: 1.2
+version: 1.3
 main: com.lotzy.skcrew.Skcrew
-description: Skript addon allows you make bedrock form and some other
+description: Skript addon allows you make bedrock forms and some other
 website: https://github.com/LotzyProd/Skcrew
 depend: [Skript]
 softdepend: [Floodgate, ViaVersion]
 author: Lotzy
+api-version: 1.13
