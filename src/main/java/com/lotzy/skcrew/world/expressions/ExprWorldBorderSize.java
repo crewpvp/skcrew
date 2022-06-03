@@ -27,9 +27,9 @@ public class ExprWorldBorderSize extends SimpleExpression<Number> {
 
     static {
         Skript.registerExpression(ExprWorldBorderSize.class, Number.class, ExpressionType.COMBINED,
-                "[world[ ]]border size of %world% [for %timespan%]",
-                "%world%'s [world[ ]]border size [for %timespan%]",
-                "[the] size of %world%'s [world[ ]]border [for %timespan%]");
+                "[world[ ]]border size of %world% [for %-timespan%]",
+                "%world%'s [world[ ]]border size [for %-timespan%]",
+                "[the] size of %world%'s [world[ ]]border [for %-timespan%]");
     }
 
     private Expression<World> worldExpr;
