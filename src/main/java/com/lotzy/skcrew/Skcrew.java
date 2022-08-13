@@ -29,14 +29,6 @@ public final class Skcrew extends JavaPlugin {
         config = YamlConfiguration.loadConfiguration(configFile);
         try {
             if  (config.getBoolean("files.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.files"); 
-            if  (config.getBoolean("paper.enabled")) {
-                if (Skript.classExists("com.destroystokyo.paper.event.player.PlayerStartSpectatingEntityEvent")
-                        && Skript.classExists("com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent")) {
-                    addonInstance.loadClasses("com.lotzy.skcrew.paper");
-                } else {
-                    Bukkit.getLogger().info("[Skcrew] Server platform doesn't support paper events, disabling 'paper' functional");
-                }
-            } 
             if  (config.getBoolean("other.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.other"); 
             if  (config.getBoolean("map.enabled"))   addonInstance.loadClasses("com.lotzy.skcrew.map"); 
             if  (config.getBoolean("floodgate.enabled")) {
