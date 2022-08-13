@@ -6,11 +6,13 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.util.coll.CollectionUtils;
 import javax.annotation.Nullable;
 import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
@@ -25,178 +27,137 @@ import org.bukkit.event.Event;
 			"\tset the gui-lock-status to false # Players can take items from this GUI now"
 })
 @Since("1.0")
-public class ExprGUIProperties extends SimpleExpression<Object> {
+public class ExprGUIProperties extends SimplePropertyExpression<GUI, Object> {
 
 	static {
-		Skript.registerExpression(ExprGUIProperties.class, Object.class, ExpressionType.COMBINED,
-                        "name of %guiinventorys%",
-                        "%guiinventorys%'s name",
-                        "rows of %guiinventorys%",
-                        "%guiinventorys%'s rows",
-                        "shape of %guiinventorys%",
-                        "%guiinventorys%'s shape",
-                        "lock status[es] of %guiinventorys%",
-                        "%guiinventorys%'s lock status[es]");
+		register(ExprGUIProperties.class, Object.class, "(0¦[skript-gui] name[s]|1¦(size[s]|rows)|2¦shape[s]|3¦lock status[es])", "guiinventorys");
 	}
+
+	private static final int NAME = 0, ROWS = 1, SHAPE = 2, LOCK_STATUS = 3;
 	private int property;
-        private Expression<GUI> gui;
 
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-            property = matchedPattern;
-            gui = (Expression<GUI>) exprs[0];
-            return true;
+		property = parseResult.mark;
+		return super.init(exprs, matchedPattern, isDelayed, parseResult);
 	}
 
 	@Override
-        protected Object[] get(Event e) {
-            switch (property) {
-                case 0:
-                case 1:
-                    return new Object[] { gui.getSingle(e).getName() };
-                case 2:
-                case 3:
-                    return new Object[] { gui.getSingle(e).getInventory().getSize() / 9 };
-                case 4:
-                case 5:
-                    return new Object[] { gui.getSingle(e).getRawShape() };
-                case 6:
-                case 7:
-                    return new Object[] { !gui.getSingle(e).isStealable() };
-
-            }
-            return null;
+	@Nullable
+	public Object convert(GUI gui) {
+		switch (property) {
+			case NAME:
+				return gui.getName();
+			case ROWS:
+				return gui.getInventory().getSize() / 9; // We return rows
+			case SHAPE:
+				return gui.getRawShape();
+			case LOCK_STATUS:
+				return !gui.isRemovable(); // Not removable = locked
+		}
+		return null;
 	}
 
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(ChangeMode mode) {
-            if (mode == ChangeMode.SET || mode == ChangeMode.RESET) {
-                switch (property) {
-                    case 0:
-                    case 1:
-                        return new Class[]{ String.class };
-                    case 2:
-                    case 3:
-                        return new Class[]{ Number.class };
-                    case 4:
-                    case 5:
-                        return new Class[]{ String[].class };
-                    case 6:
-                    case 7:
-                        return new Class[]{ Boolean.class };
-                }
-            }
-            return null;
+		if (mode == ChangeMode.SET || mode == ChangeMode.RESET) {
+			switch (property) {
+				case NAME:
+					return CollectionUtils.array(String.class);
+				case ROWS:
+					return CollectionUtils.array(Number.class);
+				case SHAPE:
+					return CollectionUtils.array(String[].class);
+				case LOCK_STATUS:
+					return CollectionUtils.array(Boolean.class);
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public void change(Event e, Object[] delta, ChangeMode mode) {
-            if (delta == null || (mode != ChangeMode.SET && mode != ChangeMode.RESET)) {
-                return;
-            }
-            GUI gui = SkriptGUI.getGUIManager().getGUI(e);
-            if (gui != null) {
-                switch (mode) {
-                    case SET:
-                        switch (property) {
-                            case 0:
-                            case 1:
-                                gui.setName((String) delta[0]);
-                                break;
-                            case 2:
-                            case 3:
-                                gui.setSize(((Number) delta[0]).intValue() * 9);
-                                break;
-                            case 4:
-                            case 5:
-                                String[] newShape = new String[delta.length];
-                                for (int i = 0; i < delta.length; i++) {
-                                    if (!(delta[i] instanceof String)) {
-                                        return;
-                                    }
-                                    newShape[i] = (String) delta[i];
-                                }
-                                gui.setShape(newShape);
-                                break;
-                            case 6:
-                            case 7:
-                                gui.setStealable(!(boolean) delta[0]);
-                                break;
-                        }
-                        break;
-                    case RESET:
-                        switch (property) {
-                            case 0:
-                            case 1:
-                                gui.setName(gui.getInventory().getType().getDefaultTitle());
-                                break;
-                            case 2:
-                            case 3:
-                                gui.setSize(gui.getInventory().getType().getDefaultSize());
-                                break;
-                            case 4:
-                            case 5:
-                                gui.resetShape();
-                                break;
-                            case 6:
-                            case 7:
-                                gui.setStealable(false);
-                                break;
-                        }
-                        break;
-                    default:
-                        assert false;
-                }
-            }
+	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
+		if (delta == null || (mode != ChangeMode.SET && mode != ChangeMode.RESET)) {
+			return;
+		}
+		GUI gui = SkriptGUI.getGUIManager().getGUI(e);
+		if (gui != null) {
+			switch (mode) {
+				case SET:
+					switch (property) {
+						case NAME:
+							gui.setName((String) delta[0]);
+							break;
+						case ROWS:
+							gui.setSize(((Number) delta[0]).intValue() * 9);
+							break;
+						case SHAPE:
+							String[] newShape = new String[delta.length];
+							for (int i = 0; i < delta.length; i++) {
+								if (!(delta[i] instanceof String)) {
+									return;
+								}
+								newShape[i] = (String) delta[i];
+							}
+							gui.setShape(newShape);
+							break;
+						case LOCK_STATUS:
+							gui.setRemovable(!(boolean) delta[0]);
+							break;
+					}
+					break;
+				case RESET:
+					switch (property) {
+						case NAME:
+							gui.setName(gui.getInventory().getType().getDefaultTitle());
+							break;
+						case ROWS:
+							gui.setSize(gui.getInventory().getType().getDefaultSize());
+							break;
+						case SHAPE:
+							gui.resetShape();
+							break;
+						case LOCK_STATUS:
+							gui.setRemovable(false);
+							break;
+					}
+					break;
+				default:
+					assert false;
+			}
+		}
 	}
 
 	@Override
 	public Class<?> getReturnType() {
-            switch (property) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                    return String.class;
-                case 4:
-                case 5:
-                    return Number.class;
-                case 6:
-                case 7:
-                    return Boolean.class;
-                default:
-                    return Object.class;
-            }
+		switch (property) {
+			case NAME:
+			case SHAPE:
+				return String.class;
+			case ROWS:
+				return Number.class;
+			case LOCK_STATUS:
+				return Boolean.class;
+			default:
+				return Object.class;
+		}
 	}
 
-
-
-    @Override
-    public boolean isSingle() {
-        if (property == 2 || property == 3) 
-            return false;
-        return true;
-    }
-
-    @Override
-    public String toString(Event event, boolean bln) {
-        switch (property) {
-            case 0:
-            case 1:
-                return "name";
-            case 2:
-            case 3:
-                return "rows";
-            case 4:
-            case 5:
-                return "shape";
-            case 6:
-            case 7:
-                return "lock status";
-            default:
-                return "property";
-        }
-    }
+	@Override
+	protected String getPropertyName() {
+		switch (property) {
+			case NAME:
+				return "name";
+			case ROWS:
+				return "size";
+			case SHAPE:
+				return "shape";
+			case LOCK_STATUS:
+				return "lock status";
+			default:
+				return "property";
+		}
+	}
 
 }

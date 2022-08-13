@@ -12,70 +12,70 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 
 public class Types {
 
-	static {
+    static {
 
-		Classes.registerClass(new ClassInfo<>(GUI.class, "guiinventory")
-			.user("gui inventor(y|ies)?")
-			.name("GUI")
-			.description("Represents a skript-gui GUI (com.lotzy.skcrew.skriptgui.gui.GUI class)")
-			.since("1.0")
-			.parser(new Parser<GUI>() {
-				@Override
-				public boolean canParse(ParseContext ctx) {
-					return false;
-				}
+        Classes.registerClass(new ClassInfo<>(GUI.class, "guiinventory")
+        .user("gui inventor(y|ies)?")
+        .name("GUI")
+        .description("Represents a skript-gui GUI")
+        .examples("See the GUI creation section.")
+        .since("1.0")
+        .parser(new Parser<GUI>() {
+                @Override
+                public boolean canParse(ParseContext ctx) {
+                        return false;
+                }
 
-				@Override
-				public String toString(GUI gui, int flags) {
-					return gui.getInventory().getType().getDefaultTitle().toLowerCase()
-							+ " gui named " + gui.getName() 
-							+ " with " + gui.getInventory().getSize() / 9 + " rows"
-							+ " and shape " + gui.getRawShape();
-				}
+                @Override
+                public String toString(GUI gui, int flags) {
+                        return gui.getInventory().getType().getDefaultTitle().toLowerCase()
+                                        + " gui named " + gui.getName() 
+                                        + " with " + gui.getInventory().getSize() / 9 + " rows"
+                                        + " and shape " + gui.getRawShape();
+                }
 
-				@Override
-				public String toVariableNameString(GUI gui) {
-					return toString(gui, 0);
-				}
+                @Override
+                public String toVariableNameString(GUI gui) {
+                        return toString(gui, 0);
+                }
+            })
+        );
 
-			})
-		);
+        if (Classes.getExactClassInfo(SlotType.class) == null) {
+            EnumUtils<SlotType> slotTypes = new EnumUtils<>(SlotType.class, "slot types");
+            Classes.registerClass(new ClassInfo<>(SlotType.class, "slottype")
+                .user("slot types?")
+                .name("Slot Types")
+                .description("Represents the slot type in an Inventory Click Event.")
+                .examples(slotTypes.getAllNames())
+                .since("1.0.0")
+                .parser(new Parser<SlotType>() {
+                        @Override
+                        @Nullable
+                        public SlotType parse(String expr, ParseContext context) {
+                                return slotTypes.parse(expr);
+                        }
 
-		if (Classes.getExactClassInfo(SlotType.class) == null) {
-			EnumUtils<SlotType> slotTypes = new EnumUtils<>(SlotType.class, "slot types");
-			Classes.registerClass(new ClassInfo<>(SlotType.class, "slottype")
-				.user("slot types?")
-				.name("Slot Types")
-				.description("Represents the slot type in an Inventory Click Event (org.bukkit.event.inventory.InventoryType.SlotType class)")
-				.examples(slotTypes.getAllNames())
-				.since("1.0")
-				.parser(new Parser<SlotType>() {
-					@Override
-					@Nullable
-					public SlotType parse(String expr, ParseContext context) {
-						return slotTypes.parse(expr);
-					}
+                        @Override
+                        public boolean canParse(ParseContext ctx) {
+                                return true;
+                        }
 
-					@Override
-					public boolean canParse(ParseContext ctx) {
-						return true;
-					}
+                        @Override
+                        public String toString(SlotType type, int flags) {
+                                return slotTypes.toString(type, flags);
+                        }
 
-					@Override
-					public String toString(SlotType type, int flags) {
-						return slotTypes.toString(type, flags);
-					}
+                        @Override
+                        public String toVariableNameString(SlotType type) {
+                                return "slottype:" + type.name();
+                        }
+                })
+                .serializer(new EnumSerializer<>(SlotType.class)
+            ));
+        }
 
-					@Override
-					public String toVariableNameString(SlotType type) {
-						return "slottype:" + type.name();
-					}
-				})
-				.serializer(new EnumSerializer<>(SlotType.class)
-			));
-		}
-
-	}
+    }
 
 }
 

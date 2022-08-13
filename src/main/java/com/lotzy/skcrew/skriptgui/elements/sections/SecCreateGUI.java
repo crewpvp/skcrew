@@ -31,16 +31,18 @@ public class SecCreateGUI extends EffectSection {
 
 	static {
 		Skript.registerSection(SecCreateGUI.class,
-				"create [a] [new] gui [[with id[entifier]] %-string%] with %inventory% [(1¦(and|with) (moveable|stealable) items)] [(and|with) shape %-strings%]",
+				"create [a] [new] gui [[with id[entifier]] %-string%] with %inventory% [removable:(and|with) ([re]move[e]able|stealable) items] [(and|with) shape %-strings%]",
 				"(change|edit) [gui] %guiinventory%"
 		);
 	}
+
+	private boolean inception;
 
 	@SuppressWarnings("NotNullFieldNotInitialized")
 	private Expression<Inventory> inv;
 	@Nullable
 	private Expression<String> shape, id;
-	private boolean stealableItems;
+	private boolean removableItems;
 
 	@Nullable
 	private Expression<GUI> gui;
@@ -58,8 +60,10 @@ public class SecCreateGUI extends EffectSection {
 			id = (Expression<String>) exprs[0];
 			inv = (Expression<Inventory>) exprs[1];
 			shape = (Expression<String>) exprs[2];
-			stealableItems = parseResult.mark == 1;
+			removableItems = parseResult.hasTag("removable");
 		}
+
+		inception = getParser().isCurrentSection(SecCreateGUI.class);
 
 		if (hasSection()) {
 			assert sectionNode != null;
@@ -72,43 +76,72 @@ public class SecCreateGUI extends EffectSection {
 	@Override
 	@Nullable
 	public TriggerItem walk(Event e) {
-		if (gui == null) { // Creating a new GUI.
+		GUI gui;
+		if (this.gui == null) { // Creating a new GUI.
 			Inventory inv = this.inv.getSingle(e);
-			if (inv != null) {
+			if (inv == null) // Don't run the section if the GUI can't be created
+				return walk(e, false);
 
-				InventoryType invType = inv.getType();
-				if (invType == InventoryType.CRAFTING || invType == InventoryType.PLAYER) { // We don't want to run this section as this is an invalid GUI type
-					Skcrew.getInstance().getLogger().warning("Unable to create an inventory of type: " + invType.name());
-					return walk(e, false);
-				}
-
-				GUI gui;
-                                gui = new GUI(inv, stealableItems, null);
-
-				if (shape == null) {
-					gui.resetShape();
-				} else {
-					gui.setShape(shape.getArray(e));
-				}
-
-				String id = this.id != null ? this.id.getSingle(e) : null;
-				if (id != null && !id.isEmpty()) {
-					GUI old = SkriptGUI.getGUIManager().getGUI(id);
-					if (old != null) { // We are making a new GUI with this ID (see https://github.com/APickledWalrus/skript-gui/issues/72)
-						SkriptGUI.getGUIManager().unregister(old);
-					}
-					gui.setID(id);
-				}
-
-				SkriptGUI.getGUIManager().setGUI(e, gui);
+			InventoryType invType = inv.getType();
+			if (invType == InventoryType.CRAFTING || invType == InventoryType.PLAYER) { // We don't want to run this section as this is an invalid GUI type
+				Skcrew.getInstance().getLogger().warning("Unable to create an inventory of type: " + invType.name());
+				return walk(e, false);
 			}
+
+
+			gui = new GUI(inv, removableItems, null);
+
+			if (shape == null) {
+				gui.resetShape();
+			} else {
+				gui.setShape(shape.getArray(e));
+			}
+
+			String id = this.id != null ? this.id.getSingle(e) : null;
+			if (id != null && !id.isEmpty()) {
+				GUI old = SkriptGUI.getGUIManager().getGUI(id);
+				if (old != null) { // We are making a new GUI with this ID (see https://github.com/APickledWalrus/skript-gui/issues/72)
+					SkriptGUI.getGUIManager().unregister(old);
+				}
+				gui.setID(id);
+			}
+
 		} else { // Editing the given GUI
-			GUI gui = this.gui.getSingle(e);
-			SkriptGUI.getGUIManager().setGUI(e, gui);
+			gui = this.gui.getSingle(e);
 		}
 
-		// 'first' will be null if no section is present
-		return walk(e, true);
+		if (!inception) { // No sort of inception going on, just do the regular stuff
+			SkriptGUI.getGUIManager().setGUI(e, gui);
+			return walk(e, true);
+		}
+
+		// We need to switch the event GUI for the creation section
+		GUI currentGUI = SkriptGUI.getGUIManager().getGUI(e);
+
+		if (currentGUI == null) { // No current GUI, treat as normal
+			SkriptGUI.getGUIManager().setGUI(e, gui);
+			return walk(e, true);
+		}
+
+		if (!hasSection()) { // No section to run, we can skip the code below (no code to run with "new" gui)
+			return walk(e, false);
+		}
+
+		SkriptGUI.getGUIManager().setGUI(e, gui);
+
+		assert first != null && last != null;
+		TriggerItem lastNext = last.getNext();
+		last.setNext(null);
+		TriggerItem.walk(first, e);
+		last.setNext(lastNext);
+
+		// Switch back to the old GUI since we are returning to the previous GUI section
+		// TODO the downside here is that "open last gui" may not always work as expected!
+		// Unsurprisingly, creation section inception is annoying!
+		SkriptGUI.getGUIManager().setGUI(e, currentGUI);
+
+		// Don't run the section, we ran it above if needed
+		return walk(e, false);
 	}
 
 	@Override
@@ -121,8 +154,8 @@ public class SecCreateGUI extends EffectSection {
 				creation.append(" with id ").append(id.toString(e, debug));
 			}
 			creation.append(" with ").append(inv.toString(e, debug));
-			if (stealableItems) {
-				creation.append(" with stealable items");
+			if (removableItems) {
+				creation.append(" with removable items");
 			}
 			if (shape != null) {
 				creation.append(" and shape ").append(shape.toString(e, debug));

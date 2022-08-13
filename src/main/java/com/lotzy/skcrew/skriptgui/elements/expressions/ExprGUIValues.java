@@ -75,7 +75,7 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 			return false;
 		}
 
-		openClose = skriptEvent != null && ((SectionSkriptEvent) skriptEvent).isSection(SecGUIOpenClose.class);
+		openClose = skriptEvent instanceof SectionSkriptEvent && ((SectionSkriptEvent) skriptEvent).isSection(SecGUIOpenClose.class);
 
 		pattern = matchedPattern;
 		if (openClose && matchedPattern != 3 && matchedPattern != 9 && matchedPattern != 10 && matchedPattern != 12) {
@@ -106,9 +106,6 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 					return new HumanEntity[]{(event instanceof InventoryCloseEvent ? ((InventoryCloseEvent) e).getPlayer() : ((InventoryOpenEvent) e).getPlayer())};
 				case 10:
 					return (e.getViewers().toArray(new HumanEntity[0]));
-				case 12:
-					GUI gui = SkriptGUI.getGUIManager().getGUI(event);
-					return gui != null ? new GUI[]{gui} : new GUI[0];
 			}
 		} else {
 			InventoryClickEvent e = (InventoryClickEvent) event;
@@ -154,7 +151,7 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 			return null;
 		}
 
-		if (mode == ChangeMode.SET && getParser().isCurrentEvent(InventoryClickEvent.class) && pattern == 7) {
+		if (mode == ChangeMode.SET && pattern == 7) {
 			return CollectionUtils.array(ItemType.class);
 		}
 
@@ -162,7 +159,7 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 	}
 
 	@Override
-	public void change(final Event event, @Nullable Object[] delta, ChangeMode mode) {
+	public void change(Event event, @Nullable Object[] delta, ChangeMode mode) {
 		if (delta == null || !(event instanceof InventoryClickEvent)) {
 			return;
 		}
