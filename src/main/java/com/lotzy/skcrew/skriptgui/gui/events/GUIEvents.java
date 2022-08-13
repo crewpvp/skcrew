@@ -3,6 +3,7 @@ package com.lotzy.skcrew.skriptgui.gui.events;
 import ch.njol.skript.SkriptEventHandler;
 import com.lotzy.skcrew.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.skriptgui.gui.GUI;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,8 +26,13 @@ public class GUIEvents implements Listener {
 		SkriptEventHandler.listenCancelled.add(InventoryCloseEvent.class);
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onInventoryClick(InventoryClickEvent event) {
+		// Process this event if it's cancelled ONLY if the clicker is in Spectator Mode
+		if (event.getWhoClicked().getGameMode() != GameMode.SPECTATOR && event.isCancelled()) {
+			return;
+		}
+
 		// Don't handle this event if it's from an unsupported click type
 		switch (event.getClick()) {
 			case WINDOW_BORDER_RIGHT:
@@ -66,7 +72,7 @@ public class GUIEvents implements Listener {
 
 						if (!guiInventory.contains(clicked.getType())) {
 							int firstEmpty = guiInventory.firstEmpty();
-							if (firstEmpty != -1 && gui.isStealable(gui.convert(firstEmpty))) { // Safe to be moved into the GUI
+							if (firstEmpty != -1 && gui.isRemovable(gui.convert(firstEmpty))) { // Safe to be moved into the GUI
 								return;
 							}
 						}
@@ -76,7 +82,7 @@ public class GUIEvents implements Listener {
 						for (int slot = 0; slot < size; slot++) {
 							ItemStack item = guiInventory.getItem(slot);
 							if (item != null && item.getType() != Material.AIR && item.isSimilar(clicked)) {
-								if (!gui.isStealable(gui.convert(slot))) {
+								if (!gui.isRemovable(gui.convert(slot))) {
 									if (item.getAmount() == 64) { // It wouldn't be able to combine
 										continue;
 									}
@@ -92,7 +98,7 @@ public class GUIEvents implements Listener {
 						}
 
 						int firstEmpty = guiInventory.firstEmpty();
-						if (firstEmpty != -1 && gui.isStealable(gui.convert(firstEmpty))) { // Safe to be moved into the GUI
+						if (firstEmpty != -1 && gui.isRemovable(gui.convert(firstEmpty))) { // Safe to be moved into the GUI
 							return;
 						}
 
@@ -109,7 +115,7 @@ public class GUIEvents implements Listener {
 					ItemStack cursor = event.getWhoClicked().getItemOnCursor();
 					for (int slot = 0; slot < size; slot++) {
 						ItemStack item = guiInventory.getItem(slot);
-						if (item != null && item.isSimilar(cursor) && !gui.isStealable(gui.convert(slot))) {
+						if (item != null && item.isSimilar(cursor) && !gui.isRemovable(gui.convert(slot))) {
 							event.setCancelled(true);
 							break;
 						}
