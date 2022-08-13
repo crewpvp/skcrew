@@ -5,8 +5,6 @@ gui:
   enabled: true
 runtime:
   enabled: true
-paper:
-  enabled: true
 url:
   enabled: true
 files:
