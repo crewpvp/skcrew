@@ -82,7 +82,7 @@ public class ExprFormStepSlider extends SimpleExpression<Integer> {
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return "form slider result";
+        return "form step slider result";
     }
 
 }

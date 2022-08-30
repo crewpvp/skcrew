@@ -55,7 +55,7 @@ public class SecFormResult extends EffectSection {
 
         if (hasSection()) {
             assert sectionNode != null;
-            trigger = loadCode(sectionNode, "form sumbit event", FormSubmitEvent.class);
+            trigger = loadCode(sectionNode, "form submit event", FormSubmitEvent.class);
         }
 
         return true;
