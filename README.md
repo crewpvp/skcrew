@@ -12,7 +12,6 @@ Skript addon contains favorite addons and something more
 - Run code from text, it can be not only single line
 - InventoryDragEvent - its fired when player hold righclick with cursor item
 - Give or drop effect, its something like (if player doesn't have space for item, it will be dropper near)
-- Start and stop spectate events (need Paper server's platform or his fork)
 - Run as op effect
 - Permission management without permission plugin
 - Some system info, like amount of RAM or number of processor cores
