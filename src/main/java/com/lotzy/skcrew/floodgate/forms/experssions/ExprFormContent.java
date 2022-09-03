@@ -22,10 +22,10 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecFormButton;
 import com.lotzy.skcrew.floodgate.forms.sections.SecCreateModalForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecCreateSimpleForm;
 import javax.annotation.Nullable;
-import org.geysermc.cumulus.ModalForm;
-import org.geysermc.cumulus.SimpleForm;
-import org.geysermc.cumulus.impl.ModalFormImpl;
-import org.geysermc.cumulus.impl.SimpleFormImpl;
+import org.geysermc.cumulus.form.ModalForm;
+import org.geysermc.cumulus.form.SimpleForm;
+import org.geysermc.cumulus.form.impl.modal.ModalFormImpl;
+import org.geysermc.cumulus.form.impl.simple.SimpleFormImpl;
 
 @Name("Forms - Content")
 @Description({"Get or set content of form",
@@ -75,10 +75,10 @@ public class ExprFormContent extends SimpleExpression<String> {
             form = this.form.getSingle(e).getForm().get();
         }
         if(form instanceof ModalForm.Builder) {
-            String content = ((ModalFormImpl)((ModalForm.Builder) form).build()).getContent();
+            String content = ((ModalFormImpl)((ModalForm.Builder) form).build()).content();
             return new String[] {content.isEmpty() ? null : content };
         } else if(form instanceof SimpleForm.Builder) {
-            String content = ((SimpleFormImpl)((SimpleForm.Builder) form).build()).getContent();
+            String content = ((SimpleFormImpl)((SimpleForm.Builder) form).build()).content();
             return new String[] {content.isEmpty() ? null : content };
         } else {
             Skript.error("Custom forms doesn't support content",ErrorQuality.SEMANTIC_ERROR);

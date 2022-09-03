@@ -19,8 +19,8 @@ import com.lotzy.skcrew.floodgate.forms.events.FormSubmitEvent;
 import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
+import org.geysermc.cumulus.component.util.ComponentType;
 import org.geysermc.cumulus.response.CustomFormResponse;
-import org.geysermc.cumulus.util.ComponentType;
 
 @Name("Forms - Input result")
 @Description({"Get result of Input by index",

@@ -20,7 +20,7 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.geysermc.cumulus.response.CustomFormResponse;
-import org.geysermc.cumulus.util.ComponentType;
+import org.geysermc.cumulus.component.util.ComponentType;
 
 @Name("Forms - Toggle result")
 @Description({"Get result of toggle by index",
