@@ -23,9 +23,9 @@ import com.lotzy.skcrew.floodgate.forms.events.FormSubmitEvent;
 import java.util.List;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.ModalForm;
-import org.geysermc.cumulus.SimpleForm;
 import org.geysermc.cumulus.util.FormImage;
+import org.geysermc.cumulus.util.glue.ModalFormGlue;
+import org.geysermc.cumulus.util.glue.SimpleFormGlue;
 
 @Name("Forms - Button section")
 @Description({"Create buttons on modal or simple form",
@@ -89,26 +89,26 @@ public class SecFormButton extends EffectSection {
         if (form == null) {
             return walk(e, false);
         }
-        if(form.getForm().get() instanceof ModalForm.Builder) {
+        if(form.getForm().get() instanceof ModalFormGlue.Builder) {
             switch(form.getLastButton()) {
                 case 0:
-                   ((ModalForm.Builder)form.getForm().get()).button1(text.getSingle(e));
+                   ((ModalFormGlue.Builder)form.getForm().get()).button1(text.getSingle(e));
                    break;
                 case 1:
-                   ((ModalForm.Builder)form.getForm().get()).button2(text.getSingle(e));
+                   ((ModalFormGlue.Builder)form.getForm().get()).button2(text.getSingle(e));
                    break;
                 default:
                    return walk(e, false);
             }
         } else {
             if(image==null) {
-                ((SimpleForm.Builder)form.getForm().get()).button(text.getSingle(e));
+                ((SimpleFormGlue.Builder)form.getForm().get()).button(text.getSingle(e));
             } else {
                 if(isPath) {
-                    ((SimpleForm.Builder)form.getForm().get())
+                    ((SimpleFormGlue.Builder)form.getForm().get())
                             .button(text.getSingle(e), FormImage.Type.PATH, image.getSingle(e));
                 } else {
-                    ((SimpleForm.Builder)form.getForm().get())
+                    ((SimpleFormGlue.Builder)form.getForm().get())
                             .button(text.getSingle(e), FormImage.Type.URL, image.getSingle(e));
                 }
             }

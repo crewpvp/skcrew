@@ -19,7 +19,7 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.CustomForm;
+import org.geysermc.cumulus.util.glue.CustomFormGlue;
 
 @Name("Forms - Input")
 @Description("Create input on custom form ")
@@ -68,15 +68,15 @@ public class EffInput extends Effect {
         Form form = SkriptForm.getFormManager().getForm(e);
         switch(pattern) {
             case 0:
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                     .input(name.getSingle(e));
                 break;
             case 1:
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                     .input(name.getSingle(e),placeholder.getSingle(e));
                 break;
             case 2:
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                     .input(name.getSingle(e),placeholder.getSingle(e),def.getSingle(e));
         }
     }

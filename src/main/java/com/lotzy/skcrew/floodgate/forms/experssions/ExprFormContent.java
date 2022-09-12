@@ -26,7 +26,8 @@ import org.geysermc.cumulus.form.ModalForm;
 import org.geysermc.cumulus.form.SimpleForm;
 import org.geysermc.cumulus.form.impl.modal.ModalFormImpl;
 import org.geysermc.cumulus.form.impl.simple.SimpleFormImpl;
-
+import org.geysermc.cumulus.util.glue.ModalFormGlue;
+import org.geysermc.cumulus.util.glue.SimpleFormGlue;
 @Name("Forms - Content")
 @Description({"Get or set content of form",
         "Can be used in modal and simple forms"})
@@ -74,10 +75,10 @@ public class ExprFormContent extends SimpleExpression<String> {
         } else {
             form = this.form.getSingle(e).getForm().get();
         }
-        if(form instanceof ModalForm.Builder) {
+        if(form instanceof ModalFormGlue.Builder) {
             String content = ((ModalFormImpl)((ModalForm.Builder) form).build()).content();
             return new String[] {content.isEmpty() ? null : content };
-        } else if(form instanceof SimpleForm.Builder) {
+        } else if(form instanceof SimpleFormGlue.Builder) {
             String content = ((SimpleFormImpl)((SimpleForm.Builder) form).build()).content();
             return new String[] {content.isEmpty() ? null : content };
         } else {
@@ -107,19 +108,19 @@ public class ExprFormContent extends SimpleExpression<String> {
         }
         switch(mode) {
             case SET:
-                if(form instanceof ModalForm.Builder) {
-                    ((ModalForm.Builder)form).content((String)delta[0]);
-                } else if(form instanceof SimpleForm.Builder) {
-                    ((SimpleForm.Builder)form).content((String)delta[0]);
+                if(form instanceof ModalFormGlue.Builder) {
+                    ((ModalFormGlue.Builder)form).content((String)delta[0]);
+                } else if(form instanceof SimpleFormGlue.Builder) {
+                    ((SimpleFormGlue.Builder)form).content((String)delta[0]);
                 } else {
                     Skript.error("Custom forms doesn't support content, use label instead",ErrorQuality.SEMANTIC_ERROR);
                 }
                 break;
             case DELETE:
-                if(form instanceof ModalForm.Builder) {
-                    ((ModalForm.Builder)form).content("");
-                } else if(form instanceof SimpleForm.Builder) {
-                    ((SimpleForm.Builder)form).content("");
+                if(form instanceof ModalFormGlue.Builder) {
+                    ((ModalFormGlue.Builder)form).content("");
+                } else if(form instanceof SimpleFormGlue.Builder) {
+                    ((SimpleFormGlue.Builder)form).content("");
                 } else {
                     Skript.error("Custom forms doesn't support content, use label instead",ErrorQuality.SEMANTIC_ERROR);
                 }

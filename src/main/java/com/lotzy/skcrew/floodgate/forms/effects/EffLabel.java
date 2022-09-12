@@ -19,7 +19,7 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.CustomForm;
+import org.geysermc.cumulus.util.glue.CustomFormGlue;
 
 @Name("Forms - Label")
 @Description("Create label on custom form")
@@ -53,7 +53,7 @@ public class EffLabel extends Effect {
     @Override
     protected void execute(Event e) {
         Form form = SkriptForm.getFormManager().getForm(e);
-        ((CustomForm.Builder)form.getForm().get()).label(name.getSingle(e));
+        ((CustomFormGlue.Builder)form.getForm().get()).label(name.getSingle(e));
     }
     @Override
     public String toString(@Nullable Event e, boolean debug) {

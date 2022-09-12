@@ -19,7 +19,7 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.CustomForm;
+import org.geysermc.cumulus.util.glue.CustomFormGlue;
 
 @Name("Forms - Custom Slider")
 @Description("Create slider on custom forms")
@@ -84,13 +84,13 @@ public class EffSlider extends Effect {
         int step;
         switch(pattern) {
             case 0:
-                ((CustomForm.Builder)form.getForm().get()).slider(name.getSingle(e), min, max);
+                ((CustomFormGlue.Builder)form.getForm().get()).slider(name.getSingle(e), min, max);
                 break;
             case 1:
                 def = this.def.getSingle(e).floatValue();
                 if(def < min) def = min;
                 if(def > max) def = max;
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                 .slider(name.getSingle(e),min ,max ,def);
                 break;
             case 2:
@@ -100,7 +100,7 @@ public class EffSlider extends Effect {
                 step = this.step.getSingle(e).intValue();
                 int dif = (int) (max-min);
                 if(step > dif || step < 0) step = 1;
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                 .slider(name.getSingle(e), min, max,step,def);
         }
     }

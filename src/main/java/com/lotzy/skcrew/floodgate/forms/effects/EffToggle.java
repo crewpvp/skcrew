@@ -19,7 +19,7 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.CustomForm;
+import org.geysermc.cumulus.util.glue.CustomFormGlue;
 
 @Name("Forms - Toggle")
 @Description("Create toggle on custom form ")
@@ -65,10 +65,10 @@ public class EffToggle extends Effect {
         Form form = SkriptForm.getFormManager().getForm(e);
         switch(pattern) {
             case 0:
-                ((CustomForm.Builder)form.getForm().get()).toggle(name.getSingle(e));
+                ((CustomFormGlue.Builder)form.getForm().get()).toggle(name.getSingle(e));
                 break;
             case 1:
-                ((CustomForm.Builder)form.getForm().get()).toggle(name.getSingle(e),def.getSingle(e));
+                ((CustomFormGlue.Builder)form.getForm().get()).toggle(name.getSingle(e),def.getSingle(e));
         }
     }
     @Override

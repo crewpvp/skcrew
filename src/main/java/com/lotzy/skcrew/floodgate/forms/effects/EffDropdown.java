@@ -19,7 +19,7 @@ import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.CustomForm;
+import org.geysermc.cumulus.util.glue.CustomFormGlue;
 
 @Name("Forms - Dropdown")
 @Description("Create dropdown on custom form")
@@ -67,7 +67,7 @@ public class EffDropdown extends Effect {
         Form form = SkriptForm.getFormManager().getForm(e);
         switch(pattern) {
             case 0:
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                     .dropdown(name.getSingle(e), elements.getArray(e));
                 break;
             case 1:
@@ -76,7 +76,7 @@ public class EffDropdown extends Effect {
                 if(def > el.length)
                     def = 1;
                 def--;
-                ((CustomForm.Builder)form.getForm().get())
+                ((CustomFormGlue.Builder)form.getForm().get())
                     .dropdown(name.getSingle(e),def,el);
         }
     }
