@@ -10,7 +10,7 @@ import ch.njol.skript.lang.*;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.Skcrew;
-import com.lotzy.skcrew.sql.Util;
+import com.lotzy.skcrew.sql.SqlUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
@@ -33,7 +33,6 @@ public class EffAsyncExecuteStatement extends Effect {
     static {
         Skript.registerEffect(EffAsyncExecuteStatement.class,
                 "[async[hronously]] execute %string% (in|on) %datasource% " +
-                        "[and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %-objects%]", "quickly execute %string% (in|on) %datasource% " +
                         "[and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %-objects%]");
     }
 
@@ -42,7 +41,6 @@ public class EffAsyncExecuteStatement extends Effect {
     private VariableString var;
     private boolean isLocal;
     private boolean isList;
-    private boolean isSync;
 
     @Override
     protected void execute(Event e) {
@@ -60,7 +58,7 @@ public class EffAsyncExecuteStatement extends Effect {
 
         //execute SQL statement
         CompletableFuture<Object> sql =
-                CompletableFuture.supplyAsync(() -> Util.executeStatement(ds, baseVariable, query, isList), threadPool);
+                CompletableFuture.supplyAsync(() -> SqlUtil.executeStatement(ds, baseVariable, query, isList), threadPool);
 
         //when SQL statement is completed
         boolean finalSync = sync;
@@ -77,12 +75,12 @@ public class EffAsyncExecuteStatement extends Effect {
                 //if local variables are present
                 //bring back local variables
 
-                if (isSync || finalSync) {
+                if (finalSync) {
                     if (locals != null) {
                         Variables.setLocalVariables(e, locals);
                     }
                     if (!(res instanceof String)) {
-                        ((Map<String, Object>) res).forEach((name, value) -> Util.setVariable(e, name, value, isLocal));
+                        ((Map<String, Object>) res).forEach((name, value) -> SqlUtil.setVariable(e, name, value, isLocal));
                     }
                     TriggerItem.walk(getNext(), e);
                     Variables.removeLocals(e);
@@ -92,7 +90,7 @@ public class EffAsyncExecuteStatement extends Effect {
                             Variables.setLocalVariables(e, locals);
                         }
                         if (!(res instanceof String)) {
-                            ((Map<String, Object>) res).forEach((name, value) -> Util.setVariable(e, name, value, isLocal));
+                            ((Map<String, Object>) res).forEach((name, value) -> SqlUtil.setVariable(e, name, value, isLocal));
                         }
                         TriggerItem.walk(getNext(), e);
                         Variables.removeLocals(e);
@@ -105,10 +103,7 @@ public class EffAsyncExecuteStatement extends Effect {
     @Override
     protected TriggerItem walk(Event e) {
         debug(e, true);
-        //I think no longer needed as of 1.3.0, uncomment if something breaks
-        if (!isSync) {
-            Delay.addDelayedEvent(e);
-        }
+        Delay.addDelayedEvent(e);
         execute(e);
         return null;
     }
@@ -127,7 +122,6 @@ public class EffAsyncExecuteStatement extends Effect {
         
         dataSource = (Expression<HikariDataSource>) exprs[1];
         Expression<?> expr = exprs[2];
-        isSync = matchedPattern == 1;
         if (expr instanceof Variable) {
             Variable<?> varExpr = (Variable<?>) expr;
             var = varExpr.getName();

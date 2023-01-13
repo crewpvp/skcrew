@@ -7,7 +7,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.sql.Util;
+import com.lotzy.skcrew.sql.SqlUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.event.Event;
 import javax.sql.DataSource;
@@ -38,12 +38,12 @@ public class EffSyncExecuteStatement extends Effect {
         String query = exprquery.getSingle(e);
         String baseVariable = var != null ? var.toString(e).toLowerCase(Locale.ENGLISH) : null;
         if (ds == null) return;
-        Object res = Util.executeStatement(ds, baseVariable, query, isList);
+        Object res = SqlUtil.executeStatement(ds, baseVariable, query, isList);
         if (res instanceof String string) {
             Skript.warning(string);
             return;
         }
-        ((Map<String, Object>) res).forEach((name, value) -> Util.setVariable(e, name, value, isLocal));               
+        ((Map<String, Object>) res).forEach((name, value) -> SqlUtil.setVariable(e, name, value, isLocal));               
     }
 
     @Override
