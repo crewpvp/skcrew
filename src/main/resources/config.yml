@@ -5,7 +5,7 @@ gui:
   enabled: true
 runtime:
   enabled: true
-url:
+requests:
   enabled: true
 files:
   enabled: true
