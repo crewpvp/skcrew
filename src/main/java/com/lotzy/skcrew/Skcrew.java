@@ -48,7 +48,7 @@ public final class Skcrew extends JavaPlugin {
             }
             if  (config.getBoolean("interpretate.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.interpretate"); 
             if  (config.getBoolean("runtime.enabled"))      addonInstance.loadClasses("com.lotzy.skcrew.runtime"); 
-            if  (config.getBoolean("url.enabled"))          addonInstance.loadClasses("com.lotzy.skcrew.url"); 
+            if  (config.getBoolean("requests.enabled"))          addonInstance.loadClasses("com.lotzy.skcrew.requests"); 
             if  (config.getBoolean("world.enabled"))        addonInstance.loadClasses("com.lotzy.skcrew.world"); 
             if  (config.getBoolean("sql.enabled"))          addonInstance.loadClasses("com.lotzy.skcrew.sql"); 
             if  (config.getBoolean("stringutils.enabled"))  addonInstance.loadClasses("com.lotzy.skcrew.stringutils"); 
