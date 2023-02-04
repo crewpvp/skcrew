@@ -4,6 +4,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import com.lotzy.skcrew.floodgate.forms.FormEvents;
 import com.lotzy.skcrew.skriptgui.gui.events.GUIEvents;
+import com.lotzy.sockets.SocketClient;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,7 +18,7 @@ public final class Skcrew extends JavaPlugin {
     private static Skcrew instance;
     private static SkriptAddon addonInstance;
     protected FileConfiguration config;
-  
+    public SocketClient socketClient = null;
     @Override
     public void onEnable() {
         instance = this;
@@ -56,6 +57,13 @@ public final class Skcrew extends JavaPlugin {
             if  (config.getBoolean("gui.enabled")) {
                 getAddonInstance().loadClasses("com.lotzy.skcrew.skriptgui"); 
                 Bukkit.getServer().getPluginManager().registerEvents(new GUIEvents(), this);
+            }
+            if (config.getBoolean("sockets.enabled")) {
+                getAddonInstance().loadClasses("com.lotzy.skcrew.sockets");
+                int port = config.getInt("sockets.server-port");
+                String address = config.getString("sockets.server-address");
+                int heartbeat = config.getInt("sockets.autoreconnect-time");
+                socketClient = new SocketClient(address,port,heartbeat);
             }
         } catch (IOException ex) {
             Logger.getLogger(Skcrew.class.getName()).log(Level.SEVERE, null, ex);
