@@ -25,3 +25,8 @@ map:
   enabled: true
 other:
   enabled: true
+sockets:
+  enabled: true
+  server-address: "127.0.0.1"
+  server-port: 1337
+  autoreconnect-time: 5
