@@ -65,6 +65,9 @@ public final class Skcrew extends JavaPlugin {
                 int heartbeat = config.getInt("sockets.autoreconnect-time");
                 socketClient = new SocketClient(address,port,heartbeat);
             }
+            if (config.getBoolean("maps.enabled")) {
+                getAddonInstance().loadClasses("com.lotzy.skcrew.maps");
+            }
         } catch (IOException ex) {
             Logger.getLogger(Skcrew.class.getName()).log(Level.SEVERE, null, ex);
         }  
