@@ -17,6 +17,9 @@ import java.util.*;
 import com.lotzy.skcrew.requests.RequestUtil;
 import com.lotzy.skcrew.sql.SqlUtil;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,11 +81,14 @@ public class EffAsyncRequest extends Effect {
                     }
                 }
             }).join();
-        } catch (IOException ex) {
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(EffAsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {      
             Logger.getLogger(EffAsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(EffAsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     @Override

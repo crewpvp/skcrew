@@ -14,6 +14,7 @@ import java.util.*;
 import com.lotzy.skcrew.requests.RequestUtil;
 import com.lotzy.skcrew.sql.SqlUtil;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,11 +48,13 @@ public class EffsyncRequest extends Effect {
         
         String DataVariable = datavar != null ? datavar.toString(e).toLowerCase(Locale.ENGLISH) : null;
         String CodeVariable = codevar != null ? codevar.toString(e).toLowerCase(Locale.ENGLISH) : null;
-        Pair<Integer,String> res;
+
         try {
-            res = RequestUtil.makeSyncRequest(method, this.url.getSingle(e), headers, data);
+            Pair<Integer,String> res = RequestUtil.makeSyncRequest(method, this.url.getSingle(e), headers, data);
             if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.getSecond(), isLocal1);
             if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.getFirst(), isLocal2);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(EffsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(EffsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
