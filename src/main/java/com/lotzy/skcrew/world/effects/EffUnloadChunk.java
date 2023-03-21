@@ -20,8 +20,8 @@ import org.bukkit.event.Event;
 public class EffUnloadChunk extends Effect {
     static {
         Skript.registerEffect(EffUnloadChunk.class,
-            "unload %chunk%",
-            "unload %chunk% without save");
+            "unload [chunk] %chunk%",
+            "unload [chunk] %chunk% without save");
     }
 
     private Expression<Chunk> expr;

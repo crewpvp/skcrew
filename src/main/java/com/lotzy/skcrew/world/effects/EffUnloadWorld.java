@@ -21,8 +21,8 @@ import org.bukkit.event.Event;
 public class EffUnloadWorld extends Effect {
     static {
         Skript.registerEffect(EffUnloadWorld.class,
-            "unload %world%",
-            "unload %world% without save");
+            "unload [world] %world%",
+            "unload [world] %world% without save");
     }
 
     private Expression<World> expr;
