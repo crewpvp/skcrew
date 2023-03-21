@@ -3,6 +3,7 @@ package com.lotzy.skcrew.interpretate;
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptConfig;
+import ch.njol.skript.command.EffectCommandEvent;
 import ch.njol.skript.config.Node;
 import ch.njol.skript.config.SectionNode;
 import ch.njol.skript.config.SimpleNode;
@@ -34,59 +35,63 @@ public class EffEvalnode extends Effect {
     private Node node;
     @Override
     protected void execute(Event e) {
+        String[] lines = expr.getArray(e);
+        int amountLines = lines.length;
+        if (amountLines == 0) return;
+        
         ParserInstance parser = ParserInstance.get();
         parser.setCurrentEvent(e.getEventName(), e.getClass());
-        String[] exprs = expr.getArray(e);
-        int s = exprs.length;
+        
         ArrayList<SectionNode> nodes = new ArrayList<>();
-	if (s != 0) {	
-            nodes.add(0,new SectionNode(node.getKey(),"",node.getParent(),node.getLine()));
-            int c = 0, i = 0;
-            Integer k = 0;
-            outerloop:
-	    while (i < s) {
-		if (Pattern.matches("^((	| ){"+k.toString()+"})[^(	| )].*\\:",exprs[i])) {
-		    c++;
-                    nodes.add(c,new SectionNode(exprs[i].replaceAll("\\:$","").replaceAll("^(	| )*",""),"",nodes.get(c-1),(-1-s+i)));
-                    k++;i++;
-                    
-                    while (Pattern.matches("^((	| ){"+k.toString()+"})[^(	| )](.*)[^\\:]$",exprs[i])) {
-                        nodes.get(c).add(new SimpleNode(exprs[i].replaceAll("^(	| )*",""),"",(-1-s+i),nodes.get(c)));
-                        if (i < s-1) { i++; }
-                        else {
-                            for(int t = 0; t<c; t++) {
-                                nodes.get(c-1).add(nodes.get(c));
-                                c--;   
-                            }
-                            break outerloop;
+        nodes.add(0,new SectionNode(node.getKey(),"",node.getParent(),node.getLine()));
+        int currentSection = 0, i = 0,tabCounter = 0;
+        outerloop:
+        while (i < amountLines) {
+            if (Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )].*\\:",lines[i])) {
+                currentSection++;
+                nodes.add(currentSection,new SectionNode(lines[i].replaceAll("\\:$","").replaceAll("^(	| )*",""),"",nodes.get(currentSection-1),node.getLine()));
+                tabCounter++;
+                i++;
+
+                while (Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )](.*)[^\\:]$",lines[i])) {
+                    nodes.get(currentSection).add(new SimpleNode(lines[i].replaceAll("^(	| )*",""),"",node.getLine(),nodes.get(currentSection)));
+                    if (i < amountLines-1) { i++; }
+                    else {
+                        for(int t = 0; t<currentSection; t++) {
+                            nodes.get(currentSection-1).add(nodes.get(currentSection));
+                            currentSection--;   
                         }
-                    }
-                    if (!Pattern.matches("^((	| ){"+k.toString()+"})[^(	| )].*\\:$",exprs[i])) {
-                        nodes.get(c-1).add(nodes.get(c));
-                        nodes.remove(c);
-                        c--;k--;
-                    }
-                } else {
-                    while(Pattern.matches("^((	| ){"+k.toString()+"})[^(	| )](.*)[^\\:]$",exprs[i])) {
-                        nodes.get(c).add(new SimpleNode(exprs[i].replaceAll("^(	| )*",""),"",(-1-s+i),nodes.get(c)));
-                        if(i < s-1) { i++; }
-                        else {
-                            for(int t = 0; t<c; t++) {
-                                nodes.get(c-1).add(nodes.get(c));
-                                c--;
-                            }
-                            break outerloop;
-                        }
-                    }  
-                    if (!Pattern.matches("^((	| ){"+k.toString()+"})[^(	| )](.*)\\:$",exprs[i])) {
-                        nodes.get(c-1).add(nodes.get(c));
-                        nodes.remove(c);
-                        c--;k--;
+                        break outerloop;
                     }
                 }
+                if (!Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )].*\\:$",lines[i])) {
+                    nodes.get(currentSection-1).add(nodes.get(currentSection));
+                    nodes.remove(currentSection);
+                    currentSection--;
+                    tabCounter--;
+                }
+            } else {
+                while(Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )](.*)[^\\:]$",lines[i])) {
+                    
+                    nodes.get(currentSection).add(new SimpleNode(lines[i].replaceAll("^(	| )*",""),"",node.getLine(),nodes.get(currentSection)));
+                    if(i < amountLines-1) { i++; }
+                    else {
+                        for(int t = 0; t<currentSection; t++) {
+                            nodes.get(currentSection-1).add(nodes.get(currentSection));
+                            currentSection--;
+                        }
+                        break outerloop;
+                    }
+                }  
+                if (!Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )](.*)\\:$",lines[i])) {
+                    nodes.get(currentSection-1).add(nodes.get(currentSection));
+                    nodes.remove(currentSection);
+                    currentSection--;
+                    tabCounter--;
+                }
             }
-            TriggerItem.walk(new Trigger(SkriptConfig.getConfig().getFile(), null, null, ScriptLoader.loadItems(nodes.get(0))),e);
-        } 
+        }
+        TriggerItem.walk(new Trigger(SkriptConfig.getConfig().getFile(), null, null, ScriptLoader.loadItems(nodes.get(0))),e);
         parser.deleteCurrentEvent();
     }
 
