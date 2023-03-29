@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -19,6 +21,7 @@ public class SocketClient {
     ObjectInputStream in = null;
     ObjectOutputStream out = null;
     
+    private BukkitRunnable readThread = null;
     private final BukkitRunnable heartbeatThread;
     private final long heartbeatDelayMillis;
     
@@ -67,12 +70,22 @@ public class SocketClient {
         Object[] body = (Object[])packet.body;
         name = (String)body[0];
         servers = (ServerInfo[])body[1];
-        new ReadThread(this).runTaskAsynchronously(Skcrew.getInstance());
+        readThread = new ReadThread(this);
+        readThread.runTaskAsynchronously(Skcrew.getInstance());
         Skript.info("Connected to the proxy socket "+server+":"+port);
     }
     
     public void sendPacket(SocketPacket packet) {
         try { out.writeObject(packet); out.flush(); } catch (IOException e) {}
+    }
+    public void close() {
+        Bukkit.getScheduler().cancelTask(this.heartbeatThread.getTaskId());
+        Bukkit.getScheduler().cancelTask(this.readThread.getTaskId());
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

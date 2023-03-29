@@ -72,7 +72,13 @@ public final class Skcrew extends JavaPlugin {
             Logger.getLogger(Skcrew.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
-
+    @Override
+    public void onDisable() {
+        if (socketClient!=null) {
+            socketClient.close();
+            getServer().getScheduler().cancelTasks(this);
+        }
+    }
     public static SkriptAddon getAddonInstance() {
         return addonInstance;
     }
