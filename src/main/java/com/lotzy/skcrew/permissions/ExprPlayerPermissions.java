@@ -39,7 +39,7 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
 
     @Override
     public Class[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) {
+        if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.REMOVE_ALL || mode == Changer.ChangeMode.DELETE) {
                 return new Class[] { String[].class };
         }
         return null;
@@ -51,18 +51,24 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
             return;
         Player p = player.getSingle(e);
         String[] permissions = Arrays.stream(delta).toArray(String[]::new);
-        if (Changer.ChangeMode.ADD == mode) {
-            Skript instance = Skript.getInstance();
-
-            for(String permission : permissions) {
-                p.addAttachment(instance,permission,true);
-            }
-        } else if (Changer.ChangeMode.REMOVE == mode){
-            for(String permission : permissions) {
-                p.getEffectivePermissions().forEach(ppermission -> {
-                    ppermission.getAttachment().unsetPermission(permission);
-                });
-            }
+        if (null != mode) switch (mode) {
+            case ADD:
+                Skript instance = Skript.getInstance();
+                for(String permission : permissions) {
+                    p.addAttachment(instance,permission,true);
+                }   break;
+            case REMOVE:
+                for(String permission : permissions) {
+                    p.getEffectivePermissions().forEach(ppermission -> {
+                        ppermission.getAttachment().unsetPermission(permission);
+                    });
+                }   break;
+            case REMOVE_ALL:
+            case DELETE:
+                p.getEffectivePermissions().clear();
+                break;
+            default:
+                break;
         }
         p.recalculatePermissions();
         p.updateCommands();
