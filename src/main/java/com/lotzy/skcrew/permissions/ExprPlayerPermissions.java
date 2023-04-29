@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
 @Name("Permissions - player's permissions")
@@ -39,33 +40,66 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
 
     @Override
     public Class[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.REMOVE_ALL || mode == Changer.ChangeMode.DELETE) {
-                return new Class[] { String[].class };
-        }
-        return null;
+        return new Class[] { String[].class };
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null)
-            return;
         Player p = player.getSingle(e);
-        String[] permissions = Arrays.stream(delta).toArray(String[]::new);
-        if (null != mode) switch (mode) {
+        final Set<String> permissions;
+        PermissionAttachment attach;
+        switch (mode) {
             case ADD:
-                Skript instance = Skript.getInstance();
-                for(String permission : permissions) {
-                    p.addAttachment(instance,permission,true);
-                }   break;
+                setPermissions(p,(String[]) delta,true);
+                break;
             case REMOVE:
-                for(String permission : permissions) {
-                    p.getEffectivePermissions().forEach(ppermission -> {
-                        ppermission.getAttachment().unsetPermission(permission);
-                    });
-                }   break;
+                String[] removedPermissions = (String[]) delta;
+                permissions = new HashSet<>();
+                for (PermissionAttachmentInfo paInfo : p.getEffectivePermissions()) {
+                    if (paInfo.getAttachment() != null)
+                        for (String permission : removedPermissions)
+                            paInfo.getAttachment().unsetPermission(permission);
+                    if (paInfo.getValue()) {
+                        String attachmentPermission = paInfo.getPermission();
+                        for (String permission : removedPermissions)
+                            if (permission.equals(attachmentPermission)) {
+                                permissions.add(attachmentPermission);
+                                break;
+                            }
+                    }
+                }
+                setPermissions(p,permissions.toArray(String[]::new),false);
+                break;
             case REMOVE_ALL:
             case DELETE:
-                p.getEffectivePermissions().clear();
+                permissions = new HashSet<>();
+                for (PermissionAttachmentInfo paInfo : p.getEffectivePermissions()) {
+                    if (paInfo.getAttachment() != null)
+                        paInfo.getAttachment().remove();
+                    if (paInfo.getValue())
+                        permissions.add(paInfo.getPermission());
+                }
+                attach = p.addAttachment(Skript.getInstance());
+                for (String permission : permissions)
+                    attach.setPermission(permission, false);
+                break;
+            case SET:
+                permissions = new HashSet<>();
+                for (PermissionAttachmentInfo paInfo : p.getEffectivePermissions()) {
+                    if (paInfo.getAttachment() != null)
+                        paInfo.getAttachment().remove();
+                    if (paInfo.getValue())
+                        permissions.add(paInfo.getPermission());
+                }
+                attach = p.addAttachment(Skript.getInstance());
+                for (String permission : permissions)
+                    attach.setPermission(permission, false);
+                for (String permission : (String[]) delta)
+                    attach.setPermission(permission, true);
+            case RESET:
+                for (PermissionAttachmentInfo paInfo : p.getEffectivePermissions())
+                    if (paInfo.getAttachment() != null)
+                        paInfo.getAttachment().remove();
                 break;
             default:
                 break;
@@ -78,10 +112,25 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
     protected String[] get(Event e) {
         final Set<String> permissions = new HashSet<>();
         for (final PermissionAttachmentInfo permission : player.getSingle(e).getEffectivePermissions())
-            permissions.add(permission.getPermission());
-        return permissions.toArray(new String[0]);
+            if (permission.getValue())
+                permissions.add(permission.getPermission());
+        return permissions.toArray(String[]::new);
     }
 
+    public void setPermissions(Player p, String[] permissions, boolean value) {
+        Skript instance = Skript.getInstance();
+        for (PermissionAttachmentInfo paInfo : p.getEffectivePermissions())
+            if (paInfo.getAttachment() != null && paInfo.getAttachment().getPlugin().equals(instance)) {
+                for (String permission : permissions)
+                    paInfo.getAttachment().setPermission(permission, value);
+                return;
+            }
+
+        PermissionAttachment attach = p.addAttachment(instance);
+        for (String permission : permissions)
+           attach.setPermission(permission, value);
+    }
+    
     @Override
     public boolean isSingle() {
         return false;
