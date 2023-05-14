@@ -3,12 +3,15 @@ package com.lotzy.skcrew.sql;
 import ch.njol.skript.lang.Variable;
 import ch.njol.skript.variables.Variables;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import javax.annotation.Nullable;
 import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetFactory;
@@ -32,24 +35,33 @@ public class SqlUtil {
         Variables.setVariable(name.toLowerCase(Locale.ENGLISH), obj, e, isLocal);
     }
     
-    static public Object executeStatement(DataSource ds, String baseVariable, String query, Boolean isList) {
+    static public Object executeStatement(DataSource ds, String baseVariable, String query, Boolean isList, @Nullable Object[] params) {
         if (ds == null) {
             return "Data source is not set";
         }
         Map<String, Object> variableList = new HashMap<>();
-        try (Connection conn = ds.getConnection();
-             Statement stmt = conn.createStatement()) {
-
-            boolean hasResultSet = stmt.execute(query);
-
+        try (Connection conn = ds.getConnection()) {
+            ResultSet resultSet;
+            int updateCount;
+            if (params==null || params.length == 0) {
+                Statement stmt = conn.createStatement();
+                resultSet = stmt.execute(query) ? stmt.getResultSet() : null;
+                updateCount = stmt.getUpdateCount();
+            } else {
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                for (int i = 0; i < params.length; i++)
+                    pstmt.setObject(i+1, params[i]);
+                resultSet = pstmt.execute() ? pstmt.getResultSet() : null;
+                updateCount = pstmt.getUpdateCount();
+            }
             if (baseVariable != null) {
                 if (isList) {
                     baseVariable = baseVariable.substring(0, baseVariable.length() - 1);
                 }
 
-                if (hasResultSet) {
+                if (resultSet!=null) {
                     CachedRowSet crs = getRowSetFactory().createCachedRowSet();
-                    crs.populate(stmt.getResultSet());
+                    crs.populate(resultSet);
 
                     if (isList) {
                         ResultSetMetaData meta = crs.getMetaData();
@@ -77,8 +89,7 @@ public class SqlUtil {
                         variableList.put(baseVariable, crs.getRow());
                     }
                 } else if (!isList) {
-                    //if no results are returned and the specified variable isn't a list variable, put the affected rows count in the variable
-                    variableList.put(baseVariable, stmt.getUpdateCount());
+                    variableList.put(baseVariable, updateCount);
                 }
             }
         } catch (SQLException ex) {

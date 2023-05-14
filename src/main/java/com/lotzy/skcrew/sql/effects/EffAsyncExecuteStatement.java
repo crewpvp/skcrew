@@ -32,11 +32,12 @@ public class EffAsyncExecuteStatement extends Effect {
 
     static {
         Skript.registerEffect(EffAsyncExecuteStatement.class,
-                "[async[hronously]] execute %string% (in|on) %datasource% " +
+                "[async[hronously]] execute %string% [with (data|(param[eter][s])) %-objects%] (in|on) %datasource% " +
                         "[and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %-objects%]");
     }
 
     private Expression<String> exprquery;
+    private Expression<Object> params;
     private Expression<HikariDataSource> dataSource;
     private VariableString var;
     private boolean isLocal;
@@ -47,6 +48,7 @@ public class EffAsyncExecuteStatement extends Effect {
         DataSource ds = dataSource.getSingle(e);
         String query = exprquery.getSingle(e);
         String baseVariable = var != null ? var.toString(e).toLowerCase(Locale.ENGLISH) : null;
+        Object[] parameters = params != null ? params.getArray(e) : null;
         //if data source isn't set
         if (ds == null) return;
 
@@ -58,7 +60,7 @@ public class EffAsyncExecuteStatement extends Effect {
 
         //execute SQL statement
         CompletableFuture<Object> sql =
-                CompletableFuture.supplyAsync(() -> SqlUtil.executeStatement(ds, baseVariable, query, isList), threadPool);
+                CompletableFuture.supplyAsync(() -> SqlUtil.executeStatement(ds, baseVariable, query, isList, parameters), threadPool);
 
         //when SQL statement is completed
         boolean finalSync = sync;
@@ -119,9 +121,9 @@ public class EffAsyncExecuteStatement extends Effect {
                         SkriptParser.ParseResult parseResult) {
         
         exprquery = (Expression<String>) exprs[0];
-        
-        dataSource = (Expression<HikariDataSource>) exprs[1];
-        Expression<?> expr = exprs[2];
+        params = (Expression<Object>) exprs[1];
+        dataSource = (Expression<HikariDataSource>) exprs[2];
+        Expression<?> expr = exprs[3];
         if (expr instanceof Variable) {
             Variable<?> varExpr = (Variable<?>) expr;
             var = varExpr.getName();

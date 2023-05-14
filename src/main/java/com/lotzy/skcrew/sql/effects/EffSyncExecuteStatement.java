@@ -22,11 +22,12 @@ public class EffSyncExecuteStatement extends Effect {
 
     static {
         Skript.registerEffect(EffSyncExecuteStatement.class,
-                "sync[hronously] execute %string% (in|on) %datasource% " +
+                "sync[hronously] execute %string% [with (data|(param[eter][s])) %-objects%] (in|on) %datasource% " +
                         "[and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %-objects%]");
     }
     
     private Expression<String> exprquery;
+    private Expression<Object> params;
     private Expression<HikariDataSource> dataSource;
     private VariableString var;
     private boolean isLocal;
@@ -37,8 +38,10 @@ public class EffSyncExecuteStatement extends Effect {
         DataSource ds = dataSource.getSingle(e);
         String query = exprquery.getSingle(e);
         String baseVariable = var != null ? var.toString(e).toLowerCase(Locale.ENGLISH) : null;
+        Object[] parameters = params != null ? params.getArray(e) : null;
         if (ds == null) return;
-        Object res = SqlUtil.executeStatement(ds, baseVariable, query, isList);
+        
+        Object res = SqlUtil.executeStatement(ds, baseVariable, query, isList, parameters);
         if (res instanceof String string) {
             Skript.warning(string);
             return;
@@ -54,11 +57,10 @@ public class EffSyncExecuteStatement extends Effect {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
                         SkriptParser.ParseResult parseResult) {
-        
         exprquery = (Expression<String>) exprs[0];
-        
-        dataSource = (Expression<HikariDataSource>) exprs[1];
-        Expression<?> expr = exprs[2];
+        params = (Expression<Object>) exprs[1];
+        dataSource = (Expression<HikariDataSource>) exprs[2];
+        Expression<?> expr = exprs[3];
         if (expr instanceof Variable) {
             Variable<?> varExpr = (Variable<?>) expr;
             var = varExpr.getName();
