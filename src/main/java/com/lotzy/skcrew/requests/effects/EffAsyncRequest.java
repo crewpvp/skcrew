@@ -18,8 +18,6 @@ import com.lotzy.skcrew.requests.RequestUtil;
 import com.lotzy.skcrew.sql.SqlUtil;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.http.HttpResponse;
-import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
