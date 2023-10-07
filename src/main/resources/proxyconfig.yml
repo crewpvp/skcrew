@@ -1,0 +1,8 @@
+# port of socket server
+socket-server-port: 1337
+
+# settings of web server
+web-server-enabled: true
+web-server-port: 1338
+web-server-user: admin
+web-server-password: admin

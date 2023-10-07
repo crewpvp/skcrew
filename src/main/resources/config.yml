@@ -1,6 +1,8 @@
 sql:
   enabled: true
   driver-class-name: "default"
+bitwise:
+  enabled: true
 gui:
   enabled: true
 runtime:
@@ -31,4 +33,4 @@ sockets:
   enabled: false
   server-address: "127.0.0.1"
   server-port: 1337
-  autoreconnect-time: 5
+  client-autoreconnect-time: 5
