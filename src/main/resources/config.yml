@@ -17,11 +17,11 @@ permissions:
   enabled: true
 interpretate:
   enabled: true
-stringutils:
+string-utils:
   enabled: true
 floodgate:
   enabled: true
-via:
+viaversion:
   enabled: true
 map:
   enabled: true
