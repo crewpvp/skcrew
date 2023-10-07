@@ -11,9 +11,11 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import com.lotzy.skcrew.spigot.Skcrew;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.permissions.PermissionAttachment;
@@ -105,7 +107,8 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
                 break;
         }
         p.recalculatePermissions();
-        p.updateCommands();
+        if (!Skcrew.getInstance().coreVersionIsLessThan(new Integer[] {1,16,4}))
+            p.updateCommands();
     }
 
     @Override
