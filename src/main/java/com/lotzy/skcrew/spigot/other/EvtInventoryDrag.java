@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.other;
+package com.lotzy.skcrew.spigot.other;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

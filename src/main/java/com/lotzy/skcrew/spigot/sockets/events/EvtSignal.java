@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sockets.events;
+package com.lotzy.skcrew.spigot.sockets.events;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -9,7 +9,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
-import com.lotzy.skcrew.sockets.SignalEvent;
+import com.lotzy.skcrew.spigot.sockets.SignalEvent;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.gui;
+package com.lotzy.skcrew.spigot.skriptgui.gui;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;

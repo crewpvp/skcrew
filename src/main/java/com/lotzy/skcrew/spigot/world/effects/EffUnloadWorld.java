@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.world.effects;
+package com.lotzy.skcrew.spigot.world.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

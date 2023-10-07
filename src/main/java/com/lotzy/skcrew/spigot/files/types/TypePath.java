@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.files.types;
+package com.lotzy.skcrew.spigot.files.types;
 
 import java.nio.file.Path;
 import ch.njol.skript.classes.ClassInfo;

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.maps;
+package com.lotzy.skcrew.spigot.maps;
 
 import java.awt.Color;
 import org.bukkit.entity.Player;

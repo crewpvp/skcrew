@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.expressions;
+package com.lotzy.skcrew.spigot.skriptgui.elements.expressions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
@@ -14,8 +14,8 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import javax.annotation.Nullable;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 
 @Name("SkriptGUI - Last GUI/GUI from ID")
 @Description("It is used to return the last created/edited gui or a gui from a string id.")

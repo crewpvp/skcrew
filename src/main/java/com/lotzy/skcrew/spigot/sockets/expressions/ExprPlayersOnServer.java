@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sockets.expressions;
+package com.lotzy.skcrew.spigot.sockets.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -10,7 +10,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.Skcrew;
+import com.lotzy.skcrew.spigot.Skcrew;
 import com.lotzy.sockets.ServerInfo;
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sql.types;
+package com.lotzy.skcrew.spigot.sql.types;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;

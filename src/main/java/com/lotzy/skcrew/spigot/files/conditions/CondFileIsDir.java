@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.files.conditions;
+package com.lotzy.skcrew.spigot.files.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

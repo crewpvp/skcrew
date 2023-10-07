@@ -1,7 +1,8 @@
-package com.lotzy.skcrew.requests;
+package com.lotzy.skcrew.spigot.requests;
 
 import ch.njol.util.Pair;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -9,7 +10,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
@@ -46,7 +46,11 @@ public class RequestUtil {
     static public String parseParams(String url) {
         String[] parts = url.split("\\?", 1);
         if (parts.length > 1)
-            url = parts[0]+"?"+URLEncoder.encode(parts[1], StandardCharsets.UTF_8);
+            try {
+                url = parts[0]+"?"+URLEncoder.encode(parts[1], "UTF_8");
+            } catch (UnsupportedEncodingException ex) {
+                return "";
+            }
         return url;
     }
 }

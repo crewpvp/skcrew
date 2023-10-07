@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.events;
+package com.lotzy.skcrew.spigot.floodgate.forms.events;
 
 import java.util.ArrayList;
 import java.util.List;

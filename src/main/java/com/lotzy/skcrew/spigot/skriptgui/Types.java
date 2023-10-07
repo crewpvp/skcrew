@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui;
+package com.lotzy.skcrew.spigot.skriptgui;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.EnumSerializer;
@@ -7,7 +7,7 @@ import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.util.EnumUtils;
 import javax.annotation.Nullable;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 
 public class Types {

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.requests;
+package com.lotzy.skcrew.spigot.requests;
 
 public class RequestProperty {
     String key;

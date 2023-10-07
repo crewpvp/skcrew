@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.sections;
+package com.lotzy.skcrew.spigot.skriptgui.elements.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
@@ -16,9 +16,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import java.util.List;
 import javax.annotation.Nullable;
-import com.lotzy.skcrew.Skcrew;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.Skcrew;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 
 @Name("SkriptGUI - Create / Edit GUI")
 @Description("The base of creating and editing GUIs.")

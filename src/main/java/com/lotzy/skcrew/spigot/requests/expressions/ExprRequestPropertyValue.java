@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.requests.expressions;
+package com.lotzy.skcrew.spigot.requests.expressions;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.Description;
@@ -6,7 +6,7 @@ import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import com.lotzy.skcrew.requests.RequestProperty;
+import com.lotzy.skcrew.spigot.requests.RequestProperty;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 

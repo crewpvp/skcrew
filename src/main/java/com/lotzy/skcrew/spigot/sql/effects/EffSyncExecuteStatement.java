@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sql.effects;
+package com.lotzy.skcrew.spigot.sql.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -7,7 +7,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.sql.SqlUtil;
+import com.lotzy.skcrew.spigot.sql.SqlUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.event.Event;
 import javax.sql.DataSource;
@@ -42,8 +42,8 @@ public class EffSyncExecuteStatement extends Effect {
         if (ds == null) return;
         
         Object res = SqlUtil.executeStatement(ds, baseVariable, query, isList, parameters);
-        if (res instanceof String string) {
-            Skript.warning(string);
+        if (res instanceof String) {
+            Skript.warning((String) res);
             return;
         }
         ((Map<String, Object>) res).forEach((name, value) -> SqlUtil.setVariable(e, name, value, isLocal));               

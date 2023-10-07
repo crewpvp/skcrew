@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sockets;
+package com.lotzy.skcrew.spigot.sockets;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.lotzy.skcrew.maps.types;
+package com.lotzy.skcrew.spigot.maps.types;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
@@ -10,7 +10,7 @@ import ch.njol.skript.classes.Serializer;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.yggdrasil.Fields;
-import com.lotzy.skcrew.maps.Map;
+import com.lotzy.skcrew.spigot.maps.Map;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -23,7 +23,7 @@ public class TypeMap {
         Classes.registerClass(new ClassInfo<>(Map.class, "map")
                 .user("map")
                 .name("map")
-                .description("respresents Map class (com.lotzy.skcrew.maps.Map)")
+                .description("respresents Map class (com.lotzy.skcrew.spigot.maps.Map)")
                 .since("1.6")
                 .parser(new Parser<Map>() {
 

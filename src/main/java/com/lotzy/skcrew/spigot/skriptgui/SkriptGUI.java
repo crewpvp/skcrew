@@ -1,8 +1,8 @@
-package com.lotzy.skcrew.skriptgui;
+package com.lotzy.skcrew.spigot.skriptgui;
 
 import ch.njol.skript.registrations.Converters;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
-import com.lotzy.skcrew.skriptgui.gui.GUIManager;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUIManager;
 import org.bukkit.inventory.Inventory;
 
 public class SkriptGUI {

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate;
+package com.lotzy.skcrew.spigot.floodgate;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

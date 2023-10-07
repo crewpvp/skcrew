@@ -1,16 +1,16 @@
-package com.lotzy.skcrew.floodgate.forms.types;
+package com.lotzy.skcrew.spigot.floodgate.forms.types;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
-import com.lotzy.skcrew.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 public class TypeForm {
     static {
         Classes.registerClass(new ClassInfo<>(Form.class, "form")
                 .user("forms?")
                 .name("Form")
-                .description("Represent a form (com.lotzy.skcrew.floodgate.forms.Form class)")
+                .description("Represent a form (com.lotzy.skcrew.spigot.floodgate.forms.Form class)")
                 .since("1.0")
                 .parser(new Parser<Form>() {
                     @Override

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.expressions;
+package com.lotzy.skcrew.spigot.skriptgui.elements.expressions;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.Description;
@@ -8,7 +8,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 import javax.annotation.Nullable;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
 @Name("SkriptGUI - ID of GUI")

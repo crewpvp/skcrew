@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.world.expressions;
+package com.lotzy.skcrew.spigot.world.expressions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;

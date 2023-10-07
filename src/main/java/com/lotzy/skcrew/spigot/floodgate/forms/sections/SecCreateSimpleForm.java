@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.sections;
+package com.lotzy.skcrew.spigot.floodgate.forms.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
@@ -12,8 +12,8 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.floodgate.forms.Form;
-import com.lotzy.skcrew.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import java.util.List;
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.util.FormType;

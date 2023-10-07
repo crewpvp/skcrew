@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.stringutils;
+package com.lotzy.skcrew.spigot.stringutils;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;

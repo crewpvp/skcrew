@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.files.expressions;
+package com.lotzy.skcrew.spigot.files.expressions;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

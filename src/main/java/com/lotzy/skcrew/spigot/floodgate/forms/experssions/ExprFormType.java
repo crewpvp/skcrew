@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.experssions;
+package com.lotzy.skcrew.spigot.floodgate.forms.experssions;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -6,7 +6,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import com.lotzy.skcrew.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import javax.annotation.Nullable;
 import org.geysermc.cumulus.util.FormType;
 

@@ -1,7 +1,7 @@
 package com.lotzy.sockets;
 
 import ch.njol.skript.Skript;
-import com.lotzy.skcrew.Skcrew;
+import com.lotzy.skcrew.spigot.Skcrew;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

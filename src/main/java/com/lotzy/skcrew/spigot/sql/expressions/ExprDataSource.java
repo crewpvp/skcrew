@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sql.expressions;
+package com.lotzy.skcrew.spigot.sql.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -11,7 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.Skcrew;
+import com.lotzy.skcrew.spigot.Skcrew;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.event.Event;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.requests;
+package com.lotzy.skcrew.spigot.requests;
 
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;

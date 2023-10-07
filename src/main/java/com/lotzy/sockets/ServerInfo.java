@@ -25,7 +25,7 @@ public class ServerInfo implements Serializable {
              this.players = new ArrayList<String>(Arrays.asList(players));
         }
         public String[] getPlayers() {
-            return players.toArray(String[]::new);
+            return players.toArray(new String[0]);
         }
         public String getName() {
             return this.name;

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.expressions;
+package com.lotzy.skcrew.spigot.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -11,8 +11,8 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
 @Name("SkriptGUI - All guis")

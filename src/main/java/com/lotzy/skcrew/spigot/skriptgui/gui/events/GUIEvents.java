@@ -1,8 +1,8 @@
-package com.lotzy.skcrew.skriptgui.gui.events;
+package com.lotzy.skcrew.spigot.skriptgui.gui.events;
 
 import ch.njol.skript.SkriptEventHandler;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;

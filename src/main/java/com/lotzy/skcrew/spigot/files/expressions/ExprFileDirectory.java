@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.files.expressions;
+package com.lotzy.skcrew.spigot.files.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -44,7 +44,7 @@ public class ExprFileDirectory extends SimpleExpression<Path> {
         LinkedList<Path> finalPaths = new LinkedList<>();
         String[] pathsList = paths.getArray(e);
         for (String path : pathsList) {
-            if(path.isBlank()) path = ".";
+            if(path.isEmpty()) path = ".";
             finalPaths.add(Paths.get(path.replaceAll("^(?!((\\.)?\\.\\/))", "")));
         }
         return finalPaths.toArray(new Path[finalPaths.size()]);

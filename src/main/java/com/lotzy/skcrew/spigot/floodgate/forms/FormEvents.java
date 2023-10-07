@@ -1,9 +1,9 @@
-package com.lotzy.skcrew.floodgate.forms;
+package com.lotzy.skcrew.spigot.floodgate.forms;
 
 import ch.njol.skript.SkriptEventHandler;
-import com.lotzy.skcrew.floodgate.forms.events.FormCloseEvent;
-import com.lotzy.skcrew.floodgate.forms.events.FormOpenEvent;
-import com.lotzy.skcrew.floodgate.forms.events.FormSubmitEvent;
+import com.lotzy.skcrew.spigot.floodgate.forms.events.FormCloseEvent;
+import com.lotzy.skcrew.spigot.floodgate.forms.events.FormOpenEvent;
+import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

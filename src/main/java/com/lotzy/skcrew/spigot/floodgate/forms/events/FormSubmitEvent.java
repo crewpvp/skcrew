@@ -1,6 +1,6 @@
-package com.lotzy.skcrew.floodgate.forms.events;
+package com.lotzy.skcrew.spigot.floodgate.forms.events;
 
-import com.lotzy.skcrew.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.types;
+package com.lotzy.skcrew.spigot.floodgate.forms.types;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sql;
+package com.lotzy.skcrew.spigot.sql;
 
 import ch.njol.skript.lang.Variable;
 import ch.njol.skript.variables.Variables;

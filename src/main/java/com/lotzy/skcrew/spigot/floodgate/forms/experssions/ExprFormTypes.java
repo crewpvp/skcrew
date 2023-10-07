@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.experssions;
+package com.lotzy.skcrew.spigot.floodgate.forms.experssions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

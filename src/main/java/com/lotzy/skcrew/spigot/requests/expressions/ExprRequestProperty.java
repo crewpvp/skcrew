@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.requests.expressions;
+package com.lotzy.skcrew.spigot.requests.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -10,7 +10,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.requests.RequestProperty;
+import com.lotzy.skcrew.spigot.requests.RequestProperty;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 

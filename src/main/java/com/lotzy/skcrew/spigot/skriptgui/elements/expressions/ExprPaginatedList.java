@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.expressions;
+package com.lotzy.skcrew.spigot.skriptgui.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

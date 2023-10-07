@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.runtime;
+package com.lotzy.skcrew.spigot.runtime;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

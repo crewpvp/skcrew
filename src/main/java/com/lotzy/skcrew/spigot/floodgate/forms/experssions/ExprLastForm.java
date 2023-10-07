@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.experssions;
+package com.lotzy.skcrew.spigot.floodgate.forms.experssions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
@@ -14,8 +14,8 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import com.lotzy.skcrew.floodgate.forms.Form;
-import com.lotzy.skcrew.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import javax.annotation.Nullable;
 
 

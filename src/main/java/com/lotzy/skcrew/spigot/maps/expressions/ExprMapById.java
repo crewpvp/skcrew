@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.maps.expressions;
+package com.lotzy.skcrew.spigot.maps.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
@@ -6,7 +6,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.maps.Map;
+import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;

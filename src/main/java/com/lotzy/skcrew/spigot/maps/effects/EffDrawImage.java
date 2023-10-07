@@ -1,12 +1,12 @@
-package com.lotzy.skcrew.maps.effects;
+package com.lotzy.skcrew.spigot.maps.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.Skcrew;
-import com.lotzy.skcrew.maps.Map;
+import com.lotzy.skcrew.spigot.Skcrew;
+import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;

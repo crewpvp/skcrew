@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.world.conditions;
+package com.lotzy.skcrew.spigot.world.conditions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;

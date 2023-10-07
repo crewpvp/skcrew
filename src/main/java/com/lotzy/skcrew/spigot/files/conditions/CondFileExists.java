@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.files.conditions;
+package com.lotzy.skcrew.spigot.files.conditions;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

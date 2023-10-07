@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.experssions;
+package com.lotzy.skcrew.spigot.floodgate.forms.experssions;
 
 import org.bukkit.event.Event;
 import ch.njol.skript.Skript;
@@ -16,11 +16,11 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.floodgate.forms.Form;
-import com.lotzy.skcrew.floodgate.forms.SkriptForm;
-import com.lotzy.skcrew.floodgate.forms.sections.SecFormButton;
-import com.lotzy.skcrew.floodgate.forms.sections.SecCreateModalForm;
-import com.lotzy.skcrew.floodgate.forms.sections.SecCreateSimpleForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormButton;
+import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateModalForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateSimpleForm;
 import javax.annotation.Nullable;
 import org.geysermc.cumulus.form.ModalForm;
 import org.geysermc.cumulus.form.SimpleForm;

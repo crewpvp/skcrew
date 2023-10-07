@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.requests.effects;
+package com.lotzy.skcrew.spigot.requests.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -8,11 +8,11 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 import ch.njol.util.Pair;
-import com.lotzy.skcrew.requests.RequestProperty;
+import com.lotzy.skcrew.spigot.requests.RequestProperty;
 import org.bukkit.event.Event;
 import java.util.*;
-import com.lotzy.skcrew.requests.RequestUtil;
-import com.lotzy.skcrew.sql.SqlUtil;
+import com.lotzy.skcrew.spigot.requests.RequestUtil;
+import com.lotzy.skcrew.spigot.sql.SqlUtil;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;

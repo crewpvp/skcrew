@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.sections;
+package com.lotzy.skcrew.spigot.skriptgui.elements.sections;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
@@ -16,8 +16,8 @@ import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;

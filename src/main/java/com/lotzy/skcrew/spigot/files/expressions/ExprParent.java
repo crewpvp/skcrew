@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.files.expressions;
+package com.lotzy.skcrew.spigot.files.expressions;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;

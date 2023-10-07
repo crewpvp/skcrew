@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms;
+package com.lotzy.skcrew.spigot.floodgate.forms;
 
 public class SkriptForm {
     	private static final FormManager manager;

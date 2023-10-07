@@ -1,7 +1,7 @@
-package com.lotzy.skcrew.maps;
+package com.lotzy.skcrew.spigot.maps;
 
 import ch.njol.skript.Skript;
-import com.lotzy.skcrew.Skcrew;
+import com.lotzy.skcrew.spigot.Skcrew;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;

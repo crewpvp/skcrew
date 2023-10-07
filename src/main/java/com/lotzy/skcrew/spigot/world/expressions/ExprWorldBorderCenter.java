@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.world.expressions;
+package com.lotzy.skcrew.spigot.world.expressions;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.Description;

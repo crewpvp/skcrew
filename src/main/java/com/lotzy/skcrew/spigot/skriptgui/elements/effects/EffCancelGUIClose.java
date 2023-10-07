@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.effects;
+package com.lotzy.skcrew.spigot.skriptgui.elements.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -11,10 +11,10 @@ import ch.njol.skript.lang.SectionSkriptEvent;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.elements.sections.SecGUIOpenClose;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.elements.sections.SecGUIOpenClose;
 import javax.annotation.Nullable;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
 
 @Name("SkriptGUI - Cancel close")

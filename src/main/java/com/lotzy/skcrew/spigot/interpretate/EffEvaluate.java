@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.interpretate;
+package com.lotzy.skcrew.spigot.interpretate;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

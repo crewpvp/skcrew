@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.permissions;
+package com.lotzy.skcrew.spigot.permissions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;

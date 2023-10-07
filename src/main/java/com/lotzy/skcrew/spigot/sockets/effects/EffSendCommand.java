@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.sockets.effects;
+package com.lotzy.skcrew.spigot.sockets.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -9,7 +9,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.Skcrew;
+import com.lotzy.skcrew.spigot.Skcrew;
 import com.lotzy.sockets.SocketPacket;
 import org.bukkit.event.Event;
 

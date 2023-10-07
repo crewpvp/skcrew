@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.permissions;
+package com.lotzy.skcrew.spigot.permissions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -68,7 +68,7 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
                             }
                     }
                 }
-                setPermissions(p,permissions.toArray(String[]::new),false);
+                setPermissions(p,permissions.toArray(new String[0]),false);
                 break;
             case REMOVE_ALL:
             case DELETE:
@@ -114,7 +114,7 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
         for (final PermissionAttachmentInfo permission : player.getSingle(e).getEffectivePermissions())
             if (permission.getValue())
                 permissions.add(permission.getPermission());
-        return permissions.toArray(String[]::new);
+        return permissions.toArray(new String[0]);
     }
 
     public void setPermissions(Player p, String[] permissions, boolean value) {

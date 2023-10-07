@@ -1,12 +1,12 @@
-package com.lotzy.skcrew.skriptgui.elements.expressions;
+package com.lotzy.skcrew.spigot.skriptgui.elements.expressions;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
-import com.lotzy.skcrew.skriptgui.gui.GUI;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import javax.annotation.Nullable;
 import org.bukkit.entity.Player;
 

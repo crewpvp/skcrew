@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.skriptgui.elements.conditions;
+package com.lotzy.skcrew.spigot.skriptgui.elements.conditions;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -11,7 +11,7 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import javax.annotation.Nullable;
 
 @Name("SkirptGUI - Player has gui")

@@ -1,7 +1,7 @@
-package com.lotzy.skcrew.skriptgui.gui;
+package com.lotzy.skcrew.spigot.skriptgui.gui;
 
-import com.lotzy.skcrew.Skcrew;
-import com.lotzy.skcrew.skriptgui.SkriptGUI;
+import com.lotzy.skcrew.spigot.Skcrew;
+import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;

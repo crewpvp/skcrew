@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.floodgate.forms.effects;
+package com.lotzy.skcrew.spigot.floodgate.forms.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -13,10 +13,10 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.floodgate.forms.Form;
-import com.lotzy.skcrew.floodgate.forms.SkriptForm;
-import com.lotzy.skcrew.floodgate.forms.sections.SecCreateCustomForm;
-import com.lotzy.skcrew.floodgate.forms.sections.SecFormResult;
+import com.lotzy.skcrew.spigot.floodgate.forms.Form;
+import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
 import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.util.glue.CustomFormGlue;
