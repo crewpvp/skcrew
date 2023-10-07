@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.spigot.via;
+package com.lotzy.skcrew.spigot.viaversion;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
