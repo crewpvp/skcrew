@@ -7,7 +7,6 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import com.lotzy.skcrew.spigot.requests.RequestProperty;
-import javax.annotation.Nullable;
 import org.bukkit.event.Event;
 
 @Name("Requests - Key of request property")
@@ -38,7 +37,7 @@ public class ExprRequestPropertyKey extends SimplePropertyExpression<RequestProp
     }
     
     @Override
-    @Nullable
+    
     public Class<?>[] acceptChange(final ChangeMode mode) {
         if (mode == ChangeMode.SET)
             return new Class[] {String.class};
@@ -46,7 +45,7 @@ public class ExprRequestPropertyKey extends SimplePropertyExpression<RequestProp
     }
 
     @Override
-    public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+    public void change(final Event e, final  Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
         getExpr().getSingle(e).setKey((String) delta[0]);
     }
 

@@ -1,4 +1,4 @@
-package com.lotzy.skcrew.spigot.spigot.requests.effects;
+package com.lotzy.skcrew.spigot.requests.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
@@ -18,6 +18,7 @@ import com.lotzy.skcrew.spigot.requests.RequestUtil;
 import com.lotzy.skcrew.spigot.sql.SqlUtil;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,27 +65,23 @@ public class EffAsyncRequest extends Effect {
                 if (getNext() != null) {
                     if (finalSync) {
                         if (locals != null) Variables.setLocalVariables(e, locals);
-                        if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.body(), isLocal1);
-                        if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.statusCode(), isLocal2);
+                        if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.getBodyText(), isLocal1);
+                        if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.getCode(), isLocal2);
                         TriggerItem.walk(getNext(), e);
                         Variables.removeLocals(e);
                     } else {
                         Bukkit.getScheduler().runTask(Skcrew.getInstance(), () -> {
                             if (locals != null) Variables.setLocalVariables(e, locals);
-                            if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.body(), isLocal1);
-                            if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.statusCode(), isLocal2);
+                            if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.getBodyText(), isLocal1);
+                            if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.getCode(), isLocal2);
                             TriggerItem.walk(getNext(), e);
                             Variables.removeLocals(e);
                         });
                     }
                 }
             }).join();
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(EffAsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {      
-            Logger.getLogger(EffAsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(EffAsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            
         }
         
     }

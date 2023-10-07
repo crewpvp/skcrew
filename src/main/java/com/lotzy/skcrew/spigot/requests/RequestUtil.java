@@ -6,43 +6,81 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.Builder;
-import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
-import javax.annotation.Nullable;
-
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
+import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.core5.concurrent.FutureCallback;
+import org.apache.hc.core5.http.ContentType;
 public class RequestUtil {
-    @Nullable
-    static public Pair<Integer, String> makeSyncRequest(String method,String url, @Nullable RequestProperty[] headers, @Nullable String data) throws IOException, InterruptedException, URISyntaxException {
+
+    static public Pair<Integer, String> makeSyncRequest(String method,String url, RequestProperty[] headers, String data) throws IOException, InterruptedException, URISyntaxException {
         url = parseParams(url);
-        Builder request = HttpRequest.newBuilder(new URI(url));
+        URI uri = new URI(url);
+        
+        HttpUriRequestBase request = new HttpUriRequestBase(method.toUpperCase(),uri);
+        if (data != null)
+            request.setEntity(new StringEntity(data));
+        if (headers != null)
+            for (RequestProperty property : headers) request.addHeader(property.key, property.value);    
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = httpClient.execute(request);
+  
+        HttpEntity entity = response.getEntity();
+        String result = null;
+        if (entity!=null) {
+            try {
+                result = EntityUtils.toString(entity);
+            } catch (ParseException ex) {}
+        }
+
+        return new Pair(response.getCode(),result);
+    }
+
+    static public CompletableFuture<SimpleHttpResponse> makeAsyncRequest(String method,String url, RequestProperty[] headers, String data) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
+        url = parseParams(url);
+        URI uri = new URI(url);
+        
+        SimpleHttpRequest request = new SimpleHttpRequest(method.toUpperCase(),uri);
+        
         if (data != null) {
-            request.method(method, HttpRequest.BodyPublishers.ofString(data));
-        } else {
-            request.method(method, HttpRequest.BodyPublishers.noBody());
+            StringEntity ent = new StringEntity(data);
+            request.setBody(data, ContentType.parse(ent.getContentType()));
         }
         if (headers != null)
-            for (RequestProperty property : headers) request.header(property.key, property.value);    
-        HttpRequest buildedRequest = request.build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(buildedRequest, HttpResponse.BodyHandlers.ofString());
-        return new Pair(response.statusCode(),response.body());
+            for (RequestProperty property : headers) request.addHeader(property.key, property.value);    
+        CloseableHttpAsyncClient httpClient = HttpAsyncClients.createHttp2Default();
+        httpClient.start();
+        CompletableFuture<SimpleHttpResponse> promise = new CompletableFuture<>();
+        httpClient.execute(request,new FutureCallback<SimpleHttpResponse>() { 
+            @Override
+            public void completed(SimpleHttpResponse response) {
+                promise.complete(response);
+            }
+            @Override
+            public void failed(Exception ex) {
+                promise.completeExceptionally(ex);
+            }
+            @Override
+            public void cancelled() {
+                promise.cancel(true);
+            }      
+        });
+        return promise;
     }
-    @Nullable
-    static public CompletableFuture<HttpResponse<String>> makeAsyncRequest(String method,String url, @Nullable RequestProperty[] headers, @Nullable String data) throws IOException, InterruptedException, URISyntaxException {
-        url = parseParams(url);
-        Builder request = HttpRequest.newBuilder(new URI(url));
-        if (data != null) {
-            request.method(method, HttpRequest.BodyPublishers.ofString(data));
-        } else {
-            request.method(method, HttpRequest.BodyPublishers.noBody());
-        }
-        if (headers != null)
-            for (RequestProperty property : headers) request.header(property.key, property.value);
-        HttpRequest buildedRequest = request.build();
-        return HttpClient.newHttpClient().sendAsync(buildedRequest, HttpResponse.BodyHandlers.ofString());
-    }
+    
     static public String parseParams(String url) {
         String[] parts = url.split("\\?", 1);
         if (parts.length > 1)

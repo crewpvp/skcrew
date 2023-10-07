@@ -13,10 +13,6 @@ import org.bukkit.event.Event;
 import java.util.*;
 import com.lotzy.skcrew.spigot.requests.RequestUtil;
 import com.lotzy.skcrew.spigot.sql.SqlUtil;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Name("Requests - Sync request to url")
 @Description({"Executes request to url",
@@ -53,12 +49,8 @@ public class EffsyncRequest extends Effect {
             Pair<Integer,String> res = RequestUtil.makeSyncRequest(method, this.url.getSingle(e), headers, data);
             if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.getSecond(), isLocal1);
             if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.getFirst(), isLocal2);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(EffsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(EffsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(EffsyncRequest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            
         }
     }
 
