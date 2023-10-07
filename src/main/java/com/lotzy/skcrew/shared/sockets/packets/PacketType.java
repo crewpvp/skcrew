@@ -1,0 +1,21 @@
+package com.lotzy.skcrew.shared.sockets.packets;
+
+public enum PacketType {
+    INITIAL_CONNECTION,
+    SERVERS_INFO,
+    
+    SERVER_CONNECTED,
+    SERVER_DISCONNECTED,
+    
+    PLAYER_CONNECTED_PROXY,
+    PLAYER_CONNECTED_SERVER,
+    
+    PLAYER_DISCONNECTED_PROXY,
+    PLAYER_DISCONNECTED_SERVER,
+    
+    INCOMING_SIGNAL,
+    OUTCOMING_SIGNAL,
+    
+    KICK_PLAYER,
+    SWITCH_PLAYER
+}
