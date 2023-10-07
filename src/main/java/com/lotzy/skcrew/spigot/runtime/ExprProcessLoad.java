@@ -17,13 +17,13 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import org.bukkit.event.Event;
 
-@Name("Runtime - Average CPU load")
-@Description({"Return average CPU load"})
-@Examples({"on load:", "\tbroadcast \"%average load of system%\""})
-@Since("1.0")
-public class ExprSystemLoad extends SimpleExpression<Number> {
+@Name("Runtime - Average CPU load from this server")
+@Description({"Return Average CPU load from this server"})
+@Examples({"on load:", "\tbroadcast \"%average load of process%\""})
+@Since("3.0")
+public class ExprProcessLoad extends SimpleExpression<Number> {
   static {
-    Skript.registerExpression(ExprSystemLoad.class, Number.class, ExpressionType.SIMPLE, new String[] { "[the] (system|cpu)['s] [average] load", "[average] load of (system|cpu)" });
+    Skript.registerExpression(ExprProcessLoad.class, Number.class, ExpressionType.SIMPLE, new String[] { "[the] process['s] [average] load", "[average] load of process" });
   }
   
   protected Number[] get(Event e) {
@@ -31,7 +31,7 @@ public class ExprSystemLoad extends SimpleExpression<Number> {
     double value = 0.0D;
     try {
       ObjectName name = ObjectName.getInstance("java.lang:type=OperatingSystem");
-      AttributeList list = mbs.getAttributes(name, new String[] { "CpuLoad" });
+      AttributeList list = mbs.getAttributes(name, new String[] { "ProcessCpuLoad" });
       if (!list.isEmpty()) {
         value = ((Double)((Attribute)list.get(0)).getValue()).doubleValue();
         if (value < 0.0D)
@@ -50,7 +50,7 @@ public class ExprSystemLoad extends SimpleExpression<Number> {
   }
   
   public String toString(Event e, boolean debug) {
-    return "Average load of current machine";
+    return "Process load on current machine";
   }
   
   public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
