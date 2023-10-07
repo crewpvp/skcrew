@@ -11,8 +11,6 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
 
 
 @Name("StringUtils - Split text")
@@ -40,7 +38,7 @@ public class ExprSplitEveryNumber extends SimpleExpression<String> {
         String input = expr1.getSingle(e);
         Integer number = expr2.getSingle(e);
         if (number <= 0) { return new String[] { input }; }
-	return Iterables.toArray(Splitter.fixedLength(number).split(input),String.class);
+	return input.split("(?<=\\G.{" + number + "})");
     }
 
     @Override
