@@ -14,8 +14,8 @@ import ch.njol.util.Kleenean;
 import com.viaversion.viaversion.api.Via;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+
 
 @Name("Via - Player protocol")
 @Description("Get protocol of player")
@@ -33,7 +33,7 @@ public class ExprPlayerProtocol extends SimpleExpression<Integer> {
     private Expression<Player> player;
 
     @Override
-    protected Integer[] get(@NotNull Event e) {
+    protected Integer[] get( Event e) {
         return new Integer[]{Via.getAPI().getPlayerVersion(player.getSingle(e))};
     }
 
@@ -43,17 +43,17 @@ public class ExprPlayerProtocol extends SimpleExpression<Integer> {
     }
 
     @Override
-    public @NotNull Class<? extends Integer> getReturnType() {
+    public Class<? extends Integer> getReturnType() {
         return Integer.class;
     }
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "Get protocol of player " + player.toString(e, debug);
     }
 
     @Override
-    public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
+    public boolean init(Expression<?>[] exprs, int matchedPattern,Kleenean isDelayed, SkriptParser. ParseResult parseResult) {
         player = (Expression<Player>) exprs[0];
         return true;
     }

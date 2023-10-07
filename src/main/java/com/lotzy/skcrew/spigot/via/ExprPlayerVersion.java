@@ -14,8 +14,8 @@ import ch.njol.util.Kleenean;
 import com.viaversion.viaversion.api.Via;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+
 
 @Name("Via - Player version")
 @Description("Get version of player")
@@ -33,10 +33,14 @@ public class ExprPlayerVersion extends SimpleExpression<String> {
     private Expression<Player> player;
 
     @Override
-    protected String[] get(@NotNull Event e) {
+    protected String[] get( Event e) {
         int ver = Via.getAPI().getPlayerVersion(player.getSingle(e));
-        if (ver > 762)
-            return new String[] {"1.19.4+"};
+        if (ver > 764)
+            return new String[] {"1.20.2+"};
+        if (ver >= 764)
+            return new String[] {"1.20.2"};
+        if (ver >= 763)
+            return new String[] {"1.20.1"};
         if (ver >= 762)
             return new String[] {"1.19.4"};
         if (ver >= 761)
@@ -123,17 +127,17 @@ public class ExprPlayerVersion extends SimpleExpression<String> {
     }
 
     @Override
-    public @NotNull Class<? extends String> getReturnType() {
+    public Class<? extends String> getReturnType() {
         return String.class;
     }
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "Get version of player " + player.toString(e, debug);
     }
 
     @Override
-    public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
+    public boolean init(Expression<?>[] exprs, int matchedPattern,Kleenean isDelayed, SkriptParser. ParseResult parseResult) {
         player = (Expression<Player>) exprs[0];
         return true;
     }
