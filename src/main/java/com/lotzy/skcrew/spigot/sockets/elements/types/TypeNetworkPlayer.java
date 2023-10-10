@@ -5,13 +5,16 @@ import ch.njol.skript.classes.Parser;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import ch.njol.skript.registrations.Converters;
 import com.lotzy.skcrew.shared.sockets.data.SpigotPlayer;
 import com.lotzy.skcrew.spigot.Skcrew;
 import java.util.UUID;
+import org.bukkit.OfflinePlayer;
 
 public class TypeNetworkPlayer {
 
     static {
+        Converters.registerConverter(SpigotPlayer.class, OfflinePlayer.class, SpigotPlayer::toOfflinePlayer);
         Classes.registerClass(new ClassInfo<>(SpigotPlayer.class, "networkplayer")
             .defaultExpression(new EventValueExpression<>(SpigotPlayer.class))
             .user("net[work] players?")
