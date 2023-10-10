@@ -4,13 +4,6 @@ import com.lotzy.skcrew.proxy.Skcrew;
 import java.util.UUID;
 
 public class NetworkPlayer extends BasePlayer {
-    public SpigotPlayer toSpigotPlayer(SpigotServer server) {
-        return new SpigotPlayer(this.name, this.uuid, server);
-    }
-    
-    public SpigotPlayer toSpigotPlayer() {
-        return new SpigotPlayer(this.name, this.uuid);
-    }
     
     NetworkServer server = null;
     int join_date;

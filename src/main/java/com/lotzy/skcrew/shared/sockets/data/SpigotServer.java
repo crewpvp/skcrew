@@ -19,6 +19,10 @@ public class SpigotServer extends BaseServer implements Serializable {
         players.forEach(player -> player.setServer(this));
     }
     
+    public BaseServer toBaseServer() {
+        return new BaseServer(this.getName(),this.getInetSocketAddress(), this.isConnected());
+    }
+    
     @Override
     public void setDisconnected() {
         super.setDisconnected();

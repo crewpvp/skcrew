@@ -6,9 +6,6 @@ import java.net.InetSocketAddress;
 import java.util.Objects;
 
 public class BaseServer implements Serializable {
-    public BaseServer toBaseServer() {
-        return new BaseServer(this.getName(), this.getInetSocketAddress());
-    }
     
     private final InetSocketAddress address;
     private final String name;
@@ -17,6 +14,12 @@ public class BaseServer implements Serializable {
     public BaseServer(String name, InetSocketAddress address) {
         this.name = name;
         this.address = address;
+    }
+    
+    public BaseServer(String name, InetSocketAddress address, boolean connected) {
+        this.name = name;
+        this.address = address;
+        this.connected = connected;
     }
     
     public boolean isConnected() {

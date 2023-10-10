@@ -2,6 +2,8 @@ package com.lotzy.skcrew.shared.sockets.data;
 
 import java.io.Serializable;
 import java.util.UUID;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 public class SpigotPlayer extends BasePlayer implements Serializable  {
     SpigotServer server = null;
@@ -15,6 +17,10 @@ public class SpigotPlayer extends BasePlayer implements Serializable  {
         super(name,uuid);
         this.server = server;
         this.server.getPlayers().add(this);  
+    }
+    
+    public OfflinePlayer toOfflinePlayer() {
+        return Bukkit.getOfflinePlayer(this.getUUID());
     }
    
     public SpigotServer getServer() {

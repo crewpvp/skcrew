@@ -3,21 +3,11 @@ package com.lotzy.skcrew.shared.sockets.data;
 import com.lotzy.skcrew.proxy.sockets.SocketClientThread;
 import com.lotzy.skcrew.shared.sockets.packets.Packet;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class NetworkServer extends BaseServer {
-    public SpigotServer toSpigotServer() {
-        SpigotServer server = new SpigotServer(this.getName(),this.getInetSocketAddress());
-        server.setConnected(this.isConnected());
-        return server;
-    }
-    
-    public SpigotServer toSpigotServer(HashSet<SpigotPlayer> players) {
-       SpigotServer server = new SpigotServer(this.getName(),this.getInetSocketAddress(),this.players.stream().map(player -> player.toSpigotPlayer()).collect(Collectors.toCollection(HashSet::new)));
-       server.setConnected(this.isConnected());
-       return server;
-    }
     
     private SocketClientThread connected = null;
     private HashSet<NetworkPlayer> players;
@@ -72,6 +62,10 @@ public class NetworkServer extends BaseServer {
     public void sendPacket(Packet packet) {
         if (this.isConnected())
             this.getClient().sendObject(packet);
+    }
+    
+    public BaseServer toBaseServer() {
+        return new BaseServer(this.getName(),this.getInetSocketAddress(), this.isConnected());
     }
     
     @Override
