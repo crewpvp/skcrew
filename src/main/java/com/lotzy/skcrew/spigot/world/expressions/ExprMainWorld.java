@@ -25,7 +25,6 @@ public class ExprMainWorld extends SimpleExpression<World> {
         Skript.registerExpression(ExprMainWorld.class, World.class, ExpressionType.SIMPLE, "main[ ]world");
     }
     
-    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         return true;
@@ -50,5 +49,4 @@ public class ExprMainWorld extends SimpleExpression<World> {
     public String toString(Event e, boolean debug) {
         return "Main world";
     }
-
 }

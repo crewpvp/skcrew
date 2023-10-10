@@ -52,9 +52,6 @@ public class ExprLoadedChunks extends SimpleExpression<Chunk> {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "loaded chunks of world "+world.toString(e,debug);
+        return "Loaded chunks of world: "+world.toString(e,debug);
     }
-
-    
-    
 }

@@ -6,7 +6,7 @@ import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import javax.annotation.Nullable;
+import com.lotzy.skcrew.spigot.Skcrew;
 import org.bukkit.Chunk;
 import org.bukkit.event.Event;
 
@@ -22,9 +22,11 @@ import org.bukkit.event.Event;
 public class ExprForceLoadedChunk extends SimplePropertyExpression<Chunk, Boolean> {
 
         static {
-            register(ExprForceLoadedChunk.class, Boolean.class,
-                "force load[ed]", "chunk"
-            );
+            if (!Skcrew.getInstance().coreVersionIsLessThan(new Integer[] {1,13,1})) {
+                register(ExprForceLoadedChunk.class, Boolean.class,
+                    "force load[ed]", "chunk"
+                );
+            }
         }
         
 	@Override
@@ -38,9 +40,9 @@ public class ExprForceLoadedChunk extends SimplePropertyExpression<Chunk, Boolea
 	}
 
 	@Override
-	@Nullable
+	
 	public Boolean convert(Chunk chunk) {
-		return chunk.isForceLoaded();
+            return chunk.isForceLoaded();
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class ExprForceLoadedChunk extends SimplePropertyExpression<Chunk, Boolea
 			return;
 		Boolean loaded = (Boolean) delta[0];
 		for (Chunk chunk : getExpr().getArray(e))
-			chunk.setForceLoaded(loaded);;
+                    chunk.setForceLoaded(loaded);;
 	}
 
 }

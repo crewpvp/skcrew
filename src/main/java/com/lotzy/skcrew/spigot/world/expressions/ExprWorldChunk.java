@@ -53,7 +53,7 @@ public class ExprWorldChunk extends SimpleExpression<Chunk> {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "chunk "+expr1.toString(e,debug)+", "+expr2.toString(e,debug)+
+        return "Chunk: "+expr1.toString(e,debug)+", "+expr2.toString(e,debug)+
                 " in world "+expr3.toString(e,debug);
     }
 

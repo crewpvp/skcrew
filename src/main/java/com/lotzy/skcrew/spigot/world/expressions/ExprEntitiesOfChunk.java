@@ -27,12 +27,12 @@ public class ExprEntitiesOfChunk extends SimpleExpression<Entity> {
             "entit(y|ies) (of|in) %chunk%", "%chunk%'s entit(y|ies)"
         );
     }
+    
     private Expression<Chunk> chunk;
     
     @Override
     protected Entity[] get(Event e) {
         return chunk.getSingle(e).getEntities();
-        
     }
 
     @Override
@@ -53,9 +53,6 @@ public class ExprEntitiesOfChunk extends SimpleExpression<Entity> {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "entities in chunk "+chunk.toString(e,debug);
-    }
-
-    
-    
+        return "Entities in chunk: "+chunk.toString(e,debug);
+    } 
 }
