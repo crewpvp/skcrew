@@ -30,8 +30,10 @@ import com.lotzy.skcrew.shared.sockets.packets.PacketServerConnected;
 import com.lotzy.skcrew.shared.sockets.packets.PacketServerDisconnected;
 import com.lotzy.skcrew.shared.sockets.packets.PacketServersInfo;
 import java.net.InetSocketAddress;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.bukkit.Bukkit;
@@ -64,7 +66,7 @@ public class SocketClientListener implements ClientListener {
         return this.getOnlineServers().stream()
             .map(server -> server.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
-    public Set<SpigotPlayer> getPlayers(Set<BaseServer> servers) {
+    public Set<SpigotPlayer> getPlayers(Collection<BaseServer> servers) {
          return this.getOnlineServers().stream().filter(server -> servers.contains(server))
             .map(server -> server.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
@@ -72,8 +74,15 @@ public class SocketClientListener implements ClientListener {
         return this.getOnlineServers().stream().filter(fserver -> fserver.equals(server))
             .map(fserver -> fserver.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
+
     public SpigotPlayer getPlayer(BasePlayer player) {
         return this.getPlayers().stream().filter(pplayer -> player.equals(pplayer)).findFirst().orElse(null);
+    }
+    public SpigotPlayer getPlayer(String name) {
+        return this.getPlayers().stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
+    }
+    public SpigotPlayer getPlayer(UUID uuid) {
+        return this.getPlayers().stream().filter(player -> player.getUUID().equals(uuid)).findFirst().orElse(null);
     }
     
     
