@@ -14,11 +14,15 @@ public interface SkcrewImpl {
     abstract public void info(String message);
     
     abstract public Set<NetworkServer> getAllServers();
+    
     abstract public BasePlayer getPlayer(UUID uuid);
+    
     abstract public BasePlayer getPlayer(String name);
+    
     abstract public BaseServer getServer(String name);
     
     abstract public void switchPlayers(BasePlayer[] players, BaseServer server);
+
     abstract public void kickPlayers(BasePlayer[] playres, String reason);
 }
 

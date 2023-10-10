@@ -29,6 +29,7 @@ public class BaseServer implements Serializable {
     public void setConnected(boolean connected) {
         this.connected = connected;
     }
+    
     public void setDisconnected() {
         this.connected = false;
     }

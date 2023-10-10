@@ -156,6 +156,7 @@ public class SocketServerListener implements ServerListener {
     public NetworkServer getServer(BaseServer server) {
         return this.getServers().stream().filter(nserver -> nserver.equals(server)).findFirst().orElse(null);
     }
+    
     public NetworkServer getServer(String name) {
         return this.getServers().stream().filter(server -> server.getName().equals(name)).findFirst().orElse(null);
     }
@@ -164,20 +165,25 @@ public class SocketServerListener implements ServerListener {
         return this.getOnlineServers().stream()
             .map(server -> server.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
+    
     public Set<NetworkPlayer> getPlayers(Set<BaseServer> servers) {
          return this.getOnlineServers().stream().filter(server -> servers.contains(server))
             .map(server -> server.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
+    
     public Set<NetworkPlayer> getPlayers(BaseServer server) {
         return this.getOnlineServers().stream().filter(fserver -> fserver.equals(server))
             .map(fserver -> fserver.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
+    
     public NetworkPlayer getPlayer(BasePlayer player) {
         return this.getPlayers().stream().filter(pplayer -> player.equals(pplayer)).findFirst().orElse(null);
     }
+    
     public NetworkPlayer getPlayer(String name) {
         return this.getPlayers().stream().filter(pplayer -> pplayer.getName().equals(name)).findFirst().orElse(null);
     }
+    
     public NetworkPlayer getPlayer(UUID uuid) {
        return this.getPlayers().stream().filter(pplayer -> pplayer.getUUID().equals(uuid)).findFirst().orElse(null);
     }

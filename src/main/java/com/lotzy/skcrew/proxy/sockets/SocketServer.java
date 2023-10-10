@@ -22,11 +22,17 @@ import com.lotzy.skcrew.proxy.sockets.SocketClientThread.SocketClientListener;
 public class SocketServer implements Runnable,SocketClientListener {
     public interface ServerListener {
         default public void onClientConnection(SocketClientThread client) {};
+        
         default public void onClientDisconnection(SocketClientThread client) {};
+        
         default public void onReceivePacketFromClient(SocketClientThread client, Object object) {};
+        
         default public void onSendPacketToClient(SocketClientThread client,Object object, boolean sended) {};
+        
         default public void onInvalidPacketFromClient(SocketClientThread client) {};
+        
         default public void onClientClose(SocketClientThread client) {};
+        
         default public void onClose() {};
     }
     

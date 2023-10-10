@@ -100,12 +100,14 @@ public class Bungeecord extends Plugin implements SkcrewImpl,Listener  {
         if (player==null) return null;
         return Utils.NetworkPlayerFromBungeecordPlayer(player);
     }
+    
     @Override
     public BasePlayer getPlayer(String name) {
         ProxiedPlayer player = this.getProxyServer().getPlayer(name);
         if (player==null) return null;
         return Utils.NetworkPlayerFromBungeecordPlayer(player);
     }
+    
     @Override
     public BaseServer getServer(String name) {
         ServerInfo server = this.getProxyServer().getServerInfo(name);
@@ -124,6 +126,7 @@ public class Bungeecord extends Plugin implements SkcrewImpl,Listener  {
         }
         
     }
+    
     @Override
     public void kickPlayers(BasePlayer[] players, String reason) {
         BaseComponent component = reason != null ? ComponentSerializer.parse(reason)[0] : new TextComponent("");
@@ -132,6 +135,7 @@ public class Bungeecord extends Plugin implements SkcrewImpl,Listener  {
             if (c!=null) c.disconnect(component);
         }
     }
+    
     @Override
     public Set<NetworkServer> getAllServers() {
         return this.getProxyServer().getServers().values().stream().map(server -> Utils.NetworkServerFromBungeecordServer(server)).collect(Collectors.toSet());

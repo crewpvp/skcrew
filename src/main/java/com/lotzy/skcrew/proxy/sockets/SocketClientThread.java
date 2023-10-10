@@ -12,10 +12,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SocketClientThread extends Thread {
     public interface SocketClientListener {
         default public void onConnection(SocketClientThread client) {};
+        
         default public void onDisconnection(SocketClientThread client) {};
+        
         default public void onReceivePacket(SocketClientThread client, Object object) {};
+        
         default public void onSendPacket(SocketClientThread client,Object object, boolean sended) {};
+        
         default public void onInvalidPacket(SocketClientThread client) {};
+        
         default public void onClose(SocketClientThread client) {};
     }
     

@@ -46,9 +46,11 @@ public class Skcrew {
     public SocketServer getSocketServer() {
         return this.socketServer;
     }  
+    
     public SocketServerListener getSocketServerListener() {
         return this.socketServerListener;
     }
+    
     public WebServer getWebServer() {
         return this.webServer;
     }
@@ -60,9 +62,11 @@ public class Skcrew {
     public BasePlayer getPlayer(UUID uuid) {
         return this.impl.getPlayer(uuid);
     }
+    
     public BasePlayer getPlayer(String name) {
         return this.impl.getPlayer(name);
     }
+    
     public BaseServer getServer(String name) {
         return this.impl.getServer(name);
     }
@@ -70,9 +74,11 @@ public class Skcrew {
     public void switchPlayers(BasePlayer[] players, BaseServer server) {
         this.impl.switchPlayers(players, server);
     }
+    
     public void kickPlayers(BasePlayer[] playres, String reason) {
         this.impl.kickPlayers(playres, reason);
     }
+    
     public Set<NetworkServer> getAllServers() {
         return this.impl.getAllServers();
     }
