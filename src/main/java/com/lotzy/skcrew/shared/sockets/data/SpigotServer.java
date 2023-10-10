@@ -22,7 +22,13 @@ public class SpigotServer extends BaseServer implements Serializable {
     
     public SpigotServer(String name, InetSocketAddress address, HashSet<SpigotPlayer> players) {
         super(name, address);
-        players.forEach(player -> player.setServer(this));
+        players.forEach(player -> player.setServer(this));    
+    }
+    
+    public SpigotServer(String name, InetSocketAddress address, HashSet<SpigotPlayer> players, boolean connected) {
+        super(name, address);
+        super.setConnected(connected);
+        players.forEach(player -> player.setServer(this));    
     }
     
     public BaseServer toBaseServer() {

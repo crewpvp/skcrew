@@ -113,7 +113,10 @@ public class SocketClientListener implements ClientListener {
         if (!isConnected) {
             if (p.getType() != PacketType.SERVERS_INFO) return;
             PacketServersInfo infoPacket = (PacketServersInfo)p;
-            this.servers = infoPacket.getServers();
+            this.servers = infoPacket.getServers().entrySet().stream().map(entry -> 
+            new SpigotServer(entry.getKey().getName(),entry.getKey().getInetSocketAddress(), entry.getValue().stream().map(player -> 
+                new SpigotPlayer(player.getName(),player.getUUID())).collect(Collectors.toCollection(HashSet::new)),entry.getKey().isConnected()))
+            .collect(Collectors.toCollection(HashSet::new));
             name = infoPacket.getName();
             Bukkit.getScheduler().runTask(Skcrew.getInstance(),() -> Bukkit.getPluginManager().callEvent(new ProxyConnectEvent(this.address)));
             isConnected = true;

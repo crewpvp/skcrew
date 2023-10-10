@@ -13,11 +13,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SocketClient implements Runnable {
     public interface ClientListener {
         default public void onConnection(InetSocketAddress address) {};
+        
         default public void onDisconnection() {};
+        
         default public void onReceivePacket(Object object) {};
+        
         default public void onSendPacket(Object object, boolean sended) {};
+        
         default public void onInvalidPacket() {};
+        
         default public void onReconnection() {};
+        
         default public void onClose() {};
     }
     

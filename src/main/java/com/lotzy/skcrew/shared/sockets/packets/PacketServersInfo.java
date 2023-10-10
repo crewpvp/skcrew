@@ -3,8 +3,6 @@ package com.lotzy.skcrew.shared.sockets.packets;
 import com.lotzy.skcrew.shared.sockets.data.BasePlayer;
 import com.lotzy.skcrew.shared.sockets.data.BaseServer;
 import com.lotzy.skcrew.shared.sockets.data.NetworkServer;
-import com.lotzy.skcrew.shared.sockets.data.SpigotPlayer;
-import com.lotzy.skcrew.shared.sockets.data.SpigotServer;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,11 +26,8 @@ public class PacketServersInfo extends Packet {
         this.name = currentName;
     }
     
-    public HashSet<SpigotServer> getServers() {
-        return ((HashMap<BaseServer,HashSet<BasePlayer>>) data).entrySet().stream().map(entry -> 
-            new SpigotServer(entry.getKey().getName(),entry.getKey().getInetSocketAddress(), entry.getValue().stream().map(player -> 
-                new SpigotPlayer(player.getName(),player.getUUID())).collect(Collectors.toCollection(HashSet::new))))
-            .collect(Collectors.toCollection(HashSet::new));
+    public HashMap<BaseServer,HashSet<BasePlayer>> getServers() {
+        return (HashMap<BaseServer,HashSet<BasePlayer>>) data;
     }
     
     public String getName() {
