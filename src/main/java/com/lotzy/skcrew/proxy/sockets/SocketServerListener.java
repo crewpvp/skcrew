@@ -116,7 +116,7 @@ public class SocketServerListener implements ServerListener {
                 client.getSocket().setSoTimeout(0);
             } catch (SocketException ex) {}
             connectedServer.setConnected(client);
-            client.sendObject(new PacketServersInfo(connectedServer.getName(),this.getServers().stream().map(server -> server.toSpigotServer()).collect(Collectors.toCollection(HashSet::new))));
+            client.sendObject(new PacketServersInfo(connectedServer.getName(), this.allowedServers));
             PacketServerConnected packetServerConnected = new PacketServerConnected(connectedServer.toBaseServer(),connectedServer.getPlayers().stream().map(player -> player.toBasePlayer()).collect(Collectors.toCollection(HashSet::new)));
             this.getOnlineServers().stream().filter(server -> !server.equals(connectedServer)).forEach(server -> server.sendPacket(packetServerConnected));
             Skcrew.getInstance().info("Сlient server: "+connectedServer.getName()+" ("+connectedServer.getIP()+":"+connectedServer.getPort()+") connected");
