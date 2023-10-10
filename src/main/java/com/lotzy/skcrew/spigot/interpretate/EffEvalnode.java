@@ -33,6 +33,7 @@ public class EffEvalnode extends Effect {
 
     private Expression<String> expr;
     private Node node;
+    
     @Override
     protected void execute(Event e) {
         String[] lines = expr.getArray(e);

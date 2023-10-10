@@ -8,9 +8,10 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.maps.Map;
 import java.awt.Color;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+
 
 public class EffBezierCurve extends Effect {
+    
     static {
         Skript.registerEffect(EffBezierCurve.class, "draw bezier curve (from|between) %number%(,[ ]| )%number%"
                 + " [to] %number%(,[ ]| )%number% [[with] "
@@ -42,10 +43,8 @@ public class EffBezierCurve extends Effect {
                 x3.getSingle(e).intValue(),y3.getSingle(e).intValue(),color);
     }
 
-
-
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "draw bezier curve";
     }
 

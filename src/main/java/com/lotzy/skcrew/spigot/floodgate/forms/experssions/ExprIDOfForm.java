@@ -9,7 +9,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 
 @Name("Forms - ID")
@@ -24,19 +24,19 @@ public class ExprIDOfForm extends SimplePropertyExpression<Form, String> {
     }
 
     @Override
-    @Nullable
+    
     public String convert(Form form) {
         return form.getID();
     }
 
     @Override
-    @Nullable
+    
     public Class<?>[] acceptChange(ChangeMode mode) {
         return mode == ChangeMode.SET ? CollectionUtils.array(String.class) : null;
     }
 
     @Override
-    public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
+    public void change(Event e,  Object[] delta, ChangeMode mode) {
         if (delta == null || delta[0] == null) {
             return;
         }

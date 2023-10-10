@@ -8,7 +8,7 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.Skcrew;
 import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -20,6 +20,7 @@ public class EffDrawImage extends Effect {
 
     private Expression<String> image;
     private Expression<Map> map;
+    
     @Override
     protected void execute(Event e) {
         File imageFile = new File(Skcrew.getInstance().getDataFolder(), "images/" + image.getSingle(e));
@@ -38,7 +39,7 @@ public class EffDrawImage extends Effect {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return null;
     }
 

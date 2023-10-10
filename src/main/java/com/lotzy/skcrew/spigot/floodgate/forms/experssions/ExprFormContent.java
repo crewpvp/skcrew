@@ -21,7 +21,7 @@ import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormButton;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateModalForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateSimpleForm;
-import javax.annotation.Nullable;
+
 import org.geysermc.cumulus.form.ModalForm;
 import org.geysermc.cumulus.form.SimpleForm;
 import org.geysermc.cumulus.form.impl.modal.ModalFormImpl;
@@ -46,7 +46,7 @@ public class ExprFormContent extends SimpleExpression<String> {
         );
     }
 
-    @Nullable
+    
     private Expression<Form> form;
     
     @Override
@@ -88,7 +88,7 @@ public class ExprFormContent extends SimpleExpression<String> {
     }
 
     @Override
-    @Nullable
+    
     public Class<?>[] acceptChange(ChangeMode mode) {
         switch(mode) {
             case SET:
@@ -99,7 +99,7 @@ public class ExprFormContent extends SimpleExpression<String> {
     }
 
     @Override
-    public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
+    public void change(Event e,  Object[] delta, ChangeMode mode) {
         Object form;
         if(this.form==null) {
             form = SkriptForm.getFormManager().getForm(e).getForm().get();
@@ -139,7 +139,7 @@ public class ExprFormContent extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "content of form";
     }
 

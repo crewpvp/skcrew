@@ -11,7 +11,6 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.requests.RequestProperty;
-
 import org.bukkit.event.Event;
 
 @Name("Requests - Request Property")
@@ -37,7 +36,6 @@ public class ExprRequestProperty extends SimpleExpression<RequestProperty> {
         return true;
     }
 
-    
     @Override
     protected RequestProperty[] get(Event e) {
         return new RequestProperty[] { new RequestProperty(this.key.getSingle(e),this.value.getSingle(e)) };
@@ -57,5 +55,4 @@ public class ExprRequestProperty extends SimpleExpression<RequestProperty> {
     public String toString( Event e, boolean debug) {
         return "Request Property "+this.key.getSingle(e)+ " "+this.value.getSingle(e);
     }
-
 }

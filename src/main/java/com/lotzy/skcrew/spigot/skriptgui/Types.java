@@ -6,7 +6,7 @@ import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.util.EnumUtils;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 
@@ -51,7 +51,7 @@ public class Types {
                 .since("1.0.0")
                 .parser(new Parser<SlotType>() {
                         @Override
-                        @Nullable
+                        
                         public SlotType parse(String expr, ParseContext context) {
                                 return slotTypes.parse(expr);
                         }
@@ -74,8 +74,6 @@ public class Types {
                 .serializer(new EnumSerializer<>(SlotType.class)
             ));
         }
-
     }
-
 }
 

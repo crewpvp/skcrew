@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.map.MapCanvas;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
-
 import java.util.stream.Stream;
+import org.bukkit.map.MapPalette;
 
 public class Renderer extends MapRenderer {
 
@@ -15,9 +15,11 @@ public class Renderer extends MapRenderer {
     public Renderer(Map map) {
         this.map = map;
     }
+    
     public Map getMap() {
         return map;
     }
+    
     @Override
     public void render(MapView mapView, MapCanvas mapCanvas, Player player) {
         Color[][] pixels = map.getPixels();
@@ -27,6 +29,6 @@ public class Renderer extends MapRenderer {
                 .forEach(x -> Stream.iterate(0, n -> n + 1)
                         .limit(Map.MAP_HEIGHT)
                         .parallel()
-                        .forEach(y -> mapCanvas.setPixelColor(x, y, pixels[x][y])));
+                        .forEach(y -> mapCanvas.setPixel(x, y, MapPalette.matchColor(pixels[x][y]))));
     }
 }

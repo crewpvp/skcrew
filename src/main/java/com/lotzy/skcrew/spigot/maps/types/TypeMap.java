@@ -11,11 +11,7 @@ import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.yggdrasil.Fields;
 import com.lotzy.skcrew.spigot.maps.Map;
-import java.awt.Color;
-import java.io.IOException;
 import java.io.StreamCorruptedException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TypeMap {
 
@@ -36,6 +32,7 @@ public class TypeMap {
                     public String toVariableNameString(Map o) {
                         return o.toString();
                     }
+                    
                     @Override
                     public Map parse(final String s, final ParseContext context) {
                         return null;

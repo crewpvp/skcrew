@@ -36,6 +36,7 @@ public class EffZipFileDir extends Effect {
     private Expression<Path> target;
     private boolean isSingle;
     private boolean overwrite;
+    
     @Override
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         paths = (Expression<Path>) expr[0];
@@ -52,9 +53,7 @@ public class EffZipFileDir extends Effect {
         if (Pattern.compile("\\.zip$").matcher(targetFile.toString()).find()) {
             try {
                 zip(pathsList, targetFile, overwrite);
-            } catch (Exception ex) {
-                Skript.exception(ex);
-            }
+            } catch (Exception ex) {}
         }
     }
     
@@ -86,9 +85,9 @@ public class EffZipFileDir extends Effect {
             zip(source, zipPath, false);
         }
     }
+    
     @Override
     public String toString(Event e, boolean debug) {
         return "zip " + paths.toString(e, debug) + " to " + target.toString(e, debug);
     }
-
 }

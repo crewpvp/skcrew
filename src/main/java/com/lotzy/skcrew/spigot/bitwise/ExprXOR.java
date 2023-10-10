@@ -51,5 +51,4 @@ public class ExprXOR extends SimpleExpression<Integer> {
     public String toString(Event event, boolean debug) {
         return "XOR "+n1.toString(event,debug)+" ^ "+n2.toString(event, debug);
     }
-
 }

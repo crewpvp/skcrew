@@ -13,7 +13,7 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
@@ -43,7 +43,7 @@ public class ExprGUIProperties extends SimplePropertyExpression<GUI, Object> {
 	}
 
 	@Override
-	@Nullable
+	
 	public Object convert(GUI gui) {
 		switch (property) {
 			case NAME:
@@ -59,7 +59,7 @@ public class ExprGUIProperties extends SimplePropertyExpression<GUI, Object> {
 	}
 
 	@Override
-	@Nullable
+	
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		if (mode == ChangeMode.SET || mode == ChangeMode.RESET) {
 			switch (property) {
@@ -77,7 +77,7 @@ public class ExprGUIProperties extends SimplePropertyExpression<GUI, Object> {
 	}
 
 	@Override
-	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
+	public void change(Event e,  Object[] delta, ChangeMode mode) {
 		if (delta == null || (mode != ChangeMode.SET && mode != ChangeMode.RESET)) {
 			return;
 		}

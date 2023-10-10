@@ -27,6 +27,7 @@ public class EffRenameFileDir extends Effect {
         Skript.registerEffect(EffRenameFileDir.class, "rename %paths% to %string%",
             "rename %paths% to %string% with (overwrit|replac)(e|ing)");
     }
+    
     private Expression<Path> paths;
     private Expression<String> name;
     private Boolean shouldOverwrite;
@@ -39,8 +40,6 @@ public class EffRenameFileDir extends Effect {
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
         return "rename " + paths.toString(e, debug) + " to " + name.toString(e, debug) + (shouldOverwrite ? " replacing existing ones" : "");
@@ -48,7 +47,7 @@ public class EffRenameFileDir extends Effect {
  
     @Override
     protected void execute(Event e) {
-       Path[] pathsList = paths.getArray(e);
+        Path[] pathsList = paths.getArray(e);
         String currentName = name.getSingle(e);
         for (Path path : pathsList) {
             if (Files.exists(path)) {
@@ -62,13 +61,8 @@ public class EffRenameFileDir extends Effect {
                             Skript.warning(path.toString()+" already exists and doesn't renamed");
                         }
                     }
-                } catch (IOException ex) {
-                    if (Files.exists(path)) {
-                        Skript.exception(ex);
-                    }
-                }
+                } catch (IOException ex) {}
             }
         }
- 
     }
 }

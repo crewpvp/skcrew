@@ -22,38 +22,44 @@ import org.bukkit.event.Event;
 @Examples({"on load:", "\tbroadcast \"%average load of process%\""})
 @Since("3.0")
 public class ExprProcessLoad extends SimpleExpression<Number> {
-  static {
-    Skript.registerExpression(ExprProcessLoad.class, Number.class, ExpressionType.SIMPLE, new String[] { "[the] process['s] [average] load", "[average] load of process" });
-  }
-  
-  protected Number[] get(Event e) {
-    MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-    double value = 0.0D;
-    try {
-      ObjectName name = ObjectName.getInstance("java.lang:type=OperatingSystem");
-      AttributeList list = mbs.getAttributes(name, new String[] { "ProcessCpuLoad" });
-      if (!list.isEmpty()) {
-        value = ((Double)((Attribute)list.get(0)).getValue()).doubleValue();
-        if (value < 0.0D)
-          value = 0.0D; 
-      } 
-    } catch (Exception exception) {}
-    return new Number[] { Double.valueOf(value) };
-  }
-  
-  public boolean isSingle() {
-    return true;
-  }
-  
-  public Class<? extends Number> getReturnType() {
-    return Number.class;
-  }
-  
-  public String toString(Event e, boolean debug) {
-    return "Process load on current machine";
-  }
-  
-  public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-    return true;
-  }
+    
+    static {
+        Skript.registerExpression(ExprProcessLoad.class, Number.class, ExpressionType.SIMPLE,
+                "[the] process['s] [average] load", "[average] load of process");
+    }
+	
+    @Override
+    protected Number[] get(Event e) {
+        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+        double value = 0.0D;
+        try {
+            ObjectName name = ObjectName.getInstance("java.lang:type=OperatingSystem");
+            AttributeList list = mbs.getAttributes(name, new String[] { "ProcessCpuLoad" });
+            if (!list.isEmpty()) {
+                value = ((Double)((Attribute)list.get(0)).getValue());
+                if (value < 0.0D) value = 0.0D; 
+            } 
+        } catch (Exception exception) {}
+        return new Number[] { value };
+    }
+
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
+
+    @Override
+    public Class<? extends Number> getReturnType() {
+        return Number.class;
+    }
+
+    @Override
+    public String toString(Event e, boolean debug) {
+        return "Process load on current machine";
+    }
+
+    @Override
+    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+        return true;
+    }
 }

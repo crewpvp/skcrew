@@ -13,7 +13,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import javax.annotation.Nullable;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,25 +110,25 @@ public class GUI {
 	};
 
 	private final Map<Character, SlotData> slots = new HashMap<>();
-	@Nullable
+	
 	private String rawShape;
 
 	// Whether all items of this GUI (excluding buttons) can be taken.
 	private boolean removableItems;
 
 	// To be run when this inventory is opened.
-	@Nullable
+	
 	private Consumer<InventoryOpenEvent> onOpen;
 	// To be run when this inventory is closed.
-	@Nullable
+	
 	private Consumer<InventoryCloseEvent> onClose;
 	// Whether the inventory close event for this event handler is cancelled.
 	private boolean closeCancelled;
 
-	@Nullable
+	
 	private String id;
 
-	public GUI(Inventory inventory, boolean stealableItems, @Nullable String name) {
+	public GUI(Inventory inventory, boolean stealableItems,  String name) {
 		this.inventory = inventory;
 		this.removableItems = stealableItems;
 		this.name = name != null ? name : inventory.getType().getDefaultTitle();
@@ -151,7 +151,7 @@ public class GUI {
 		return name;
 	}
 
-	public void setName(@Nullable String name) {
+	public void setName( String name) {
 		changeInventory(inventory.getSize(), name);
 	}
 
@@ -166,7 +166,7 @@ public class GUI {
 		slots.clear();
 	}
 
-	private void changeInventory(int size, @Nullable String name) {
+	private void changeInventory(int size,  String name) {
 		if (name == null) {
 			name = inventory.getType().getDefaultTitle();
 		} else if (size < 9 ) { // Minimum size
@@ -269,7 +269,7 @@ public class GUI {
 	 * @param removable Whether this {@link ItemStack} can be removed from its slot.
 	 * @param consumer The {@link Consumer} that the slot will run when clicked. Put as null if the slot should not run anything when clicked.
 	 */
-	public void setItem(Object slot, @Nullable ItemStack item, boolean removable, @Nullable Consumer<InventoryClickEvent> consumer) {
+	public void setItem(Object slot,  ItemStack item, boolean removable,  Consumer<InventoryClickEvent> consumer) {
 		if (rawShape == null) {
 			Skcrew.getInstance().getLogger().warning("Unable to set the item in a gui named '" + getName() + "' as it has a null shape.");
 			return;
@@ -320,7 +320,7 @@ public class GUI {
 	 * @return The raw shape of this GUI. May be null if the shape has not yet been initialized.
 	 * @see #setShape(String...) 
 	 */
-	@Nullable
+	
 	public String getRawShape() {
 		return rawShape;
 	}
@@ -467,7 +467,7 @@ public class GUI {
 	 * @return The ID of this GUI if it is a global GUI
 	 * @see GUIManager
 	 */
-	@Nullable
+	
 	public String getID() {
 		return id;
 	}
@@ -476,7 +476,7 @@ public class GUI {
 	 * Updates the ID of this GUI. Updates will be made in the {@link GUIManager} too.
 	 * @param id The new id for this GUI. If null, it will be removed from the {@link GUIManager} and cleared unless it has viewers.
 	 */
-	public void setID(@Nullable String id) {
+	public void setID( String id) {
 		this.id = id;
 		if (id == null && inventory.getViewers().size() == 0) {
 			SkriptGUI.getGUIManager().unregister(this);
@@ -489,7 +489,7 @@ public class GUI {
 	 * @param slot The slot to find data for.
 	 * @return The SlotData for the provided slot, or null if no SlotData exists.
 	 */
-	@Nullable
+	
 	public SlotData getSlotData(Character slot) {
 		return slots.get(slot);
 	}
@@ -499,11 +499,11 @@ public class GUI {
 	 */
 	public static final class SlotData {
 
-		@Nullable
+		
 		private Consumer<InventoryClickEvent> runOnClick;
 		private boolean removable;
 
-		public SlotData(@Nullable Consumer<InventoryClickEvent> runOnClick, boolean removable) {
+		public SlotData( Consumer<InventoryClickEvent> runOnClick, boolean removable) {
 			this.runOnClick = runOnClick;
 			this.removable = removable;
 		}
@@ -511,7 +511,7 @@ public class GUI {
 		/**
 		 * @return The consumer to run when a slot with this data is clicked.
 		 */
-		@Nullable
+		
 		public Consumer<InventoryClickEvent> getRunOnClick() {
 			return runOnClick;
 		}
@@ -520,7 +520,7 @@ public class GUI {
 		 * Updates the consumer to run when a slot with this data is clicked. A null value may be used to remove the consumer.
 		 * @param runOnClick The consumer to run when a slot with this data is clicked.
 		 */
-		public void setRunOnClick(@Nullable Consumer<InventoryClickEvent> runOnClick) {
+		public void setRunOnClick( Consumer<InventoryClickEvent> runOnClick) {
 			this.runOnClick = runOnClick;
 		}
 

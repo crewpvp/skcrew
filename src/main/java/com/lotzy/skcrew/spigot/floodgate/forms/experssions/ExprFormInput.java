@@ -18,7 +18,7 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-import javax.annotation.Nullable;
+
 import org.geysermc.cumulus.component.util.ComponentType;
 import org.geysermc.cumulus.response.CustomFormResponse;
 
@@ -51,7 +51,7 @@ public class ExprFormInput extends SimpleExpression<String> {
         index = (Expression<Number>)exprs[0];
         return true;
     }
-    @Nullable
+    
     @Override
     protected String[] get(Event e) {
         CustomFormResponse resp = (CustomFormResponse)((FormSubmitEvent)e).getResponse();
@@ -79,7 +79,7 @@ public class ExprFormInput extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "form input result";
     }
 

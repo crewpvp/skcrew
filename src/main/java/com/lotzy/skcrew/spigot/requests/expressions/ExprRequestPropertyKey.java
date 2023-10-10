@@ -48,5 +48,4 @@ public class ExprRequestPropertyKey extends SimplePropertyExpression<RequestProp
     public void change(final Event e, final  Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
         getExpr().getSingle(e).setKey((String) delta[0]);
     }
-
 }

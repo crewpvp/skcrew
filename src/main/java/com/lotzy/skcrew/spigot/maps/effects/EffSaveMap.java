@@ -9,6 +9,7 @@ import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
 
 public class EffSaveMap extends Effect {
+    
     static {
         Skript.registerEffect(EffSaveMap.class, "save map %map%");
     }

@@ -16,7 +16,7 @@ import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import org.bukkit.event.Event;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 
 @Name("Forms - IDS")
 @Description("Get IDS of global forms")
@@ -57,7 +57,7 @@ public class ExprFormIdentifiers extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "all of the registered form identifiers";
     }
 

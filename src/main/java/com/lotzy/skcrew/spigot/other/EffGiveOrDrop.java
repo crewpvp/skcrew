@@ -30,49 +30,48 @@ import org.bukkit.inventory.ItemStack;
 
 public class EffGiveOrDrop extends Effect {
 
-	static {
-            Skript.registerEffect(EffGiveOrDrop.class, "give or drop %itemtypes/experiences% to %players%");
-	}
+    static {
+        Skript.registerEffect(EffGiveOrDrop.class, "give or drop %itemtypes/experiences% to %players%");
+    }
 
-	public static Entity lastSpawned = null;
-	public static Expression<Player> players;
-	private Expression<?> drops;
+    public static Entity lastSpawned = null;
+    public static Expression<Player> players;
+    private Expression<?> drops;
+
+    @Override
+    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
+        drops = exprs[0];
+        players = (Expression<Player>) exprs[1];
+        return true;
+    }
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-            drops = exprs[0];
-            players = (Expression<Player>) exprs[1];
-            return true;
-	}
-
-	@Override
-	public void execute(Event event) {
-            List<ItemStack> itemStacks = new ArrayList<>();
-            for (Object object : this.drops.getArray(event)) {
-                if (object instanceof Experience) {
-                    for (Player player : this.players.getArray(event))
-                        player.giveExp(((Experience) object).getXP());
-                } else {
-                    itemStacks.add(((ItemType)object).getRandom());
-                }
-            }
-
-            ItemStack[] itemStacksArray = itemStacks.toArray(itemStacks.toArray(new ItemStack[0]));
-
-            for (Player player : this.players.getArray(event)) {
-                HashMap<Integer, ItemStack> leftOvers = player.getInventory().addItem(itemStacksArray);
-                if (!leftOvers.isEmpty()) {
-                    Location location = player.getLocation();
-                    World world = location.getWorld();
-                    leftOvers.values().forEach(leftOver -> lastSpawned = world.dropItem(location, leftOver));
-                }
+    public void execute(Event event) {
+        List<ItemStack> itemStacks = new ArrayList<>();
+        for (Object object : this.drops.getArray(event)) {
+            if (object instanceof Experience) {
+                for (Player player : this.players.getArray(event))
+                    player.giveExp(((Experience) object).getXP());
+            } else {
+                itemStacks.add(((ItemType)object).getRandom());
             }
         }
-        
-	@Override
-	public String toString(Event event, boolean debug) {
-            return "give or drop " + drops.toString(event, debug) + " to " + players.toString(event, debug);
-	}
 
+        ItemStack[] itemStacksArray = itemStacks.toArray(itemStacks.toArray(new ItemStack[0]));
+
+        for (Player player : this.players.getArray(event)) {
+            HashMap<Integer, ItemStack> leftOvers = player.getInventory().addItem(itemStacksArray);
+            if (!leftOvers.isEmpty()) {
+                Location location = player.getLocation();
+                World world = location.getWorld();
+                leftOvers.values().forEach(leftOver -> lastSpawned = world.dropItem(location, leftOver));
+            }
+        }
+    }
+        
+    @Override
+    public String toString(Event event, boolean debug) {
+        return "give or drop " + drops.toString(event, debug) + " to " + players.toString(event, debug);
+    }
 }
 

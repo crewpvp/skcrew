@@ -8,9 +8,6 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.maps.Map;
 import java.awt.Color;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 
 public class EffDrawPixels extends Effect {
     static {
@@ -30,7 +27,7 @@ public class EffDrawPixels extends Effect {
     private Expression<Map> map;
     
     @Override
-    protected void execute(@NotNull Event e) {
+    protected void execute( Event e) {
         int alpha = this.A != null ? this.A.getSingle(e).intValue() : 255;
         Color color = new Color(R.getSingle(e).intValue(),G.getSingle(e).intValue(), B.getSingle(e).intValue(), alpha);
         map.getSingle(e).fillSection(x0.getSingle(e).intValue(), y0.getSingle(e).intValue(),
@@ -38,10 +35,9 @@ public class EffDrawPixels extends Effect {
     }
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "draw pixels";
     }
-
 
     @SuppressWarnings("all")
     @Override

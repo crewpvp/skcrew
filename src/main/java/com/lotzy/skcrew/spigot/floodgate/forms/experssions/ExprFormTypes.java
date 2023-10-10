@@ -11,7 +11,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.util.FormType;
 
@@ -33,7 +33,7 @@ public class ExprFormTypes extends SimpleExpression<FormType> {
     }
 
     @Override
-    @Nullable
+    
     protected FormType[] get(Event e) {
         switch(pattern) {
             case 0:
@@ -56,7 +56,7 @@ public class ExprFormTypes extends SimpleExpression<FormType> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "form types";
     }
 

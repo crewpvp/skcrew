@@ -16,11 +16,6 @@ import org.bukkit.event.Event;
 import java.util.*;
 import com.lotzy.skcrew.spigot.requests.RequestUtil;
 import com.lotzy.skcrew.spigot.sql.SqlUtil;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Name("Requests - Async request to url")
 @Description({"Executes request to url",
@@ -29,6 +24,7 @@ import java.util.logging.Logger;
         "\tasync request \"GET\" to url \"https://crewpvp.xyz\" and store the result in {_data} and code in {_code}"})
 @Since("1.6")
 public class EffAsyncRequest extends Effect {
+    
     static {
         Skript.registerEffect(EffAsyncRequest.class,
                 "[async[hronously]] request [%-string%] to [url] %string% [with header[s] %-requestproperties%] "
@@ -80,10 +76,7 @@ public class EffAsyncRequest extends Effect {
                     }
                 }
             }).join();
-        } catch (Exception ex) {
-            
-        }
-        
+        } catch (Exception ex) {}
     }
 
     @Override

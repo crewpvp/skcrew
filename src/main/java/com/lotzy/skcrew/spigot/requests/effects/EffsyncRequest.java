@@ -21,6 +21,7 @@ import com.lotzy.skcrew.spigot.sql.SqlUtil;
         "\tsync request \"GET\" to url \"https://crewpvp.xyz\" and store the result in {_data} and code in {_code}"})
 @Since("1.6")
 public class EffsyncRequest extends Effect {
+    
     static {
         Skript.registerEffect(EffsyncRequest.class,
                 "sync[hronously] request [%-string%] to [url] %string% [with header[s] %-requestproperties%] "
@@ -49,9 +50,7 @@ public class EffsyncRequest extends Effect {
             Pair<Integer,String> res = RequestUtil.makeSyncRequest(method, this.url.getSingle(e), headers, data);
             if (DataVariable!= null) SqlUtil.setVariable(e, DataVariable, res.getSecond(), isLocal1);
             if (CodeVariable!= null) SqlUtil.setVariable(e, CodeVariable, res.getFirst(), isLocal2);
-        } catch (Exception ex) {
-            
-        }
+        } catch (Exception ex) {}
     }
 
     @Override
@@ -63,7 +62,6 @@ public class EffsyncRequest extends Effect {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
                         SkriptParser.ParseResult parseResult) {
-        
         this.method = (Expression<String>) exprs[0];
         this.url = (Expression<String>) exprs[1];
         this.headers = (Expression<RequestProperty>) exprs[2];

@@ -13,7 +13,7 @@ import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 
@@ -60,7 +60,7 @@ public class ExprGUIIdentifiers extends SimpleExpression<String> {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		return "all of the registered gui identifiers";
 	}
 

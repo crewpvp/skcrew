@@ -8,7 +8,7 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.maps.Map;
 import java.awt.Color;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
+
 
 public class EffDrawCircle extends Effect {
 
@@ -36,7 +36,7 @@ public class EffDrawCircle extends Effect {
     }
 
     @Override
-    public @NotNull String toString(Event e, boolean debug) {
+    public String toString(Event e, boolean debug) {
         return "draw circle";
     }
 

@@ -12,9 +12,11 @@ import java.awt.Color;
 import org.bukkit.event.Event;
 
 public class ExprPixelOfMap extends SimpleExpression<Number> {
+    
     static {
         Skript.registerExpression(ExprPixelOfMap.class, Number.class, ExpressionType.SIMPLE, "pixel %number%(,[ ]| )%number% of %map%");
     }
+    
     Expression<Number> x;
     Expression<Number> y;
     Expression<Map> map;

@@ -11,9 +11,11 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
 public class ExprMapFromItem extends SimpleExpression<Map> {
+    
     static {
         Skript.registerExpression(ExprMapFromItem.class, Map.class, ExpressionType.COMBINED, "[drawing] map (of|from) item %itemstack%");
     }
+    
     private Expression<ItemStack> map;
 
     @Override

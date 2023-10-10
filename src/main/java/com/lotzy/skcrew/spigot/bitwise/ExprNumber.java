@@ -51,5 +51,4 @@ public class ExprNumber extends SimpleExpression<Number> {
         regex = parseResult.regexes.get(0).group();
         return true;
     }
-
 }

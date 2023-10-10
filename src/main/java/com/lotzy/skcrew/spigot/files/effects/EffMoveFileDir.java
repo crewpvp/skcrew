@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import org.bukkit.event.Event;
 
-
 @Name("Files - Move")
 @Description("Move file or directory")
 @Examples({"on load:",
@@ -43,8 +42,6 @@ public class EffMoveFileDir extends Effect {
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
         return "move " + paths.toString(e, debug) + " to " + target.toString(e, debug) + (shouldOverwrite ? " replacing existing ones" : "");
@@ -66,10 +63,7 @@ public class EffMoveFileDir extends Effect {
                 } else {
                     Files.move(path, destFile);
                 }
-            } catch (IOException ex) {
-                Skript.warning("File what you want to move already exists");
-            }
+            } catch (IOException ex) { }
         }
- 
     }
 }

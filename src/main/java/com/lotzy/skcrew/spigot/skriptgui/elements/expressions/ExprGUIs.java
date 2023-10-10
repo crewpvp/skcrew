@@ -10,7 +10,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 import org.bukkit.event.Event;
@@ -31,7 +31,7 @@ public class ExprGUIs extends SimpleExpression<GUI> {
 	}
 
 	@Override
-	@Nullable
+	
 	protected GUI[] get(Event e) {
 		return SkriptGUI.getGUIManager().getTrackedGUIs().toArray(new GUI[0]);
 	}
@@ -47,7 +47,7 @@ public class ExprGUIs extends SimpleExpression<GUI> {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		return "all guis";
 	}
 

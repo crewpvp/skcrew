@@ -44,8 +44,6 @@ public class EffCreateFileDir extends Effect {
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
         return "create " + paths.toString(e, debug);
@@ -68,11 +66,7 @@ public class EffCreateFileDir extends Effect {
                 } else if (!Files.exists(path)) {
                     Files.createDirectories(path);
                 }
-            } catch (IOException ex) {
-                if (!Files.exists(path)) {
-                    Skript.exception(ex);
-                }
-            }
+            } catch (IOException ex) {}
         }
     }
 }

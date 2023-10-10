@@ -9,7 +9,7 @@ import ch.njol.skript.lang.*;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.util.StringMode;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
@@ -21,13 +21,14 @@ import org.bukkit.event.Event;
         "\t\tmake sender execute command arg-1 as op"})
 @Since("1.0")
 public class EffRunAsOp extends Effect {
+    
     static {
         Skript.registerEffect(EffRunAsOp.class,
                 "[execute] [the] command %strings% [by %-commandsenders%] as op",
                 "[execute] [the] %commandsenders% command %strings% as op",
                 "(let|make) %commandsenders% execute [[the] command] %strings% as op");
     }
-    @Nullable
+    
     private Expression<CommandSender> senders;
     private Expression<String> commands;
     

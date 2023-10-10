@@ -17,7 +17,7 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.util.glue.CustomFormGlue;
 
@@ -81,7 +81,7 @@ public class EffStepSlider extends Effect {
         }
     }
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "create form step slider";
     }
 

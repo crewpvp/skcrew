@@ -50,5 +50,4 @@ public class ExprUnaryComplement extends SimpleExpression<Integer> {
     public String toString(Event event, boolean debug) {
         return "Unary complement ~"+n1.toString(event,debug);
     }
-
 }

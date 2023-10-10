@@ -12,7 +12,6 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
-import javax.annotation.Nullable;
 
 @Name("SkirptGUI - Player has gui")
 @Description("Check if player has opened gui")
@@ -45,8 +44,7 @@ public class CondHasGUI extends Condition {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		return players.toString(e, debug) + (!isNegated() ? " has/have " : " do not/don't have ") + " a gui open";
 	}
-
 }

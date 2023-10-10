@@ -12,7 +12,7 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormListener;
-import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
@@ -51,7 +51,7 @@ public class EffSendForm extends Effect {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "open form " + form.toString(e, debug) + " to" + players.toString(e, debug);
     }
 

@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.annotation.Nullable;
+
 import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetFactory;
@@ -23,10 +23,9 @@ public class SqlUtil {
     static {
         try {
             rowSetFactory = RowSetProvider.newFactory();
-        } catch (SQLException ex) {
-
-        }
+        } catch (SQLException ex) {}
     }
+    
     public static RowSetFactory getRowSetFactory() {
         return rowSetFactory;
     }    
@@ -35,10 +34,8 @@ public class SqlUtil {
         Variables.setVariable(name.toLowerCase(Locale.ENGLISH), obj, e, isLocal);
     }
     
-    static public Object executeStatement(DataSource ds, String baseVariable, String query, Boolean isList, @Nullable Object[] params) {
-        if (ds == null) {
-            return "Data source is not set";
-        }
+    static public Object executeStatement(DataSource ds, String baseVariable, String query, Boolean isList,  Object[] params) {
+        if (ds == null) return "Data source is not set";
         Map<String, Object> variableList = new HashMap<>();
         try (Connection conn = ds.getConnection()) {
             ResultSet resultSet;

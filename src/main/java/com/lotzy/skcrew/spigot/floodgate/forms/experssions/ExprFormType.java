@@ -7,7 +7,7 @@ import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import javax.annotation.Nullable;
+
 import org.geysermc.cumulus.util.FormType;
 
 @Name("Forms - Type")
@@ -22,7 +22,7 @@ public class ExprFormType extends SimplePropertyExpression<Form, FormType> {
     }
 
     @Override
-    @Nullable
+    
     public FormType convert(Form form) {
         return form.getType();
     }

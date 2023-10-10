@@ -12,7 +12,7 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.elements.sections.SecCreateGUI;
 import com.lotzy.skcrew.spigot.skriptgui.elements.sections.SecGUIOpenClose;
@@ -26,7 +26,7 @@ import org.bukkit.event.Event;
 @Since("1.0")
 public class ExprNextGUISlot extends SimpleExpression<Character> {
 
-	@Nullable
+	
 	private Expression<GUI> guis;
 
 	static {
@@ -54,7 +54,7 @@ public class ExprNextGUISlot extends SimpleExpression<Character> {
 	}
 
 	@Override
-	@Nullable
+	
 	protected Character[] get(Event e) {
 		if (guis == null) {
 			GUI gui = SkriptGUI.getGUIManager().getGUI(e);
@@ -83,7 +83,7 @@ public class ExprNextGUISlot extends SimpleExpression<Character> {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		if (guis != null) {
 			return "the next gui slot" + (guis.isSingle() ? "" : "s") + " of " + guis.toString(e, debug);
 		} else {

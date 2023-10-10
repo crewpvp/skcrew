@@ -10,11 +10,11 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
-import org.jetbrains.annotations.NotNull;
+
 
 @Name("Forms - Is floodgate player")
 @Description("Check if player from bedrock edition")
@@ -32,19 +32,19 @@ public class CondFloodgatePlayer extends Condition {
     private Expression<Player> player;
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "is player from Floodgate: " + player.toString(e, debug);
     }
 
     @Override
-    public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+    public boolean init(Expression<?>[] exprs, int matchedPattern,Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         player = (Expression<Player>) exprs[0];
         setNegated(matchedPattern == 1);
         return true;
     }
 
     @Override
-    public boolean check(@NotNull Event e) {
+    public boolean check( Event e) {
         return isNegated() != (FloodgateApi.getInstance().isFloodgatePlayer(player.getSingle(e).getUniqueId()));
     }
 }

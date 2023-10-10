@@ -40,7 +40,7 @@ public class EffRunSystemCommand extends Effect {
 
     @Override
     public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
-            commands = (Expression<String>) vars[0];
-            return true;
+        commands = (Expression<String>) vars[0];
+        return true;
     }
 }

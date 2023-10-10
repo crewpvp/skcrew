@@ -15,7 +15,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.Skcrew;
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
@@ -40,16 +40,16 @@ public class SecCreateGUI extends EffectSection {
 
 	@SuppressWarnings("NotNullFieldNotInitialized")
 	private Expression<Inventory> inv;
-	@Nullable
+	
 	private Expression<String> shape, id;
 	private boolean removableItems;
 
-	@Nullable
+	
 	private Expression<GUI> gui;
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, ParseResult parseResult, @Nullable SectionNode sectionNode, @Nullable List<TriggerItem> triggerItems) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> triggerItems) {
 		if (matchedPattern == 1) {
 			if (!hasSection()) {
 				Skript.error("You can't edit a gui inventory using an empty section, you need to change at least a slot or a property.");
@@ -74,7 +74,7 @@ public class SecCreateGUI extends EffectSection {
 	}
 
 	@Override
-	@Nullable
+	
 	public TriggerItem walk(Event e) {
 		GUI gui;
 		if (this.gui == null) { // Creating a new GUI.
@@ -145,7 +145,7 @@ public class SecCreateGUI extends EffectSection {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		if (gui != null) {
 			return "edit gui " + gui.toString(e, debug);
 		} else {

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
-import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.CustomForm;
@@ -86,11 +86,11 @@ public class Form {
         }
     };
     
-    @Nullable
+    
     Optional<? extends FormBuilder> form;
     
     private String title;
-    @Nullable
+    
     private String id;
     
     
@@ -109,19 +109,19 @@ public class Form {
         SkriptForm.getFormManager().register(this);
     }
     
-    @Nullable
+    
     private Consumer<FormOpenEvent> onOpen;
     public void setOnOpen(Consumer<FormOpenEvent> onOpen) {
         this.onOpen = onOpen;
     }
     
-    @Nullable
+    
     private Consumer<FormCloseEvent> onClose;
     public void setOnClose(Consumer<FormCloseEvent> onClose) {
         this.onClose = onClose;
     }
     
-    @Nullable
+    
     private Consumer<FormSubmitEvent> onResult;
     public void setOnResult(Consumer<FormSubmitEvent> onResult) {
         this.onResult = onResult;
@@ -159,12 +159,12 @@ public class Form {
         return form.get().build().getType();
     }
     
-    @Nullable
+    
     public String getID() {
         return id;
     }
     
-    public void setID(@Nullable String id) {
+    public void setID( String id) {
         this.id = id;
         if (id == null) {
             SkriptForm.getFormManager().unregister(this);

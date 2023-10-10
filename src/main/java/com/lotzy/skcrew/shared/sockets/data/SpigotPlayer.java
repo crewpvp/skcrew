@@ -46,6 +46,5 @@ public class SpigotPlayer extends BasePlayer implements Serializable  {
     
     public void switchServer(SpigotServer newServer) {
         newServer.switchPlayers(Arrays.asList(this));
-    }
-    
+    }  
 }

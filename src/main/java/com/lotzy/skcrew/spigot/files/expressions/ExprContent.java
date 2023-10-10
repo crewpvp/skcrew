@@ -84,7 +84,6 @@ public class ExprContent extends SimpleExpression<String> {
                         edits.add((String) o);
                     }
                 }
-    
                 switch (mode) {
     
                     case SET:
@@ -116,11 +115,8 @@ public class ExprContent extends SimpleExpression<String> {
                         break;
                 }
     
-            } catch (IOException ex) {
-                Skript.exception(ex);
-            }
+            } catch (IOException ex) { }
         }
-
     }
 
     @Override

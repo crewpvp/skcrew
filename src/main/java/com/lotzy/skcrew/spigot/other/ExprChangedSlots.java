@@ -13,8 +13,6 @@ import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @Name("Other - Changed slots")
 @Description("Changed slots indexes in inventory drag event")
@@ -27,8 +25,9 @@ public class ExprChangedSlots extends SimpleExpression<Integer> {
         Skript.registerExpression(ExprChangedSlots.class, Integer.class, ExpressionType.SIMPLE,
                 "changed slot[s]","event[-]slots");
     }
+    
     @Override
-    protected Integer[] get(@NotNull Event e) {
+    protected Integer[] get( Event e) {
         return ((InventoryDragEvent)e).getRawSlots().toArray(new Integer[0]);
     }
 
@@ -38,17 +37,17 @@ public class ExprChangedSlots extends SimpleExpression<Integer> {
     }
 
     @Override
-    public @NotNull Class<? extends Integer> getReturnType() {
+    public Class<? extends Integer> getReturnType() {
         return Integer.class;
     }
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "get changed slots";
     }
 
     @Override
-    public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
+    public boolean init(Expression<?>[] exprs, int matchedPattern,Kleenean isDelayed, SkriptParser. ParseResult parseResult) {
         if (!getParser().isCurrentEvent(InventoryDragEvent.class)) {
             Skript.error("Cannot use 'changed slots' outside of a inventory drag event", ErrorQuality.SEMANTIC_ERROR);
             return false;

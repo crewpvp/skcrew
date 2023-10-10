@@ -45,5 +45,4 @@ public class CondFileExists extends Condition {
     public String toString(Event e, boolean debug) {
         return path.toString(e, debug) + " is " + (isNegated() ? " missing" : " available");
     }
-
 }

@@ -8,8 +8,6 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
@@ -24,6 +22,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.core5.concurrent.FutureCallback;
 import org.apache.hc.core5.http.ContentType;
+
 public class RequestUtil {
 
     static public Pair<Integer, String> makeSyncRequest(String method,String url, RequestProperty[] headers, String data) throws IOException, InterruptedException, URISyntaxException {

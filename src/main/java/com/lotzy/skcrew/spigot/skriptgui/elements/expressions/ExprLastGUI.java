@@ -13,7 +13,7 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.gui.GUI;
 
@@ -33,7 +33,7 @@ public class ExprLastGUI extends SimpleExpression<GUI> {
 		);
 	}
 
-	@Nullable
+	
 	private Expression<String> id;
 
 	@Override
@@ -55,7 +55,7 @@ public class ExprLastGUI extends SimpleExpression<GUI> {
 	}
 
 	@Override
-	@Nullable
+	
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		if (mode == ChangeMode.DELETE && id != null) {
 			return CollectionUtils.array(Object.class);
@@ -64,7 +64,7 @@ public class ExprLastGUI extends SimpleExpression<GUI> {
 	}
 
 	@Override
-	public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
+	public void change(Event e,  Object[] delta, ChangeMode mode) {
 		if (id != null) {
 			String id = this.id.getSingle(e);
 			if (id != null) {
@@ -87,7 +87,7 @@ public class ExprLastGUI extends SimpleExpression<GUI> {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		return id == null ? "the last gui" : "the gui with the id " + id.toString(e, debug);
 	}
 

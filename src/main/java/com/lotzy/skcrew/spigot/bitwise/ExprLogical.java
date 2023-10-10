@@ -86,5 +86,4 @@ public class ExprLogical extends SimpleExpression<Object> {
                 return "Operation xor with numbers "+n1.toString(event,debug)+" ^ "+n2.toString(event,debug);
         }
     }
-
 }

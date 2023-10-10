@@ -15,7 +15,7 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import javax.annotation.Nullable;
+
 import com.lotzy.skcrew.spigot.skriptgui.SkriptGUI;
 import com.lotzy.skcrew.spigot.skriptgui.elements.sections.SecCreateGUI;
 import com.lotzy.skcrew.spigot.skriptgui.elements.sections.SecGUIOpenClose;
@@ -144,7 +144,7 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 	}
 
 	@Override
-	@Nullable
+	
 	public Class<?>[] acceptChange(ChangeMode mode) {
 		if (isDelayed) {
 			Skript.error("You can't set the '" + toString + "' when the event is already passed.");
@@ -159,7 +159,7 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 	}
 
 	@Override
-	public void change(Event event, @Nullable Object[] delta, ChangeMode mode) {
+	public void change(Event event,  Object[] delta, ChangeMode mode) {
 		if (delta == null || !(event instanceof InventoryClickEvent)) {
 			return;
 		}
@@ -202,7 +202,7 @@ public class ExprGUIValues extends SimpleExpression<Object> {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		return toString;
 	}
 

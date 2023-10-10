@@ -122,7 +122,6 @@ public class ExprAllFileDirectory extends SimpleExpression<Path> implements File
         return new Path[0];
     }
 
-    // Check if file is dir, enter in if it's
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
         if (!dir.toString().equals(pathDirectory.toString())) {
@@ -139,7 +138,6 @@ public class ExprAllFileDirectory extends SimpleExpression<Path> implements File
         return FileVisitResult.CONTINUE;
     }
 
-    // Visit files
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (!file.toString().equals(pathDirectory.toString())) {
@@ -158,13 +156,11 @@ public class ExprAllFileDirectory extends SimpleExpression<Path> implements File
         return FileVisitResult.CONTINUE;
     }
 
-    // If visit failed
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
         return FileVisitResult.CONTINUE;
     }
 
-    // After visiting a dir
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
         return FileVisitResult.CONTINUE;

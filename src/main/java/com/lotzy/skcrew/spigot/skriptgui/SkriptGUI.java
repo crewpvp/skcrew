@@ -8,13 +8,13 @@ import org.bukkit.inventory.Inventory;
 public class SkriptGUI {
 
 	private static GUIManager manager;
+        
 	public static GUIManager getGUIManager() {
 		return manager;
 	}
+        
         static {
             Converters.registerConverter(GUI.class, Inventory.class, GUI::getInventory);
-            manager = new GUIManager();
-            
+            manager = new GUIManager(); 
         }
-
 }

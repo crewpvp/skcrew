@@ -22,7 +22,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import java.util.List;
-import javax.annotation.Nullable;
+
 
 
 @Name("SkriptGUI - Close GUI section")
@@ -44,12 +44,12 @@ public class SecMakeGUI extends EffectSection {
 		);
 	}
 
-	@Nullable
+	
 	private Trigger trigger;
 
-	@Nullable
+	
 	private Expression<Object> slots; // Can be number or a string
-	@Nullable
+	
 	private Expression<ItemType> item;
 
 	private int pattern;
@@ -57,7 +57,7 @@ public class SecMakeGUI extends EffectSection {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, ParseResult parseResult, @Nullable SectionNode sectionNode, @Nullable List<TriggerItem> items) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> items) {
 		if (!getParser().isCurrentSection(SecCreateGUI.class)) {
 			SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
 			// This check allows users to use a make section in a make section or a open/close section
@@ -86,7 +86,7 @@ public class SecMakeGUI extends EffectSection {
 	}
 
 	@Override
-	@Nullable
+	
 	public TriggerItem walk(Event e) {
 		GUI gui = SkriptGUI.getGUIManager().getGUI(e);
 
@@ -144,7 +144,7 @@ public class SecMakeGUI extends EffectSection {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		switch (pattern) {
 			case 0:
 				assert item != null;

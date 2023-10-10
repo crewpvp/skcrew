@@ -11,6 +11,7 @@ import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
 
 public class ExprDrawingMap extends SimpleExpression<Map> {
+    
     static {
         Skript.registerExpression(ExprDrawingMap.class, Map.class, ExpressionType.SIMPLE, "[new|empty] drawing map");
     }

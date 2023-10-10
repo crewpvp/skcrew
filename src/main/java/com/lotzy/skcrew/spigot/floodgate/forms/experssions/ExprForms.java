@@ -13,7 +13,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 
 
@@ -33,7 +33,7 @@ public class ExprForms extends SimpleExpression<Form> {
     }
 
     @Override
-    @Nullable
+    
     protected Form[] get(Event e) {
         return SkriptForm.getFormManager().getTrackedForms().toArray(new Form[0]);
     }
@@ -49,7 +49,7 @@ public class ExprForms extends SimpleExpression<Form> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "all forms";
     }
 

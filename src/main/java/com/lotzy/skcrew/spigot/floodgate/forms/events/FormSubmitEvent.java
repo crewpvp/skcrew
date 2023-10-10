@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.geysermc.cumulus.response.FormResponse;
-import org.jetbrains.annotations.NotNull;
+
 
 public class FormSubmitEvent extends Event {
     
@@ -26,7 +26,7 @@ public class FormSubmitEvent extends Event {
         return handlers;
     }
 
-    @NotNull
+    
     public HandlerList getHandlers() {
         return handlers;
     }

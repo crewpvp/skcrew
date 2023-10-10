@@ -13,7 +13,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 
 @Name("SkriptGUI - Paginated List")
@@ -31,7 +31,7 @@ public class ExprPaginatedList extends SimpleExpression<Object> {
 
 	@SuppressWarnings("NotNullFieldNotInitialized")
 	private Expression<Number> pages;
-	@Nullable
+	
 	private Expression<?> contents;
 	@SuppressWarnings("NotNullFieldNotInitialized")
 	private Expression<Number> lines;
@@ -103,7 +103,7 @@ public class ExprPaginatedList extends SimpleExpression<Object> {
 	}
 
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString( Event e, boolean debug) {
 		assert contents != null;
 		return "page(s) " + pages.toString(e, debug) + " of " + contents.toString(e, debug) + " with " + lines.toString(e, debug) + " lines";
 	}

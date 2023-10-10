@@ -15,8 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+
 
 @Name("Forms - Bedrock version")
 @Description("Get version of bedrock player")
@@ -34,7 +34,7 @@ public class ExprBedrockVersion extends SimpleExpression<String> {
     private Expression<Player> player;
 
     @Override
-    protected String[] get(@NotNull Event e) {
+    protected String[] get( Event e) {
         Player bukkitPlayer = player.getSingle(e);
         if (bukkitPlayer != null) {
             FloodgatePlayer floodgatePlayer = FloodgateApi.getInstance().getPlayer(bukkitPlayer.getUniqueId());
@@ -51,17 +51,17 @@ public class ExprBedrockVersion extends SimpleExpression<String> {
     }
 
     @Override
-    public @NotNull Class<? extends String> getReturnType() {
+    public Class<? extends String> getReturnType() {
         return String.class;
     }
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "Get Floodgate player's Bedrock version: " + player.toString(e, debug);
     }
 
     @Override
-    public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
+    public boolean init(Expression<?>[] exprs, int matchedPattern,Kleenean isDelayed, SkriptParser. ParseResult parseResult) {
         player = (Expression<Player>) exprs[0];
         return true;
     }

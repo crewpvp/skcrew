@@ -7,12 +7,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 import java.awt.*;
 
 public class EffDrawText extends Effect {
+    
     static {
         Skript.registerEffect(EffDrawText.class, "draw text %string% [at] %number%(,[ ]| )%number% "
                 + "[with font %-string%] [with size %-number%] [with colo[u]r] "
@@ -31,7 +29,7 @@ public class EffDrawText extends Effect {
     private Expression<Map> map;
 
     @Override
-    protected void execute(@NotNull Event e) {
+    protected void execute( Event e) {
         String text = this.text.getSingle(e);
         String font = this.font != null ? this.font.getSingle(e) : "Arial";
         int size = this.size != null ? this.size.getSingle(e).intValue() : 12;
@@ -43,7 +41,7 @@ public class EffDrawText extends Effect {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "draw text";
     }
 

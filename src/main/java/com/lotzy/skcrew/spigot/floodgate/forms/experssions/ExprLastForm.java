@@ -16,7 +16,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
-import javax.annotation.Nullable;
+
 
 
 @Name("Forms - Last form")
@@ -33,7 +33,7 @@ public class ExprLastForm extends SimpleExpression<Form> {
         );
     }
 
-    @Nullable
+    
     private Expression<String> id;
 
     @Override
@@ -55,7 +55,7 @@ public class ExprLastForm extends SimpleExpression<Form> {
     }
 
     @Override
-    @Nullable
+    
     public Class<?>[] acceptChange(ChangeMode mode) {
         if (mode == ChangeMode.DELETE && id != null) {
             return CollectionUtils.array(Object.class);
@@ -64,7 +64,7 @@ public class ExprLastForm extends SimpleExpression<Form> {
     }
 
     @Override
-    public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
+    public void change(Event e,  Object[] delta, ChangeMode mode) {
         if (id != null) {
             String id = this.id.getSingle(e);
             if (id != null) {
@@ -87,7 +87,7 @@ public class ExprLastForm extends SimpleExpression<Form> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return id == null ? "the last form" : "the form with the id " + id.toString(e, debug);
     }
 

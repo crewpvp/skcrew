@@ -34,5 +34,4 @@ public class ExprAbsolutePath extends SimplePropertyExpression<Path,Path> {
     public Class<? extends Path> getReturnType() {
         return Path.class;
     }
-
 }

@@ -18,7 +18,7 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-import javax.annotation.Nullable;
+
 import org.geysermc.cumulus.response.CustomFormResponse;
 import org.geysermc.cumulus.component.util.ComponentType;
 
@@ -52,7 +52,7 @@ public class ExprFormToggle extends SimpleExpression<Boolean> {
         return true;
     }
 
-    @Nullable
+    
     @Override
     protected Boolean[] get(Event e) {
         CustomFormResponse resp = (CustomFormResponse)((FormSubmitEvent)e).getResponse();
@@ -80,7 +80,7 @@ public class ExprFormToggle extends SimpleExpression<Boolean> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "form toggle result";
     }
 

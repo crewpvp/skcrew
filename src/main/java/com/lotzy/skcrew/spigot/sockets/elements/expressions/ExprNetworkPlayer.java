@@ -15,17 +15,15 @@ import com.lotzy.skcrew.spigot.Skcrew;
 import java.util.UUID;
 import org.bukkit.event.Event;
 
-
 @Name("Sockets - Network Player")
 @Description("Return player by name (or string UUID) (com.lotzy.skcrew.shared.sockets.data.SpigotPlayer class)")
 @Examples({"on load:",
-        "\tbroadcast network player \"Lotzy\""})
+        "\tbroadcast \"%network player \"Lotzy\"%\""})
 @Since("3.0")
 public class ExprNetworkPlayer extends SimpleExpression<SpigotPlayer> {
 
     static {
-        Skript.registerExpression(ExprNetworkPlayer.class, SpigotPlayer.class, ExpressionType.COMBINED,
-            "network[ ]player %string%");
+        Skript.registerExpression(ExprNetworkPlayer.class, SpigotPlayer.class, ExpressionType.COMBINED,"network[ ]player %string%");
     }
     
     Expression<String> name;

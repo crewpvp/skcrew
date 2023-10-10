@@ -1,6 +1,5 @@
 package com.lotzy.skcrew.spigot.maps.expressions;
 
-
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
@@ -11,16 +10,16 @@ import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nullable;
-
 public class ExprItemFromMap extends SimpleExpression<ItemStack> {
+    
     static {
         Skript.registerExpression(ExprItemFromMap.class, ItemStack.class, ExpressionType.COMBINED, "[the] map item (from|of) %map%");
     }
+    
     private Expression<Map> map;
 
     @Override
-    protected @Nullable ItemStack[] get(Event e) {
+    protected  ItemStack[] get(Event e) {
         return new ItemStack[] {map.getSingle(e).buildItem()};
     }
 
@@ -35,7 +34,7 @@ public class ExprItemFromMap extends SimpleExpression<ItemStack> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "map item";
     }
 

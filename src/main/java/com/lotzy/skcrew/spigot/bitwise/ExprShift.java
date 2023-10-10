@@ -74,5 +74,4 @@ public class ExprShift extends SimpleExpression<Integer> {
                 return "Unsigned shift right "+n1.toString(event,debug)+" << "+n2.toString(event,debug);
         }
     }
-
 }

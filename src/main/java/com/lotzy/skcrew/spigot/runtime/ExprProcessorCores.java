@@ -11,7 +11,6 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
 
 @Name("Runtime - Amount of processor cores")
 @Description("Return amount of processor cores on the machine")
@@ -42,7 +41,7 @@ public class ExprProcessorCores extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(final @Nullable Event e, boolean debug) {
+    public String toString(final  Event e, boolean debug) {
         return "Amount of processor cores";
     }
 

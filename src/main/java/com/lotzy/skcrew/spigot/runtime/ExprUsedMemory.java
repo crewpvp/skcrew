@@ -11,7 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+
 
 @Name("Runtime - Used memory")
 @Description("Return currently used bytes of allocated memory of jvm")
@@ -42,7 +42,7 @@ public class ExprUsedMemory extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(final @Nullable Event e, boolean debug) {
+    public String toString(final  Event e, boolean debug) {
         return "used memory of server";
     }
 

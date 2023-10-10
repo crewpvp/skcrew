@@ -19,7 +19,7 @@ import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormCloseEvent;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormOpenEvent;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 
 @Name("Forms - Open Close section")
@@ -64,7 +64,7 @@ public class SecFormOpenClose extends Section {
     }
 
     @Override
-    @Nullable
+    
     public TriggerItem walk(Event e) {
         Form form = SkriptForm.getFormManager().getForm(e);
         if (form != null) {
@@ -94,7 +94,7 @@ public class SecFormOpenClose extends Section {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "run on form " + (close ? "close" : "open");
     }
 

@@ -33,18 +33,21 @@ public class Map implements Serializable {
         mapView.getRenderers().clear();
         mapView.addRenderer(new Renderer(this)); 
     }
+    
     public Map(MapView map) {
         this.id = map.getId();
         fill(new Color(255,255,255,0));
         map.getRenderers().clear();
         map.addRenderer(new Renderer(this)); 
     }
+    
     public Map(int id, Color[][] pixels) {
         MapView mapView = Bukkit.getMap(id);
         setPixels(pixels);
         mapView.getRenderers().clear();
         mapView.addRenderer(new Renderer(this));
     }
+    
     public static Map fromId(int id) {
         MapView mapView = Bukkit.getMap(id);
         for(MapRenderer r : mapView.getRenderers()) {
@@ -68,9 +71,9 @@ public class Map implements Serializable {
             ImageIO.write(toBufferedImage(), "png", file); 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        
+        } 
     }
+    
     public static Map loadMap(int id) {
         ObjectInputStream ois = null;
         try {
@@ -119,7 +122,6 @@ public class Map implements Serializable {
         if (mapView == null) return null;
         mapView.setLocked(false);
         mapMeta.setMapView(mapView);
-
         item.setItemMeta(mapMeta);
 
         return item;
@@ -211,7 +213,6 @@ public class Map implements Serializable {
         g2d.dispose();
         drawImage(image);
     }
-
 
     public BufferedImage toBufferedImage() {
         BufferedImage image = new BufferedImage(MAP_WIDTH, MAP_HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -321,5 +322,4 @@ public class Map implements Serializable {
             t += 0.01;
         }
     }
-
 }

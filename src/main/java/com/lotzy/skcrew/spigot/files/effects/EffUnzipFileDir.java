@@ -34,6 +34,7 @@ public class EffUnzipFileDir extends Effect {
     private Expression<Path> source;
     private Expression<Path> target;
     boolean overwrite;
+   
     @Override
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         source = (Expression<Path>) expr[0];
@@ -77,13 +78,8 @@ public class EffUnzipFileDir extends Effect {
                 zis.closeEntry();
                 zis.close();
                 fis.close();
-            } catch (IOException ex) {
-               Skript.exception(ex);
-            }
-        } else {
-            Skript.warning("File "+zip.toString()+" what you wanna unzip doesn't exist");
+            } catch (IOException ex) {}
         }
-        
     }
 
     @Override

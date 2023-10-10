@@ -9,12 +9,12 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.maps.Map;
 import org.bukkit.event.Event;
 
-import javax.annotation.Nullable;
-
 public class ExprMapById extends SimpleExpression<Map> {
+    
     static {
         Skript.registerExpression(ExprMapFromItem.class, Map.class, ExpressionType.COMBINED, "[drawing] map (by|with) id %number%");
     }
+    
     private Expression<Number> id;
 
     @Override
@@ -33,7 +33,7 @@ public class ExprMapById extends SimpleExpression<Map> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "drawing map by id";
     }
 

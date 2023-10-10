@@ -32,7 +32,5 @@ public class ExprParent extends SimplePropertyExpression<Path,Path> {
     @Override
     public Class<? extends Path> getReturnType() {
         return Path.class;
-    }
-
-    
+    } 
 }

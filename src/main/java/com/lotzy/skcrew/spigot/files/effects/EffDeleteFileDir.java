@@ -26,6 +26,7 @@ public class EffDeleteFileDir extends Effect {
     static {
         Skript.registerEffect(EffDeleteFileDir.class, "delete %paths%");
     }
+    
     private Expression<Path> paths;
     
     @Override
@@ -33,8 +34,6 @@ public class EffDeleteFileDir extends Effect {
         paths = (Expression<Path>) expr[0];
         return true;
     }
-    
-    
     
     @Override
     public String toString(Event e, boolean debug) {
@@ -55,13 +54,8 @@ public class EffDeleteFileDir extends Effect {
                     } else {
                         Files.delete(path);
                     }
-                } catch (IOException ex) {
-                    if (Files.exists(path)) {
-                        Skript.exception(ex);
-                    }
-                }
+                } catch (IOException ex) {}
             }
         }
- 
     }
 }

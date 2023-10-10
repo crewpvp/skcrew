@@ -4,7 +4,7 @@ import org.bukkit.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
-import javax.annotation.Nullable;
+
 
 public class FormManager {
 
@@ -25,12 +25,12 @@ public class FormManager {
         return forms;
     }
 
-    @Nullable
+    
     public Form getForm(Event event) {
         return eventForms.get(event);
     }
 
-    public void setForm(Event event, @Nullable Form form) {
+    public void setForm(Event event,  Form form) {
         if (form != null) {
             eventForms.put(event, form);
         } else {
@@ -38,7 +38,7 @@ public class FormManager {
         }
     }
 
-    @Nullable
+    
     public Form getForm(String id) {
         for (Form form : forms) {
             if (form.getID() != null && form.getID().equals(id)) {

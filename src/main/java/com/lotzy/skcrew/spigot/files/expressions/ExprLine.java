@@ -146,12 +146,8 @@ public class ExprLine extends SimpleExpression<String> {
     
                 Files.write(currentPath, lines, StandardCharsets.UTF_8);
                 new ChangeEvent(currentPath);
-    
-            } catch (IOException ex) {
-                Skript.exception(ex);
-            }
+            } catch (IOException ex) {}
         }
-
     }
 
     @Override
@@ -168,5 +164,4 @@ public class ExprLine extends SimpleExpression<String> {
     public String toString(Event e, boolean debug) {
         return (allLines ? "all lines" : "line " + line.toString(e, debug)) + " of " + path.toString(e, debug);
     }
-
 }

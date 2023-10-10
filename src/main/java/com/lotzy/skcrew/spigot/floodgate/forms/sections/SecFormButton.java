@@ -21,7 +21,7 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.util.FormImage;
 import org.geysermc.cumulus.util.glue.ModalFormGlue;
@@ -46,17 +46,17 @@ public class SecFormButton extends EffectSection {
         );
     }
     
-    @Nullable
+    
     private Trigger trigger;
     private Expression<String> text;
-    @Nullable
+    
     private Expression<String> image;
-    @Nullable
+    
     boolean isPath;
     
     @Override
     @SuppressWarnings("unchecked")
-    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult, @Nullable SectionNode sectionNode, @Nullable List<TriggerItem> items) {
+    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> items) {
         if (!getParser().isCurrentSection(SecCreateModalForm.class,SecCreateSimpleForm.class)) {
             
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
@@ -83,7 +83,7 @@ public class SecFormButton extends EffectSection {
     }
 
     @Override
-    @Nullable
+    
     public TriggerItem walk(Event e) {
         Form form = SkriptForm.getFormManager().getForm(e);
         if (form == null) {
@@ -137,7 +137,7 @@ public class SecFormButton extends EffectSection {
     }
     
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return "create form button "+text.toString(e, debug);
     }
 }

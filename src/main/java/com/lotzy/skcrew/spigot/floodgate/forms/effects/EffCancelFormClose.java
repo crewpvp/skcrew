@@ -14,7 +14,7 @@ import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormOpenClose;
-import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 
 @Name("Forms - Cancel close")
@@ -53,7 +53,7 @@ public class EffCancelFormClose extends Effect {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
+    public String toString( Event e, boolean debug) {
         return (cancel ? "cancel" : "uncancel") + " the form closing";
     }
 

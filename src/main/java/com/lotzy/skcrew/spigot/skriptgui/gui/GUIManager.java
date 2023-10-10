@@ -8,7 +8,7 @@ import org.bukkit.inventory.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
-import javax.annotation.Nullable;
+
 
 public class GUIManager {
 
@@ -55,7 +55,7 @@ public class GUIManager {
 	 * @param event The event to get the GUI from.
 	 * @return The GUI involved with the given event.
 	 */
-	@Nullable
+	
 	public GUI getGUI(Event event) {
 		return eventGUIs.get(event);
 	}
@@ -66,7 +66,7 @@ public class GUIManager {
 	 * @param event The event the given GUI is involved with.
 	 * @param gui The GUI of the given event.
 	 */
-	public void setGUI(Event event, @Nullable GUI gui) {
+	public void setGUI(Event event,  GUI gui) {
 		if (gui != null) {
 			eventGUIs.put(event, gui);
 		} else {
@@ -78,7 +78,7 @@ public class GUIManager {
 	 * @param player The player to get the GUI from.
 	 * @return The open GUI of the player, or null if this player doesn't have a GUI open.
 	 */
-	@Nullable
+	
 	public GUI getGUI(Player player) {
 		for (GUI gui : guis) {
 			if (gui.getInventory().getViewers().contains(player)) {
@@ -105,7 +105,7 @@ public class GUIManager {
 	 * @param id The ID of the GUI to get. This parameter is case-sensitive.
 	 * @return The GUI with the given ID, or null if a GUI with this ID doesn't exist.
 	 */
-	@Nullable
+	
 	public GUI getGUI(String id) {
 		for (GUI gui : guis) {
 			if (id.equals(gui.getID())) {
@@ -119,7 +119,7 @@ public class GUIManager {
 	 * @param inventory The inventory of the GUI to get.
 	 * @return The GUI with this inventory, or null if a GUI with this inventory doesn't exist.
 	 */
-	@Nullable
+	
 	public GUI getGUI(Inventory inventory) {
 		for (GUI gui : guis) {
 			if (gui.getInventory().equals(inventory)) {

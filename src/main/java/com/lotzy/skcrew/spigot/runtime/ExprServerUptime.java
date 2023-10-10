@@ -13,7 +13,6 @@ import ch.njol.util.Kleenean;
 import java.lang.management.ManagementFactory;
 import org.bukkit.event.Event;
 import ch.njol.skript.util.Timespan;
-import javax.annotation.Nullable;
 
 @Name("Runtime - Server uptime")
 @Description("Return timespan with server working time")
@@ -44,7 +43,7 @@ public class ExprServerUptime extends SimpleExpression<Timespan> {
     }
 
     @Override
-    public String toString(final @Nullable Event e, boolean debug) {
+    public String toString(final  Event e, boolean debug) {
         return "Server uptime";
     }
 

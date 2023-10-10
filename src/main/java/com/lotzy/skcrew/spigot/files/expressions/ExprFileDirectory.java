@@ -33,7 +33,6 @@ public class ExprFileDirectory extends SimpleExpression<Path> {
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        
         paths = (Expression<String>) expr[0];
         isSingle = paths.getSource().isSingle();
         return true;
@@ -63,6 +62,5 @@ public class ExprFileDirectory extends SimpleExpression<Path> {
     @Override
     public String toString(Event e, boolean debug) {
         return "file/directory " + paths.toString(e, debug);
-    }
-    
+    } 
 }

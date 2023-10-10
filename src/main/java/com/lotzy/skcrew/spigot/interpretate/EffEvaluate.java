@@ -32,8 +32,7 @@ public class EffEvaluate extends Effect {
         for(String text : expr.getAll(e)) {
             Effect.parse(text, null).run(e);
         }
-        parser.deleteCurrentEvent();
-           
+        parser.deleteCurrentEvent();      
     }
 
     @Override

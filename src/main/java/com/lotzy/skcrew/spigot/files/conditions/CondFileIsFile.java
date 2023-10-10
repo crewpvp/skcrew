@@ -46,5 +46,4 @@ public class CondFileIsFile extends Condition {
     public String toString(Event e, boolean debug) {
         return path.toString(e, debug) + " is " + (isNegated() ? " not" : "" ) + " file";
     }
-
 }

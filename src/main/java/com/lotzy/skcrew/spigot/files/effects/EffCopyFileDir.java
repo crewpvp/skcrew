@@ -34,6 +34,7 @@ public class EffCopyFileDir extends Effect {
     private Expression<Path> sources;
     private Expression<Path> target;
     private boolean overwrite;
+   
     @Override
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, ParseResult parser) {
         sources = (Expression<Path>) expr[0];
@@ -86,9 +87,6 @@ public class EffCopyFileDir extends Effect {
                     throw new IOException();
                 }
             }
-        } catch (IOException ex) {
-            Skript.exception(ex);
-        }
- 
+        } catch (IOException ex) {}
     }
 }
