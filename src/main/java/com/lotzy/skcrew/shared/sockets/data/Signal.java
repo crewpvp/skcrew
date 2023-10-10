@@ -19,4 +19,9 @@ public class Signal implements Serializable {
     public String getKey() {
         return this.key;
     }
+    
+    @Override
+    public String toString() {
+        return this.key;
+    }
 }
