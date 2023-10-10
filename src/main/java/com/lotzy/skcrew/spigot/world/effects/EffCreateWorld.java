@@ -30,6 +30,7 @@ public class EffCreateWorld extends Effect {
 
     private Expression<String> expr;
     private Boolean superflat;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parser) {
         expr = (Expression<String>) exprs[0];
@@ -37,10 +38,9 @@ public class EffCreateWorld extends Effect {
         return true;
     }
     
-    
     @Override
     public String toString(Event e, boolean debug) {
-        return "Creating world "+expr.toString(e, debug);
+        return "Creating world: "+expr.toString(e, debug);
     }
  
     @Override

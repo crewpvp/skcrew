@@ -27,14 +27,13 @@ public class EffUnloadWorld extends Effect {
 
     private Expression<World> expr;
     private Boolean unsave;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parser) {
         expr = (Expression<World>) exprs[0];
         unsave = matchedPattern == 1;
         return true;
     }
-    
-    
     
     @Override
     public String toString(Event e, boolean debug) {

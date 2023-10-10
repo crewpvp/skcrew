@@ -32,6 +32,7 @@ public class EffDuplicateWorld extends Effect {
         Skript.registerEffect(EffDuplicateWorld.class, "(copy|duplicate) world %string% [(with|using)] name[d] %string%",
                 "(copy|duplicate) %world% [(with|using)] name[d] %string%");
     }
+    
     private Expression<?> sources;
     private Expression<String> target;
     
@@ -44,7 +45,6 @@ public class EffDuplicateWorld extends Effect {
     
     private void copyDir(Path source, Path target) throws IOException {
         Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
-
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 Files.copy(file, target.resolve(source.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
@@ -56,18 +56,16 @@ public class EffDuplicateWorld extends Effect {
                 Files.createDirectories(target.resolve(source.relativize(dir)));
                 return FileVisitResult.CONTINUE;
             }
-
         });
     }
     
     @Override
     public String toString(Event e, boolean debug) {
-        return "copy " + sources.toString(e, debug) + " to " + target.toString(e, debug);
+        return "Copy " + sources.toString(e, debug) + " to " + target.toString(e, debug);
     }
  
     @Override
     protected void execute(Event e) {
-        
         final Path sourceFile;
         if (sources.getSingle(e) instanceof World) {
             sourceFile = Paths.get("./"+((World) sources.getSingle(e)).getName());
@@ -84,11 +82,7 @@ public class EffDuplicateWorld extends Effect {
                     Files.copy(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
                 }
                 Files.delete(Paths.get("./"+target.getSingle(e)+"/uid.dat"));
-            } else {
-                throw new IOException();
-            }
-        } catch (IOException ex) {
-            Skript.exception(ex);
-        }
+            } else {}
+        } catch (IOException ex) {}
     }
 }

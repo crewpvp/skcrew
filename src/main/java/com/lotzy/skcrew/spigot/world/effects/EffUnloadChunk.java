@@ -34,11 +34,9 @@ public class EffUnloadChunk extends Effect {
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
-        return "Unloading chunk "+expr.toString(e, debug);
+        return "Unloading chunk: "+expr.toString(e, debug);
     }
  
     @Override

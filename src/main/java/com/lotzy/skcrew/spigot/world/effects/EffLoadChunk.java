@@ -25,7 +25,7 @@ public class EffLoadChunk extends Effect {
     }
 
     private Expression<Chunk> expr;
-    private Boolean generate;
+    private boolean generate;
     
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parser) {
@@ -34,11 +34,9 @@ public class EffLoadChunk extends Effect {
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
-        return "Loading chunk "+expr.toString(e, debug);
+        return "Loading chunk: "+expr.toString(e, debug);
     }
  
     @Override

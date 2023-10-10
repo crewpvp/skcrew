@@ -26,23 +26,23 @@ import org.bukkit.event.Event;
         "\t\tdelete world arg-1"})
 @Since("1.0")
 public class EffDeleteWorld extends Effect {
+    
     static {
         Skript.registerEffect(EffDeleteWorld.class,
             "delete world %world/string%");
     }
 
     private Expression<?> expr;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parser) {
         expr = exprs[0];
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
-        return "Deleting world "+expr.toString(e, debug);
+        return "Deleting world: "+expr.toString(e, debug);
     }
  
     @Override
@@ -75,12 +75,7 @@ public class EffDeleteWorld extends Effect {
                 } else {
                     Files.delete(path);
                 }
-            } catch (IOException ex) {
-                if (Files.exists(path)) {
-                    Skript.exception(ex);
-                }
-            }
+            } catch (IOException ex) {}
         }
-
     }
 }

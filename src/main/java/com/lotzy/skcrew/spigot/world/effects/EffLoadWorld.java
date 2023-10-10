@@ -34,11 +34,9 @@ public class EffLoadWorld extends Effect {
         return true;
     }
     
-    
-    
     @Override
     public String toString(Event e, boolean debug) {
-        return "Loading world "+expr.toString(e, debug);
+        return "Loading world: "+expr.toString(e, debug);
     }
  
     @Override
