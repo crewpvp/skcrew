@@ -116,6 +116,7 @@ public class Velocity implements SkcrewImpl {
         Player player = optionalPlayer.get();
         return Utils.NetworkPlayerFromVelocityPlayer(player);
     }
+    
     @Override
     public BasePlayer getPlayer(String name) {
         Optional<Player> optionalPlayer = this.getProxyServer().getPlayer(name);
@@ -123,6 +124,7 @@ public class Velocity implements SkcrewImpl {
         Player player = optionalPlayer.get();
         return Utils.NetworkPlayerFromVelocityPlayer(player);
     }
+    
     @Override
     public BaseServer getServer(String name) {
         Optional<RegisteredServer> optionalServer = this.getProxyServer().getServer(name);
@@ -141,9 +143,9 @@ public class Velocity implements SkcrewImpl {
             if (!optionalPlayer.isPresent()) continue;
             Player player = optionalPlayer.get();
             player.createConnectionRequest(registeredServer).fireAndForget();
-        }
-        
+        }   
     }
+    
     @Override
     public void kickPlayers(BasePlayer[] players, String reason) {
         Component component = reason != null ? JSONComponentSerializer.json().deserialize(reason) : Component.text("");
@@ -152,9 +154,9 @@ public class Velocity implements SkcrewImpl {
             if (c.isPresent()) c.get().disconnect(component);
         }
     }
+    
     @Override
     public Set<NetworkServer> getAllServers() {
         return this.getProxyServer().getAllServers().stream().map(server -> Utils.NetworkServerFromVelocityServer(server)).collect(Collectors.toSet());
     }
-
 }
