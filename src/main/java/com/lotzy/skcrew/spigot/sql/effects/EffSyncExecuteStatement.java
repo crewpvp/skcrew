@@ -51,7 +51,7 @@ public class EffSyncExecuteStatement extends Effect {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "sync execute " + exprquery.toString(e, debug) + " in " + dataSource.toString(e, debug);
+        return "Sync execute " + exprquery.toString(e, debug) + " in " + dataSource.toString(e, debug);
     }
 
     @Override

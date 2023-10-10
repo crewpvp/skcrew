@@ -23,8 +23,10 @@ public class ExprRegexSplit extends SimpleExpression<String> {
         Skript.registerExpression(ExprRegexSplit.class, String.class, ExpressionType.COMBINED, 
                 "regex split %string% at %string%");
     }
+    
     Expression<String> expr1;
     Expression<String> expr2;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         expr1 = (Expression<String>) exprs[0];
@@ -51,5 +53,4 @@ public class ExprRegexSplit extends SimpleExpression<String> {
     public String toString(Event e, boolean debug) {
         return "Regex split "+expr1.toString(e,debug)+" at "+expr2.toString(e,debug);
     }
-
 }

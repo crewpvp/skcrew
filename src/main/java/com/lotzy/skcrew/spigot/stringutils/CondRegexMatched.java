@@ -47,5 +47,4 @@ public class CondRegexMatched extends Condition {
     public String toString(Event e, boolean debug) {
         return "Regex matches of "+expr1.toString(e,debug)+" to "+expr2.toString(e,debug);
     }
-
 }

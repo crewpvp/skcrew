@@ -11,7 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.spigot.Skcrew;
+import com.lotzy.skcrew.spigot.Config;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.event.Event;
 import java.util.HashMap;
@@ -52,9 +52,8 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
         HikariDataSource ds = new HikariDataSource();
 
         //allow specifying of own sql driver class name
-        if (!Skcrew.getInstance().getConfig().getString("sql.driver-class-name", "default").equals("default")) {
-            ds.setDriverClassName(Skcrew.getInstance().getConfig().getString("sql.driver-class-name"));
-        }
+        if (!Config.getSQLDriverClass().toUpperCase().equals("DEFAULT"))
+            ds.setDriverClassName(Config.getSQLDriverClass());
         ds.setJdbcUrl(jdbcUrl);
 
         if (maxLifetime != null) {
@@ -82,7 +81,7 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "datasource " + url.toString(e, debug);
+        return "Datasource: " + url.toString(e, debug);
     }
 
     @SuppressWarnings("unchecked")

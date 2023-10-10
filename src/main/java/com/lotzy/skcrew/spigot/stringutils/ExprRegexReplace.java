@@ -20,11 +20,13 @@ public class ExprRegexReplace extends SimpleExpression<String> {
 
     static {
         Skript.registerExpression(ExprRegexReplace.class, String.class, ExpressionType.COMBINED, 
-                "regex replace %string% with %string% in %string%");
+            "regex replace %string% with %string% in %string%");
     }
+    
     Expression<String> expr1;
     Expression<String> expr2;
     Expression<String> expr3;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         expr1 = (Expression<String>) exprs[0];
@@ -52,5 +54,4 @@ public class ExprRegexReplace extends SimpleExpression<String> {
     public String toString(Event e, boolean debug) {
         return "Regex replace "+expr1.toString(e,debug)+" with "+expr2.toString(e,debug)+ " in "+expr3.toString(e,debug);
     }
-
 }

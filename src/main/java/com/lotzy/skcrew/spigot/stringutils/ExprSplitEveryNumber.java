@@ -24,8 +24,10 @@ public class ExprSplitEveryNumber extends SimpleExpression<String> {
                 "%string% split [(by|at)] every %integer% (symbol|char[acter])[s]",
                 "split %string% [(by|at)] every %integer% (symbol|char[acter])[s]");
     }
+    
     Expression<String> expr1;
     Expression<Integer> expr2;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         expr1 = (Expression<String>) exprs[0];
@@ -55,5 +57,4 @@ public class ExprSplitEveryNumber extends SimpleExpression<String> {
     public String toString(Event e, boolean debug) {
         return "Split every "+expr2.toString(e,debug)+" characters in "+expr1.toString(e,debug);
     }
-
 }

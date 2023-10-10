@@ -44,5 +44,4 @@ public class CondChunkLoaded extends Condition {
     public String toString(Event e, boolean debug) {
         return "Chunk "+expr.toString(e, debug) + " is " + (isNegated() ? " unloaded" : " loaded");
     }
-
 }

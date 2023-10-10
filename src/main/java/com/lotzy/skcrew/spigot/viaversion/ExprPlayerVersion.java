@@ -15,8 +15,6 @@ import com.viaversion.viaversion.api.Via;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-
-
 @Name("Via - Player version")
 @Description("Get version of player")
 @RequiredPlugins("ViaVersion")
@@ -118,7 +116,6 @@ public class ExprPlayerVersion extends SimpleExpression<String> {
         if (ver >= 6)
             return new String[] {"1.8.0"};
         return new String[] {"1.7.2"};
-     
     }
 
     @Override
@@ -133,7 +130,7 @@ public class ExprPlayerVersion extends SimpleExpression<String> {
 
     @Override
     public String toString( Event e, boolean debug) {
-        return "Get version of player " + player.toString(e, debug);
+        return "Version of player: " + player.toString(e, debug);
     }
 
     @Override

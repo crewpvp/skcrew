@@ -25,9 +25,11 @@ public class ExprRegexGroup extends SimpleExpression<String> {
         Skript.registerExpression(ExprRegexGroup.class, String.class, ExpressionType.COMBINED, 
                 "regex group[s] %integer% of %string% matched to %string%");
     }
+    
     Expression<Integer> expr1;
     Expression<String> expr2;
     Expression<String> expr3;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         expr1 = (Expression<Integer>) exprs[0];
@@ -38,16 +40,14 @@ public class ExprRegexGroup extends SimpleExpression<String> {
 
     @Override
     protected String[] get(Event e) {
-       Matcher p = Pattern.compile(expr3.getSingle(e)).matcher(expr2.getSingle(e));
-       Integer group = expr1.getSingle(e);
-       ArrayList<String> list = new ArrayList<>();
-       p.reset();
-       int n = 0;
-       while (p.find()) {
+        Matcher p = Pattern.compile(expr3.getSingle(e)).matcher(expr2.getSingle(e));
+        Integer group = expr1.getSingle(e);
+        ArrayList<String> list = new ArrayList<>();
+        p.reset();
+        int n = 0;
+        while (p.find()) 
             list.add(n,p.group(group));
-       }
-       
-       return list.toArray(new String[0]);
+        return list.toArray(new String[0]);
     }
 
     @Override
@@ -64,5 +64,4 @@ public class ExprRegexGroup extends SimpleExpression<String> {
     public String toString(Event e, boolean debug) {
         return "Regex group "+expr1.toString(e,debug)+" of "+expr2.toString(e,debug)+" to "+expr3.toString(e,debug);
     }
-
 }

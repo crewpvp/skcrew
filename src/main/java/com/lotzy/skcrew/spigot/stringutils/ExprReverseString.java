@@ -23,7 +23,9 @@ public class ExprReverseString extends SimpleExpression<String> {
         Skript.registerExpression(ExprReverseString.class, String.class, ExpressionType.COMBINED, 
                 "(reverse[d]|backward(s|ed)) [(string|text)] %string%");
     }
+    
     Expression<String> expr1;
+    
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         expr1 = (Expression<String>) exprs[0];
@@ -49,5 +51,4 @@ public class ExprReverseString extends SimpleExpression<String> {
     public String toString(Event e, boolean debug) {
         return "Reverse string "+expr1.toString(e,debug);
     }
-
 }

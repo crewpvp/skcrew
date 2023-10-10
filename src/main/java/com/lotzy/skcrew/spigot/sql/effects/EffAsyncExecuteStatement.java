@@ -112,7 +112,7 @@ public class EffAsyncExecuteStatement extends Effect {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "async execute " + exprquery.toString(e, debug) + " in " + dataSource.toString(e, debug);
+        return "Async execute " + exprquery.toString(e, debug) + " in " + dataSource.toString(e, debug);
     }
 
     @SuppressWarnings("unchecked")

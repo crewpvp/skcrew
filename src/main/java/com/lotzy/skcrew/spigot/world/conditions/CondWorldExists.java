@@ -48,5 +48,4 @@ public class CondWorldExists extends Condition {
     public String toString(Event e, boolean debug) {
         return "world " + expr.toString(e, debug) + " is " + (isNegated() ? "n't exist" : " exists");
     }
-
 }
