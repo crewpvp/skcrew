@@ -1,6 +1,7 @@
 package com.lotzy.skcrew.shared.sockets.data;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -31,7 +32,20 @@ public class SpigotPlayer extends BasePlayer implements Serializable  {
         this.server.getPlayers().remove(this);
         this.server = server;
         this.server.players.add(this);
-        
+    }
+    
+    public void kick() {
+        if (this.server != null)
+            this.server.kick(Arrays.asList(this), null);
+    }
+    
+    public void kick(String reason) {
+        if (this.server != null)
+            this.server.kick(Arrays.asList(this), reason);
+    }
+    
+    public void switchServer(SpigotServer newServer) {
+        newServer.switchPlayers(Arrays.asList(this));
     }
     
 }

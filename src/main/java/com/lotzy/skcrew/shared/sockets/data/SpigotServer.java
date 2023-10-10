@@ -1,10 +1,16 @@
 package com.lotzy.skcrew.shared.sockets.data;
 
 import com.lotzy.skcrew.shared.sockets.packets.Packet;
+import com.lotzy.skcrew.shared.sockets.packets.PacketIncomingSignal;
+import com.lotzy.skcrew.shared.sockets.packets.PacketKickPlayer;
+import com.lotzy.skcrew.shared.sockets.packets.PacketSwitchPlayer;
 import com.lotzy.skcrew.spigot.Skcrew;
 import java.io.Serializable;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class SpigotServer extends BaseServer implements Serializable {
     HashSet<SpigotPlayer> players;
@@ -42,6 +48,18 @@ public class SpigotServer extends BaseServer implements Serializable {
     public void sendPacket(Packet packet) {
         if (this.isConnected())
             Skcrew.getInstance().getSocketClient().sendObject(packet);
+    }
+    
+    public void kick(Collection<SpigotPlayer> players, String reason) {
+        this.sendPacket(new PacketKickPlayer(reason, players.stream().map(player -> player.toBasePlayer()).collect(Collectors.toSet())));
+    }
+    
+    public void switchPlayers(Collection<SpigotPlayer> players) {
+        this.sendPacket(new PacketSwitchPlayer(this.toBaseServer(),players.stream().map(player -> player.toBasePlayer()).collect(Collectors.toSet())));
+    }
+    
+    public void sendSignal(Collection<Signal> signals) {
+        this.sendPacket(new PacketIncomingSignal(Arrays.asList(this.toBaseServer()), signals));
     }
     
 }
