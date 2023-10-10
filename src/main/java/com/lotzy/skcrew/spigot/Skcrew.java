@@ -2,91 +2,98 @@ package com.lotzy.skcrew.spigot;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
-import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
-import com.lotzy.skcrew.spigot.skriptgui.gui.events.GUIEvents;
-import com.lotzy.sockets.SocketClient;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import com.lotzy.skcrew.spigot.sockets.SocketClient;
+import com.lotzy.skcrew.spigot.sockets.SocketClientListener;
+import java.nio.file.Path;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Skcrew extends JavaPlugin {
+public class Skcrew extends JavaPlugin {
     private static Skcrew instance;
+    private SocketClient socketClient = null;
+    private SocketClientListener socketClientListener;
     private static SkriptAddon addonInstance;
-    protected FileConfiguration config;
-    public SocketClient socketClient = null;
+    private Path dataDirectory;
+    private Integer[] version = new Integer[] {0,0,0};
+    
     @Override
     public void onEnable() {
+        String[] ver = (this.getServer().getBukkitVersion().split("-")[0]).split("\\.");
+        for (int i = 0; i<Math.min(3,ver.length); i++) version[i]+=Integer.parseInt(ver[i]);
+
         instance = this;
         addonInstance = Skript.registerAddon(instance);
-        File configFile = new File(this.getDataFolder(), "config.yml");
-        if (!configFile.exists()) {
-            this.saveResource("config.yml", false);
+        dataDirectory = this.getDataFolder().toPath();
+        Config.UPDATE_CONFIG(dataDirectory);
+        
+        if (Config.isSocketClientEnabled()) {
+            socketClient = new SocketClient(Config.getSocketServerAddress(),Config.getSocketServerPort(),Config.getSocketClientAutoreconnectTime()*1000);
+            socketClientListener = new SocketClientListener();
+            socketClient.addListener(socketClientListener);
+            this.getServer().getScheduler().runTaskAsynchronously(this,socketClient);
+            Config.loadSocketsModule();
         }
-        config = YamlConfiguration.loadConfiguration(configFile);
-        try {
-            if  (config.getBoolean("files.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.spigot.files"); 
-            if  (config.getBoolean("other.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.spigot.other"); 
-            if  (config.getBoolean("map.enabled"))   addonInstance.loadClasses("com.lotzy.skcrew.spigot.map"); 
-            if  (config.getBoolean("floodgate.enabled")) {
-                if (Bukkit.getPluginManager().getPlugin("Floodgate")!=null && Bukkit.getPluginManager().getPlugin("Floodgate").isEnabled()) {
-                    addonInstance.loadClasses("com.lotzy.skcrew.spigot.floodgate");
-                    Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), this);
-                } else {
-                    Bukkit.getLogger().info("[Skcrew] Floodgate is not installed, disabling 'floodgate' support");
-                }
-            }
-            if  (config.getBoolean("via.enabled")) {
-                if (Bukkit.getPluginManager().getPlugin("ViaVersion")!=null && Bukkit.getPluginManager().getPlugin("ViaVersion").isEnabled()) {
-                    addonInstance.loadClasses("com.lotzy.skcrew.spigot.via");
-                } else {
-                    Bukkit.getLogger().info("[Skcrew] ViaVersion is not installed, disabling 'via' support");
-                }
-            }
-            if  (config.getBoolean("interpretate.enabled")) addonInstance.loadClasses("com.lotzy.skcrew.spigot.interpretate"); 
-            if  (config.getBoolean("runtime.enabled"))      addonInstance.loadClasses("com.lotzy.skcrew.spigot.runtime"); 
-            if  (config.getBoolean("requests.enabled"))          addonInstance.loadClasses("com.lotzy.skcrew.spigot.requests"); 
-            if  (config.getBoolean("world.enabled"))        addonInstance.loadClasses("com.lotzy.skcrew.spigot.world"); 
-            if  (config.getBoolean("sql.enabled"))          addonInstance.loadClasses("com.lotzy.skcrew.spigot.sql"); 
-            if  (config.getBoolean("stringutils.enabled"))  addonInstance.loadClasses("com.lotzy.skcrew.spigot.stringutils"); 
-            if  (config.getBoolean("permissions.enabled"))  addonInstance.loadClasses("com.lotzy.skcrew.spigot.permissions"); 
-            if  (config.getBoolean("gui.enabled")) {
-                getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.skriptgui"); 
-                Bukkit.getServer().getPluginManager().registerEvents(new GUIEvents(), this);
-            }
-            if (config.getBoolean("sockets.enabled")) {
-                getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.sockets");
-                int port = config.getInt("sockets.server-port");
-                String address = config.getString("sockets.server-address");
-                int heartbeat = config.getInt("sockets.autoreconnect-time");
-                socketClient = new SocketClient(address,port,heartbeat);
-            }
-            if (config.getBoolean("maps.enabled")) {
-                getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.maps");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Skcrew.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        if (Config.isBitwiseEnabled()) Config.loadBitwiseModule();
+        if (Config.isFilesEnabled()) Config.loadFilesModule();
+        if (Config.isFloodgateEnabled()) Config.loadFloodgateModule();
+        if (Config.isGUIEnabled()) Config.loadGUIModule();
+        if (Config.isInterpretateEnabled()) Config.loadInterpretateModule();
+        if (Config.isMapsEnabled()) Config.loadInterpretateModule();
+        if (Config.isOtherEnabled()) Config.loadOtherModule();
+        if (Config.isPermissionsEnabled()) Config.loadOtherModule();
+        if (Config.isRequestsEnabled()) Config.loadRequestsModule();
+        if (Config.isRuntimeEnabled()) Config.loadRuntimeModule();
+        if (Config.isSQLEnabled()) Config.loadSQLModule();
+        if (Config.isStringUtilsEnabled()) Config.loadStringUtilsModule();
+        if (Config.isViaVersionEnabled()) Config.loadViaVersionModule();
+        if (Config.isWorldEnabled()) Config.loadWorldModule();
+        
     }
+
     @Override
     public void onDisable() {
-        if (socketClient!=null) {
-            socketClient.close();
-            getServer().getScheduler().cancelTasks(this);
-        }
+        if (socketClient != null) socketClient.close();
     }
+    
+    public Path getDataDirectory() {
+        return this.dataDirectory;
+    }
+    
+    public SocketClient getSocketClient() {
+        return this.socketClient;
+    }
+    
+    public SocketClientListener getSocketClientListener() {
+        return this.socketClientListener;
+    }
+    
     public static SkriptAddon getAddonInstance() {
+        if (addonInstance == null) {
+            addonInstance = Skript.registerAddon(getInstance());
+        }
         return addonInstance;
     }
-    @Override
-    public FileConfiguration getConfig() {
-        return config;
-    }
+
     public static Skcrew getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException();
+        }
         return instance;
+    }
+    
+    public boolean coreVersionIsLessThan(Integer[] version) {
+        for(int i = 0; i<Math.min(3,version.length); i++) {
+            if (this.version[i] == version[i]) continue;
+            if (this.version[i] < version[i]) return true;
+            return false;
+        }
+        return false;
+    }
+    public boolean coreVersionIsGreaterThan(Integer[] version) {
+        for(int i = 0; i<Math.min(3,version.length); i++) {
+            if (this.version[i] == version[i]) continue;
+            if (this.version[i] > version[i]) return true;
+            return false;
+        }
+        return false;
     }
 }
