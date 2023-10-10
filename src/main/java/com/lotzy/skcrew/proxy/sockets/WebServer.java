@@ -261,7 +261,7 @@ public class WebServer implements Runnable {
                                         JsonPrimitive prdata = el.getAsJsonPrimitive();
                                         alldata.add(prdata.isString() ? prdata.getAsString() : prdata.getAsNumber());
                                     }
-                                    signals.add(new Signal(key.getAsString(),alldata.toArray(new Object[0])));
+                                    signals.add(new Signal(key.getAsString(),alldata));
                                 }
                                 PacketOutcomingSignal packet = new PacketOutcomingSignal(signals);
                                 server.sendPacket(packet);
@@ -336,7 +336,7 @@ public class WebServer implements Runnable {
                             JsonPrimitive prdata = el.getAsJsonPrimitive();
                             alldata.add(prdata.isString() ? prdata.getAsString() : prdata.getAsNumber());
                         }
-                        signals.add(new Signal(key.getAsString(),alldata.toArray(new Object[0])));
+                        signals.add(new Signal(key.getAsString(),alldata));
                     }
                     PacketOutcomingSignal packet = new PacketOutcomingSignal(signals);
                     receivers.forEach(server -> server.sendPacket(packet));
@@ -361,6 +361,7 @@ public class WebServer implements Runnable {
            .map(s -> Arrays.copyOf(s.split("="), 2))
            .collect(Collectors.groupingBy(s -> decode(s[0]).toLowerCase(), Collectors.mapping(s -> decode(s[1]), Collectors.toList())));
     }
+    
     private static String decode(final String encoded) {
         try {
             return encoded == null ? null : URLDecoder.decode(encoded, "UTF-8");
@@ -368,6 +369,7 @@ public class WebServer implements Runnable {
             throw new RuntimeException("UTF-8 is a required encoding", e);
         }
     }
+    
     public String getAuthToken() {
         return Base64.getEncoder().encodeToString((this.login+":"+this.password).getBytes());
     }
@@ -400,6 +402,7 @@ public class WebServer implements Runnable {
         }
         return stringBuilder.toString();
     }
+    
     public void sendResponse(HttpExchange exchange, int code, String body) {
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF_8");
         byte[] rawResponseBody = body.getBytes(StandardCharsets.UTF_8);
