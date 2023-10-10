@@ -4,8 +4,9 @@ import com.lotzy.skcrew.shared.sockets.data.Signal;
 import java.util.Collection;
 
 public class PacketOutcomingSignal extends Packet {
+    
     public PacketOutcomingSignal(Signal[] signals) {
-        super(PacketType.OUTCOMING_SIGNAL, signals);
+        super(PacketType.OUTCOMING_SIGNAL,signals);
     }
     
     public PacketOutcomingSignal(Collection<Signal> signals) {

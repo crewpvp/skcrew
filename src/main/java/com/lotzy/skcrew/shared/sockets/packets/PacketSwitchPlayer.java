@@ -6,10 +6,6 @@ import java.util.Collection;
 
 public class PacketSwitchPlayer extends Packet {
     BaseServer server;
-    public PacketSwitchPlayer(BaseServer server, BasePlayer[] players) {
-        super(PacketType.SWITCH_PLAYER, players);
-        this.server = server;
-    }
     
     public PacketSwitchPlayer(BaseServer server, Collection<BasePlayer> players) {
         super(PacketType.SWITCH_PLAYER, players.toArray(new BasePlayer[0]));
