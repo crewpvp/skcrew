@@ -3,7 +3,6 @@ package com.lotzy.skcrew.shared.sockets.data;
 import com.lotzy.skcrew.proxy.sockets.SocketClientThread;
 import com.lotzy.skcrew.shared.sockets.packets.Packet;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
