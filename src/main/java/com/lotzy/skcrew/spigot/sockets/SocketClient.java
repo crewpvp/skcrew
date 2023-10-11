@@ -91,6 +91,7 @@ public class SocketClient implements Runnable {
             }
         }
     }
+    
     public void connect() throws IOException {
         this.socket = new Socket(this.host, this.port);
         this.socket.setSoTimeout(0);

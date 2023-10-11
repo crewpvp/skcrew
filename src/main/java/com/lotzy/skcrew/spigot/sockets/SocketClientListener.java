@@ -78,9 +78,11 @@ public class SocketClientListener implements ClientListener {
     public SpigotPlayer getPlayer(BasePlayer player) {
         return this.getPlayers().stream().filter(pplayer -> player.equals(pplayer)).findFirst().orElse(null);
     }
+    
     public SpigotPlayer getPlayer(String name) {
         return this.getPlayers().stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
     }
+    
     public SpigotPlayer getPlayer(UUID uuid) {
         return this.getPlayers().stream().filter(player -> player.getUUID().equals(uuid)).findFirst().orElse(null);
     }
@@ -105,6 +107,10 @@ public class SocketClientListener implements ClientListener {
             this.servers.clear();
             return;
         }
+    }
+    
+    public void sendPacket(Packet packet) {
+        Skcrew.getInstance().getSocketClient().sendObject(packet);
     }
     
     @Override
