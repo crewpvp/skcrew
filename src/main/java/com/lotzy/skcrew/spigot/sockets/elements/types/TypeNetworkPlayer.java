@@ -7,8 +7,6 @@ import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Converters;
 import com.lotzy.skcrew.shared.sockets.data.SpigotPlayer;
-import com.lotzy.skcrew.spigot.Skcrew;
-import java.util.UUID;
 import org.bukkit.OfflinePlayer;
 
 public class TypeNetworkPlayer {
@@ -24,16 +22,12 @@ public class TypeNetworkPlayer {
             .parser(new Parser<SpigotPlayer>() {
                 @Override
                 public SpigotPlayer parse(String name, ParseContext arg1) {
-                    try {
-                        return Skcrew.getInstance().getSocketClientListener().getPlayer(UUID.fromString(name)); 
-                    } catch (IllegalArgumentException ex) {
-                        return Skcrew.getInstance().getSocketClientListener().getPlayer(name);
-                    }
+                    return null;
                 }
 
                 @Override
                 public boolean canParse(final ParseContext context) {
-                    return true;
+                    return false;
                 }
 
                 @Override

@@ -6,7 +6,6 @@ import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import com.lotzy.skcrew.shared.sockets.data.SpigotServer;
-import com.lotzy.skcrew.spigot.Skcrew;
 
 public class TypeServer {
 
@@ -20,12 +19,12 @@ public class TypeServer {
             .parser(new Parser<SpigotServer>() {
                 @Override
                 public SpigotServer parse(String server, ParseContext arg1) {
-                    return Skcrew.getInstance().getSocketClientListener().getServer(server);
+                    return null;
                 }
 
                 @Override
                 public boolean canParse(final ParseContext context) {
-                    return true;
+                    return false;
                 }
 
                 @Override

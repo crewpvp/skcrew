@@ -27,7 +27,7 @@ public class EffProxyKick extends Effect {
     static {
         Skript.registerEffect(EffProxyKick.class, 
                 "kick %offlineplayers% from proxy",
-                "kick %offlineplayers% from proxy (by reason of|because [of]|on account of|due to) %text%");
+                "kick %offlineplayers% from proxy (by reason of|because [of]|on account of|due to) %string%");
     }
     
     private Expression<OfflinePlayer> players;

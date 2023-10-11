@@ -9,6 +9,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.LiteralUtils;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.shared.sockets.data.Signal;
 import org.bukkit.event.Event;
@@ -32,8 +33,8 @@ public class ExprSignal extends SimpleExpression<Signal> {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         key = (Expression<String>) expr[0];
-        data = (Expression<Object>) expr[1];
-        return true;
+        data = LiteralUtils.defendExpression(expr[1]);
+        return LiteralUtils.canInitSafely(data);
     }
 
     @Override
