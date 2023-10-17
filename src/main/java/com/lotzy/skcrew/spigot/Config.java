@@ -1,5 +1,6 @@
 package com.lotzy.skcrew.spigot;
 
+import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -169,7 +170,9 @@ public class Config {
         return Config.GUI_ENABLED;
     }
     public static void loadGUIModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.skriptgui");
+        try { 
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.skriptgui");
+            Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), Skcrew.getInstance());
         } catch (IOException ex) {}
     }
     public static boolean isRuntimeEnabled() {
