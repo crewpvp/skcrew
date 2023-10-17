@@ -17,8 +17,6 @@ import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 
-
-
 @Name("Forms - Last form")
 @Description("Get last created form")
 @Examples("open last created form to player")
@@ -90,5 +88,4 @@ public class ExprLastForm extends SimpleExpression<Form> {
     public String toString( Event e, boolean debug) {
         return id == null ? "the last form" : "the form with the id " + id.toString(e, debug);
     }
-
 }

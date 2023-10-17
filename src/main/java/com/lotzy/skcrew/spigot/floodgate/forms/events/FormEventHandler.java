@@ -5,8 +5,8 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 public abstract class FormEventHandler {
+    
     private boolean paused;
-
     private final List<Player> pausedFor = new ArrayList<>();
 
     public void resume() {
@@ -36,5 +36,4 @@ public abstract class FormEventHandler {
     public abstract void onSubmit(FormSubmitEvent e);
     public abstract void onOpen(FormOpenEvent e);
     public abstract void onClose(FormCloseEvent e);
-
 }

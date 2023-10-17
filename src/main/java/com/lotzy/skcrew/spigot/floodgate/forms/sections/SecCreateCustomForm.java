@@ -16,8 +16,7 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import java.util.List;
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.util.FormType;
-
+import org.geysermc.cumulus.form.util.FormType;
 
 @Name("Forms - Custom form")
 @Description("Create custom form")
@@ -32,9 +31,10 @@ import org.geysermc.cumulus.util.FormType;
 @RequiredPlugins("Floodgate")
 @Since("1.0")
 public class SecCreateCustomForm extends EffectSection {
+    
     static {
         Skript.registerSection(SecCreateCustomForm.class,
-            "create [a] [new] custom form (with name|named) %string% [[with id[entifier]] %-string%]"
+            "create [a] [new] custom form (with (name|title)|named) %string% [[with id[entifier]] %-string%]"
         );
     }
     
@@ -59,7 +59,7 @@ public class SecCreateCustomForm extends EffectSection {
         String id = this.id != null ? this.id.getSingle(event) : null;
         if (id != null && !id.isEmpty()) {
             Form old = SkriptForm.getFormManager().getForm(id);
-            if (old != null) { // We are making a new GUI with this ID (see https://github.com/APickledWalrus/skript-gui/issues/72)
+            if (old != null) {
                 SkriptForm.getFormManager().unregister(old);
             }
             form.setID(id);
@@ -72,5 +72,4 @@ public class SecCreateCustomForm extends EffectSection {
     public String toString(Event event, boolean bln) {
         return "create custom form " + name.toString(event, bln);
     }
-    
 }

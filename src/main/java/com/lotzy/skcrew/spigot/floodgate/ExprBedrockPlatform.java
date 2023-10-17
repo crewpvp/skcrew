@@ -16,8 +16,6 @@ import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
-
-
 @Name("Forms - Bedrock Platform")
 @Description("Get platform of bedrock player")
 @RequiredPlugins("Floodgate")
@@ -27,8 +25,8 @@ public class ExprBedrockPlatform extends SimpleExpression<String> {
 
     static {
         Skript.registerExpression(ExprBedrockPlatform.class, String.class, ExpressionType.COMBINED,
-                "[the] [be[[drock] [edition]]] (platform|device) of [the] [floodgate] %player%",
-                "%player%'s [be[[drock] [edition]]] (platform|device) [of [the] floodgate]");
+            "[the] [be[[drock] [edition]]] (platform|device) of [the] [floodgate] %player%",
+            "%player%'s [be[[drock] [edition]]] (platform|device) [of [the] floodgate]");
     }
 
     private Expression<Player> player;

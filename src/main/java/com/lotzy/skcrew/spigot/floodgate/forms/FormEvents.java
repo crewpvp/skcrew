@@ -11,10 +11,9 @@ import org.bukkit.event.Listener;
 public class FormEvents implements Listener {
 
 	public FormEvents() {
-		// We still want these events to be processed by Skript
-		SkriptEventHandler.listenCancelled.add(FormSubmitEvent.class);
-		SkriptEventHandler.listenCancelled.add(FormOpenEvent.class);
-		SkriptEventHandler.listenCancelled.add(FormCloseEvent.class);
+            SkriptEventHandler.listenCancelled.add(FormSubmitEvent.class);
+            SkriptEventHandler.listenCancelled.add(FormOpenEvent.class);
+            SkriptEventHandler.listenCancelled.add(FormCloseEvent.class);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
@@ -24,12 +23,11 @@ public class FormEvents implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onFormOpen(FormOpenEvent event) {
-		event.getForm().getEventHandler().onOpen(event);
+            event.getForm().getEventHandler().onOpen(event);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onFormClose(FormCloseEvent event) {
-		event.getForm().getEventHandler().onClose(event);
-	}
-        
+            event.getForm().getEventHandler().onClose(event);
+	}  
 }

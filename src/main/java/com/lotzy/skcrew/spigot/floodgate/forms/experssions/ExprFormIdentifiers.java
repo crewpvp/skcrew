@@ -2,7 +2,6 @@ package com.lotzy.skcrew.spigot.floodgate.forms.experssions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
-import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
@@ -16,7 +15,6 @@ import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import org.bukkit.event.Event;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Name("Forms - IDS")
 @Description("Get IDS of global forms")
@@ -60,5 +58,4 @@ public class ExprFormIdentifiers extends SimpleExpression<String> {
     public String toString( Event e, boolean debug) {
         return "all of the registered form identifiers";
     }
-
 }

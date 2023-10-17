@@ -21,7 +21,6 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import java.util.List;
-
 import org.bukkit.event.Event;
 
 @Name("Forms - Result")
@@ -34,42 +33,35 @@ import org.bukkit.event.Event;
 @RequiredPlugins("Floodgate")
 @Since("1.0")
 public class SecFormResult extends EffectSection {
+    
     static {
         Skript.registerSection(SecFormResult.class,"run on form (result|submit)" );
     }
     
-    
     private Trigger trigger;
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> items) {
         if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
                 Skript.error("You can't make a result section outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
         }
-
         if (hasSection()) {
-            assert sectionNode != null;
             trigger = loadCode(sectionNode, "form submit event", FormSubmitEvent.class);
         }
-
         return true;
     }
 
     @Override
-    
     public TriggerItem walk(Event e) {
         Form form = SkriptForm.getFormManager().getForm(e);
         if (form == null) {
             return walk(e, false);
         }
         if (hasSection()) {
-            assert trigger != null;
             Object variables = Variables.copyLocalVariables(e);
             if (variables != null) {
                 form.setOnResult(event -> {
@@ -82,11 +74,9 @@ public class SecFormResult extends EffectSection {
                     trigger.execute(event);
                 });
             }
-
         } else {
             form.setOnResult(null);
         }
-
         return walk(e, false);
     }
     

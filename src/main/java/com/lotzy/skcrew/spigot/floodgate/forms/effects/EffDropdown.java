@@ -17,9 +17,8 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.util.glue.CustomFormGlue;
+import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Dropdown")
 @Description("Create dropdown on custom form")
@@ -36,7 +35,6 @@ public class EffDropdown extends Effect {
     }
     
     int pattern;
-    
     Expression<String> name;
     Expression<String> elements;
     Expression<Number> def;
@@ -44,45 +42,39 @@ public class EffDropdown extends Effect {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
                 Skript.error("You can't make a dropdown outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
         }
+        
         pattern = matchedPattern;
-        
-        
         name = (Expression<String>)exprs[0];
         elements = (Expression<String>)exprs[1];
         if(matchedPattern > 0) 
             def = (Expression<Number>)exprs[2]; 
-        
         return true;
     }
 
     @Override
-    protected void execute(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
+    protected void execute(Event event) {
+        Form form = SkriptForm.getFormManager().getForm(event);
         switch(pattern) {
             case 0:
-                ((CustomFormGlue.Builder)form.getForm().get())
-                    .dropdown(name.getSingle(e), elements.getArray(e));
+                ((CustomForm.Builder)form.getForm()).dropdown(name.getSingle(event), elements.getArray(event));
                 break;
             case 1:
-                String[] el = elements.getArray(e);
-                int def = this.def.getSingle(e).intValue();
-                if(def > el.length)
-                    def = 1;
+                String[] el = elements.getArray(event);
+                int def = this.def.getSingle(event).intValue();
+                if(def > el.length) def = 1;
                 def--;
-                ((CustomFormGlue.Builder)form.getForm().get())
-                    .dropdown(name.getSingle(e),def,el);
+                ((CustomForm.Builder)form.getForm()).dropdown(name.getSingle(event),def,el);
         }
     }
+    
     @Override
     public String toString( Event e, boolean debug) {
         return "create form dropdown";
     }
-
 }

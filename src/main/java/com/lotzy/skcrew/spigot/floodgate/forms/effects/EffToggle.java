@@ -17,9 +17,8 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.util.glue.CustomFormGlue;
+import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Toggle")
 @Description("Create toggle on custom form ")
@@ -36,14 +35,12 @@ public class EffToggle extends Effect {
     }
     
     int pattern;
-    
     Expression<String> name;
     Expression<Boolean> def;
     
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
                 Skript.error("You can't make a toggle outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
@@ -51,29 +48,26 @@ public class EffToggle extends Effect {
             }
         }
         pattern = matchedPattern;
-        
-        
         name = (Expression<String>)exprs[0];
         if(matchedPattern > 0) 
             def = (Expression<Boolean>)exprs[1]; 
-        
         return true;
     }
 
     @Override
-    protected void execute(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
+    protected void execute(Event event) {
+        Form form = SkriptForm.getFormManager().getForm(event);
         switch(pattern) {
             case 0:
-                ((CustomFormGlue.Builder)form.getForm().get()).toggle(name.getSingle(e));
+                ((CustomForm.Builder)form.getForm()).toggle(name.getSingle(event));
                 break;
             case 1:
-                ((CustomFormGlue.Builder)form.getForm().get()).toggle(name.getSingle(e),def.getSingle(e));
+                ((CustomForm.Builder)form.getForm()).toggle(name.getSingle(event),def.getSingle(event));
         }
     }
+    
     @Override
     public String toString( Event e, boolean debug) {
         return "create form toggle";
     }
-
 }

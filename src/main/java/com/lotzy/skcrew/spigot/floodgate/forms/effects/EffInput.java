@@ -17,9 +17,8 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.util.glue.CustomFormGlue;
+import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Input")
 @Description("Create input on custom form ")
@@ -37,7 +36,6 @@ public class EffInput extends Effect {
     }
     
     int pattern;
-    
     Expression<String> name;
     Expression<String> placeholder;
     Expression<String> def;
@@ -45,15 +43,14 @@ public class EffInput extends Effect {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
                 Skript.error("You can't make a input outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
         }
-        pattern = matchedPattern;
         
+        pattern = matchedPattern;
         name = (Expression<String>)exprs[0];
         if(matchedPattern > 0) {
             placeholder = (Expression<String>)exprs[1];
@@ -64,25 +61,22 @@ public class EffInput extends Effect {
     }
 
     @Override
-    protected void execute(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
+    protected void execute(Event event) {
+        Form form = SkriptForm.getFormManager().getForm(event);
         switch(pattern) {
             case 0:
-                ((CustomFormGlue.Builder)form.getForm().get())
-                    .input(name.getSingle(e));
+                ((CustomForm.Builder)form.getForm()).input(name.getSingle(event));
                 break;
             case 1:
-                ((CustomFormGlue.Builder)form.getForm().get())
-                    .input(name.getSingle(e),placeholder.getSingle(e));
+                ((CustomForm.Builder)form.getForm()).input(name.getSingle(event),placeholder.getSingle(event));
                 break;
             case 2:
-                ((CustomFormGlue.Builder)form.getForm().get())
-                    .input(name.getSingle(e),placeholder.getSingle(e),def.getSingle(e));
+                ((CustomForm.Builder)form.getForm()).input(name.getSingle(event),placeholder.getSingle(event),def.getSingle(event));
         }
     }
+    
     @Override
     public String toString( Event e, boolean debug) {
         return "create form input";
     }
-
 }

@@ -17,9 +17,8 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.util.glue.CustomFormGlue;
+import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Custom Slider")
 @Description("Create slider on custom forms")
@@ -37,7 +36,6 @@ public class EffSlider extends Effect {
     }
     
     int pattern;
-    
     Expression<String> name;
     Expression<Number> min;
     Expression<Number> max;
@@ -47,20 +45,17 @@ public class EffSlider extends Effect {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
                 Skript.error("You can't make a slider outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
         }
+        
         pattern = matchedPattern;
-        
-        
         name = (Expression<String>)exprs[0];
         min = (Expression<Number>)exprs[1];
         max = (Expression<Number>)exprs[2];
-        
         if(matchedPattern > 0) {
             def = (Expression<Number>)exprs[3]; 
             if(matchedPattern > 1) 
@@ -71,10 +66,10 @@ public class EffSlider extends Effect {
     }
 
     @Override
-    protected void execute(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
-        float min = this.min.getSingle(e).floatValue();
-        float max = this.max.getSingle(e).floatValue();
+    protected void execute(Event event) {
+        Form form = SkriptForm.getFormManager().getForm(event);
+        float min = this.min.getSingle(event).floatValue();
+        float max = this.max.getSingle(event).floatValue();
         if(max < min) {
             float t = min;
             min = max;
@@ -84,29 +79,29 @@ public class EffSlider extends Effect {
         int step;
         switch(pattern) {
             case 0:
-                ((CustomFormGlue.Builder)form.getForm().get()).slider(name.getSingle(e), min, max);
+                ((CustomForm.Builder)form.getForm()).slider(name.getSingle(event), min, max);
                 break;
             case 1:
-                def = this.def.getSingle(e).floatValue();
-                if(def < min) def = min;
-                if(def > max) def = max;
-                ((CustomFormGlue.Builder)form.getForm().get())
-                .slider(name.getSingle(e),min ,max ,def);
+                def = this.def.getSingle(event).floatValue();
+                if (def < min) def = min;
+                if (def > max) def = max;
+                ((CustomForm.Builder)form.getForm())
+                .slider(name.getSingle(event),min ,max ,def);
                 break;
             case 2:
-                def = this.def.getSingle(e).floatValue();
-                if(def < min) def = min;
-                if(def > max) def = max;
-                step = this.step.getSingle(e).intValue();
+                def = this.def.getSingle(event).floatValue();
+                if (def < min) def = min;
+                if (def > max) def = max;
+                step = this.step.getSingle(event).intValue();
                 int dif = (int) (max-min);
-                if(step > dif || step < 0) step = 1;
-                ((CustomFormGlue.Builder)form.getForm().get())
-                .slider(name.getSingle(e), min, max,step,def);
+                if (step > dif || step < 0) step = 1;
+                ((CustomForm.Builder)form.getForm())
+                .slider(name.getSingle(event), min, max,step,def);
         }
     }
+    
     @Override
     public String toString( Event e, boolean debug) {
         return "create form slider";
     }
-
 }

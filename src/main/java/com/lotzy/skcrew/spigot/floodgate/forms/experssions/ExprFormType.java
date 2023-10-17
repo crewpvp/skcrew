@@ -7,8 +7,7 @@ import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-
-import org.geysermc.cumulus.util.FormType;
+import org.geysermc.cumulus.form.util.FormType;
 
 @Name("Forms - Type")
 @Description({"Get type of form"})
@@ -18,16 +17,13 @@ import org.geysermc.cumulus.util.FormType;
 public class ExprFormType extends SimplePropertyExpression<Form, FormType> {
 
     static {
-        register(ExprFormType.class, FormType.class, "type", "form");
+        register(ExprFormType.class, FormType.class, "formtype", "form");
     }
 
     @Override
-    
     public FormType convert(Form form) {
         return form.getType();
     }
-
-
 
     @Override
     public Class<? extends FormType> getReturnType() {
@@ -38,5 +34,4 @@ public class ExprFormType extends SimplePropertyExpression<Form, FormType> {
     protected String getPropertyName() {
         return "Type of form";
     }
-
 }

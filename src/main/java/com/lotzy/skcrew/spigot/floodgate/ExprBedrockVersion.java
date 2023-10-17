@@ -16,8 +16,6 @@ import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.floodgate.api.player.FloodgatePlayer;
 
-
-
 @Name("Forms - Bedrock version")
 @Description("Get version of bedrock player")
 @RequiredPlugins("Floodgate")
@@ -27,8 +25,8 @@ public class ExprBedrockVersion extends SimpleExpression<String> {
 
     static {
         Skript.registerExpression(ExprBedrockVersion.class, String.class, ExpressionType.COMBINED,
-                "[the] be[[drock] [edition]] version of [the] [floodgate] %player%",
-                "%player%'s be[[drock] [edition]] version [of [the] floodgate]");
+            "[the] be[[drock] [edition]] version of [the] [floodgate] %player%",
+            "%player%'s be[[drock] [edition]] version [of [the] floodgate]");
     }
 
     private Expression<Player> player;

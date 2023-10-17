@@ -11,8 +11,6 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.events.FormListener;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
@@ -31,7 +29,6 @@ public class EffSendForm extends Effect {
     public static Expression<Form> form;
     public static Expression<Player> players;
 
-
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
@@ -45,8 +42,7 @@ public class EffSendForm extends Effect {
         Form form = this.form.getSingle(e);
         for(Player player : players.getArray(e)) {
             if(player.isOnline() && FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId()))
-                FloodgateApi.getInstance().getPlayer(player.getUniqueId())
-                    .sendForm(FormListener.FormListener(player, form));
+                FloodgateApi.getInstance().getPlayer(player.getUniqueId()).sendForm(form.build(player));
         }
     }
 
@@ -54,6 +50,5 @@ public class EffSendForm extends Effect {
     public String toString( Event e, boolean debug) {
         return "open form " + form.toString(e, debug) + " to" + players.toString(e, debug);
     }
-
 }
 

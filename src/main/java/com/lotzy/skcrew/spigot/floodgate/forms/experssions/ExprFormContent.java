@@ -21,13 +21,11 @@ import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormButton;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateModalForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateSimpleForm;
-
 import org.geysermc.cumulus.form.ModalForm;
 import org.geysermc.cumulus.form.SimpleForm;
-import org.geysermc.cumulus.form.impl.modal.ModalFormImpl;
-import org.geysermc.cumulus.form.impl.simple.SimpleFormImpl;
-import org.geysermc.cumulus.util.glue.ModalFormGlue;
-import org.geysermc.cumulus.util.glue.SimpleFormGlue;
+import static org.geysermc.cumulus.form.util.FormType.MODAL_FORM;
+import static org.geysermc.cumulus.form.util.FormType.SIMPLE_FORM;
+
 @Name("Forms - Content")
 @Description({"Get or set content of form",
         "Can be used in modal and simple forms"})
@@ -46,11 +44,9 @@ public class ExprFormContent extends SimpleExpression<String> {
         );
     }
 
-    
     private Expression<Form> form;
     
     @Override
-    @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, ParseResult parseResult) {
         if (matchedPattern > 1) {
             form = (Expression<Form>) exprs[0];
@@ -69,26 +65,19 @@ public class ExprFormContent extends SimpleExpression<String> {
 
     @Override
     protected String[] get(Event e) {
-        Object form;
-        if(this.form==null) {
-            form = SkriptForm.getFormManager().getForm(e).getForm().get();
-        } else {
-            form = this.form.getSingle(e).getForm().get();
-        }
-        if(form instanceof ModalFormGlue.Builder) {
-            String content = ((ModalFormImpl)((ModalForm.Builder) form).build()).content();
-            return new String[] {content.isEmpty() ? null : content };
-        } else if(form instanceof SimpleFormGlue.Builder) {
-            String content = ((SimpleFormImpl)((SimpleForm.Builder) form).build()).content();
-            return new String[] {content.isEmpty() ? null : content };
-        } else {
-            Skript.error("Custom forms doesn't support content",ErrorQuality.SEMANTIC_ERROR);
-            return null;
+        Form form = this.form == null ? SkriptForm.getFormManager().getForm(e) : this.form.getSingle(e);
+        switch(form.getType()) {
+            case SIMPLE_FORM:
+                return new String[] { ((SimpleForm.Builder)form.getForm()).build().content() };
+            case MODAL_FORM:
+                return new String[] { ((ModalForm.Builder)form.getForm()).build().content() };
+            default:
+                Skript.error("Custom forms doesn't support content",ErrorQuality.SEMANTIC_ERROR);
+                return null;
         }
     }
 
     @Override
-    
     public Class<?>[] acceptChange(ChangeMode mode) {
         switch(mode) {
             case SET:
@@ -100,32 +89,18 @@ public class ExprFormContent extends SimpleExpression<String> {
 
     @Override
     public void change(Event e,  Object[] delta, ChangeMode mode) {
-        Object form;
-        if(this.form==null) {
-            form = SkriptForm.getFormManager().getForm(e).getForm().get();
-        } else {
-            form = this.form.getSingle(e).getForm().get();
-        }
-        switch(mode) {
-            case SET:
-                if(form instanceof ModalFormGlue.Builder) {
-                    ((ModalFormGlue.Builder)form).content((String)delta[0]);
-                } else if(form instanceof SimpleFormGlue.Builder) {
-                    ((SimpleFormGlue.Builder)form).content((String)delta[0]);
-                } else {
-                    Skript.error("Custom forms doesn't support content, use label instead",ErrorQuality.SEMANTIC_ERROR);
-                }
+        Form form = this.form == null ? SkriptForm.getFormManager().getForm(e) : this.form.getSingle(e);
+        String content = mode == ChangeMode.SET ? (String) delta[0] : "";
+        switch(form.getType()) {
+            case SIMPLE_FORM:
+                ((SimpleForm.Builder)form.getForm()).content(content);
                 break;
-            case DELETE:
-                if(form instanceof ModalFormGlue.Builder) {
-                    ((ModalFormGlue.Builder)form).content("");
-                } else if(form instanceof SimpleFormGlue.Builder) {
-                    ((SimpleFormGlue.Builder)form).content("");
-                } else {
-                    Skript.error("Custom forms doesn't support content, use label instead",ErrorQuality.SEMANTIC_ERROR);
-                }
+            case MODAL_FORM:
+                ((ModalForm.Builder)form.getForm()).content(content);
+                break;
+            default:
+                Skript.error("Custom forms doesn't support content",ErrorQuality.SEMANTIC_ERROR);
         }
-        
     }
 
     @Override
@@ -140,7 +115,6 @@ public class ExprFormContent extends SimpleExpression<String> {
 
     @Override
     public String toString( Event e, boolean debug) {
-        return "content of form";
+        return "Content of form";
     }
-
 }

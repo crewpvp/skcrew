@@ -2,7 +2,6 @@ package com.lotzy.skcrew.spigot.floodgate.forms.experssions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
-import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
@@ -13,9 +12,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
-
 import org.bukkit.event.Event;
-
 
 @Name("Forms - Global forms")
 @Description("Get all global saved forms")
@@ -33,7 +30,6 @@ public class ExprForms extends SimpleExpression<Form> {
     }
 
     @Override
-    
     protected Form[] get(Event e) {
         return SkriptForm.getFormManager().getTrackedForms().toArray(new Form[0]);
     }
@@ -52,5 +48,4 @@ public class ExprForms extends SimpleExpression<Form> {
     public String toString( Event e, boolean debug) {
         return "all forms";
     }
-
 }

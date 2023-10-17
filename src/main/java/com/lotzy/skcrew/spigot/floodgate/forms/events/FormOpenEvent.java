@@ -5,31 +5,33 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-
-public class FormOpenEvent extends Event {
+public class FormOpenEvent extends Event implements BaseFormEvent {
+    
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
     private final Form form;
   
     public FormOpenEvent(Player player, Form form) {
-      this.player = player;
-      this.form = form;
+        this.player = player;
+        this.form = form;
     }
   
     public static HandlerList getHandlerList() {
-      return handlers;
+        return handlers;
     }
 
-    
+    @Override
     public HandlerList getHandlers() {
-      return handlers;
+        return handlers;
     }
 
+    @Override
     public Player getPlayer() {
-      return this.player;
+        return this.player;
     }
     
+    @Override
     public Form getForm() {
-      return this.form;
+        return this.form;
     }
 }

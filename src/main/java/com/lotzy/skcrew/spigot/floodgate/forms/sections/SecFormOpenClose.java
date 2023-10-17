@@ -19,7 +19,6 @@ import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormCloseEvent;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormOpenEvent;
 import java.util.List;
-
 import org.bukkit.event.Event;
 
 @Name("Forms - Open Close section")
@@ -51,15 +50,12 @@ public class SecFormOpenClose extends Section {
             Skript.error("Form open/close sections can only be put within Form creation or editing sections.");
             return false;
         }
-
         close = parseResult.mark == 1;
-
         if (close) {
             trigger = loadCode(sectionNode, "form close", FormCloseEvent.class);
         } else {
             trigger = loadCode(sectionNode, "form open", FormOpenEvent.class);
         }
-
         return true;
     }
 
@@ -89,7 +85,6 @@ public class SecFormOpenClose extends Section {
                 }
             }
         }
-
         return walk(e, false);
     }
 
@@ -97,5 +92,4 @@ public class SecFormOpenClose extends Section {
     public String toString( Event e, boolean debug) {
         return "run on form " + (close ? "close" : "open");
     }
-
 }

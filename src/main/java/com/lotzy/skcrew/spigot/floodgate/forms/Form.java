@@ -3,126 +3,122 @@ package com.lotzy.skcrew.spigot.floodgate.forms;
 import com.lotzy.skcrew.spigot.Skcrew;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormEventHandler;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormCloseEvent;
-import com.lotzy.skcrew.spigot.floodgate.forms.events.FormListener;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormOpenEvent;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.geysermc.cumulus.CustomForm;
-import org.geysermc.cumulus.ModalForm;
-import org.geysermc.cumulus.SimpleForm;
+import org.geysermc.cumulus.component.util.ComponentType;
+import org.geysermc.cumulus.form.CustomForm;
+import org.geysermc.cumulus.form.ModalForm;
+import org.geysermc.cumulus.form.SimpleForm;
+import org.geysermc.cumulus.form.util.FormBuilder;
+import org.geysermc.cumulus.form.util.FormType;
+import static org.geysermc.cumulus.form.util.FormType.MODAL_FORM;
+import static org.geysermc.cumulus.form.util.FormType.SIMPLE_FORM;
+import org.geysermc.cumulus.response.FormResponse;
 import org.geysermc.cumulus.response.ModalFormResponse;
 import org.geysermc.cumulus.response.SimpleFormResponse;
-import org.geysermc.cumulus.util.FormBuilder;
-import org.geysermc.cumulus.util.FormType;
 import org.geysermc.floodgate.api.FloodgateApi;
 
 public class Form {
     private final FormEventHandler eventHandler = new FormEventHandler() {
+        
         @Override
-        public void onSubmit(FormSubmitEvent e) {
-            if (isPaused() || isPaused((Player) e.getPlayer())) {
-                return;
-            }
-            Object r = e.getResponse();
+        public void onSubmit(FormSubmitEvent event) {
+            if (isPaused() || isPaused(event.getPlayer())) return;
+            FormResponse response = event.getResponse();
             Consumer<FormSubmitEvent> run;
-            if(r instanceof ModalFormResponse) {
-                run = buttons.get(((ModalFormResponse)r).getClickedButtonId());
-            } else if (r instanceof SimpleFormResponse) {
-                run = buttons.get(((SimpleFormResponse)r).getClickedButtonId());
-            } else {
-                run = onResult;
+            switch(event.getForm().getType()) {
+                case SIMPLE_FORM:
+                    run = buttons.get(((SimpleFormResponse)response).clickedButtonId());
+                    break;
+                case MODAL_FORM:
+                    run = buttons.get(((ModalFormResponse)response).clickedButtonId());
+                    break;
+                default:
+                    run = onResult;
+                    break;
             }
             if (run != null) {
-                SkriptForm.getFormManager().setForm(e, Form.this);
-                run.accept(e);
+                SkriptForm.getFormManager().setForm(event, Form.this);
+                run.accept(event);
             }
         }
 
         @Override
-        public void onOpen(FormOpenEvent e) {
-            if (isPaused() || isPaused((Player) e.getPlayer())) {
-                return;
-            }
-
+        public void onOpen(FormOpenEvent event) {
+            if (isPaused() || isPaused(event.getPlayer())) return;
             if (onOpen != null) {
-                SkriptForm.getFormManager().setForm(e, Form.this);
-                onOpen.accept(e);
+                SkriptForm.getFormManager().setForm(event, Form.this);
+                onOpen.accept(event);
             }
         }
 
         @Override
-        public void onClose(FormCloseEvent e) {
-            if (isPaused() || isPaused((Player) e.getPlayer())) {
-                return;
-            }
-
+        public void onClose(FormCloseEvent event) {
+            if (isPaused() || isPaused(event.getPlayer())) return;
             if (onClose != null) {
-                SkriptForm.getFormManager().setForm(e, Form.this);
-                onClose.accept(e);
+                SkriptForm.getFormManager().setForm(event, Form.this);
+                onClose.accept(event);
                 if (closeCancelled) {
                     Bukkit.getScheduler().runTaskLater(Skcrew.getInstance(), () -> {
-                            // Reset behavior (it shouldn't persist)
-                            setCloseCancelled(false);
-
-                            Player closer = (Player) e.getPlayer();
-                            pause(closer); // Avoid calling any open sections
-                            FloodgateApi.getInstance().getPlayer(closer.getUniqueId())
-                                .sendForm(FormListener.FormListener(closer, Form.this));
-                            resume(closer);
+                        setCloseCancelled(false);
+                        Player closer = event.getPlayer();
+                        pause(closer);
+                        FloodgateApi.getInstance().getPlayer(closer.getUniqueId()).sendForm(form);
+                        resume(closer);
                     }, 1);
                     return;
                 }
             }
-
             if (id == null) {
                 Bukkit.getScheduler().runTaskLater(Skcrew.getInstance(), () -> SkriptForm.getFormManager().unregister(Form.this), 1);
             }
         }
     };
     
-    
-    Optional<? extends FormBuilder> form;
-    
+    FormBuilder form;
+    FormType type;
     private String title;
-    
     private String id;
     
+    private Consumer<FormOpenEvent> onOpen;
+    private Consumer<FormCloseEvent> onClose;
+    private Consumer<FormSubmitEvent> onResult;
+    private ArrayList<ComponentType> components;
+    private final Map<Integer,Consumer<FormSubmitEvent>> buttons = new HashMap<>();
+    private boolean closeCancelled;
+    int last_button = 0;
     
     public Form(FormType type,String title) {
         this.title = title;
         switch(type) {
             case MODAL_FORM:
-                form = Optional.of(ModalForm.builder().title(title));
+                form = ModalForm.builder().title(title);
                 break;
             case SIMPLE_FORM:
-                form = Optional.of(SimpleForm.builder().title(title));
+                form = SimpleForm.builder().title(title);
                 break;
             default:
-                form = Optional.of(CustomForm.builder().title(title));
+                form = CustomForm.builder().title(title);
+                components = new ArrayList();
         }
-        SkriptForm.getFormManager().register(this);
+        this.type = type;
     }
     
-    
-    private Consumer<FormOpenEvent> onOpen;
     public void setOnOpen(Consumer<FormOpenEvent> onOpen) {
         this.onOpen = onOpen;
     }
     
-    
-    private Consumer<FormCloseEvent> onClose;
     public void setOnClose(Consumer<FormCloseEvent> onClose) {
         this.onClose = onClose;
     }
     
-    
-    private Consumer<FormSubmitEvent> onResult;
     public void setOnResult(Consumer<FormSubmitEvent> onResult) {
         this.onResult = onResult;
     }
@@ -130,35 +126,31 @@ public class Form {
     public FormEventHandler getEventHandler() {
         return eventHandler;
     }
-
-    private boolean closeCancelled;
-    public void setCloseCancelled(boolean cancel) {
-            closeCancelled = cancel;
+    
+    public FormBuilder getForm() {
+        return form;
     }
     
-    int last_button = 0;
+    public FormType getType() {
+        return this.type;
+    }
+    
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setCloseCancelled(boolean cancel) {
+        closeCancelled = cancel;
+    }
+    
     public int getLastButton() {
         return last_button;
     }
-    
-    private final Map<Integer,Consumer<FormSubmitEvent>> buttons = new HashMap<>();
+     
     public void setButton(Consumer<FormSubmitEvent> con) {
         buttons.put(last_button, con);
         last_button++;
     }
-    
-    public Optional<? extends FormBuilder> getForm() {
-        return form;
-    }
-    
-    public String getName() {
-        return title;
-    }
-    
-    public FormType getType() {
-        return form.get().build().getType();
-    }
-    
     
     public String getID() {
         return id;
@@ -171,4 +163,44 @@ public class Form {
         }
     }
     
+    public void addComponent(ComponentType type) {
+        this.components.add(type);
+    }
+    
+    public ArrayList<ComponentType> getComponents() {
+        return this.components;
+    }
+    
+    public org.geysermc.cumulus.form.Form build(Player player) {
+        Bukkit.getPluginManager().callEvent(new FormOpenEvent(player, this));
+        switch (type) {
+            case MODAL_FORM:
+                ((ModalForm.Builder)this.getForm()).closedOrInvalidResultHandler((currentForm, response) -> {
+                    Bukkit.getPluginManager().callEvent(new FormCloseEvent(player, this));
+                });
+                ((ModalForm.Builder)this.getForm()).validResultHandler((currentForm, response) -> {
+                    Bukkit.getPluginManager().callEvent(new FormSubmitEvent(player, this, response));
+                    Bukkit.getPluginManager().callEvent(new FormCloseEvent(player, this));
+                });
+                break;
+            case SIMPLE_FORM:
+                ((SimpleForm.Builder)this.getForm()).closedOrInvalidResultHandler((currentForm, response) -> {
+                    Bukkit.getPluginManager().callEvent(new FormCloseEvent(player, this));
+                });
+                ((SimpleForm.Builder)this.getForm()).validResultHandler((currentForm, response) -> {
+                    Bukkit.getPluginManager().callEvent(new FormSubmitEvent(player, this, response));
+                    Bukkit.getPluginManager().callEvent(new FormCloseEvent(player, this));
+                });
+                break;
+            default:
+                ((CustomForm.Builder)this.getForm()).closedOrInvalidResultHandler((currentForm, response) -> {
+                    Bukkit.getPluginManager().callEvent(new FormCloseEvent(player, this));
+                });
+                ((CustomForm.Builder)this.getForm()).validResultHandler((currentForm, response) -> {
+                    Bukkit.getPluginManager().callEvent(new FormSubmitEvent(player, this, response));
+                    Bukkit.getPluginManager().callEvent(new FormCloseEvent(player, this));
+                });    
+        }
+        return this.getForm().build();
+    }
 }

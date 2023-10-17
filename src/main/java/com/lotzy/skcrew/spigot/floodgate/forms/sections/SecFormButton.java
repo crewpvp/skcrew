@@ -21,11 +21,11 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import java.util.List;
-
 import org.bukkit.event.Event;
+import org.geysermc.cumulus.form.ModalForm;
+import org.geysermc.cumulus.form.SimpleForm;
+import org.geysermc.cumulus.form.util.FormType;
 import org.geysermc.cumulus.util.FormImage;
-import org.geysermc.cumulus.util.glue.ModalFormGlue;
-import org.geysermc.cumulus.util.glue.SimpleFormGlue;
 
 @Name("Forms - Button section")
 @Description({"Create buttons on modal or simple form",
@@ -38,37 +38,35 @@ import org.geysermc.cumulus.util.glue.SimpleFormGlue;
 @RequiredPlugins("Floodgate")
 @Since("1.0")
 public class SecFormButton extends EffectSection {
+    
     static {
         Skript.registerSection(SecFormButton.class,
-            "button (named|with name) %string%",
-            "button (named|with name) %string% with image %string%",
-            "button (named|with name) %string% with (local|path) image %string%"
+            "button (with (name|title)|named) %string%",
+            "button (with (name|title)|named) %string% with image %string%",
+            "button (with (name|title)|named) %string% with (local|path) image %string%"
         );
     }
     
-    
     private Trigger trigger;
     private Expression<String> text;
-    
     private Expression<String> image;
-    
     boolean isPath;
     
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> items) {
         if (!getParser().isCurrentSection(SecCreateModalForm.class,SecCreateSimpleForm.class)) {
-            
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormButton.class)) {
                 Skript.error("You can't make a form button outside of a Form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
-            
-        } else if(getParser().isCurrentSection(SecCreateModalForm.class) && matchedPattern>0) {
+        }   
+        if (getParser().isCurrentSection(SecCreateModalForm.class) && matchedPattern > 0) {
             Skript.error("You can't make a form button with image on Modal forms.",ErrorQuality.SEMANTIC_ERROR);
             return false;
         }
+        
         text = (Expression<String>) exprs[0];
         if(matchedPattern > 0) {
             image = (Expression<String>) exprs[1];
@@ -78,62 +76,50 @@ public class SecFormButton extends EffectSection {
             assert sectionNode != null;
             trigger = loadCode(sectionNode, "form button click event", FormSubmitEvent.class);
         }
-
         return true;
     }
 
     @Override
-    
-    public TriggerItem walk(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
-        if (form == null) {
-            return walk(e, false);
-        }
-        if(form.getForm().get() instanceof ModalFormGlue.Builder) {
+    public TriggerItem walk(Event event) {
+        Form form = SkriptForm.getFormManager().getForm(event);
+        if (form == null) return walk(event, false);
+        if (form.getType() == FormType.MODAL_FORM) {
             switch(form.getLastButton()) {
                 case 0:
-                   ((ModalFormGlue.Builder)form.getForm().get()).button1(text.getSingle(e));
+                   ((ModalForm.Builder)form.getForm()).button1(text.getSingle(event));
                    break;
                 case 1:
-                   ((ModalFormGlue.Builder)form.getForm().get()).button2(text.getSingle(e));
+                   ((ModalForm.Builder)form.getForm()).button2(text.getSingle(event));
                    break;
                 default:
-                   return walk(e, false);
+                   return walk(event, false);
             }
         } else {
-            if(image==null) {
-                ((SimpleFormGlue.Builder)form.getForm().get()).button(text.getSingle(e));
+            if (image==null) {
+                ((SimpleForm.Builder)form.getForm()).button(text.getSingle(event));
+            } else if (isPath) {
+                ((SimpleForm.Builder)form.getForm())
+                    .button(text.getSingle(event), FormImage.Type.PATH, image.getSingle(event));
             } else {
-                if(isPath) {
-                    ((SimpleFormGlue.Builder)form.getForm().get())
-                            .button(text.getSingle(e), FormImage.Type.PATH, image.getSingle(e));
-                } else {
-                    ((SimpleFormGlue.Builder)form.getForm().get())
-                            .button(text.getSingle(e), FormImage.Type.URL, image.getSingle(e));
-                }
+                ((SimpleForm.Builder)form.getForm())
+                    .button(text.getSingle(event), FormImage.Type.URL, image.getSingle(event));
             }
         }
         
         if (hasSection()) {
-            assert trigger != null;
-            Object variables = Variables.copyLocalVariables(e);
+            Object variables = Variables.copyLocalVariables(event);
             if (variables != null) {
-                form.setButton(event -> {
-                    Variables.setLocalVariables(event, variables);
-                    trigger.execute(event);
+                form.setButton(evt -> {
+                    Variables.setLocalVariables(evt, variables);
+                    trigger.execute(evt);
                 });
-
             } else {
-                form.setButton(event -> {
-                    trigger.execute(event);
-                });
+                form.setButton(evt -> { trigger.execute(evt); });
             }
-
         } else {
             form.setButton(null);
         }
-
-        return walk(e, false);
+        return walk(event, false);
     }
     
     @Override

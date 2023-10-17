@@ -10,11 +10,9 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.geysermc.floodgate.api.FloodgateApi;
-
 
 @Name("Forms - Is floodgate player")
 @Description("Check if player from bedrock edition")
@@ -26,7 +24,7 @@ public class CondFloodgatePlayer extends Condition {
 
     static {
         Skript.registerCondition(CondFloodgatePlayer.class, "%player% [(is|does)] from floodgate",
-                "%player% [(is|does)](n't| not) from floodgate");
+            "%player% [(is|does)](n't| not) from floodgate");
     }
 
     private Expression<Player> player;

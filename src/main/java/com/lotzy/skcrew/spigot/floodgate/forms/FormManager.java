@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-
 public class FormManager {
 
     private final List<Form> forms = new ArrayList<>();
     private final WeakHashMap<Event, Form> eventForms = new WeakHashMap<>();
-
 
     public void register(Form form) {
         forms.add(form);
@@ -25,7 +23,6 @@ public class FormManager {
         return forms;
     }
 
-    
     public Form getForm(Event event) {
         return eventForms.get(event);
     }
@@ -38,14 +35,7 @@ public class FormManager {
         }
     }
 
-    
     public Form getForm(String id) {
-        for (Form form : forms) {
-            if (form.getID() != null && form.getID().equals(id)) {
-                return form;
-            }
-        }
-        return null;
+        return forms.stream().filter(form -> form.getID() != null && form.getID().equals(id)).findFirst().orElse(null);
     }
-
 }

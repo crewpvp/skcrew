@@ -9,7 +9,6 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-
 import org.bukkit.event.Event;
 
 @Name("Forms - ID")
@@ -24,7 +23,6 @@ public class ExprIDOfForm extends SimplePropertyExpression<Form, String> {
     }
 
     @Override
-    
     public String convert(Form form) {
         return form.getID();
     }
@@ -58,5 +56,4 @@ public class ExprIDOfForm extends SimplePropertyExpression<Form, String> {
     protected String getPropertyName() {
         return "id";
     }
-
 }

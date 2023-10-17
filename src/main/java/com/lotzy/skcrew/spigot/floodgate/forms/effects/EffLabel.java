@@ -17,9 +17,8 @@ import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
-
 import org.bukkit.event.Event;
-import org.geysermc.cumulus.util.glue.CustomFormGlue;
+import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Label")
 @Description("Create label on custom form")
@@ -36,25 +35,23 @@ public class EffLabel extends Effect {
     
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-        if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            
+        if (!getParser().isCurrentSection(SecCreateCustomForm.class)) { 
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
                 Skript.error("You can't make a label outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
         }
-
         name = (Expression<String>)exprs[0];
-
         return true;
     }
 
     @Override
-    protected void execute(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
-        ((CustomFormGlue.Builder)form.getForm().get()).label(name.getSingle(e));
+    protected void execute(Event event) {
+        Form form = SkriptForm.getFormManager().getForm(event);
+        ((CustomForm.Builder)form.getForm()).label(name.getSingle(event));
     }
+    
     @Override
     public String toString( Event e, boolean debug) {
         return "create form label";
