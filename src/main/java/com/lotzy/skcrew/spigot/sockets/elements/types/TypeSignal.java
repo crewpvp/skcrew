@@ -12,7 +12,7 @@ public class TypeSignal {
     static {
         Classes.registerClass(new ClassInfo<>(Signal.class, "signal")
             .defaultExpression(new EventValueExpression<>(Signal.class))
-            .user("signal?")
+            .user("signals?")
             .name("signal")
             .description("Represents a signal (com.lotzy.skcrew.shared.data.Signal class)")
             .since("3.0")

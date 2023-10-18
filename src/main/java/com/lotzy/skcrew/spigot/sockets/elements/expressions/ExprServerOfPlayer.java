@@ -38,7 +38,10 @@ public class ExprServerOfPlayer extends SimpleExpression<SpigotServer> {
 
     @Override
     protected SpigotServer[] get(Event e) {
-        return new SpigotServer[] { player.getSingle(e).getServer() };
+        SpigotPlayer spigotPlayer = player.getSingle(e);
+        if (spigotPlayer != null) 
+            return new SpigotServer[] { spigotPlayer.getServer()};
+        return new SpigotServer[0];
     }
 
     @Override
@@ -53,6 +56,6 @@ public class ExprServerOfPlayer extends SimpleExpression<SpigotServer> {
 
     @Override
     public String toString(Event e, boolean debug) {
-        return "Server of player: " + player.toString(e,debug);
+        return "Server of player";
     }
 }
