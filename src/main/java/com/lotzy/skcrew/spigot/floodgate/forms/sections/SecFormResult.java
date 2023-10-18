@@ -18,7 +18,7 @@ import ch.njol.skript.log.ErrorQuality;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import java.util.List;
 import org.bukkit.event.Event;
@@ -43,11 +43,8 @@ public class SecFormResult extends EffectSection {
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> items) {
         if (!getParser().isCurrentSection(SecCreateCustomForm.class)) {
-            SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
-            if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)) {
-                Skript.error("You can't make a result section outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
-                return false;
-            }
+            Skript.error("You can't make a result section outside of a Custom form creation section.",ErrorQuality.SEMANTIC_ERROR);
+            return false;
         }
         if (hasSection()) {
             trigger = loadCode(sectionNode, "form submit event", FormSubmitEvent.class);
@@ -57,10 +54,8 @@ public class SecFormResult extends EffectSection {
 
     @Override
     public TriggerItem walk(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
-        if (form == null) {
-            return walk(e, false);
-        }
+        Form form = FormManager.getFormManager().getForm(e);
+        if (form == null) return walk(e, false);
         if (hasSection()) {
             Object variables = Variables.copyLocalVariables(e);
             if (variables != null) {
