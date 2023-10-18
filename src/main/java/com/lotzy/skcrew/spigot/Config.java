@@ -2,6 +2,8 @@ package com.lotzy.skcrew.spigot;
 
 import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
+import com.lotzy.skcrew.spigot.gui.GUIManager;
+import com.lotzy.skcrew.spigot.gui.GUIEvents;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -172,8 +174,9 @@ public class Config {
     }
     public static void loadGUIModule() {
         try { 
-            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.skriptgui");
-            Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), Skcrew.getInstance());
+            Bukkit.getServer().getPluginManager().registerEvents(new GUIEvents(), Skcrew.getInstance());
+            new GUIManager();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.gui");
         } catch (IOException ex) {}
     }
     public static boolean isRuntimeEnabled() {
@@ -230,8 +233,9 @@ public class Config {
     }
     public static void loadFloodgateModule() {
         try { 
-            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.floodgate");
+            Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), Skcrew.getInstance());
             new FormManager();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.floodgate");
         } catch (IOException ex) {}
     }
     public static boolean isViaVersionEnabled() {
