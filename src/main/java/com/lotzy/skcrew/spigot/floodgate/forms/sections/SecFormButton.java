@@ -9,8 +9,6 @@ import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SectionSkriptEvent;
-import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
@@ -18,7 +16,7 @@ import ch.njol.skript.log.ErrorQuality;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormSubmitEvent;
 import java.util.List;
 import org.bukkit.event.Event;
@@ -41,26 +39,21 @@ public class SecFormButton extends EffectSection {
     
     static {
         Skript.registerSection(SecFormButton.class,
-            "button (with (name|title)|named) %string%",
-            "button (with (name|title)|named) %string% with image %string%",
-            "button (with (name|title)|named) %string% with (local|path) image %string%"
+            "form(-| )button ((with (name|title))|named) %string%",
+            "form(-| )button ((with (name|title))|named) %string% with image %string%"
         );
     }
     
     private Trigger trigger;
     private Expression<String> text;
     private Expression<String> image;
-    boolean isPath;
     
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult,  SectionNode sectionNode,  List<TriggerItem> items) {
         if (!getParser().isCurrentSection(SecCreateModalForm.class,SecCreateSimpleForm.class)) {
-            SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
-            if (!(skriptEvent instanceof SectionSkriptEvent) || !((SectionSkriptEvent) skriptEvent).isSection(SecFormButton.class)) {
-                Skript.error("You can't make a form button outside of a Form creation section.",ErrorQuality.SEMANTIC_ERROR);
-                return false;
-            }
+            Skript.error("You can't make a form button outside of a Form creation section.",ErrorQuality.SEMANTIC_ERROR);
+            return false;
         }   
         if (getParser().isCurrentSection(SecCreateModalForm.class) && matchedPattern > 0) {
             Skript.error("You can't make a form button with image on Modal forms.",ErrorQuality.SEMANTIC_ERROR);
@@ -70,7 +63,6 @@ public class SecFormButton extends EffectSection {
         text = (Expression<String>) exprs[0];
         if(matchedPattern > 0) {
             image = (Expression<String>) exprs[1];
-            isPath = matchedPattern == 2;
         } else { image = null; };
         if (hasSection()) {
             assert sectionNode != null;
@@ -81,7 +73,7 @@ public class SecFormButton extends EffectSection {
 
     @Override
     public TriggerItem walk(Event event) {
-        Form form = SkriptForm.getFormManager().getForm(event);
+        Form form = FormManager.getFormManager().getForm(event);
         if (form == null) return walk(event, false);
         if (form.getType() == FormType.MODAL_FORM) {
             switch(form.getLastButton()) {
@@ -97,9 +89,6 @@ public class SecFormButton extends EffectSection {
         } else {
             if (image==null) {
                 ((SimpleForm.Builder)form.getForm()).button(text.getSingle(event));
-            } else if (isPath) {
-                ((SimpleForm.Builder)form.getForm())
-                    .button(text.getSingle(event), FormImage.Type.PATH, image.getSingle(event));
             } else {
                 ((SimpleForm.Builder)form.getForm())
                     .button(text.getSingle(event), FormImage.Type.URL, image.getSingle(event));
