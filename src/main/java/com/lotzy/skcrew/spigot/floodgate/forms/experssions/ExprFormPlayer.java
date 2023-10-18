@@ -35,15 +35,13 @@ public class ExprFormPlayer extends SimpleExpression<Player> {
 
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        if (!getParser().isCurrentSection(SecFormButton.class, SecFormOpenClose.class, SecFormResult.class, SecCreateCustomForm.class, SecCreateModalForm.class, SecCreateSimpleForm.class)) {
+        if (!getParser().isCurrentSection(SecCreateCustomForm.class, SecCreateModalForm.class, SecCreateSimpleForm.class)) {
             SkriptEvent skriptEvent = getParser().getCurrentSkriptEvent();
             if (!(skriptEvent instanceof SectionSkriptEvent) || 
-                    !(((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)
-                    || ((SectionSkriptEvent) skriptEvent).isSection(SecFormOpenClose.class)
-                    || ((SectionSkriptEvent) skriptEvent).isSection(SecFormButton.class)
-                    || ((SectionSkriptEvent) skriptEvent).isSection(SecCreateModalForm.class)
-                    || ((SectionSkriptEvent) skriptEvent).isSection(SecCreateSimpleForm.class)
-                    || ((SectionSkriptEvent) skriptEvent).isSection(SecCreateCustomForm.class))) {
+                !(((SectionSkriptEvent) skriptEvent).isSection(SecFormResult.class)
+                || ((SectionSkriptEvent) skriptEvent).isSection(SecFormOpenClose.class)
+                || ((SectionSkriptEvent) skriptEvent).isSection(SecFormButton.class))) 
+            {
                 Skript.error("You can't use a form-player outside of a form creation section.",ErrorQuality.SEMANTIC_ERROR);
                 return false;
             }
