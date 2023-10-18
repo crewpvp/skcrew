@@ -7,13 +7,21 @@ import org.bukkit.event.HandlerList;
 
 public class FormCloseEvent extends Event implements BaseFormEvent {
     
+    public enum CloseReason {
+        CLOSE,
+        INVALID_RESPONSE,
+        SUBMIT
+    }
+    
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
     private final Form form;
+    private final CloseReason reason;
   
-    public FormCloseEvent(Player player, Form form) {
+    public FormCloseEvent(Player player, Form form, CloseReason reason) {
         this.player = player;
         this.form = form;
+        this.reason = reason;
     }
 
     public static HandlerList getHandlerList() {
@@ -33,5 +41,9 @@ public class FormCloseEvent extends Event implements BaseFormEvent {
     @Override
     public Form getForm() {
         return this.form;
+    }
+    
+    public CloseReason getCloseReason() {
+        return this.reason;
     }
 }
