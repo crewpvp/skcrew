@@ -1,6 +1,7 @@
 package com.lotzy.skcrew.spigot;
 
 import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -228,7 +229,9 @@ public class Config {
         return Config.FLOODGATE_ENABLED;
     }
     public static void loadFloodgateModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.floodgate");
+        try { 
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.floodgate");
+            new FormManager();
         } catch (IOException ex) {}
     }
     public static boolean isViaVersionEnabled() {
