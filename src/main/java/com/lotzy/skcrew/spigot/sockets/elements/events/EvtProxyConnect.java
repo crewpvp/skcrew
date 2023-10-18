@@ -19,7 +19,7 @@ import org.bukkit.event.Event;
 public class EvtProxyConnect extends SkriptEvent {
     
     static {
-        Skript.registerEvent("ProxyConnect", EvtProxyConnect.class, ProxyConnectEvent.class, "connect(ed|s) [to] proxy [server]");
+        Skript.registerEvent("ProxyConnect", EvtProxyConnect.class, ProxyConnectEvent.class, "connect(ed|s) [to] proxy [server]", "proxy connect");
     }
 
     @Override

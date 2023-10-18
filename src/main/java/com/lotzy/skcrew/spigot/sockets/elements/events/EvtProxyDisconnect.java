@@ -19,7 +19,7 @@ import org.bukkit.event.Event;
 public class EvtProxyDisconnect extends SkriptEvent {
     
     static {
-        Skript.registerEvent("ProxyDisconnect", EvtProxyDisconnect.class, ProxyDisconnectEvent.class, "disconnect(ed|s) [from] proxy [server]");
+        Skript.registerEvent("ProxyDisconnect", EvtProxyDisconnect.class, ProxyDisconnectEvent.class, "disconnect(ed|s) [from] proxy [server]", "proxy disconnect");
     }
 
     @Override
