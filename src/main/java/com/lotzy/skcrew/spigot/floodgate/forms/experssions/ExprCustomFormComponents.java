@@ -26,15 +26,15 @@ import org.geysermc.cumulus.response.CustomFormResponse;
 @Description({"Get result of component by index",
         "Can be used in custom form result section"})
 @Examples({"run on form result:",
-        "\tbroadcast \"%toggle 1 value%\""})
+        "\tbroadcast \"%value of form-toggle 1%\""})
 @RequiredPlugins("Floodgate")
 @Since("3.0")
 public class ExprCustomFormComponents extends SimpleExpression<Object> {
 
     static {
         Skript.registerExpression(ExprCustomFormComponents.class, Object.class, ExpressionType.COMBINED,
-            "(0¦drop down|1¦input|2¦label|3¦slider|4¦step slider|5¦toggle) %number% [value]",
-            "value of (0¦drop down|1¦input|2¦label|3¦slider|4¦step slider|5¦toggle) %number%"
+            "[form[(-| )]](0¦drop[(-| )]down|1¦input|3¦slider|4¦step[(-| )]slider|5¦toggle) %number% [value]",
+            "value of [form[(-| )]](0¦drop[(-| )]down|1¦input|3¦slider|4¦step[(-| )]slider|5¦toggle) %number%"
         );
     }
 
@@ -51,7 +51,7 @@ public class ExprCustomFormComponents extends SimpleExpression<Object> {
             }
         }
         type = ComponentType.values()[parseResult.mark];
-        index = (Expression<Number>)exprs[1];
+        index = (Expression<Number>)exprs[0];
         return true;
     }
  
@@ -61,15 +61,15 @@ public class ExprCustomFormComponents extends SimpleExpression<Object> {
         Form form = submitEvent.getForm();
         CustomFormResponse response = (CustomFormResponse) submitEvent.getResponse();
         int index = this.index.getSingle(event).intValue()-1;
-        
-        int i = 0;
-        int f = 0;
+        int componentIndex = 0;
+        int globalIndex = 0;
         for(ComponentType componentType : form.getComponents()) {
             if(componentType==type) {
-                if(f==index) return new Object[] { response.valueAt(i) };
-                f++;
+                if(componentIndex==index) return new Object[] { response.valueAt(globalIndex) };
+                componentIndex++;
             }
-            i++;
+            response.next();
+            globalIndex++;
         }
         return null;
     }
