@@ -21,6 +21,10 @@ public class SignalEvent extends Event {
         this.signal = signal;
     }
     
+    public Signal getSignal() {
+        return this.signal;
+    }
+    
     public String getKey() {
         return this.signal.getKey();
     }
