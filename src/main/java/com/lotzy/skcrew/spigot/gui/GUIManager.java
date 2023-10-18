@@ -1,6 +1,5 @@
 package com.lotzy.skcrew.spigot.gui;
 
-import com.lotzy.skcrew.spigot.gui.GUI;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

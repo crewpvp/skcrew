@@ -1,7 +1,6 @@
 package com.lotzy.skcrew.spigot.gui;
 
 import ch.njol.skript.SkriptEventHandler;
-import com.lotzy.skcrew.spigot.gui.GUI;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
