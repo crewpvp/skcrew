@@ -26,8 +26,7 @@ import org.bukkit.OfflinePlayer;
 public class EffProxySwitch extends Effect {
 
     static {
-        Skript.registerEffect(EffProxySwitch.class, 
-                "switch %offlineplayers% to %server%");
+        Skript.registerEffect(EffProxySwitch.class, "switch %offlineplayers% to %server%");
     }
     
     private Expression<OfflinePlayer> players;
