@@ -14,7 +14,7 @@ public class GUIManager {
     private static GUIManager manager;
         
     public static GUIManager getGUIManager() {
-            return manager;
+        return manager;
     }
         
     public GUIManager() {
