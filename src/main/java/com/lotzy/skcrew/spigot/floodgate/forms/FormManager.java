@@ -7,9 +7,19 @@ import java.util.WeakHashMap;
 
 public class FormManager {
 
+    private static FormManager manager;
+
+    public FormManager() {
+        FormManager.manager = this;
+    }
+    
+    public static FormManager getFormManager() {
+        return manager;
+    }
+    
     private final List<Form> forms = new ArrayList<>();
     private final WeakHashMap<Event, Form> eventForms = new WeakHashMap<>();
-
+    
     public void register(Form form) {
         forms.add(form);
     }
@@ -33,9 +43,5 @@ public class FormManager {
         } else {
             eventForms.remove(event);
         }
-    }
-
-    public Form getForm(String id) {
-        return forms.stream().filter(form -> form.getID() != null && form.getID().equals(id)).findFirst().orElse(null);
     }
 }
