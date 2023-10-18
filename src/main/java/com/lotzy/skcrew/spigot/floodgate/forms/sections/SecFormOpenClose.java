@@ -15,7 +15,7 @@ import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormCloseEvent;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormOpenEvent;
 import java.util.List;
@@ -40,7 +40,6 @@ public class SecFormOpenClose extends Section {
         );
     }
 
-    @SuppressWarnings("NotNullFieldNotInitialized")
     private Trigger trigger;
     private boolean close;
 
@@ -60,9 +59,8 @@ public class SecFormOpenClose extends Section {
     }
 
     @Override
-    
     public TriggerItem walk(Event e) {
-        Form form = SkriptForm.getFormManager().getForm(e);
+        Form form = FormManager.getFormManager().getForm(e);
         if (form != null) {
             Object variables = Variables.copyLocalVariables(e);
             if (close) {

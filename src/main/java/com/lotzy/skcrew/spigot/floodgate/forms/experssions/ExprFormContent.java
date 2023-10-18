@@ -17,7 +17,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormButton;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateModalForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateSimpleForm;
@@ -65,7 +65,7 @@ public class ExprFormContent extends SimpleExpression<String> {
 
     @Override
     protected String[] get(Event e) {
-        Form form = this.form == null ? SkriptForm.getFormManager().getForm(e) : this.form.getSingle(e);
+        Form form = this.form == null ? FormManager.getFormManager().getForm(e) : this.form.getSingle(e);
         switch(form.getType()) {
             case SIMPLE_FORM:
                 return new String[] { ((SimpleForm.Builder)form.getForm()).build().content() };
@@ -89,7 +89,7 @@ public class ExprFormContent extends SimpleExpression<String> {
 
     @Override
     public void change(Event e,  Object[] delta, ChangeMode mode) {
-        Form form = this.form == null ? SkriptForm.getFormManager().getForm(e) : this.form.getSingle(e);
+        Form form = this.form == null ? FormManager.getFormManager().getForm(e) : this.form.getSingle(e);
         String content = mode == ChangeMode.SET ? (String) delta[0] : "";
         switch(form.getType()) {
             case SIMPLE_FORM:

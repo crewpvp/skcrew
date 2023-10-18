@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class FormEvents implements Listener {
-
+        
 	public FormEvents() {
             SkriptEventHandler.listenCancelled.add(FormSubmitEvent.class);
             SkriptEventHandler.listenCancelled.add(FormOpenEvent.class);

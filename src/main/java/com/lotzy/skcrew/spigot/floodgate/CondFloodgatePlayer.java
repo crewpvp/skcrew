@@ -18,7 +18,7 @@ import org.geysermc.floodgate.api.FloodgateApi;
 @Description("Check if player from bedrock edition")
 @RequiredPlugins("Floodgate")
 @Examples({"if player is from floodgate:",
-        "\tbroadcast \"floodgate\""})
+        "\tbroadcast \"%player% from floodgate\""})
 @Since("1.0")
 public class CondFloodgatePlayer extends Condition {
 
