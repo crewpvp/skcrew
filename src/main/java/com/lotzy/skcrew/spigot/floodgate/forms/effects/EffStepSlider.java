@@ -14,23 +14,24 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
 import org.bukkit.event.Event;
+import org.geysermc.cumulus.component.util.ComponentType;
 import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - StepSlider")
 @Description("Create stepslider on custom form ")
-@Examples("step slider named \"step slider\" with elements \"option 1\",\"option 2\",\"option 3\"")
+@Examples("form-step-slider named \"step slider\" with elements \"option 1\",\"option 2\",\"option 3\"")
 @RequiredPlugins("Floodgate")
 @Since("1.0")
 public class EffStepSlider extends Effect {
 
     static {
         Skript.registerEffect(EffStepSlider.class,
-            "(text|step) slider (with name|named) %string% (with|and) [elements] %strings%",
-            "(text|step) slider (with name|named) %string% (with|and) [elements] %strings%(, | (with|and) ) [def[ault] [(element [index]|index)]] %number%"
+            "form(-| )(text|step)[(-| )]slider (with name|named) %string% (with|and) [elements] %strings%",
+            "form(-| )(text|step)[(-| )]slider (with name|named) %string% (with|and) [elements] %strings%(, | (with|and) ) [def[ault] [(element [index]|index)]] %number%"
         );
     }
     
@@ -59,7 +60,7 @@ public class EffStepSlider extends Effect {
 
     @Override
     protected void execute(Event event) {
-        Form form = SkriptForm.getFormManager().getForm(event);
+        Form form = FormManager.getFormManager().getForm(event);
         switch(pattern) {
             case 0:
                 ((CustomForm.Builder)form.getForm()).stepSlider(name.getSingle(event), elements.getArray(event));
@@ -72,6 +73,7 @@ public class EffStepSlider extends Effect {
                 def--;
                 ((CustomForm.Builder)form.getForm()).stepSlider(name.getSingle(event),def,el);
         }
+        form.addComponent(ComponentType.STEP_SLIDER);
     }
     
     @Override

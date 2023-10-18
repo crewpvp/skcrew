@@ -14,23 +14,24 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
 import org.bukkit.event.Event;
+import org.geysermc.cumulus.component.util.ComponentType;
 import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Toggle")
 @Description("Create toggle on custom form ")
-@Examples("toggle named \"toggle\" with default value false")
+@Examples("form-toggle named \"toggle\" with default value false")
 @RequiredPlugins("Floodgate")
 @Since("1.0")
 public class EffToggle extends Effect {
 
     static {
         Skript.registerEffect(EffToggle.class,
-            "toggle (with name|named) %string%",
-            "toggle (with name|named) %string% (with|and) [def[ault]] [value] %boolean%"
+            "form(-| )toggle (with name|named) %string%",
+            "form(-| )toggle (with name|named) %string% (with|and) [def[ault]] [value] %boolean%"
         );
     }
     
@@ -56,7 +57,7 @@ public class EffToggle extends Effect {
 
     @Override
     protected void execute(Event event) {
-        Form form = SkriptForm.getFormManager().getForm(event);
+        Form form = FormManager.getFormManager().getForm(event);
         switch(pattern) {
             case 0:
                 ((CustomForm.Builder)form.getForm()).toggle(name.getSingle(event));
@@ -64,6 +65,7 @@ public class EffToggle extends Effect {
             case 1:
                 ((CustomForm.Builder)form.getForm()).toggle(name.getSingle(event),def.getSingle(event));
         }
+        form.addComponent(ComponentType.TOGGLE);
     }
     
     @Override

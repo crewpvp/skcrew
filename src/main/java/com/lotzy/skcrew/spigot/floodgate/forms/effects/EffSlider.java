@@ -14,24 +14,25 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecCreateCustomForm;
 import com.lotzy.skcrew.spigot.floodgate.forms.sections.SecFormResult;
 import org.bukkit.event.Event;
+import org.geysermc.cumulus.component.util.ComponentType;
 import org.geysermc.cumulus.form.CustomForm;
 
 @Name("Forms - Custom Slider")
 @Description("Create slider on custom forms")
-@Examples("Slider named \"slider\" with min 5 and max 10")
+@Examples("form-slider named \"slider\" with min 5 and max 10")
 @RequiredPlugins("Floodgate")
 @Since("1.0")
 public class EffSlider extends Effect {
 
     static {
         Skript.registerEffect(EffSlider.class,
-            "slider (with name|named) %string% (with|and) [min[imum] [value]] %number%(, | (with|and) ) [max[imum] [value]] %number%",
-            "slider (with name|named) %string% (with|and) [min[imum] [value]] %number%(, | (with|and) ) [max[imum] [value]] %number%(, | (with|and) ) [def[ault] [value]] %number%",
-            "slider (with name|named) %string% (with|and) [min[imum] [value]] %number%(, | (with|and) ) [max[imum] [value]] %number%(, | (with|and) ) [def[ault] [value]] %number%(, | (with|and) ) [[step] [value]] %number%" 
+            "form(-| )slider (with name|named) %string% (with|and) [min[imum] [value]] %number%(, | (with|and) ) [max[imum] [value]] %number%",
+            "form(-| )slider (with name|named) %string% (with|and) [min[imum] [value]] %number%(, | (with|and) ) [max[imum] [value]] %number%(, | (with|and) ) [def[ault] [value]] %number%",
+            "form(-| )slider (with name|named) %string% (with|and) [min[imum] [value]] %number%(, | (with|and) ) [max[imum] [value]] %number%(, | (with|and) ) [def[ault] [value]] %number%(, | (with|and) ) [[step] [value]] %number%" 
         );
     }
     
@@ -67,7 +68,7 @@ public class EffSlider extends Effect {
 
     @Override
     protected void execute(Event event) {
-        Form form = SkriptForm.getFormManager().getForm(event);
+        Form form = FormManager.getFormManager().getForm(event);
         float min = this.min.getSingle(event).floatValue();
         float max = this.max.getSingle(event).floatValue();
         if(max < min) {
@@ -98,6 +99,7 @@ public class EffSlider extends Effect {
                 ((CustomForm.Builder)form.getForm())
                 .slider(name.getSingle(event), min, max,step,def);
         }
+        form.addComponent(ComponentType.SLIDER);
     }
     
     @Override
