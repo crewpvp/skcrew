@@ -13,7 +13,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import java.util.List;
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.form.util.FormType;
@@ -35,42 +35,28 @@ public class SecCreateModalForm extends EffectSection {
     
     static {
         Skript.registerSection(SecCreateModalForm.class,
-            "create [a] [new] modal form (with (name|title)|named) %string% [[with id[entifier]] %-string%]"
+            "create [a] [new] modal form (with (name|title)|named) %string%"
         );
     }
     
-    Expression<String> name;
-    Expression<String> id;
+    Expression<String> title;
 
     @Override
-    public boolean init(Expression<?>[] exprsns, int i, Kleenean kln, SkriptParser.ParseResult pr, SectionNode sn, List<TriggerItem> list) {
-        name = (Expression<String>)exprsns[0];
-        id = (Expression<String>)exprsns[1];
-        if (hasSection()) {
-            assert sn != null;
-            loadOptionalCode(sn);
-        }
+    public boolean init(Expression<?>[] exprs, int i, Kleenean kln, SkriptParser.ParseResult pr, SectionNode sn, List<TriggerItem> list) {
+        title = (Expression<String>) exprs[0];
+        if (hasSection()) loadOptionalCode(sn);
         return true;
     }
 
     @Override
     protected TriggerItem walk(Event event) {
-        Form form = new Form(FormType.MODAL_FORM,name.getSingle(event));
-        
-        String id = this.id != null ? this.id.getSingle(event) : null;
-        if (id != null && !id.isEmpty()) {
-            Form old = SkriptForm.getFormManager().getForm(id);
-            if (old != null) {
-                SkriptForm.getFormManager().unregister(old);
-            }
-            form.setID(id);
-        }
-        SkriptForm.getFormManager().setForm(event, form);
+        Form form = new Form(FormType.MODAL_FORM,title.getSingle(event));
+        FormManager.getFormManager().setForm(event, form);
         return walk(event, true);
     }
 
     @Override
     public String toString(Event event, boolean bln) {
-        return "create modal form " + name.toString(event, bln);
+        return "create modal form " + title.toString(event, bln);
     } 
 }

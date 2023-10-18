@@ -13,7 +13,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.util.Kleenean;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
-import com.lotzy.skcrew.spigot.floodgate.forms.SkriptForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import java.util.List;
 import org.bukkit.event.Event;
 import org.geysermc.cumulus.form.util.FormType;
@@ -37,37 +37,23 @@ public class SecCreateSimpleForm extends EffectSection {
     
     static {
         Skript.registerSection(SecCreateSimpleForm.class,
-            "create [a] [new] simple form (with (name|title)|named) %string% [[with id[entifier]] %-string%]"
+            "create [a] [new] simple form (with (name|title)|named) %string%"
         );
     }
     
     Expression<String> title;
-    Expression<String> id;
     
     @Override
     public boolean init(Expression<?>[] exprsns, int i, Kleenean kln, SkriptParser.ParseResult pr, SectionNode sn, List<TriggerItem> list) {
         title = (Expression<String>)exprsns[0];
-        id = (Expression<String>)exprsns[1];
-        if (hasSection()) {
-            assert sn != null;
-            loadOptionalCode(sn);
-        }
+        if (hasSection()) loadOptionalCode(sn);
         return true;
     }
 
     @Override
     protected TriggerItem walk(Event event) {
         Form form = new Form(FormType.SIMPLE_FORM,title.getSingle(event));
-        
-        String id = this.id != null ? this.id.getSingle(event) : null;
-        if (id != null && !id.isEmpty()) {
-            Form old = SkriptForm.getFormManager().getForm(id);
-            if (old != null) {
-                SkriptForm.getFormManager().unregister(old);
-            }
-            form.setID(id);
-        }
-        SkriptForm.getFormManager().setForm(event, form);
+        FormManager.getFormManager().setForm(event, form);
         return walk(event, true);
     }
 
