@@ -68,24 +68,24 @@ web-server-password: admin
 
 
 Модули аддона и их поддержка на разных версиях сервера:
-| Модуль       | 1.8.8 | 1.12.2 | 1.14+   |
-|-------------:|:-----:|:------:|:-------:|
-| [**bitwise**](https://crewpvp.github.io/skcrew/modules/bitwise)      |  ✔  |   ✔   |   ✔   |
-| [**sql**](https://crewpvp.github.io/skcrew/modules/sql)          |  ✔  |   ✔   |   ✔   |
-| gui          |  ✔  |   ✔   |   ✔   |
-| runtime      |  ✔  |   ✔   |   ✔   |
-| requests     |  ✔  |   ✔   |   ✔   |
-| files        |  ✔  |   ✔   |   ✔   |
-| world        |  ✔  |   ✔   |   ✔   |
-| permissions  |  ✔  |   ✔   |   ✔   |
-| interpretate |  ✔  |   ✔   |   ✔   |
-| string-utils |  ✔  |   ✔   |   ✔   |
-| floodgate    |  ✔  |   ✔   |   ✔   |
-| viaversion   |  ✔  |   ✔   |   ✔   |
-| maps         | **Х** | **Х**  |   ✔   |
-| other        |  ✔  |   ✔   |   ✔   | 
-| sockets      |  ✔  |   ✔   |   ✔   |
-\
+| Модуль                                      | 1.8.8 | 1.12.2 | 1.14+   |
+|--------------------------------------------:|:-----:|:------:|:-------:|
+| [**bitwise**](../modules/bitwise)           |  ✔  |   ✔   |   ✔   |
+| [**sql**](../modules/sql)                   |  ✔  |   ✔   |   ✔   |
+| [**gui**](../modules/gui)                   |  ✔  |   ✔   |   ✔   |
+| [**runtime**](../modules/gui)               |  ✔  |   ✔   |   ✔   |
+| [**requests**](../modules/requests)         |  ✔  |   ✔   |   ✔   |
+| [**files**](../modules/files)               |  ✔  |   ✔   |   ✔   |
+| [**world**](../modules/world)               |  ✔  |   ✔   |   ✔   |
+| [**permissions**](../modules/permissions)   |  ✔  |   ✔   |   ✔   |
+| [**interpretate**](../modules/interpretate) |  ✔  |   ✔   |   ✔   |
+| [**string-utils**](../modules/string-utils) |  ✔  |   ✔   |   ✔   |
+| [**floodgate**](../modules/floodgate)       |  ✔  |   ✔   |   ✔   |
+| [**viaversion**](../modules/viaversion)     |  ✔  |   ✔   |   ✔   |
+| [**maps**](../modules/maps)                 | **Х** | **Х**  |   ✔   |
+| [**other**](../modules/other)               |  ✔  |   ✔   |   ✔   | 
+| [**sockets**](../modules/sockets)           |  ✔  |   ✔   |   ✔   |
+
 
 {{% notice style="note" %}}
 Модуль будет автоматически отключен, если не поддерживается версией сервера, поэтому не переживайте, если что-то сделали не так <font color="gold"><i class="fas fa-smile"></i>
