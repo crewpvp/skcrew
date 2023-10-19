@@ -1,6 +1,6 @@
 +++
 archetype = "default"
 title = "Модули"
-weight = 3
+weight = 2
 +++
 

@@ -1,7 +1,7 @@
 +++
 archetype = "home"
 title = "Об аддоне"
-weight = 1
+weight = 0
 +++
 
 **Skcrew** - это аддон для плагина [**Skript**](https://github.com/SkriptLang/Skript), расширающий возможности языка.\
