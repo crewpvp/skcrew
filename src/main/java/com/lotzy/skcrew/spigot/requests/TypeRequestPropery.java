@@ -11,7 +11,7 @@ public class TypeRequestPropery {
         Classes.registerClass(new ClassInfo<>(RequestProperty.class, "requestproperty")
         .user("request propert(y|ies)?")
         .name("requestproperty")
-        .description("Represents a request property class")
+        .description("Represents a request property (com.lotzy.skcrew.spigot.requests.RequestProperty class)")
         .examples("set {_pr} to request property \"key\" \"value\".")
         .since("1.6")
         .parser(new Parser<RequestProperty>() {
