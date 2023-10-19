@@ -25,11 +25,10 @@ public class ExprLogical extends SimpleExpression<Object> {
 
     static {
         Skript.registerExpression(ExprLogical.class, Object.class, ExpressionType.COMBINED,
-            "%boolean%[ ]\\|[ ]%boolean%",
-            "%boolean%[ ]\\&[ ]%boolean%",
+            "%boolean%[ ]\\||[ ]%boolean%",
+            "%boolean%[ ]\\&&[ ]%boolean%",
             "%number%[ ]\\|[ ]%number%",
-            "%number%[ ]\\&[ ]%number%",
-            "%number%[ ]\\^[ ]%number%"
+            "%number%[ ]\\&[ ]%number%"
         );
     }
 
@@ -54,10 +53,8 @@ public class ExprLogical extends SimpleExpression<Object> {
                 return new Object[] {(boolean)n1.getSingle(event) & (boolean)n2.getSingle(event)};
             case 2:
                 return new Integer[] {((Number) n1.getSingle(event)).intValue() | ((Number) n2.getSingle(event)).intValue()};
-            case 3:
-                return new Integer[] {((Number) n1.getSingle(event)).intValue() & ((Number) n2.getSingle(event)).intValue()};
             default:
-                return new Integer[] {((Number) n1.getSingle(event)).intValue() ^ ((Number) n2.getSingle(event)).intValue()};
+                return new Integer[] {((Number) n1.getSingle(event)).intValue() & ((Number) n2.getSingle(event)).intValue()};
         }
     }
 
@@ -80,10 +77,8 @@ public class ExprLogical extends SimpleExpression<Object> {
                 return "Operation and with booleans "+n1.toString(event,debug)+" & "+n2.toString(event,debug);
             case 2: 
                 return "Operation or with numbers "+n1.toString(event,debug)+" | "+n2.toString(event,debug);
-            case 3:
-                return "Operation and with numbers "+n1.toString(event,debug)+" & "+n2.toString(event,debug);
             default:
-                return "Operation xor with numbers "+n1.toString(event,debug)+" ^ "+n2.toString(event,debug);
+                return "Operation and with numbers "+n1.toString(event,debug)+" & "+n2.toString(event,debug);
         }
     }
 }
