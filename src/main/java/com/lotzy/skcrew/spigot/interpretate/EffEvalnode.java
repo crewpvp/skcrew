@@ -2,21 +2,17 @@ package com.lotzy.skcrew.spigot.interpretate;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
-import ch.njol.skript.SkriptConfig;
-import ch.njol.skript.command.EffectCommandEvent;
+import ch.njol.skript.config.Config;
 import ch.njol.skript.config.Node;
 import ch.njol.skript.config.SectionNode;
-import ch.njol.skript.config.SimpleNode;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.*;
-import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.skript.log.SkriptLogger;
 import ch.njol.util.Kleenean;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
+import java.io.IOException;
 import org.bukkit.event.Event;
 
 @Name("Interpretate - Evalnode")
@@ -37,63 +33,32 @@ public class EffEvalnode extends Effect {
     @Override
     protected void execute(Event e) {
         String[] lines = expr.getArray(e);
-        int amountLines = lines.length;
-        if (amountLines == 0) return;
+        if (lines.length == 0) return;
         
-        ParserInstance parser = ParserInstance.get();
-        parser.setCurrentEvent(e.getEventName(), e.getClass());
-        
-        ArrayList<SectionNode> nodes = new ArrayList<>();
-        nodes.add(0,new SectionNode(node.getKey(),"",node.getParent(),node.getLine()));
-        int currentSection = 0, i = 0,tabCounter = 0;
-        outerloop:
-        while (i < amountLines) {
-            if (Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )].*\\:",lines[i])) {
-                currentSection++;
-                nodes.add(currentSection,new SectionNode(lines[i].replaceAll("\\:$","").replaceAll("^(	| )*",""),"",nodes.get(currentSection-1),node.getLine()));
-                tabCounter++;
-                i++;
-
-                while (Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )](.*)[^\\:]$",lines[i])) {
-                    nodes.get(currentSection).add(new SimpleNode(lines[i].replaceAll("^(	| )*",""),"",node.getLine(),nodes.get(currentSection)));
-                    if (i < amountLines-1) { i++; }
-                    else {
-                        for(int t = 0; t<currentSection; t++) {
-                            nodes.get(currentSection-1).add(nodes.get(currentSection));
-                            currentSection--;   
-                        }
-                        break outerloop;
-                    }
-                }
-                if (!Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )].*\\:$",lines[i])) {
-                    nodes.get(currentSection-1).add(nodes.get(currentSection));
-                    nodes.remove(currentSection);
-                    currentSection--;
-                    tabCounter--;
-                }
+        Character symbol = null;
+        String indentation = "";
+        for(String line : lines) {
+            if (line.startsWith(" ")) {
+                symbol = line.charAt(0);
+            } else if (line.startsWith("	")) {
+                symbol = line.charAt(0);
             } else {
-                while(Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )](.*)[^\\:]$",lines[i])) {
-                    
-                    nodes.get(currentSection).add(new SimpleNode(lines[i].replaceAll("^(	| )*",""),"",node.getLine(),nodes.get(currentSection)));
-                    if(i < amountLines-1) { i++; }
-                    else {
-                        for(int t = 0; t<currentSection; t++) {
-                            nodes.get(currentSection-1).add(nodes.get(currentSection));
-                            currentSection--;
-                        }
-                        break outerloop;
-                    }
-                }  
-                if (!Pattern.matches("^((	|    |  | ){"+tabCounter+"})[^(	| )](.*)\\:$",lines[i])) {
-                    nodes.get(currentSection-1).add(nodes.get(currentSection));
-                    nodes.remove(currentSection);
-                    currentSection--;
-                    tabCounter--;
-                }
+                continue;
             }
+            int i = 0;
+            while(i<line.length() && line.charAt(i++) == symbol) {
+                indentation += symbol;
+            }
+            break;
         }
-        TriggerItem.walk(new Trigger(SkriptConfig.getConfig().getFile(), null, null, ScriptLoader.loadItems(nodes.get(0))),e);
-        parser.deleteCurrentEvent();
+        indentation = symbol == null ? " " : indentation;
+        String code = "on load:\n"+indentation+String.join("\n"+indentation, lines);
+        try {
+            Config config = new Config(code,node.getConfig().getFileName()+" (virtual node at line "+node.getLine()+")",true,false,":");
+            ScriptLoader.loadItems((SectionNode) config.getMainNode().get("on load")).forEach(triggerItem -> TriggerItem.walk(triggerItem,e));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
