@@ -72,11 +72,11 @@ defaultContentLanguage = "ru"
 # allows `hugo server` to display this showcase in IE11; this is used for testing, as we
 # are still supporting IE11 - although with degraded experience; if you don't care about
 # `hugo server` or browsers of ancient times, fell free to remove this whole block
-[server]
-  [[server.headers]]
-    for = "**.html"
-    [server.headers.values]
-       X-UA-Compatible = "IE=edge"
+#[server]
+#  [[server.headers]]
+#    for = "**.html"
+#    [server.headers.values]
+#       X-UA-Compatible = "IE=edge"
 
 # showcase of the menu shortcuts; you can use relative URLs linking
 # to your content or use fully-quallified URLs to link outside of
