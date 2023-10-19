@@ -215,7 +215,7 @@
 	body {
 		background-color: rgba( 255, 255, 255, 1 ); /* var(--MAIN-BG-color) */
 		color: rgba( 16, 16, 16, 1 ); /* var(--MAIN-TEXT-color) */
-		font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; /* var(--MAIN-font) */
+		font-family: "Roboto", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; /* var(--MAIN-font) */
 	}
 
 	a,
@@ -325,12 +325,12 @@
 
 	h1 {
 		color: rgba( 16, 16, 16, 1 ); /* var(--MAIN-TEXT-color) */
-		font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; /* var(--MAIN-font) */
+		font-family: "Roboto", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; /* var(--MAIN-font) */
 	}
 
 	h2, h3, .article-subheading, h4, h5, h6 {
 		color: rgba( 74, 74, 74, 1 ); /* var(--MAIN-TITLES-TEXT-color) */
-		font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; /* var(--MAIN-TITLES-TEXT-font) */
+		font-family: "Roboto", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; /* var(--MAIN-TITLES-TEXT-font) */
 	}
 
 	.expand > input:active,

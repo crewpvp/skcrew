@@ -20,7 +20,7 @@
     --INTERNAL-MAIN-TITLES-H5-color: var(--MAIN-TITLES-H5-color, var(--INTERNAL-MAIN-TITLES-H4-color));
     --INTERNAL-MAIN-TITLES-H6-color: var(--MAIN-TITLES-H6-color, var(--INTERNAL-MAIN-TITLES-H5-color));
 
-    --INTERNAL-MAIN-font: var(--MAIN-font, "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif);
+    --INTERNAL-MAIN-font: var(--MAIN-font, "Roboto", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif);
     --INTERNAL-MAIN-TITLES-TEXT-font: var(--MAIN-TITLES-TEXT-font, var(--INTERNAL-MAIN-font));
 
     --INTERNAL-MAIN-TITLES-H1-font: var(--MAIN-TITLES-H1-font, var(--INTERNAL-MAIN-font));
@@ -104,7 +104,7 @@
     --INTERNAL-PRINT-MAIN-BG-color: var(--PRINT-MAIN-BG-color, rgba( 255, 255, 255, 1 ));
     --INTERNAL-PRINT-CODE-font: var(--PRINT-CODE-font, "Consolas", menlo, monospace);
     --INTERNAL-PRINT-TAG-BG-color: var(--PRINT-TAG-BG-color, rgba( 125, 201, 3, 1 ));
-    --INTERNAL-PRINT-MAIN-font: var(--PRINT-MAIN-font, "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif);
+    --INTERNAL-PRINT-MAIN-font: var(--PRINT-MAIN-font, "Roboto", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif);
     --INTERNAL-PRINT-MAIN-TEXT-color: var(--PRINT-MAIN-TEXT-color, rgba( 16, 16, 16, 1 ));
     --INTERNAL-PRINT-MERMAID-theme: var(--PRINT-MERMAID-theme, default);
     --INTERNAL-PRINT-OPENAPI-theme: var(--PRINT-OPENAPI-theme, var(--PRINT-SWAGGER-theme, light));

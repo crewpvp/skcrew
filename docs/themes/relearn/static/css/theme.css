@@ -116,7 +116,7 @@ html {
 body {
     display: flex;
     flex-direction: row-reverse; /* IE11 to allow body to have initial focus for PS and better SEO and a11y */
-    font-size: 1.015625rem;
+    font-size: 1.215625rem;
     font-weight: 300;
     height: 100%;
     justify-content: flex-end;
@@ -254,7 +254,7 @@ dd {
 }
 
 #R-sidebar .padding {
-    padding: 0 1rem;
+    padding: 0 1.35rem;
 }
 
 .footerFooter {
@@ -727,7 +727,7 @@ pre:not(.mermaid) code {
     color: inherit;
     -webkit-print-color-adjust: economy;
     color-adjust: economy;
-    font-size: .9375rem;
+    font-size: 1.1375rem;
     margin: 0;
     padding: 0;
 }
@@ -841,7 +841,7 @@ tbody > tr:nth-child(even) > td {
     color: rgba( 255, 255, 255, 1 );
     content: attr(aria-label);
     display: none;
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: "Roboto", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
     font-size: .6875rem;
     font-weight: normal;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -1969,7 +1969,7 @@ article ul > li > input[type="checkbox"]:checked::before {
     display: inline-block;
     inset-inline-start: 0;
     margin-bottom: 0; /* nucleus */
-    padding-inline-start: .125rem;
+    padding-inline-start: .4rem;
     position: absolute;
     width: 1rem;
     z-index: 2;
@@ -2176,7 +2176,7 @@ html[dir="rtl"] #R-sidebar ul.collapsible-menu > li > label > i.fa-chevron-right
     border-style: solid;
     border-width: 1px;
     padding-bottom: calc( .25rem - var(--bpx1)*1px);
-    padding-left: calc( 1rem - var(--bpx1)*1px);
+    padding-left: calc( 1.35rem - var(--bpx1)*1px);
     padding-right: calc( 1rem - var(--bpx1)*1px);
     padding-top: calc( .25rem - var(--bpx1)*1px);
     width: calc(100% + var(--bpx1)*1px);
