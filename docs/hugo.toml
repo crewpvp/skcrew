@@ -1,0 +1,4 @@
+baseURL = 'https://skcrew.crewpvp.xyz/'
+languageCode = 'ru-ru'
+title = 'skcrew.crewpvp.xyz'
+theme = 'relearn'

@@ -85,7 +85,7 @@ defaultContentLanguage = "ru"
   [languages.ru]
     title = ""
     weight = 1
-    languageName = "English"
+    languageName = "Русский"
     # Language dependend settings:
     # Use case https://gohugo.io/content-management/multilingual/#translation-by-content-directory
     #contentDir = "content/ru"
