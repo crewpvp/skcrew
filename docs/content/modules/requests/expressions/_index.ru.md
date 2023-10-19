@@ -4,8 +4,8 @@ title = "EXPRESSIONS"
 weight = 1
 +++
 
-#### Заголовок запроса (com.lotzy.skcrew.spigot.requests.RequestProperty class)
-Создает новый заголовок запроса в стиле **ключ:значение**
+#### Заголовок запроса
+Создает новый заголовок запроса в стиле **ключ:значение** (com.lotzy.skcrew.spigot.requests.RequestProperty class)
 ```vb
 request (header|property) %string% %string%
 ```

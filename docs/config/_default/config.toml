@@ -34,7 +34,7 @@ defaultContentLanguage = "ru"
 # disableLanguages = ['pir']
 
 # the site's title of this showcase; you should change this ;-)
-title = "Hugo Relearn Documentation"
+#title = "Skcrew documentation"
 
 [outputs]
   # add JSON to the home to support Lunr search; This is a mandatory setting
@@ -83,7 +83,7 @@ title = "Hugo Relearn Documentation"
 # your project
 [languages]
   [languages.ru]
-    title = "skcrew.crewpvp.xyz"
+    title = ""
     weight = 1
     languageName = "English"
     # Language dependend settings:
@@ -159,13 +159,12 @@ title = "Hugo Relearn Documentation"
   disableNextPrev = false
   disableLandingPageButton = true
   breadcrumbSeparator = ">"
-  titleSeparator = "::"
   themeVariant = [ "dark","light","neon" ]
   themeVariantAuto = [ "dark","light" ]
   disableSeoHiddenPages = true
   # this is to index search for your native language in other languages, too (eg.
   # pir in this showcase)
-  additionalContentLanguage = [ "en" ]
+  additionalContentLanguage = [ "ru" ]
   # this is for the stylesheet generator to allow for interactivity in Mermaid
   # graphs; you usually will not need it and you should remove this for
   # security reasons
