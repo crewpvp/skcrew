@@ -22,7 +22,7 @@ public class ExprUsedMemory extends SimpleExpression<Number> {
 
     static {
         Skript.registerExpression(ExprUsedMemory.class, Number.class,
-                ExpressionType.SIMPLE, "[the] [server'[s]] used memory",
+                ExpressionType.SIMPLE, "[the] [server['s]] used memory",
                         "used memory of server");
     }
 

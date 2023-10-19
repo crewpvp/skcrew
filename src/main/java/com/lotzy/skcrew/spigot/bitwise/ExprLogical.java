@@ -25,8 +25,8 @@ public class ExprLogical extends SimpleExpression<Object> {
 
     static {
         Skript.registerExpression(ExprLogical.class, Object.class, ExpressionType.COMBINED,
-            "%boolean%[ ]\\||[ ]%boolean%",
-            "%boolean%[ ]\\&&[ ]%boolean%",
+            "%boolean%[ ]\\|\\|[ ]%boolean%",
+            "%boolean%[ ]\\&\\&[ ]%boolean%",
             "%number%[ ]\\|[ ]%number%",
             "%number%[ ]\\&[ ]%number%"
         );
