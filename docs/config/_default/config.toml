@@ -149,8 +149,8 @@ defaultContentLanguage = "ru"
 # consult this documentation for explaination
 [params]
   editURL = "https://github.com/McShelby/hugo-theme-relearn/edit/main/exampleSite/content/"
-  description = "Documentation for Hugo Relearn Theme"
-  author = "Sören Weber"
+  description = "Documentation for Skcrew Skript addon"
+  author = "Lotzy"
   showVisitedLinks = true
   collapsibleMenu = true
   disableBreadcrumb = false
