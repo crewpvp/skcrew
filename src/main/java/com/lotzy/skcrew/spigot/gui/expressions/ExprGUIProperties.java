@@ -17,7 +17,7 @@ import org.bukkit.event.Event;
 @Name("GUI - GUI Properties")
 @Description("Different properties of the GUI. They can be modified.")
 @Examples({"edit gui last gui:",
-        "\tset the gui-inventory-name to \"New GUI Name!\"",
+        "\tset the gui-name to \"New GUI Name!\"",
         "\tset the gui-size to 3 # Sets the number of rows to 3 (if possible)",
         "\tset the gui-shape to \"xxxxxxxxx\", \"x-------x\", and \"xxxxxxxxx\"",
         "\tset the gui-lock-status to false # Players can take items from this GUI now"
