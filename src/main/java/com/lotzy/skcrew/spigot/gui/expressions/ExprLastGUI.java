@@ -21,7 +21,7 @@ import com.lotzy.skcrew.spigot.gui.GUIManager;
 public class ExprLastGUI extends SimpleExpression<GUI> {
 
     static {
-        Skript.registerExpression(ExprLastGUI.class, GUI.class, ExpressionType.SIMPLE, "[the] (last[ly] [(created|edited)]|(created|edited)) gui");
+        Skript.registerExpression(ExprLastGUI.class, GUI.class, ExpressionType.SIMPLE, "[the] last[ly] [(created|edited)] gui");
     }
 
     @Override

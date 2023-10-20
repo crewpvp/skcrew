@@ -23,11 +23,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
-@Name("GUI - Close GUI section")
-@Description("A section that will run when the user closes the GUI. This section is optional.")
-@Examples({"create a gui with chest inventory with 3 rows named \"My GUI\"",
-            "\trun on gui close:",
-            "\t\tsend \"You just closed this GUI!\" to player"
+@Name("GUI - Make GUI")
+@Description("A section that will run when the user click the slot. This section is optional.")
+@Examples({"create a gui with chest inventory with 3 rows named \"My GUI\":",
+            "\tmake gui slot 1 with stone named \"Click for hello world!\":",
+            "\t\tsend \"Hello world!\" to gui-player"
 })
 @Since("1.0")
 public class SecMakeGUI extends EffectSection {
