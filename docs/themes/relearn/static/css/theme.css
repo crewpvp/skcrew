@@ -185,7 +185,7 @@ dd {
 }
 
 .searchbox {
-    border-radius: 4px;
+    border-radius: 15px;
     border-style: solid;
     border-width: 1px;
     position: relative;
@@ -254,7 +254,7 @@ dd {
 }
 
 #R-sidebar .padding {
-    padding: 0 1.35rem;
+    padding: 0 1.8rem;
 }
 
 .footerFooter {
@@ -306,7 +306,7 @@ dd {
 }
 
 #R-sidebar .nav-title {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 200;
     letter-spacing: -.02175em;
     line-height: 110% !important;
@@ -424,20 +424,20 @@ article a:focus {
 #R-body .flex-block-wrapper {
     margin-left: auto;
     margin-right: auto;
-    max-width: calc( 81.25rem - 18.75rem - 2 * 3.25rem );
+    max-width: calc( 91.25rem - 18.75rem - 2 * 3.25rem );
     width: 100%;
 }
 body:not(.print) #R-body .narrow .flex-block-wrapper {
-    max-width: calc( 81.25rem - 18.75rem - 2 * 9.75rem );
+    max-width: calc( 91.25rem - 18.75rem - 2 * 9.75rem );
 }
 
 /* we limit width if we have large screens */
-@media screen and ( min-width: 81.25rem ){ /* #R-sidebar/width + ./max-width */
+@media screen and ( min-width: 91.25rem ){ /* #R-sidebar/width + ./max-width */
     #R-body .flex-block-wrapper {
-        width: calc( 81.25rem - 18.75rem - 2 * 3.25rem );
+        width: calc( 91.25rem - 18.75rem - 2 * 3.25rem );
     }
     body:not(.print) #R-body .narrow .flex-block-wrapper {
-        width: calc( 81.25rem - 18.75rem - 2 * 9.75rem );
+        width: calc( 91.25rem - 18.75rem - 2 * 9.75rem );
     }
 }
 
@@ -1476,9 +1476,9 @@ html[dir="rtl"] .expand > .expand-label > i.fa-chevron-right {
     border-radius: 4px;
     cursor: pointer;
     display: inline-block;
-    font-size: .9rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    line-height: 1.1;
+    line-height: 1.5;
     margin-bottom: 0;
     touch-action: manipulation;
     -ms-user-select: none;
@@ -1852,7 +1852,7 @@ article ul > li > input[type="checkbox"] {
     display: inline-grid;
     font: inherit;
     height: 1.15em;
-    margin: 0;
+    margin: 0.5rem;
     place-content: center;
     transform: translateY(-0.075em);
     width: 1.15em;
@@ -1969,7 +1969,7 @@ article ul > li > input[type="checkbox"]:checked::before {
     display: inline-block;
     inset-inline-start: 0;
     margin-bottom: 0; /* nucleus */
-    padding-inline-start: .4rem;
+    padding-inline-start: .6rem;
     position: absolute;
     width: 1rem;
     z-index: 2;
@@ -2005,6 +2005,11 @@ article ul > li > input[type="checkbox"]:checked::before {
 
 #R-sidebar ul ul {
     display: none;
+}
+#R-sidebar ul.enlarge > li.parent,
+#R-sidebar ul.enlarge > li.active {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 #R-sidebar ul > li.parent > ul,
@@ -2175,8 +2180,10 @@ html[dir="rtl"] #R-sidebar ul.collapsible-menu > li > label > i.fa-chevron-right
 #R-sidebar ul.collapsible-menu li.active > a{
     border-style: solid;
     border-width: 1px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
     padding-bottom: calc( .25rem - var(--bpx1)*1px);
-    padding-left: calc( 1.35rem - var(--bpx1)*1px);
+    padding-left: calc( 1.8rem - var(--bpx1)*1px);
     padding-right: calc( 1rem - var(--bpx1)*1px);
     padding-top: calc( .25rem - var(--bpx1)*1px);
     width: calc(100% + var(--bpx1)*1px);
@@ -2188,4 +2195,5 @@ html[dir="rtl"] #R-sidebar ul.collapsible-menu > li > label > i.fa-chevron-right
 
 #R-topics {
     padding-top: 1rem;
+    padding-left: 1rem;
 }

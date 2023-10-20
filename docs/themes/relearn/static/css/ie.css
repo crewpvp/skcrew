@@ -704,7 +704,7 @@
 	.btn.cstyle.transparent:hover,
 	.btn.cstyle.transparent:focus,
 	.btn.cstyle.transparent:active {
-		background-color: rgba( 128, 128, 128, 1 ); /* var(--BOX-NEUTRAL-color) */
+		background-color: rgba( 128, 128, 128, 0 ); /* var(--BOX-NEUTRAL-color) */
 	}
 
 	.btn.cstyle.transparent > * {
