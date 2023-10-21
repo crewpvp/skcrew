@@ -1,6 +1,6 @@
 +++
 archetype = "default"
-title = "Установка"
+title = "УСТАНОВКА"
 weight = 1
 +++
 

@@ -297,18 +297,17 @@ pre:not(.mermaid) .copy-to-clipboard-button:hover {
     border-color: var(--INTERNAL-MAIN-LINK-color);
     color: var(--INTERNAL-CODE-BLOCK-BG-color);
 }
+.expand {
+    background-color: var(--INTERNAL-CODE-BLOCK-BG-color);
+    border-color: var(--INTERNAL-CODE-BLOCK-BORDER-color);
+}
 
-.expand > input:active,
-.expand > input:focus {
-    outline-color: var(--INTERNAL-MAIN-TEXT-color);
+.expand > input[type="checkbox"] ~ .expand-content {
+  border-color: var(--INTERNAL-CODE-BLOCK-BORDER-color);
 }
 
 .expand > label {
-    color: var(--INTERNAL-MAIN-LINK-color);
-}
-
-.expand > label:hover {
-    color: var(--INTERNAL-MAIN-LINK-HOVER-color);
+    color: var(--INTERNAL-MAIN-TEXT-color);
 }
 
 .svg-reset-button {
@@ -484,4 +483,9 @@ article ul > li > input[type="checkbox"] {
     border-top-color: var(--INTERNAL-MENU-BORDER-color);
     border-inline-start-color: var(--INTERNAL-MENU-BORDER-color);
     border-inline-end-color: var(--INTERNAL-MENU-SECTION-ACTIVE-CATEGORY-BORDER-color);
+}
+
+#R-body-inner::-webkit-scrollbar-thumb {
+    background-color: var(--ps-thumb-color);
+    border-color:  var(--ps-thumb-color);
 }

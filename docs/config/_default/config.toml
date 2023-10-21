@@ -93,13 +93,16 @@ defaultContentLanguage = "ru"
       landingPageName = "<i class='fas fa-home'></i> Home"
 
     [[languages.ru.menu.shortcuts]]
-      name = "<i class='fab fa-discord'></i> .lotzy"
+      name = "РЕСУРСЫ"
       weight = 1
+      [[languages.ru.menu.shortcuts.params.items]]
+        name = "<i class='fab fa-discord'></i> .lotzy"
+        weight = 1
+      [[languages.ru.menu.shortcuts.params.items]]
+        name = "<i class='fab fa-fw fa-github'></i> source code"
+        url = "https://github.com/crewpvp/skcrew"
+        weight = 2
 
-    [[languages.ru.menu.shortcuts]]
-      name = "<i class='fab fa-fw fa-github'></i> source code"
-      url = "https://github.com/crewpvp/skcrew"
-      weight = 5
 
 # mounts are only needed in this showcase to access the publicly available screenshots;
 # remove this section if you don't need further mounts

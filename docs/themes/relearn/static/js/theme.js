@@ -35,7 +35,8 @@ var formelements = 'button, datalist, fieldset, input, label, legend, meter, opt
 var psc;
 var psm;
 var pst = new Map();
-var elc = document.querySelector('#R-body-inner');
+var elc = document.querySelector('#R-content-wrapper');
+//var elm = document.querySelector('#R-body-inner');
 
 function regexEscape( s ){
     return s.replace( /[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&' );
@@ -792,7 +793,7 @@ function initMenuScrollbar(){
     // scrollbars will install their own keyboard handlers
     // that need to be executed inbetween our own handlers
     // PSC removed for #242 #243 #244
-    // psc = elc && new PerfectScrollbar('#R-body-inner');
+    //psc = elc && new PerfectScrollbar('#R-body-inner');
     psm = elm && new PerfectScrollbar('#R-content-wrapper');
     document.querySelectorAll('.topbar-button .topbar-content-wrapper').forEach( function( e ){
         var button = getTopbarButtonParent( e );

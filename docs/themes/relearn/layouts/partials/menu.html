@@ -48,20 +48,26 @@
         {{- $page := . }}
         {{- $disableShortcutsTitle := .Site.Params.DisableShortcutsTitle }}
         {{- with .Site.Menus.shortcuts }}
-        <div id="R-shortcuts">
-          <div class="nav-title padding">{{ if not $disableShortcutsTitle }}{{ T "Shortcuts-Title" }}{{ end }}</div>
-          <ul class="space">
-            {{- range sort . "Weight" }}
-              {{- $shortcut := . }}
-              {{- with $page.Site.GetPage (printf "%s" $shortcut.URL ) }}
-                {{- $to := . }}
-            <li>{{ $shortcut.Pre }}<a class="padding" href="{{ partial "relLangPrettyUglyURL.hugo" (dict "to" $to) }}">{{ safeHTML $shortcut.Name }}</a>{{ $shortcut.Post }}</li>
-              {{- else }}
-            <li>{{ $shortcut.Pre }}<a class="padding" href="{{ $shortcut.URL | relLangURL }}">{{ safeHTML $shortcut.Name }}</a>{{ $shortcut.Post }}</li>
-              {{- end }}
-            {{- end }}
-          </ul>
-        </div>
+          {{- range sort . "Weight" }}
+            {{- $shortcut := . }}
+            
+            <div id="R-shortcuts">
+              <div class="nav-title padding">{{ if not $disableShortcutsTitle }}{{ safeHTML $shortcut.Name }}{{ end }}</div>
+                <ul class="space">
+                {{- with .Params.items }}
+                  {{- range sort . "Weight" }}
+                    {{- $item := . }}
+                    {{- with $page.Site.GetPage (printf "%s" $item.url ) }}
+                      {{- $to := . }}
+                        <li>{{ $item.pre }}<a class="padding"  {{ if $item.url }}href="{{ partial "relLangPrettyUglyURL.hugo" (dict "to" $to) }}"{{ end }}>{{ safeHTML $item.name }}</a>{{ $item.post }}</li>
+                    {{- else }}
+                       <li>{{ $item.pre }}<a class="padding" {{ if $item.url }}href="{{ $item.URL | relLangURL }}"{{ end }}>{{ safeHTML $item.name }}</a>{{ $item.post }}</li>
+                    {{- end }}
+                  {{- end }}
+                {{- end }} 
+                </ul>
+              </div>
+          {{- end }}
         {{- end }}
         {{- $siteLanguages := .Site.Languages }}
         {{- $showlangswitch := and .Site.IsMultiLingual (not .Site.Params.disableLanguageSwitchingButton) (gt (int (len $siteLanguages)) 1) }}

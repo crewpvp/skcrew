@@ -377,6 +377,7 @@ dd {
 }
 
 #R-body-inner {
+    --ps-rail-hover-color: rgba( 176, 176, 176, .25 );
     display: flex;
     flex: auto;
     flex-direction: column;
@@ -384,6 +385,8 @@ dd {
     padding: 0 3.25rem 4rem 3.25rem;
     position: relative; /* PS */
 }
+
+
 @media screen and (max-width: 60rem) {
     #R-body-inner {
         padding: 0 2rem 1rem 2rem;
@@ -414,6 +417,17 @@ article a:focus {
 #R-body-inner:focus-visible{
     /* remove focus indicator for programatically set focus */
     outline: none;
+}
+
+#R-body-inner::-webkit-scrollbar {
+    opacity: 0.25;
+    background-color: transparent;
+    width: 6px;
+}
+
+
+#R-body-inner::-webkit-scrollbar-thumb {
+    border-radius: 6px;
 }
 
 #R-body h1 + hr {
@@ -1230,69 +1244,69 @@ option {
 }
 
 .expand {
-    margin-bottom: 1rem;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
     margin-top: 1rem;
-    position: relative;
+    margin-bottom: 1rem;
+    padding: 0.7rem;
+    padding-left: 0;
 }
 
-.expand > input {
-    -webkit-appearance: none;
-    appearance: none;
-    cursor: pointer;
+.expand:hover {
+    background-color: rgba( 160, 160, 160, .2 );
 }
 
-.expand > label {
-    cursor: pointer;
-    display: inline;
-    font-weight: 300;
-    inset-inline-start: 0;
-    line-height: 1.1;
-    margin-top: .2rem;
+.expand > input[type="checkbox"] {
+  display: none;
+}
+
+.expand > .expand-content > p {
+    margin: 0;
+}
+
+.expand .expand-content {
+  overflow: hidden;
+  max-height: 0px;
+  transition: all 0.26s ease;
+  transform-origin: top;
+  line-height: 1.7rem;
+  transform: scaleY(0);
+}
+
+
+.expand > input[type="checkbox"] ~ .expand-content {
+  border-radius: 0 0 5px 5px;
+  padding-left: 3rem;
+  border-top: 0;
+}
+
+.expand > input[type="checkbox"]:checked ~ .expand-content {
+  transition: all 0.2s ease-in;
+  transform: scaleY(1);
+  max-height: 500px;
+}
+
+.expand > label > .expand-title {
+  cursor: pointer;
+  font-weight: 300;
+  padding-top: 0.3rem;
+  padding-left: 3rem;
+}
+
+.expand > input[type="checkbox"] ~ label > .expand-button  {
     position: absolute;
-}
-
-.expand > input:active + label,
-.expand > input:focus + label,
-.expand > label:hover {
-    text-decoration: underline;
-}
-
-.expand > label > .fas {
-    font-size: .8rem;
-    width: .6rem;
-}
-
-.expand > .expand-content {
-    margin-inline-start: 1rem;
-    margin-top: .5rem;
-}
-/* closed expander */
-.expand > input + label + div {
-    display: none;
-}
-
-.expand > input + label > .fa-chevron-down {
-    display: none;
-}
-.expand > input + label > .fa-chevron-right {
+    padding-left: 1rem;
+    padding-top: 0.65rem;
     display: inline-block;
+    transform-origin: bottom right;
+    transition: all 0.2s ease-in-out;    
 }
 
-/* open expander */
-.expand > input:checked + label + div {
-	display: block;
-}
-
-.expand > input:checked + label > .fa-chevron-down {
-    display: inline-block;
-}
-.expand > input:checked + label > .fa-chevron-right {
-    display: none;
-}
-
-/* adjust expander for RTL reading direction */
-html[dir="rtl"] .expand > .expand-label > i.fa-chevron-right {
-    transform: scaleX(-1);
+.expand > input[type="checkbox"]:checked ~ label > .expand-button  {
+    padding-left: 0rem;
+    padding-top: 0.35rem;
+    transform: rotate(90deg);
 }
 
 #R-body footer.footline{

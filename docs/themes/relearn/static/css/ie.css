@@ -124,15 +124,6 @@
 		border-bottom-right-radius: 2px;
 		border-right-width: 1px;
 	}
-	.expand > label {
-		left: 0;
-	}
-	.expand > .expand-content {
-		margin-left: 1rem;
-	}
-	html[dir="rtl"] .expand > .expand-label > i.fa-chevron-right {
-		transform: scaleX(1);
-	}
 	.headline i,
 	.footline i{
 		margin-left: .5rem;
