@@ -22,7 +22,7 @@ uglyURLs = false     # true -> basic/index.html -> basic.html
 themesdir = "./themes/"
 # yeah, well, obviously a mandatory setting for your site, if you want to
 # use this theme ;-)
-theme = "relearn"
+theme = "docs-hugo-theme"
 
 # the main language of this site; also an automatic pirrrate translation is
 # available in this showcase
@@ -159,6 +159,8 @@ defaultContentLanguage = "ru"
   disableBreadcrumb = false
   disableRootBreadcrumb = true
   disableInlineCopyToClipBoard = true
+  disableEditButton = true
+  disablePrintButton = true
   disableNextPrev = false
   disableLandingPageButton = true
   breadcrumbSeparator = ">"
