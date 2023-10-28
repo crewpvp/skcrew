@@ -1,2 +1,5 @@
 /target/
 /docs/hugo.exe
+/docs/themes/
+/docs/public/
+/docs/.hugo_build.lock
