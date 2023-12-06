@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.lotzy.skcrew.proxy.Skcrew;
 import com.lotzy.skcrew.shared.sockets.data.BaseServer;
@@ -218,7 +217,7 @@ public class WebServer implements Runnable {
                                 JsonObject body;
                                 Gson gson = new Gson();
                                 try {
-                                    body = gson.toJsonTree(this.getRequestBody(exchange)).getAsJsonObject();
+                                    body = gson.fromJson(this.getRequestBody(exchange), JsonObject.class);
                                 } catch (IOException ex) {
                                     this.sendResponse(exchange, 500, "{ "+this.build_error(Errors.CONNECTION_CLOSED)+" }");
                                     return;
@@ -226,7 +225,7 @@ public class WebServer implements Runnable {
                                     this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_JSON)+" }");
                                     return;
                                 }
-                                
+
                                 if (!body.has("signals") || !body.get("signals").isJsonArray()) {
                                     this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_SIGNAL_JSON)+" }");
                                     return;
@@ -279,7 +278,7 @@ public class WebServer implements Runnable {
                     JsonObject body;
                     Gson gson = new Gson();
                     try {
-                        body = gson.toJsonTree(this.getRequestBody(exchange)).getAsJsonObject();
+                        body = gson.fromJson(this.getRequestBody(exchange), JsonObject.class);
                     } catch (IOException ex) {
                         this.sendResponse(exchange, 500, "{ "+this.build_error(Errors.CONNECTION_CLOSED)+" }");
                         return;
