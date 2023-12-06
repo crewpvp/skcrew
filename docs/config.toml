@@ -163,7 +163,7 @@ defaultContentLanguage = "ru"
   disablePrintButton = true
   disableNextPrev = false
   disableLandingPageButton = true
-  breadcrumbSeparator = ">"
+  breadcrumbSeparator = "<i class='fa-fw fas fa-chevron-right' style='font-size:1rem;'></i>"
   themeVariant = [ "dark","light","neon" ]
   themeVariantAuto = [ "dark","light" ]
   disableSeoHiddenPages = true
