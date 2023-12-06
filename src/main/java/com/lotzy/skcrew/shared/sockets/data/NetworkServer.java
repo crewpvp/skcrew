@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class NetworkServer extends BaseServer {
     
     private SocketClientThread connected = null;
-    private HashSet<NetworkPlayer> players;
+    private HashSet<NetworkPlayer> players = new HashSet();;
     private int connectionDate;
     
     public NetworkServer(String name, InetSocketAddress address) {
@@ -20,7 +20,6 @@ public class NetworkServer extends BaseServer {
     
     public NetworkServer(String name, InetSocketAddress address, HashSet<NetworkPlayer> players) {
         super(name, address);
-        this.players = new HashSet();
         players.forEach(player -> player.setServer(this));
     }
     

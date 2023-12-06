@@ -13,11 +13,10 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class SpigotServer extends BaseServer implements Serializable {
-    HashSet<SpigotPlayer> players;
+    HashSet<SpigotPlayer> players = new HashSet();
     
     public SpigotServer(String name, InetSocketAddress address) {
         super(name, address);
-        this.players = new HashSet();
     }
     
     public SpigotServer(String name, InetSocketAddress address, HashSet<SpigotPlayer> players) {
