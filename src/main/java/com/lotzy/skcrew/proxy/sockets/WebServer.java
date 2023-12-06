@@ -41,16 +41,16 @@ public class WebServer implements Runnable {
     
     public enum Errors {
         WRONG_METHOD("{ \"type\": \"WRONG_METHOD\", \"message\": \"Web server supports only GET type of requests\" }"),
-        WRONG_PATH("{ \"type\": \"WRONG_PATH\", \"message\": \"Path, what you specified doesn\\'t exists\" }"),
+        WRONG_PATH("{ \"type\": \"WRONG_PATH\", \"message\": \"Path, what you specified doesn't exists\" }"),
         WRONG_PARAMS("{ \"type\": \"WRONG_PARAMS\", \"message\": \"Some required params are missed\" }"),
-        PLAYER_NOT_FOUND("{ \"type\": \"PLAYER_NOT_FOUND\", \"message\": \"Player, what you specified isn\\'t online\" }"),
-        SERVER_NOT_FOUND("{ \"type\": \"SERVER_NOT_FOUND\", \"message\": \"Server, what you specified isn\\'t exists\" }"),
+        PLAYER_NOT_FOUND("{ \"type\": \"PLAYER_NOT_FOUND\", \"message\": \"Player, what you specified isn't online\" }"),
+        SERVER_NOT_FOUND("{ \"type\": \"SERVER_NOT_FOUND\", \"message\": \"Server, what you specified isn't exists\" }"),
         PLAYER_NOT_SPECIFIED("{ \"type\": \"PLAYER_NOT_SPECIFIED\", \"message\": \"Specify name of player for fetch in your request\" }"),
         SERVER_NOT_SPECIFIED("{ \"type\": \"SERVER_NOT_SPECIFIED\", \"message\": \"Specify name of server for fetch in your request\" }"),
         SERVER_IS_OFFLINE("{ \"type\": \"SERVER_IS_OFFLINE\", \"message\": \"Server what you specified is offline\" }"),
-        CONNECTION_CLOSED("{ \"type\": \"CONNECTION_CLOSED\", \"message\": \"Can\\'t read request body\" }"),
-        INVALID_JSON("{ \"type\": \"INVALID_JSON\", \"message\": \"Can\\'t parse json\" }"),
-        INVALID_SIGNAL_JSON("{ \"type\": \"INVALID_SIGNAL_JSON\", \"message\": \"Can\\'t parse JSON to SIGNALS, check docs and fix request body\" }"),
+        CONNECTION_CLOSED("{ \"type\": \"CONNECTION_CLOSED\", \"message\": \"Can't read request body\" }"),
+        INVALID_JSON("{ \"type\": \"INVALID_JSON\", \"message\": \"Can't parse json\" }"),
+        INVALID_SIGNAL_JSON("{ \"type\": \"INVALID_SIGNAL_JSON\", \"message\": \"Can't parse JSON to SIGNALS, check docs and fix request body\" }"),
         ;
         
         private final String response;
