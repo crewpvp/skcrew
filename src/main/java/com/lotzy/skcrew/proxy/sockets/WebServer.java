@@ -39,7 +39,7 @@ public class WebServer implements Runnable {
 
     
     public enum Errors {
-        WRONG_METHOD("{ \"type\": \"WRONG_METHOD\", \"message\": \"Web server supports only GET type of requests\" }"),
+        WRONG_METHOD("{ \"type\": \"WRONG_METHOD\", \"message\": \"Web server supports only GET or POST methods of request\" }"),
         WRONG_PATH("{ \"type\": \"WRONG_PATH\", \"message\": \"Path, what you specified doesn't exists\" }"),
         WRONG_PARAMS("{ \"type\": \"WRONG_PARAMS\", \"message\": \"Some required params are missed\" }"),
         PLAYER_NOT_FOUND("{ \"type\": \"PLAYER_NOT_FOUND\", \"message\": \"Player, what you specified isn't online\" }"),
