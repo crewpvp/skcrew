@@ -1,11 +1,23 @@
 +++
-archetype = "home"
+archetype = "default"
 title = "Об аддоне"
 weight = 0
 +++
+<<<<<<< Updated upstream
 
 **Skcrew** -- это аддон для плагина [**Skript**](https://github.com/SkriptLang/Skript), расширающий возможности языка.\
 Аддон включает следующий функционал:
+=======
+# {{% copy %}}Об аддоне{{% /copy %}}
+**Skcrew** - это аддон для плагина [**Skript**](https://github.com/SkriptLang/Skript), расширающий возможности языка.\
+{{% expand title="asdad" %}}
+aasldkjalsdjaskljdas;kldjas\
+asldkasldkasldksaldkaskldas
+# Пизда
+{{% notice style="info" %}}я едолафбеыбеы {{% /notice %}}
+{{% /expand %}}
+{{% copy %}}Аддон включает следующий функционал:{{% /copy %}}
+>>>>>>> Stashed changes
 - работа с файлами и папками
 - побитовые и логические операции с числами 
 - поддержка плагина [**floodgate**](https://github.com/GeyserMC/Floodgate) и отправка форм
