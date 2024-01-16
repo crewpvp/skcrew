@@ -75,7 +75,7 @@ public class ExprWorldBorderSize extends SimpleExpression<Number> {
     public void change(Event e,  Object[] delta, ChangeMode mode) {
         World world = worldExpr.getSingle(e);
         if (delta.length < 1 || !(delta[0] instanceof Number)) return;
-        int time = timespan!= null ? timespan.getSingle(e).getTicks() : 0;
+        long time = timespan!= null ? Math.round(timespan.getSingle(e).getMilliSeconds()/50.0) : 0;
 
         double newSize = ((Number) delta[0]).doubleValue();
         double currentSize = world.getWorldBorder().getSize();
