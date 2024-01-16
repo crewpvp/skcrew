@@ -1,5 +1,5 @@
 name: Skcrew
-version: 3.0
+version: 3.1
 main: com.lotzy.skcrew.spigot.Skcrew
 description: Skript addon allows you make bedrock forms, integration with proxy and some other
 website: https://github.com/crewpvp/skcrew
