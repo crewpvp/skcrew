@@ -1,6 +1,7 @@
 +++
+title = "Модули"
 archetype = "default"
-title = "МОДУЛИ"
 weight = 2
+[_build]
+render = "never"
 +++
-
