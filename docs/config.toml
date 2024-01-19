@@ -1,7 +1,7 @@
 # this is a required setting for this theme to appear on https://themes.gohugo.io/
 # change this to a value appropriate for you; if your site is served from a subdirectory
 # set it like "https://example.com/mysite/"
-baseURL = "https://example.com/"
+baseURL = "https://skcrew.crewpvp.xyz/"
 
 # canonicalization will only be used for the sitemap.xml and index.xml files;
 # if set to false, a site served from a subdirectory will generate wrong links
@@ -11,7 +11,7 @@ canonifyURLs = true # true -> all relative URLs would instead be canonicalized u
 # required value to serve this page from a webserver AND the file system;
 # if you don't want to serve your page from the file system, you can also set this value
 # to false
-relativeURLs = true # true -> rewrite all relative URLs to be relative to the current content
+relativeURLs = false # true -> rewrite all relative URLs to be relative to the current content
 # if you set uglyURLs to false, this theme will append 'index.html' to any branch bundle link
 # so your page can be also served from the file system; if you don't want that,
 # set disableExplicitIndexURLs=true in the [params] section
@@ -151,25 +151,26 @@ defaultContentLanguage = "ru"
 # settings specific to this theme's features; choose to your likings and
 # consult this documentation for explaination
 [params]
-  editURL = "https://github.com/McShelby/hugo-theme-relearn/edit/main/exampleSite/content/"
-  description = "Documentation for Skcrew Skript addon"
-  author = "Lotzy"
+  disableExplicitIndexURLs = true
+  editURL = "https://github.com/crewpvp/skcrew/edit/main/docs/content/"
+  description = "Wiki of crewpvp.xyz minecraft server"
+  author = "Lotzy, w0w0"
   showVisitedLinks = true
   collapsibleMenu = true
   disableBreadcrumb = false
   disableRootBreadcrumb = true
   disableInlineCopyToClipBoard = true
-  disableEditButton = true
+  disableEditButton = false
   disablePrintButton = true
   disableNextPrev = false
-  disableLandingPageButton = true
   breadcrumbSeparator = "<i class='fa-fw fas fa-chevron-right' style='font-size:1rem;'></i>"
-  themeVariant = [ "dark","light","neon" ]
+  #titleSeparator = "::"
+  themeVariant = [ "dark","light" ]
   themeVariantAuto = [ "dark","light" ]
   disableSeoHiddenPages = true
   # this is to index search for your native language in other languages, too (eg.
   # pir in this showcase)
-  additionalContentLanguage = [ "ru" ]
+  additionalContentLanguage = [ "en" ]
   # this is for the stylesheet generator to allow for interactivity in Mermaid
   # graphs; you usually will not need it and you should remove this for
   # security reasons
