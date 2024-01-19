@@ -1,10 +1,10 @@
 +++
 archetype = "default"
-title = "УСТАНОВКА"
+title = "Установка"
 weight = 1
 +++
-
-Скачайте последнюю версию по данной [**ссылке**](https://github.com/crewpvp/skcrew/releases/latest/download/Skcrew.jar) и переместите скачанный файл в директорию **plugins** внутри игрового или прокси сервера\
+# Установка
+Скачайте последнюю версию по данной [**ссылке** <i class="fas fa-link"></i>](https://github.com/crewpvp/skcrew/releases/latest/download/Skcrew.jar) и переместите скачанный файл в директорию **plugins** внутри игрового или прокси сервера
 \
 После запуска игрового или прокси сервера в папке **plugins** будет создана папка **Skcrew** где находится файл конфигурации аддона. В нем вы можете включить или отключить определенные модули, а также настроить некоторые параметры, если это необходимо.
 \
@@ -61,32 +61,34 @@ web-server-password: admin
 
 
 Поддерживаемые версии **Skript**:
-- [x] [**Skript 2.6.4 for 1.8**](https://github.com/Matocolotoe/Skript-1.8/releases/tag/2.6.4-for-1.8)
-- [x] [**Skript 2.6.4**](https://github.com/SkriptLang/Skript/releases/tag/2.6.4)
-- [x] [**Skript 2.7.0**](https://github.com/SkriptLang/Skript/releases/tag/2.7.0)
-- [x] [**Skript 2.7.1**](https://github.com/SkriptLang/Skript/releases/tag/2.7.1)
-
+- [**Skript 2.6.4 for 1.8** <i class="fas fa-link"></i>](https://github.com/Matocolotoe/Skript-1.8/releases/tag/2.6.4-for-1.8)
+- [**Skript 2.6.4** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript/releases/tag/2.6.4)
+- [**Skript 2.7.0** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript/releases/tag/2.7.0)
+- [**Skript 2.7.1** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript/releases/tag/2.7.1)
+- [**Skript 2.7.2** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript/releases/tag/2.7.2)
+- [**Skript 2.7.3** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript/releases/tag/2.7.3)
+- [**Skript 2.8.0** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript/releases/tag/2.8.0)
 
 Модули аддона и их поддержка на разных версиях сервера:
 | Модуль                                      | 1.8.8 | 1.12.2 | 1.14+   |
 |--------------------------------------------:|:-----:|:------:|:-------:|
-| [**bitwise**](../modules/bitwise)           |  ✔  |   ✔   |   ✔   |
-| [**sql**](../modules/sql)                   |  ✔  |   ✔   |   ✔   |
-| [**gui**](../modules/gui)                   |  ✔  |   ✔   |   ✔   |
-| [**runtime**](../modules/gui)               |  ✔  |   ✔   |   ✔   |
-| [**requests**](../modules/requests)         |  ✔  |   ✔   |   ✔   |
-| [**files**](../modules/files)               |  ✔  |   ✔   |   ✔   |
-| [**world**](../modules/world)               |  ✔  |   ✔   |   ✔   |
-| [**permissions**](../modules/permissions)   |  ✔  |   ✔   |   ✔   |
-| [**interpretate**](../modules/interpretate) |  ✔  |   ✔   |   ✔   |
-| [**string-utils**](../modules/string-utils) |  ✔  |   ✔   |   ✔   |
-| [**floodgate**](../modules/floodgate)       |  ✔  |   ✔   |   ✔   |
-| [**viaversion**](../modules/viaversion)     |  ✔  |   ✔   |   ✔   |
-| [**maps**](../modules/maps)                 | **Х** | **Х**  |   ✔   |
-| [**other**](../modules/other)               |  ✔  |   ✔   |   ✔   | 
-| [**sockets**](../modules/sockets)           |  ✔  |   ✔   |   ✔   |
+| [**bitwise**](../modules/bitwise)           |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**sql**](../modules/sql)                   |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**gui**](../modules/gui)                   |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**runtime**](../modules/gui)               |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**requests**](../modules/requests)         |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**files**](../modules/files)               |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**world**](../modules/world)               |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**permissions**](../modules/permissions)   |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**interpretate**](../modules/interpretate) |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**string-utils**](../modules/string-utils) |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**floodgate**](../modules/floodgate)       |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**viaversion**](../modules/viaversion)     |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
+| [**maps**](../modules/maps)                 |  <red><i class="fas fa-xmark fa-lg"></i></red> |   <red><i class="fas fa-xmark fa-lg"></i></red> |   <green><i class="fas fa-check"></i></green>   |
+| [**other**](../modules/other)               |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   | 
+| [**sockets**](../modules/sockets)           |  <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |   <green><i class="fas fa-check"></i></green>   |
 
 
 {{% notice style="note" %}}
-Модуль будет автоматически отключен, если не поддерживается версией сервера, поэтому не переживайте, если что-то сделали не так <font color="gold"><i class="fas fa-smile"></i></font>
+Модуль будет автоматически отключен, если не поддерживается версией сервера, поэтому не переживайте, если что-то сделали не так <yellow><i class="fas fa-smile"></i></yellow>
 {{% /notice %}}
