@@ -1,12 +1,12 @@
 +++
 archetype = "default"
-title = "BITWISE"
+title = "Bitwise"
 weight = 2
 +++
-
+# BITWISE
 Данный модуль позволяет совершать логические и побитивые операции с числами.
 {{% notice style="note" %}}
-Специальная благодарность [Pesekjak](https://github.com/Pesekjak) за создание аддона [Bitshift](https://github.com/Pesekjak/Bitshift). Часть кода и идея была позаимствованная у него.
+Специальная благодарность [Pesekjak <i class="fas fa-link"></i>](https://github.com/Pesekjak) за создание аддона [Bitshift <i class="fas fa-link"></i>](https://github.com/Pesekjak/Bitshift). Часть кода и идея была позаимствованная у него.
 {{% /notice %}}
 
 #### Бинарная операция **ИЛИ**
@@ -67,20 +67,19 @@ weight = 2
 ```vb
 0(b|B)<[0-1]+>
 ```
-
-Пример:
+{{% expand title="Пример" %}}
 ```vb
 set {_binary} to 0b22
 ```
-
+{{% /expand %}}
 #### Число в шестнадцатиричной системе
 ```vb
 0(x|X)<[A-Fa-f0-9]+>
 ```
-
-Пример:
+{{% expand title="Пример" %}}
 ```vb
 set {_hexadecimal} to 0xFF
 ```
+{{% /expand %}}
 
 
