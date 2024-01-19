@@ -37,6 +37,7 @@ public class CondPlayerIsOnProxy extends Condition {
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         players = (Expression<OfflinePlayer>) expr[0];
         setNegated(matchedPattern == 1);
+        Skript.warning(String.valueOf(matchedPattern));
         return true;
     }
 
@@ -44,7 +45,7 @@ public class CondPlayerIsOnProxy extends Condition {
     public boolean check(Event e) {  
         SocketClientListener client = Skcrew.getInstance().getSocketClientListener();
         Set<BasePlayer> basePlayers = Arrays.asList(players.getAll(e)).stream().map(player -> new BasePlayer(player.getName(),player.getUniqueId())).collect(Collectors.toSet());
-        return isNegated() != (basePlayers.stream().filter(player -> client.getPlayer(player) != null).count() == basePlayers.size());
+        return isNegated() != ((int)(basePlayers.stream().filter(player -> client.getPlayer(player) != null).count()) == basePlayers.size());
     }
 
     @Override

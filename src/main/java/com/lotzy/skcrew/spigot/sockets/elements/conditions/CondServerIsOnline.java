@@ -37,7 +37,7 @@ public class CondServerIsOnline extends Condition {
 
     @Override
     public boolean check(Event e) {  
-        return isNegated() != (Arrays.asList(servers.getAll(e)).stream().filter(server -> server.isConnected()).count() > 0);
+        return isNegated() != ((int)(Arrays.asList(servers.getAll(e)).stream().filter(server -> server.isConnected()).count()) > 0);
     }
 
     @Override
