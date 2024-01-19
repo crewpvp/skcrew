@@ -9,8 +9,6 @@ import ch.njol.skript.doc.RequiredPlugins;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.EffectSection;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SectionSkriptEvent;
-import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
