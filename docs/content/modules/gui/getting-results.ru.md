@@ -1,15 +1,9 @@
 +++
 archetype = "default"
-title = "EXPRESSIONS"
-weight = 2
+title = "Обработка результатов"
+weight = 3
 +++
-
-#### Последнее созданное GUI
-Возвращает последнее созданное/измененное GUI (com.lotzy.skcrew.spigot.gui.GUI class)
-```vb
-[the] last[ly] [(created|edited)] gui
-```
-
+# ОБРАБОТКА РЕЗУЛЬТАТОВ
 #### Открытое GUI у игрока
 Возвращает открытое в текущий момент GUI у игрока
 ```vb
@@ -17,6 +11,14 @@ weight = 2
 ```
 ```vb
 gui of %player%'s
+```
+
+#### Проверить открыто или нет какое-либо GUI у игрока
+```vb
+%players% (has|have) a gui [open]
+```
+```vb
+%players% do[es](n't| not) have a gui [open]
 ```
 
 #### Следующий слот GUI
@@ -27,11 +29,9 @@ gui of %player%'s
 ```vb
 [the] next gui slot[s] of %guis%
 ```
-\
 {{% notice style="warning" %}}
-Последующие выражения могут быть использованы только в секциях [Создания GUI](../sections/#создание-нового-gui) и [Создания интерактивного элемента](../sections/#изменить-уже-созданное-gui)
+Последующие выражения могут быть использованы только в секциях [создания GUI <i class="fas fa-link"></i>](../gui-creation/#создание-нового-gui) и [создания интерактивного элемента <i class="fas fa-link"></i>](../gui-creation/#изменить-уже-созданное-gui)
 {{% /notice %}}
-</br>
 ```vb
 [the] next gui slot
 ```
@@ -131,4 +131,20 @@ gui(-| )lock(-| )status of %gui%
 #### ID кликнутого слота
 ```vb
 [the] gui(-| )slot(-| )id
+```
+
+{{% notice style="warning" %}}
+Последующие выражения могут быть использованы только в секции [закрытия GUI <i class="fas fa-link"></i>](../gui-creation/#при-закрытии-gui)
+{{% /notice %}}
+
+#### Отменить закрытие
+Запрещает игроку закрыть GUI, переоткрывая его с сохранением параметров GUI
+```vb
+cancel [the] gui clos(e|ing)
+```
+
+#### Разрешить закрытие
+Разрешает игроку закрыть GUI
+```vb
+uncancel [the] gui close(e|ing)
 ```
