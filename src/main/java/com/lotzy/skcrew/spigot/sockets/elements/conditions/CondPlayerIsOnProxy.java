@@ -37,7 +37,6 @@ public class CondPlayerIsOnProxy extends Condition {
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         players = (Expression<OfflinePlayer>) expr[0];
         setNegated(matchedPattern == 1);
-        Skript.warning(String.valueOf(matchedPattern));
         return true;
     }
 
