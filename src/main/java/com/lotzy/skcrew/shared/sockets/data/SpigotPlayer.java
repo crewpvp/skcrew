@@ -17,7 +17,7 @@ public class SpigotPlayer extends BasePlayer implements Serializable  {
     public SpigotPlayer(String name, UUID uuid, SpigotServer server) {
         super(name,uuid);
         this.server = server;
-        this.server.getPlayers().add(this);  
+        if (this.server != null) this.server.getPlayers().add(this);  
     }
     
     public OfflinePlayer toOfflinePlayer() {
@@ -29,9 +29,9 @@ public class SpigotPlayer extends BasePlayer implements Serializable  {
     }
     
     public void setServer(SpigotServer server) {
-        this.server.getPlayers().remove(this);
+        if (this.server != null) this.server.getPlayers().remove(this);
         this.server = server;
-        this.server.players.add(this);
+        if (this.server != null) this.server.players.add(this);
     }
     
     public void kick() {
