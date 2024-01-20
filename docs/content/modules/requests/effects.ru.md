@@ -10,11 +10,11 @@ weight = 2
 [async[hronously]] request [%string%] to [url] %string% [with header[s] %request properties%] [(and|with) body %string%] [and store [[the] (body|result) in %object%] [and] [code in %object%]]
 ```
 
-Пример:
+{{% expand title="Пример" %}}
 ```vb
 async request "GET" to url "https://crewpvp.xyz" and store the result in {_data} and code in {_code}
 ```
-
+{{% /expand %}}
 {{% notice style="warning" %}}
 Асинхронный запрос нельзя использовать в функциях, где возвращается значение. Результатом асинхронного запроса будет **\<none\>** 
 {{% /notice %}}
