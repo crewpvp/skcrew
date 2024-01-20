@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Bitwise"
-weight = 2
+weight = 1
 +++
 # BITWISE
 This module allows you to perform logical and bitwise operations with numbers.
