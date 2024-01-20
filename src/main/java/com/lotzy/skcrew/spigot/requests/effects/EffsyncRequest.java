@@ -16,7 +16,7 @@ import com.lotzy.skcrew.spigot.sql.SqlUtil;
 
 @Name("Requests - Sync request to url")
 @Description({"Executes request to url",
-        "(cannot return values if used in functions, but not affect server performance)"})
+        "(can return values if used in functions, but affect server performance)"})
 @Examples({"on load:",
         "\tsync request \"GET\" to url \"https://crewpvp.xyz\" and store the result in {_data} and code in {_code}"})
 @Since("1.6")
