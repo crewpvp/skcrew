@@ -29,7 +29,7 @@ set {_file} to absolute file of file "eula.txt"
 {{% /expand %}}
 #### Get all files inside a directory
 It also allows you to do this recursively, getting files in the directory and in all internal directories
-{{% expand title="Паттерны" %}}
+{{% expand title="Patterns" %}}
 ```vb
 all [the] files and [all] [the] dir[ectorie]s (in|of|from) %path%
 ```
