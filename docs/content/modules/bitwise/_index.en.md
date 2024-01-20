@@ -6,7 +6,7 @@ weight = 2
 # BITWISE
 This module allows you to perform logical and bitwise operations with numbers.
 {{% notice style="note" %}}
-Special thanks to the [Pesekjak <i class="fas fa-link"></i>](https://github.com/Pesekjak) за создание аддона [Bitshift <i class="fas fa-link"></i>](https://github.com/Pesekjak/Bitshift). Part of the code and the idea was borrowed from him.
+Special thanks to the [Pesekjak <i class="fas fa-link"></i>](https://github.com/Pesekjak) for creating an addon [Bitshift <i class="fas fa-link"></i>](https://github.com/Pesekjak/Bitshift). Part of the code and the idea was borrowed from him.
 {{% /notice %}}
 
 #### Binary operation **OR**
@@ -72,7 +72,7 @@ Each bit of the number will be inverted.
 set {_binary} to 0b22
 ```
 {{% /expand %}}
-#### Число в шестнадцатиричной системе
+#### A number in the hexadecimal system
 ```vb
 0(x|X)<[A-Fa-f0-9]+>
 ```
