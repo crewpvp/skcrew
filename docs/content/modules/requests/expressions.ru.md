@@ -1,11 +1,11 @@
 +++
 archetype = "default"
-title = "EXPRESSIONS"
+title = "Expressions"
 weight = 1
 +++
-
+# EXPRESSIONS
 #### Заголовок запроса
-Создает новый заголовок запроса в стиле **ключ:значение** (com.lotzy.skcrew.spigot.requests.RequestProperty class)
+Создает новый заголовок запроса в стиле **ключ : значение**
 ```vb
 request (header|property) %string% %string%
 ```
