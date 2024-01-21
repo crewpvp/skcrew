@@ -3,7 +3,7 @@ archetype = "default"
 title = "SQL"
 weight = 1
 +++
-
+# SQL
 This module allows you to connect to the DBMS and make synchronous and asynchronous requests.
 {{% notice style="note" %}}
 Special thanks to the btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL for the support of the addon [Skript-db](https://forums.skunity.com/resources/skript-db-updated.1261/). Part of the code and the idea was borrowed from here.
@@ -16,10 +16,11 @@ Returns an object of the type **datasource** (com.zaxxer.hikari.HikariDataSource
 [the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%]
 ```
 
-Example:
+{{% expand title="Пример" %}}
 ```vb
 set {_database} to "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
 ```
+{{% /expand %}}
 
 #### Asynchronous request to the DBMS
 ```vb
@@ -67,7 +68,6 @@ The list **{_output::\*}** will look like this:
 {{% notice style="warning" %}}
 An asynchronous request cannot be used in functions where a value is returned. The result of an asynchronous request will be **\<none\>** 
 {{% /notice %}}
-
 #### Synchronous request to the DBMS
 ```vb
 sync[hronously] execute %string% [with (data|(param[eter][s])) %objects%] (in|on) %datasource% [and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %objects%]
