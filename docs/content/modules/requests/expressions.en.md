@@ -1,11 +1,11 @@
 +++
 archetype = "default"
-title = "EXPRESSIONS"
+title = "Expressions"
 weight = 1
 +++
-
+# EXPRESSIONS
 #### Request header
-Creates a new request header in the **key:meaning** (com.lotzy.skcrew.spigot.requests.RequestProperty class)
+Creates a new request header in the **key:meaning**
 ```vb
 request (header|property) %string% %string%
 ```
