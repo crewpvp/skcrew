@@ -1,9 +1,9 @@
 +++
 archetype = "default"
 title = "SQL"
-weight = 1
+weight = 12
 +++
-
+# SQL
 Данный модуль позволяет подключаться к СУБД и совершать синхронные и асинхронные запросы.
 {{% notice style="note" %}}
 Специальная благодарность btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL за поддержку аддона [Skript-db](https://forums.skunity.com/resources/skript-db-updated.1261/). Часть кода и идея была позаимствованны отсюда.
@@ -16,17 +16,18 @@ weight = 1
 [the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%]
 ```
 
-Пример:
+{{% expand title="Пример" %}}
 ```vb
 set {_database} to "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
 ```
+{{% /expand %}}
 
 #### Асинхронный запрос к СУБД
 ```vb
 [async[hronously]] execute %string% [with (data|(param[eter][s])) %objects%] (in|on) %datasource% [and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %objects%]
 ```
 **Первый параметр** - выполняемый запрос.\
-**Второй параметр** - вставка значений для экранирования. Первый символ **?** будет заменен на первое значение из переданного списка во втором аргументе, второй **?** на второй из списка и т.д. Например:\
+**Второй параметр** - вставка значений для экранирования. Первый символ **?** будет заменен на первое значение из переданного списка во втором аргументе, второй **?** на второй из списка и т.д.
 ```vb
 execute "select * from ? where name=?" with "books","worldatwar" in {_database}
 ```
@@ -67,7 +68,6 @@ execute "select * from table" in {_database} and store the result in {_output::*
 {{% notice style="warning" %}}
 Асинхронный запрос нельзя использовать в функциях, где возвращается значение. Результатом асинхронного запроса будет **\<none\>** 
 {{% /notice %}}
-
 #### Синхронный запрос к СУБД
 ```vb
 sync[hronously] execute %string% [with (data|(param[eter][s])) %objects%] (in|on) %datasource% [and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %objects%]

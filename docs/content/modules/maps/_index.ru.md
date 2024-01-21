@@ -1,7 +1,7 @@
 +++
+title = "Maps"
 archetype = "default"
-title = "Requests"
-weight = 9
+weight = 6
 [_build]
 render = "never"
 +++

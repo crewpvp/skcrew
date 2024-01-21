@@ -86,9 +86,6 @@ defaultContentLanguage = "ru"
     title = ""
     weight = 1
     languageName = "Русский"
-    # Language dependend settings:
-    # Use case https://gohugo.io/content-management/multilingual/#translation-by-content-directory
-    #contentDir = "content/ru"
     [languages.ru.params]
       landingPageName = "<i class='fas fa-home'></i> Home"
 
@@ -99,6 +96,23 @@ defaultContentLanguage = "ru"
         name = "<i class='fab fa-discord'></i> .lotzy"
         weight = 1
       [[languages.ru.menu.shortcuts.params.items]]
+        name = "<i class='fab fa-fw fa-github'></i> source code"
+        url = "https://github.com/crewpvp/skcrew"
+        weight = 2
+  [languages.en]
+    title = ""
+    weight = 2
+    languageName = "English"
+    [languages.en.params]
+      landingPageName = "<i class='fas fa-home'></i> Home"
+
+    [[languages.en.menu.shortcuts]]
+      name = "RESOURCES"
+      weight = 1
+      [[languages.en.menu.shortcuts.params.items]]
+        name = "<i class='fab fa-discord'></i> .lotzy"
+        weight = 1
+      [[languages.en.menu.shortcuts.params.items]]
         name = "<i class='fab fa-fw fa-github'></i> source code"
         url = "https://github.com/crewpvp/skcrew"
         weight = 2
@@ -113,22 +127,17 @@ defaultContentLanguage = "ru"
   [[module.mounts]]
     source = 'assets'
     target = 'assets'
-
-  # Language dependend settings:
-  # Use case https://gohugo.io/content-management/multilingual/#translation-by-filename
   [[module.mounts]]
     source = 'content'
     target = 'content'
-  # Use case https://gohugo.io/content-management/multilingual/#translation-by-content-directory
-  #[[module.mounts]]
-  #  lang = 'en'
-  #  source = 'content/en'
-  #  target = 'content'
-  #[[module.mounts]]
-  #  lang = 'pir'
-  #  source = 'content/pir'
-  #  target = 'content'
-
+  [[module.mounts]]
+    lang = 'en'
+    source = 'content/en'
+    target = 'content'
+  [[module.mounts]]
+    lang = 'ru'
+    source = 'content/ru'
+    target = 'content'
   [[module.mounts]]
     source = 'data'
     target = 'data'
@@ -163,6 +172,7 @@ defaultContentLanguage = "ru"
   disableEditButton = false
   disablePrintButton = true
   disableNextPrev = false
+  disableLanguageSwitchingButton = false
   breadcrumbSeparator = "<i class='fa-fw fas fa-chevron-right' style='font-size:1rem;'></i>"
   #titleSeparator = "::"
   themeVariant = [ "dark","light" ]

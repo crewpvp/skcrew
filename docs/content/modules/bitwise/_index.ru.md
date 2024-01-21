@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Bitwise"
-weight = 2
+weight = 1
 +++
 # BITWISE
 Данный модуль позволяет совершать логические и побитивые операции с числами.
