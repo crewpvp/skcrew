@@ -25,7 +25,7 @@ public class ExprPlayersFrom extends SimpleExpression<SpigotPlayer> {
 
     static {
         Skript.registerExpression(ExprPlayersFrom.class, SpigotPlayer.class, ExpressionType.COMBINED,
-            "players (from|of|on) %servers%");
+            "players (from|of|on) %servers%", "%servers%'s players");
     }
     
     Expression<SpigotServer> servers;
