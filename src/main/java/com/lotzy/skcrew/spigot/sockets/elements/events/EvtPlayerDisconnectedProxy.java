@@ -22,7 +22,7 @@ import org.bukkit.event.Event;
 public class EvtPlayerDisconnectedProxy extends SkriptEvent {
     
     static {
-        Skript.registerEvent("PlayerDisconnectedProxy", EvtPlayerDisconnectedProxy.class, PlayerDisconnectedProxyEvent.class, "player (leave|disconnect)[(ed|s)] [from] proxy [server]");
+        Skript.registerEvent("PlayerDisconnectedProxy", EvtPlayerDisconnectedProxy.class, PlayerDisconnectedProxyEvent.class, "player (leave|disconnect[e])[(d|s)] [from] proxy [server]");
 
         EventValues.registerEventValue(PlayerDisconnectedProxyEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, PlayerDisconnectedProxyEvent>() {
             @Override
