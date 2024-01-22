@@ -24,7 +24,7 @@ public class EvtPlayerDisconnectedServer extends SkriptEvent {
     
     static {
         Skript.registerEvent("PlayerConnectedServer", EvtPlayerDisconnectedServer.class, PlayerDisconnectedServerEvent.class, 
-                "player (join|connect)[(ed|s)] [from] (proxied|network) server",  "player (join|connect)[(ed|s)] [from] (proxied|network) server %string%");
+                "player (leave|disconnect[e])[(d|s)] [from] (proxied|network) server",  "player (leave|disconnect[e])[(d|s)] [from] (proxied|network) server %string%");
 
         EventValues.registerEventValue(PlayerDisconnectedServerEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, PlayerDisconnectedServerEvent>() {
             @Override
