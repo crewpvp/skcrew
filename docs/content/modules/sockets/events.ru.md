@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Events"
-weight = 3
+weight = 4
 +++
 # EVENTS
 

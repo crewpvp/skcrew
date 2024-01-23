@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Effects"
-weight = 2
+weight = 3
 +++
 # EFFECTS
 

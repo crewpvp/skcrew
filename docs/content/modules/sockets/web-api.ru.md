@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Web API"
-weight = 5
+weight = 6
 +++
 # WEB API
 API позволяет получить информацию с серверов, а так же отправить сигналы из вне.\

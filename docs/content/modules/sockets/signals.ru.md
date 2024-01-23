@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Signals"
-weight = 4
+weight = 5
 +++
 # SIGNALS
 Сигналы позволяют передавать необходимую вам информацию между серверами.
