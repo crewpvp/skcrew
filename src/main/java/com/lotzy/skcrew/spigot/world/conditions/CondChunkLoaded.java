@@ -21,7 +21,7 @@ public class CondChunkLoaded extends Condition {
 
     static {
         Skript.registerCondition(CondChunkLoaded.class,
-            "%chunk% [is] load[ed]",
+            "%chunk% [(does|is)] load[ed]",
             "%chunk% (does|is)(n't| not) load[ed]");
     }
 

@@ -22,7 +22,7 @@ public class CondRegexMatched extends Condition {
 
     static {
         Skript.registerCondition(CondRegexMatched.class,
-            "%string% [is] regex match(es|ed) %string%",
+            "%string% [(does|is)] regex match(es|ed) %string%",
             "%string% (does|is)(n't| not) regex match(es|ed) %string%");
     }
 

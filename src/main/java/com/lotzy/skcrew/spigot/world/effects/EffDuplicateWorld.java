@@ -29,8 +29,7 @@ import org.bukkit.event.Event;
 public class EffDuplicateWorld extends Effect {
 
     static {
-        Skript.registerEffect(EffDuplicateWorld.class, "(copy|duplicate) world %string% [(with|using)] name[d] %string%",
-                "(copy|duplicate) %world% [(with|using)] name[d] %string%");
+        Skript.registerEffect(EffDuplicateWorld.class, "(copy|duplicate) world %string% [(with|using)] name[d] %string%");
     }
     
     private Expression<?> sources;

@@ -24,7 +24,7 @@ public class CondWorldExists extends Condition {
 
     static {
         Skript.registerCondition(CondWorldExists.class,
-            "world %string% (is exist[s]|[is] available)",
+            "world %string% [(does|is)] (exist[s]|available)",
             "world %string% (does|is)(n't| not) (exist[s]|available)");
     }
 
