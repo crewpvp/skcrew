@@ -1,25 +1,21 @@
-# Skcrew
-Skript addon contains favorite addons and something more
+**Skcrew** - this is an addon for the plugin [**Skript** <i class="fas fa-link"></i>](https://github.com/SkriptLang/Skript), expanding the capabilities of the language.
 
-### Addon includes:
-- part of [skript-db fork by Govindas](https://git.limework.net/Limework/skript-db): added sync effect and removed pre-parse statement
-- part of [skent](https://github.com/Olyno/skent) code
-- some modificated [skript-gui](https://github.com/APickledWalrus/skript-gui)
-(First of all, I developed this for personal use, but maybe it will be useful to someone)
-
-### What's new?
-- [Floodgate](https://github.com/GeyserMC/Floodgate) api with cumulus (bedrock forms) support (syntax like skript-gui, easy to learn)
-- Run code from text, it can be not only single line
-- InventoryDragEvent - its fired when player hold righclick with cursor item
-- Give or drop effect, its something like (if player doesn't have space for item, it will be dropper near)
-- Run as op effect
-- Permission management without permission plugin
-- Some system info, like amount of RAM or number of processor cores
-- Regex expressions and some string operations
-- Url response expression
-- Full world management effects and expressions
-- ViaVersion player protocol expression
-
-Every part can be disabled in config file, something like in [SkBee](https://github.com/ShaneBeee/SkBee) addon
+The addon includes the following functionality:
+- working with files and folders
+- bitwise and logical operations with numbers
+- plugin support [**floodgate** <i class="fas fa-link"></i>](https://github.com/GeyserMC/Floodgate) and sending forms
+- simplified creation of game GUIs
+- parsing and executing code from text
+- drawing on maps
+- editing player rights
+- execution of commands on behalf of a player with operator rights
+- implementation [**InventoryDragEvent** <i class="fas fa-link"></i>](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/inventory/InventoryDragEvent.html) and the expressions he needs
+- asynchronous/synchronous web requests
+- getting information about the technical components of the server
+- interaction with SQL-like databases
+- working with strings using regular expressions
+- plugin support [**ViaVersion** <i class="fas fa-link"></i>](https://github.com/ViaVersion/ViaVersion) to get the players' version
+- work with game worlds: upload, copy, delete
+- support for proxy communication between servers ( [**Velocity** <i class="fas fa-link"></i>](https://github.com/PaperMC/Velocity), [**Bungeecord** <i class="fas fa-link"></i>](https://github.com/SpigotMC/BungeeCord) )
 
 **[Documentation](https://skcrew.crewpvp.xyz)**
