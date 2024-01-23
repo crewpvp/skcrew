@@ -15,7 +15,7 @@ import ch.njol.util.Kleenean;
 
 @Name("StringUtils - Split text")
 @Description("Split text every number of symbols")
-@Examples({"set {_text::*} to \"123123123123\" split eveny 3 symbols"})
+@Examples({"set {_text::*} to \"123123123123\" split every 3 symbols"})
 @Since("1.0")
 public class ExprSplitEveryNumber extends SimpleExpression<String> {
 
