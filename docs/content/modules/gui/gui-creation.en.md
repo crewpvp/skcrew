@@ -88,7 +88,7 @@ run (when|while) [the] gui closes
 run on gui clos(e|ing)
 ```
 
-#### The last GUI created
+#### Last created GUI
 Returns the last GUI created/modified
 ```vb
 [the] last[ly] [(created|edited)] gui

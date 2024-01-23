@@ -16,8 +16,7 @@ weight = 3
 ```
 #### Получить локализацию игрока
 ```vb
-[the] be[[drock] [edition]] (locale|language) of [the] [floodgate] %player%
-            
+[the] be[[drock] [edition]] (locale|language) of [the] [floodgate] %player% 
 ```
 ```vb
 %player%'s be[[drock] [edition]] (locale|language) [of [the] floodgate]

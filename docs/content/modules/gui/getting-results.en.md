@@ -30,7 +30,7 @@ Returns the number or letter of the template of the next GUI slot
 [the] next gui slot[s] of %guis%
 ```
 {{% notice style="warning" %}}
-Subsequent expressions can only be used in the [GUI creation sections <i class="fas fa-link"></i>](../gui-creation/#создание-нового-gui) and [creating an interactive element <i class="fas fa-link"></i>](../gui-creation/#изменить-уже-созданное-gui)
+Subsequent expressions can only be used in the [GUI creation sections <i class="fas fa-link"></i>](../gui-creation/#creating-a-new-gui) and [creating an interactive element <i class="fas fa-link"></i>](../gui-creation/#edit-an-already-created-gui)
 {{% /notice %}}
 ```vb
 [the] next gui slot
@@ -134,7 +134,7 @@ Be sure to use this expression inside the GUI or interactive element creation se
 ```
 
 {{% notice style="warning" %}}
-Subsequent expressions can only be used in the [closing GUI section <i class="fas fa-link"></i>](../gui-creation/#при-закрытии-gui)
+Subsequent expressions can only be used in the [closing GUI section <i class="fas fa-link"></i>](../gui-creation/#when-closing-the-gui)
 {{% /notice %}}
 
 #### Cancel the closure

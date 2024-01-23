@@ -16,8 +16,7 @@ A plugin is required for the module to work [**Floodgate** <i class="fas fa-link
 ```
 #### Get the localization of the player
 ```vb
-[the] be[[drock] [edition]] (locale|language) of [the] [floodgate] %player%
-            
+[the] be[[drock] [edition]] (locale|language) of [the] [floodgate] %player%           
 ```
 ```vb
 %player%'s be[[drock] [edition]] (locale|language) [of [the] floodgate]

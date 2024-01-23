@@ -23,8 +23,8 @@ open last created form to player
 ```
 {{% /expand %}}
 
-#### Text Modal form.
-Allows you to specify or get a text description in Modelform. Allows you to specify both in an already created form and in the [creation section Modal form <i class="fas fa-link"></i>](../form-types/#modal-form)
+#### Description of Modal form.
+Allows you to specify or get a text description in Modal form. Allows you to specify both in an already created form and in the [creation section Modal form <i class="fas fa-link"></i>](../form-types/#modal-form)
 ```vb
 form['s] content
 ```

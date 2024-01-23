@@ -52,7 +52,7 @@ uncancel [the] form clos(e|ing)
 ```
 #### Get the reason for closing the form
 {{% notice style="note" %}}
-This expression can only be used in the [section when closing the form <i class="fas fa-link"></i>](./getting-results#выполнить-код-при-открытиизакрытии-формы)
+This expression can only be used in the [section when closing the form <i class="fas fa-link"></i>](./getting-results#execute-the-code-when-openingclosing-the-form)
 {{% /notice %}}
 ```vb
 [form(-| )]close reason
@@ -62,7 +62,7 @@ Available reasons for closing for comparison:
 - (submit|success)
 - invalid[ response]
 
-#### Execute the code when the form is successfully closed
+#### Execute the code on form submit
 ```vb
 run on form (result|submit)
 ```
@@ -78,7 +78,7 @@ open last created form to player
 
 #### Custom form elements
 {{% notice style="note" %}}
-This expression can only be used in the [section when the form is successfully closed <i class="fas fa-link"></i>](./getting-results#выполнить-код-при-успешном-закрытии-формы)
+This expression can only be used in the [section when the form is successfully closed <i class="fas fa-link"></i>](./getting-results#execute-the-code-on-form-submit)
 {{% /notice %}}
 ```vb
 [form[(-| )]](drop[(-| )]down|input|slider|step[(-| )]slider|toggle) %number% [value]
@@ -88,5 +88,5 @@ value of [form[(-| )]](drop[(-| )]down|input|slider|step[(-| )]slider|toggle) %n
 ```
 
 {{% notice style="note" %}}
-For button processing [Modal form <i class="fas fa-link"></i>](../form-types/#modal-form) и [Simple form <i class="fas fa-link"></i>](../form-types/#simple-form) use the [button creation section <i class="fas fa-link"></i>](../elements/#кнопки) 
+For button processing [Modal form <i class="fas fa-link"></i>](../form-types/#modal-form) и [Simple form <i class="fas fa-link"></i>](../form-types/#simple-form) use the [button creation section <i class="fas fa-link"></i>](../elements/#buttons) 
 {{% /notice %}}

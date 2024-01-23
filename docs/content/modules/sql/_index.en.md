@@ -1,12 +1,12 @@
 +++
 archetype = "default"
 title = "SQL"
-weight = 1
+weight = 12
 +++
 # SQL
 This module allows you to connect to the DBMS and make synchronous and asynchronous requests.
 {{% notice style="note" %}}
-Special thanks to the btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL for the support of the addon [Skript-db](https://forums.skunity.com/resources/skript-db-updated.1261/). Part of the code and the idea was borrowed from here.
+Special thanks to the btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL for the support of the addon [Skript-db <i class="fas fa-link"></i>](https://forums.skunity.com/resources/skript-db-updated.1261/). Part of the code and the idea was borrowed from here.
 {{% /notice %}}
 
 #### Connecting to a DBMS
@@ -66,12 +66,12 @@ The list **{_output::\*}** will look like this:
 {_output::*} = "id", "name" and "age" 
 ```
 {{% notice style="warning" %}}
-An asynchronous request cannot be used in functions where a value is returned. The result of an asynchronous request will be **\<none\>** 
+An asynchronous request cannot be used in functions where a value is returned. The result of an asynchronous request will be `<none>` 
 {{% /notice %}}
 #### Synchronous request to the DBMS
 ```vb
 sync[hronously] execute %string% [with (data|(param[eter][s])) %objects%] (in|on) %datasource% [and store [[the] (output|result)[s]] (to|in) [the] [var[iable]] %objects%]
 ```
 {{% notice style="warning" %}}
-Suspends the main thread for the duration of the request, use wisely.
+Block the main thread for the duration of the request, use wisely.
 {{% /notice %}}

@@ -35,7 +35,8 @@ Accepts a map item as an argument, returns a canvas for drawing
 save map %map%
 ```
 {{% notice style="note" %}}
-Maps are not loaded on their own, so that they do not disappear - put the canvases of these maps in global variables.\ 
+Maps are not loaded on their own, so that they do not disappear - put the canvases of these maps in global variables.
+
 The addon supports automatic serialization of data associated with canvases.
 {{% /notice %}}
 

@@ -1,9 +1,9 @@
 +++
 archetype = "default"
-title = "RUNTIME"
-weight = 3
+title = "Runtime"
+weight = 10
 +++
-
+# RUNTIME
 This module allows you to get information about the load and some technical information about the equipment.
 
 #### Run the command in the operating system

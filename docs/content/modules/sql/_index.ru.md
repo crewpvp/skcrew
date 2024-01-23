@@ -6,7 +6,7 @@ weight = 12
 # SQL
 Данный модуль позволяет подключаться к СУБД и совершать синхронные и асинхронные запросы.
 {{% notice style="note" %}}
-Специальная благодарность btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL за поддержку аддона [Skript-db](https://forums.skunity.com/resources/skript-db-updated.1261/). Часть кода и идея была позаимствованны отсюда.
+Специальная благодарность btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL за поддержку аддона [Skript-db <i class="fas fa-link"></i>](https://forums.skunity.com/resources/skript-db-updated.1261/). Часть кода и идея была позаимствованны отсюда.
 {{% /notice %}}
 
 #### Подключение к СУБД
@@ -66,7 +66,7 @@ execute "select * from table" in {_database} and store the result in {_output::*
 {_output::*} = "id", "name" and "age" 
 ```
 {{% notice style="warning" %}}
-Асинхронный запрос нельзя использовать в функциях, где возвращается значение. Результатом асинхронного запроса будет **\<none\>** 
+Асинхронный запрос нельзя использовать в функциях, где возвращается значение. Результатом асинхронного запроса будет `<none>` 
 {{% /notice %}}
 #### Синхронный запрос к СУБД
 ```vb

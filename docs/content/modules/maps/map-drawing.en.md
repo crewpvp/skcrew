@@ -10,7 +10,7 @@ weight = 2
 pixel %number%(,[ ]| )%number% of %map%
 ```
 {{% notice style="warning" %}}
-It does not allow you to change the color of a pixel, use the expression [paint over a pixel <i class="fas fa-link"></i>](./#закрасить-пиксель)
+It does not allow you to change the color of a pixel, use the expression [paint over a pixel <i class="fas fa-link"></i>](#paint-over-a-pixel)
 {{% /notice %}}
 #### Paint over a pixel
 Allows you to set a specific color for a pixel based on its coordinates.

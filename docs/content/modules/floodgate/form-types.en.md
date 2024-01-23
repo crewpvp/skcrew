@@ -1,6 +1,6 @@
 +++
 archetype = "default"
-title = "FORM TYPES"
+title = "Form types"
 weight = 1
 +++
 # FORM TYPES
@@ -8,7 +8,7 @@ weight = 1
 #### Creating a new form
 ##### Modal form
 It is the simplest form, which has only two buttons and a description block. The buttons are a conditional choice of 'yes' or 'no'. \
-The created form will be placed in the expression [last created form <i class="fas fa-link"></i>](./#последняя-созданная-форма)
+The created form will be placed in the expression [last created form <i class="fas fa-link"></i>](#last-created-form)
 ```vb
 create [a] [new] modal form (with (name|title)|named) %string%
 ```
@@ -31,7 +31,7 @@ open last created form to player
 
 ##### Simple form
 It is a form with buttons. There can be an unlimited number of buttons, in addition, the buttons can have images from the Internet. \
-The created form will be placed in the expression [last created form <i class="fas fa-link"></i>](./#последняя-созданная-форма)
+The created form will be placed in the expression [last created form <i class="fas fa-link"></i>](#last-created-form)
 ```vb
 create [a] [new] simple form (with (name|title)|named) %string%
 ```
@@ -52,7 +52,7 @@ open last created form to player
 ##### Custom form
 It is a form with any elements except buttons. This type of forms allows you to use sliders, switches, input fields, selection fields, etc. \
 The processing of the form elements is carried out in the section **on form result** \
-The created form will be placed in the expression [last created form <i class="fas fa-link"></i>](./#последняя-созданная-форма)
+The created form will be placed in the expression [last created form <i class="fas fa-link"></i>](#last-created-form)
 ```vb
 create [a] [new] custom form (with (name|title)|named) %string%
 ```
@@ -72,7 +72,7 @@ open last created form to player
 ![custom form](/images/custom-form.jpg)
 {{% /expand %}}
 
-#### The last form created
+#### Last created form
 ```vb
 [the] (last[ly] [(created|edited)]|(created|edited)) form
 ```

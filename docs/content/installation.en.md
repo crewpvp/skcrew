@@ -4,7 +4,7 @@ title = "installation"
 weight = 1
 +++
 # installation
-Download the latest version from this [**link** <i class="fas fa-link"></i>](https://github.com/crewpvp/skcrew/releases/latest/download/Skcrew.jar) and move the downloaded file to the **plugins** directory inside the game or proxy server
+Download the latest version from this [**link** <i class="fas fa-link"></i>](https://github.com/crewpvp/skcrew/releases/latest/download/Skcrew.jar) and move the downloaded file to the **plugins** directory inside the game server or proxy server
 \
 After launching the game or proxy server, the **Skcrew** folder will be created in the **plugins** folder, where the addon configuration file is located. In it, you can enable or disable certain modules, as well as adjust some settings, if necessary.
 \

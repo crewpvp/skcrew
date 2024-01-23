@@ -16,7 +16,7 @@ async request "GET" to url "https://crewpvp.xyz" and store the result in {_data}
 ```
 {{% /expand %}}
 {{% notice style="warning" %}}
-An asynchronous request cannot be used in functions where a value is returned. The result of an asynchronous request will be **\<none\>** 
+An asynchronous request cannot be used in functions where a value is returned. The result of an asynchronous request will be `<none>` 
 {{% /notice %}}
 
 #### Synchronous HTTP/S request
@@ -26,5 +26,5 @@ sync[hronously] request [%string%] to [url] %string% [with header[s] %request pr
 ```
 
 {{% notice style="warning" %}}
-Suspends the main thread for the duration of the request, use wisely.
+Block the main thread for the duration of the request, use wisely.
 {{% /notice %}}
