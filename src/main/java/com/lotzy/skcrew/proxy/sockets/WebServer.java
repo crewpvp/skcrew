@@ -3,8 +3,8 @@ package com.lotzy.skcrew.proxy.sockets;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
 import com.lotzy.skcrew.proxy.Skcrew;
 import com.lotzy.skcrew.shared.sockets.data.BaseServer;
 import com.lotzy.skcrew.shared.sockets.data.NetworkPlayer;
@@ -214,24 +214,27 @@ public class WebServer implements Runnable {
                         }
                         switch (pathSegments[3].toLowerCase()) {
                             case "signal":
-                                JsonObject body;
-                                Gson gson = new Gson();
+                                JsonElement response;
                                 try {
-                                    body = gson.fromJson(this.getRequestBody(exchange), JsonObject.class);
+                                    response = new Gson().fromJson(this.getRequestBody(exchange), JsonElement.class);
                                 } catch (IOException ex) {
                                     this.sendResponse(exchange, 500, "{ "+this.build_error(Errors.CONNECTION_CLOSED)+" }");
                                     return;
-                                } catch (JsonParseException ex) {
+                                } catch (JsonSyntaxException ex) {
                                     this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_JSON)+" }");
                                     return;
                                 }
-
+                                if (!response.isJsonObject()) {
+                                    this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_SIGNAL_JSON)+" }");
+                                    return;
+                                }
+                                JsonObject body = response.getAsJsonObject();
                                 if (!body.has("signals") || !body.get("signals").isJsonArray()) {
                                     this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_SIGNAL_JSON)+" }");
                                     return;
                                 }
                                 List<JsonElement> jesignals = new ArrayList();
-                                 body.getAsJsonArray("signals").forEach(signal -> jesignals.add(signal));
+                                body.getAsJsonArray("signals").forEach(signal -> jesignals.add(signal));
                                 for (JsonElement el : jesignals) {
                                     if (el.isJsonObject() && el.getAsJsonObject().has("key") && el.getAsJsonObject().has("data"))
                                         continue;
@@ -275,17 +278,22 @@ public class WebServer implements Runnable {
                     this.sendResponse(exchange, 400, "{ "+this.build_error(Errors.SERVER_NOT_SPECIFIED)+" }");
                     return;
                 case "signal":
-                    JsonObject body;
-                    Gson gson = new Gson();
+                    JsonElement response;
                     try {
-                        body = gson.fromJson(this.getRequestBody(exchange), JsonObject.class);
+                        response = new Gson().fromJson(this.getRequestBody(exchange), JsonElement.class);
                     } catch (IOException ex) {
                         this.sendResponse(exchange, 500, "{ "+this.build_error(Errors.CONNECTION_CLOSED)+" }");
                         return;
-                    } catch (JsonParseException ex) {
+                    } catch (JsonSyntaxException ex) {
                         this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_JSON)+" }");
                         return;
                     }
+                    if (!response.isJsonObject()) {
+                        this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_SIGNAL_JSON)+" }");
+                        return;
+                    }
+                    JsonObject body = response.getAsJsonObject();
+                    
                     if (!body.has("servers") || !body.get("servers").isJsonArray()) {
                         this.sendResponse(exchange, 406, "{ "+this.build_error(Errors.INVALID_SIGNAL_JSON)+" }");
                         return;
