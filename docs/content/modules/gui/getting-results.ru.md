@@ -83,7 +83,7 @@ gui(-| )lock(-| )status of %gui%
 [the] gui(-| )hotbar(-| )slot
 ```
 
-#### Инветарь, редактируемого GUI
+#### Инвентарь, редактируемого GUI
 ```vb
 [the] gui(-| )inventory
 ```
