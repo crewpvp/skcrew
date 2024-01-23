@@ -49,7 +49,7 @@ sockets:
   client-autoreconnect-time: 5
 ```
 
-Стандартная конфигурация для прокси сервера (Bungeecord или Velocity):
+Стандартная конфигурация для прокси сервера ( [**Velocity** <i class="fas fa-link"></i>](https://github.com/PaperMC/Velocity) или [**Bungeecord** <i class="fas fa-link"></i>](https://github.com/SpigotMC/BungeeCord) ):
 ```yaml
 socket-server-port: 1337
 
