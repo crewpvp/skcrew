@@ -22,7 +22,7 @@ import org.bukkit.World;
 public class ExprWorldChunk extends SimpleExpression<Chunk> {
 
     static {
-        Skript.registerExpression(ExprWorldChunk.class, Chunk.class, ExpressionType.COMBINED, "chunk [at] %number%,[ ]%number% (in|at) %world%");
+        Skript.registerExpression(ExprWorldChunk.class, Chunk.class, ExpressionType.COMBINED, "chunk [at] %number%[ ],[ ]%number% (in|at) %world%");
     }
     Expression<Number> expr1;
     Expression<Number> expr2;
