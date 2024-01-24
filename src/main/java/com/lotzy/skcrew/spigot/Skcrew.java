@@ -39,7 +39,7 @@ public class Skcrew extends JavaPlugin {
         if (Config.isInterpretateEnabled()) Config.loadInterpretateModule();
         if (Config.isMapsEnabled()) Config.loadInterpretateModule();
         if (Config.isOtherEnabled()) Config.loadOtherModule();
-        if (Config.isPermissionsEnabled()) Config.loadOtherModule();
+        if (Config.isPermissionsEnabled()) Config.loadPermissionsModule();
         if (Config.isRequestsEnabled()) Config.loadRequestsModule();
         if (Config.isRuntimeEnabled()) Config.loadRuntimeModule();
         if (Config.isSQLEnabled()) Config.loadSQLModule();
