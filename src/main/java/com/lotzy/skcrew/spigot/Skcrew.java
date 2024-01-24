@@ -37,7 +37,7 @@ public class Skcrew extends JavaPlugin {
         if (Config.isFloodgateEnabled()) Config.loadFloodgateModule();
         if (Config.isGUIEnabled()) Config.loadGUIModule();
         if (Config.isInterpretateEnabled()) Config.loadInterpretateModule();
-        if (Config.isMapsEnabled()) Config.loadInterpretateModule();
+        if (Config.isMapsEnabled()) Config.loadMapsModule();
         if (Config.isOtherEnabled()) Config.loadOtherModule();
         if (Config.isPermissionsEnabled()) Config.loadPermissionsModule();
         if (Config.isRequestsEnabled()) Config.loadRequestsModule();
