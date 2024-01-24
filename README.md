@@ -18,4 +18,4 @@ The addon includes the following functionality:
 - work with game worlds: upload, copy, delete
 - support for proxy communication between servers ( [**Velocity** <i class="fas fa-link"></i>](https://github.com/PaperMC/Velocity), [**Bungeecord** <i class="fas fa-link"></i>](https://github.com/SpigotMC/BungeeCord) )
 
-**[Documentation](https://skcrew.crewpvp.xyz)**
+**[Documentation](https://skcrew.crewpvp.xyz/en)**
