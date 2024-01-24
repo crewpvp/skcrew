@@ -11,42 +11,40 @@ weight = 1
 \
 Стандартная конфигурация для игрового сервера (Spigot и ему подобные форки):
 ```yaml
-sql:
-  enabled: true
-  driver-class-name: "default"
 bitwise:
-  enabled: true
-gui:
-  enabled: true
-runtime:
-  enabled: true
-requests:
   enabled: true
 files:
   enabled: true
-world:
+floodgate:
   enabled: true
-permissions:
+gui:
   enabled: true
 interpretate:
   enabled: true
-string-utils:
-  enabled: true
-floodgate:
-  enabled: true
-viaversion:
-  enabled: true
-map:
+maps:
   enabled: true
 other:
   enabled: true
-maps:
+permissions:
+  enabled: true
+requests:
+  enabled: true
+runtime:
   enabled: true
 sockets:
   enabled: false
   server-address: "127.0.0.1"
   server-port: 1337
   client-autoreconnect-time: 5
+sql:
+  enabled: true
+  driver-class-name: "default"
+string-utils:
+  enabled: true
+viaversion:
+  enabled: true
+world:
+  enabled: true
 ```
 
 Стандартная конфигурация для прокси сервера ( [**Velocity** <i class="fas fa-link"></i>](https://github.com/PaperMC/Velocity) или [**Bungeecord** <i class="fas fa-link"></i>](https://github.com/SpigotMC/BungeeCord) ):
