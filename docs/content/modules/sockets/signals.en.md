@@ -6,7 +6,7 @@ weight = 5
 # SIGNALS
 Signals allow you to transfer the information you need between servers.
 #### Create a signal
-The signal has the form `key : values', which allows you to transfer any data that can be serialized.
+The signal has the form `key : values`, which allows you to transfer any data that can be serialized.
 ```vb
 signal [(with key|keyed)|(with name|named)] %string% (and|with) [data] %objects%
 ```

@@ -59,7 +59,7 @@ set {_text} to reversed "321"
 
 #### Разбить строку каждые N символов
 ```vb
-"%string% split [(by|at)] every %integer% (symbol|char[acter])[s]
+%string% split [(by|at)] every %integer% (symbol|char[acter])[s]
 ```
 ```vb
 split %string% [(by|at)] every %integer% (symbol|char[acter])[s]
