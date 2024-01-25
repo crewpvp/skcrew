@@ -19,9 +19,11 @@ public class Config {
     public static void UPDATE_CONFIG(Path dataDirectory) {
         if (!Files.exists(dataDirectory.resolve("config.yml"))) {
             if (!Files.exists(dataDirectory)) try {
-                Files.createDirectory(dataDirectory);
+                Files.createDirectory(dataDirectory); 
+            } catch (IOException ex) { ex.printStackTrace(); return; }
+            try {
                 Files.copy(Skcrew.getInstance().getClass().getClassLoader().getResourceAsStream("proxyconfig.yml"), dataDirectory.resolve("config.yml"), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) { }
+            } catch (IOException ex) { ex.printStackTrace(); return; }
         }
         try {  
             Map<String, Object> data = new Yaml().load(new FileInputStream(dataDirectory.resolve("config.yml").toFile()));
