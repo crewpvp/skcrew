@@ -6,3 +6,4 @@ website: https://github.com/crewpvp/skcrew
 depend: [Skript]
 softdepend: [Floodgate, ViaVersion]
 author: Lotzy
+api-version: "1.13"
