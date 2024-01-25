@@ -1,5 +1,6 @@
 package com.lotzy.skcrew.spigot;
 
+import ch.njol.skript.Skript;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.gui.GUIManager;
@@ -11,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.yaml.snakeyaml.Yaml;
 
@@ -41,8 +44,12 @@ public class Config {
         if (!Files.exists(dataDirectory.resolve("config.yml"))) {
             if (!Files.exists(dataDirectory)) try {
                 Files.createDirectory(dataDirectory);
+            } catch (IOException ex) { ex.printStackTrace(); return; }
+            try {
                 Files.copy(Skcrew.getInstance().getClass().getClassLoader().getResourceAsStream("config.yml"), dataDirectory.resolve("config.yml"), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) { }
+            } catch (IOException ex) {
+                ex.printStackTrace(); return;
+            }
         }
         try {  
             Map<String, Object> data = new Yaml().load(new FileInputStream(dataDirectory.resolve("config.yml").toFile()));
