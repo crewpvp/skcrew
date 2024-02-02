@@ -37,7 +37,7 @@ on packet PacketPlayOutOpenSignEditor:
 {{% /expand %}}
 
 #### Получение буфера из пакета
-После получения буффера из пакета мы можем читать поля указанные на [wiki.vg <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers#Release)
+После получения буфера из пакета мы можем читать поля указанные на [wiki.vg <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers#Release)
 ```vb
 buffer (of|from) %packet%
 ```
@@ -82,7 +82,7 @@ on packet PacketPlayOutOpenSignEditor:
 Код выше выведет в чат Vector с координатами открытой таблички.
 
 #### Reader index 
-Каждое чтение буффера сдвигает его `Reader index`, это количество прочитанных байт внутри буффера.\
+Каждое чтение буфера сдвигает его `Reader index`, это количество прочитанных байт внутри буфера.\
 `Reader index` можно узнать, или изменить при помощи следующего выражеения:
 ```vb
 reader index of %bytebuf%
