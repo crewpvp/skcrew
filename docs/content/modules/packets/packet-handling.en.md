@@ -1,9 +1,9 @@
 +++
 archetype = "default"
-title = "packet TRACKING"
+title = "Packet handling"
 weight = 2
 +++
-# packet TRACKING
+# Packet handling
 #### The event of receiving or sending a packet.
 This event allows you to receive a packet sent by the player or sent by the server to the player.
 ```vb
@@ -46,7 +46,7 @@ buffer (of|from) %packet%
 ```
 
 #### Reading the buffer
-To get values from the buffer, the following expressions exist, similar to [writing to the buffer <i class="fas fa-link"></i>](./packet-creation/#заполнение-буфера-данными)
+To get values from the buffer, the following expressions exist, similar to [writing to the buffer <i class="fas fa-link"></i>](./packet-creation/#filling-the-buffer-with-data)
 ```vb
 read bool[ean] from %bytebuf%
 read uuid from %bytebuf%
