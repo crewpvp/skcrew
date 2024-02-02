@@ -5,7 +5,7 @@ weight = 1
 +++
 # Creating packets
 #### Learning wiki.vg
-[This site <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers#Release) it contains a description of the packets used in the Minecraft backend.\
+[This site <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers#Release) contains a description of the packets used in the Minecraft backend.\
 Select the core version on the website on which the server is located and click on the link of this version.\
 First, we need to find the packet that we need. All packets located in the `SERVERBOUND` section - packets are sent to the server players in the `CLIENTBOUND` section - from the server to the player.
 We are obviously interested in the packets section `CLIENTBOUND`.\
@@ -26,8 +26,8 @@ First of all, we need to find out what this packet is called on the server. To d
 ```vb
 [wrapped] packet name (by|of) id %number% [(and|,)] state %string% [(and|,)] bound %string%
 ```
-ID on the site is indicated by a number in the hexadecimal number system, using the module [Bitwise <i class="fas fa-link"></i>](../../bitwise/#a-number-in-the-hexadecimal-system)
-we can specify the value as described on the site, or convert the number from the site to the decimal system (choose how convenient for you).
+ID on the site is indicated by a number in the hexadecimal, using the module [Bitwise <i class="fas fa-link"></i>](../../bitwise/#a-number-in-the-hexadecimal-system)
+we can specify the value as described on the site, or convert the number from the site to the decimal (choose how convenient for you).
 ```vb
 on load:
   broadcast packet name of id 0x50 and state "play" and bound "client"
@@ -36,7 +36,7 @@ on load:
 After downloading the script, the name of this packet will be written in the chat - `PacketPlayOutCamera`.\
 We won't need any more code above, it was necessary to find out the name of the packet.\
 Next, we need to fill the buffer with the data described in the columns `Field Name`, `Field Type`, `Notes`.\
-We will fill in a new structure - `ByteBuf'. It is a set of bytes into which bytes can be written and read.
+We will fill in a new structure - `ByteBuf`. It is a set of bytes into which bytes can be written and read.
 #### Creating a buffer
 The expression below is used to create an empty buffer:
 ```vb
