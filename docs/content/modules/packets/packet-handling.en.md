@@ -91,7 +91,7 @@ reader index of %bytebuf%
 %bytebuf%'s reader index
 ```
 
-#### Disabling or enabling packet tracking
+#### Disabling or enabling packet handling
 For any player, you can enable or disable tracking of incoming or outgoing packets.
 ```vb
 [(handl(e|ing))|(listen[ing] [of])] (in|out)coming packets of %player%
@@ -103,6 +103,6 @@ For any player, you can enable or disable tracking of incoming or outgoing packe
 {{% expand title="Example" %}}
 ```vb
 on join:
-  set listening incoming packet of player to false
+  set listening incoming packets of player to false
 ```
 {{% /expand %}}
