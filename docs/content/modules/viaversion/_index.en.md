@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "ViaVersion"
-weight = 13
+weight = 15
 +++
 # VIAVERSION
 

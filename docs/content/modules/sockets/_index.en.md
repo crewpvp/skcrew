@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Sockets"
-weight = 11
+weight = 12
 +++
 # SOCKETS
 This module allows servers under the control of a proxy server to exchange information via sockets.

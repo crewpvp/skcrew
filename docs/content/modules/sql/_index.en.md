@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "SQL"
-weight = 12
+weight = 13
 +++
 # SQL
 This module allows you to connect to the DBMS and make synchronous and asynchronous requests.

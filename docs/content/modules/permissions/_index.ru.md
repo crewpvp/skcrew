@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "Permissions"
-weight = 8
+weight = 9
 +++
 
 # PERMISSIONS

@@ -1,7 +1,7 @@
 +++
 archetype = "default"
 title = "String utils"
-weight = 13
+weight = 14
 +++
 
 # STRING UTILS

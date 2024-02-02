@@ -23,3 +23,4 @@ weight = 0
 - поддержка плагина [**ViaVersion** <i class="fas fa-link"></i>](https://github.com/ViaVersion/ViaVersion) для получения версии игроков
 - работа с игровыми мирами: загрузка, копирование, удаление
 - поддержка прокси-общения между серверами ( [**Velocity** <i class="fas fa-link"></i>](https://github.com/PaperMC/Velocity), [**Bungeecord** <i class="fas fa-link"></i>](https://github.com/SpigotMC/BungeeCord) )
+- работа с пакетами: создание, отправка, получение, редактирование
