@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lotzy</groupId>
     <artifactId>Skcrew</artifactId>
-    <version>3.3-SNAPSHOT</version>
+    <version>3.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <repositories>
         <repository>
@@ -22,6 +22,10 @@
         <repository>
             <id>viaversion-repo</id>
             <url>https://repo.viaversion.com/</url>
+        </repository>
+        <repository>
+            <id>minecraft-repo</id>
+            <url>https://libraries.minecraft.net/</url>
         </repository>
     </repositories>
     <dependencies>
@@ -83,6 +87,12 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.21</version>            
+        </dependency>
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.21</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <properties>

@@ -5,6 +5,8 @@ import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.gui.GUIManager;
 import com.lotzy.skcrew.spigot.gui.GUIEvents;
+import com.lotzy.skcrew.spigot.packets.events.JoinListener;
+import com.lotzy.skcrew.spigot.packets.PacketReflection;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,6 +35,7 @@ public class Config {
     private static boolean FLOODGATE_ENABLED = true;
     private static boolean VIAVERSION_ENABLED = true;
     private static boolean OTHER_ENABLED = true;
+    private static boolean PACKETS_ENABLED = true;
     private static boolean MAPS_ENABLED = true;
     
     private static boolean SOCKETS_ENABLED = false;
@@ -135,6 +138,12 @@ public class Config {
                 Map<String,Object> settings = (Map<String,Object>)data.get("other");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
                     Config.OTHER_ENABLED = (boolean) settings.get("enabled");
+            }
+            
+            if (data.containsKey("packets") && data.get("packets") instanceof Map) {
+                Map<String,Object> settings = (Map<String,Object>)data.get("packets");
+                if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
+                    Config.PACKETS_ENABLED = (boolean) settings.get("enabled");
             }
             
             if (data.containsKey("maps") && data.get("maps") instanceof Map) {
@@ -258,6 +267,23 @@ public class Config {
     public static void loadOtherModule() {
         try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.other");
         } catch (IOException ex) {}
+    }
+    public static boolean isPacketsEnabled() {
+        return Config.PACKETS_ENABLED;
+    }
+    public static void loadPacketsModule() {
+        try {
+            PacketReflection.INITIATE();
+            Bukkit.getPluginManager().registerEvents(new JoinListener(),Skcrew.getInstance());
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.packets");
+        } catch (Exception ex) {
+            if (ex.getMessage() != null) {
+                Skcrew.getInstance().getLogger().warning("Packets module isn't loaded, contact with development team: " + ex.getMessage());
+            } else {
+                ex.printStackTrace();
+            }
+            return;
+        }
     }
     public static boolean isMapsEnabled() {
         return Config.MAPS_ENABLED;

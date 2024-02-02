@@ -12,6 +12,8 @@ maps:
   enabled: true
 other:
   enabled: true
+packets:
+  enabled: true
 permissions:
   enabled: true
 requests:
