@@ -23,5 +23,6 @@ The addon includes the following functionality:
 - plugin support [**ViaVersion** <i class="fas fa-link"></i>](https://github.com/ViaVersion/ViaVersion) to get the players' version
 - work with game worlds: upload, copy, delete
 - support for proxy communication between servers ( [**Velocity** <i class="fas fa-link"></i>](https://github.com/PaperMC/Velocity), [**Bungeecord** <i class="fas fa-link"></i>](https://github.com/SpigotMC/BungeeCord) )
+- working with packets: creating, sending, receiving, editing
 
 **[Documentation](https://skcrew.crewpvp.xyz/en)**
