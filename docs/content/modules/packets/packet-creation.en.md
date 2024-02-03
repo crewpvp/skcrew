@@ -33,7 +33,7 @@ on load:
   broadcast packet name of id 0x50 and state "play" and bound "client"
 ```
 
-After downloading the script, the name of this packet will be written in the chat - `PacketPlayOutCamera`.\
+After loading script, the name of this packet will be written in the chat - `PacketPlayOutCamera`.\
 We won't need any more code above, it was necessary to find out the name of the packet.\
 Next, we need to fill the buffer with the data described in the columns `Field Name`, `Field Type`, `Notes`.\
 We will fill in a new structure - `ByteBuf`. It is a set of bytes into which bytes can be written and read.
