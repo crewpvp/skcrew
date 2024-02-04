@@ -16,7 +16,7 @@ Returns an object of the type **datasource** (com.zaxxer.hikari.HikariDataSource
 [the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%]
 ```
 
-{{% expand title="Пример" %}}
+{{% expand title="Example" %}}
 ```vb
 set {_database} to "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
 ```
