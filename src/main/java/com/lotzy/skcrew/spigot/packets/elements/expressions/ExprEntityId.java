@@ -22,7 +22,7 @@ public class ExprEntityId extends SimpleExpression<Integer> {
     static {
         Skript.registerExpression(ExprEntityId.class, Integer.class, ExpressionType.SIMPLE, 
             "%entity%'s entity id",
-            "entity id %entity%");
+            "entity id of %entity%");
     }
     
     Expression<Entity> entity;
