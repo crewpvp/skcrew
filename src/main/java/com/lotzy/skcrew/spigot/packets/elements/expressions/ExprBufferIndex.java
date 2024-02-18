@@ -3,7 +3,6 @@ package com.lotzy.skcrew.spigot.packets.elements.expressions;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import static ch.njol.skript.classes.Changer.ChangeMode.ADD;
-import static ch.njol.skript.classes.Changer.ChangeMode.RESET;
 import static ch.njol.skript.classes.Changer.ChangeMode.SET;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
