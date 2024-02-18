@@ -57,6 +57,7 @@ write bytes %bytebuf% to %bytebuf%
 write bool[ean] %boolean% to %bytebuf%
 write uuid %string% to %bytebuf%
 write string %string% to %bytebuf%
+write utf[-| ]8 %string% to %bytebuf%
 write position %vector% to %bytebuf%
 write position %location% to %bytebuf%
 write [unsigned] byte %number% to %bytebuf%
@@ -88,10 +89,10 @@ command packet_example:
 Каждая запись в буфер сдвигает его `Writer index`, это количество записанных байт внутри буфера.\
 `Writer index` можно узнать, или изменить при помощи следующего выражеения:
 ```vb
-write index of %bytebuf%
+writer index of %bytebuf%
 ```
 ```vb
-%bytebuf%'s write index
+%bytebuf%'s writer index
 ```
 
 #### Создание пакета из буфера
@@ -122,7 +123,7 @@ command packet_example:
     set {_id} to entity id of {_entity}
     write varint {_id} to {_buffer}
     set {_packet} to create packet "PacketPlayOutCamera" with {_buffer}
-    send {_packet} to player
+    send packet {_packet} to player
 ```
 
 Для проверки работоспособности кода выше, направьте прицел на любую сущность, а затем пропишите команду `/packet_example`.\

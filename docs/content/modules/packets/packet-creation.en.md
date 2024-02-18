@@ -57,6 +57,7 @@ write bytes %bytebuf% to %bytebuf%
 write bool[ean] %boolean% to %bytebuf%
 write uuid %string% to %bytebuf%
 write string %string% to %bytebuf%
+write utf[-| ]8 %string% to %bytebuf%
 write position %vector% to %bytebuf%
 write position %location% to %bytebuf%
 write [unsigned] byte %number% to %bytebuf%
@@ -88,10 +89,10 @@ Since the table no longer contains data, we can create a packet from the buffer 
 Each write to the buffer shifts its `Writer index`, which is the number of bytes written inside the buffer.\
 `Writer index` you can find out or change it using the following expression:
 ```vb
-write index of %bytebuf%
+writer index of %bytebuf%
 ```
 ```vb
-%bytebuf%'s write index
+%bytebuf%'s writer index
 ```
 
 #### Creating a packet from a buffer
@@ -122,7 +123,7 @@ command packet_example:
     set {_id} to entity id of {_entity}
     write varint {_id} to {_buffer}
     set {_packet} to create packet "PacketPlayOutCamera" with {_buffer}
-    send {_packet} to player
+    send packet {_packet} to player
 ```
 
 To check the operability of the code above, aim the scope at any entity, and then write the command `/packet_example`.\
