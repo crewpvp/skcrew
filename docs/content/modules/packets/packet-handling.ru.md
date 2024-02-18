@@ -61,7 +61,11 @@ read long from %bytebuf%
 read angle from %bytebuf%
 read var[iable][ ]int[eger] from %bytebuf%
 read var[iable][ ]long from %bytebuf%
+read utf[(-| )]8 [with [len[gth]]] %number% from %bytebuf%
 ```
+{{% notice style="note" %}}
+Для чтения utf-8 необходимо так же указать длину текста в байтах
+{{% /notice %}}
 Чтение происходит в обратном порядке от записи. То есть, если мы записываем с начала, то чтение происходит с конца.\
 Рассмотрим пакет [PacketPlayOutOpenSignEditor <i class="fas fa-link"></i>](https://wiki.vg/Protocol#Open_Sign_Editor)
 | Packet ID          |   State   |   Bound To   |   Field Name   |     Field Type    | Notes      |
