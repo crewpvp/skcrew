@@ -30,6 +30,7 @@ public class EffWriteToBuffer extends Effect {
             "write bool[ean] %boolean% to %bytebuf%",
             "write uuid %string% to %bytebuf%",
             "write string %string% to %bytebuf%",
+            "write utf[(-| )]8 %string% to %bytebuf%",
             "write position %vector% to %bytebuf%",
             "write position %location% to %bytebuf%",
             "write [unsigned] byte %number% to %bytebuf%",
@@ -41,6 +42,7 @@ public class EffWriteToBuffer extends Effect {
             "write angle %number% to %bytebuf%",
             "write var[iable][ ]int[eger] %number% to %bytebuf%",
             "write var[iable][ ]long %number% to %bytebuf%");
+            
     }
     
     private Expression<ByteBuf> buffer;
@@ -65,12 +67,13 @@ public class EffWriteToBuffer extends Effect {
                 break;
             case 2:
             case 3:
+            case 4:
                 string = (Expression<String>)expr[0];
                 break;
-            case 4:
+            case 5:
                 vector = (Expression<Vector>)expr[0];
                 break;
-            case 5:
+            case 6:
                 location = (Expression<Location>)expr[0];
                 break;
             default:
@@ -106,36 +109,39 @@ public class EffWriteToBuffer extends Effect {
                     ByteBufManipulator.writeString(buffer, string.getSingle(e));
                     break;
                 case 4:
-                    ByteBufManipulator.writePosition(buffer, new BlockPositionWrapper(vector.getSingle(e)));
+                    ByteBufManipulator.writeUTF8(buffer, string.getSingle(e));
                     break;
                 case 5:
-                    ByteBufManipulator.writePosition(buffer, new BlockPositionWrapper(location.getSingle(e)));
+                    ByteBufManipulator.writePosition(buffer, new BlockPositionWrapper(vector.getSingle(e)));
                     break;
                 case 6:
-                    ByteBufManipulator.writeByte(buffer, number.getSingle(e).byteValue());
+                    ByteBufManipulator.writePosition(buffer, new BlockPositionWrapper(location.getSingle(e)));
                     break;
                 case 7:
-                    ByteBufManipulator.writeShort(buffer, number.getSingle(e).shortValue());
+                    ByteBufManipulator.writeByte(buffer, number.getSingle(e).byteValue());
                     break;
                 case 8:
-                    ByteBufManipulator.writeFloat(buffer, number.getSingle(e).floatValue());
+                    ByteBufManipulator.writeShort(buffer, number.getSingle(e).shortValue());
                     break;
                 case 9:
-                    ByteBufManipulator.writeDouble(buffer, number.getSingle(e).doubleValue());
+                    ByteBufManipulator.writeFloat(buffer, number.getSingle(e).floatValue());
                     break;
                 case 10:
-                    ByteBufManipulator.writeInt(buffer, number.getSingle(e).intValue());
+                    ByteBufManipulator.writeDouble(buffer, number.getSingle(e).doubleValue());
                     break;
                 case 11:
-                    ByteBufManipulator.writeLong(buffer, number.getSingle(e).longValue());
+                    ByteBufManipulator.writeInt(buffer, number.getSingle(e).intValue());
                     break;
                 case 12:
-                    ByteBufManipulator.writeAngle(buffer, number.getSingle(e).doubleValue());
+                    ByteBufManipulator.writeLong(buffer, number.getSingle(e).longValue());
                     break;
                 case 13:
-                    ByteBufManipulator.writeVarInt(buffer, number.getSingle(e).intValue());
+                    ByteBufManipulator.writeAngle(buffer, number.getSingle(e).doubleValue());
                     break;
                 case 14:
+                    ByteBufManipulator.writeVarInt(buffer, number.getSingle(e).intValue());
+                    break;
+                case 15:
                     ByteBufManipulator.writeVarLong(buffer, number.getSingle(e).longValue());
                     break;
             }

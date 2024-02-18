@@ -203,4 +203,11 @@ public class ByteBufManipulator {
 
         return i;
     }
+    
+    static public void writeUTF8(ByteBuf buffer, String value) {
+        buffer.writeBytes(value.getBytes(StandardCharsets.UTF_8));
+    }
+    static public String readUTF8(ByteBuf buffer, int len) {
+        return buffer.readBytes(len).toString(StandardCharsets.UTF_8);
+    }
 }

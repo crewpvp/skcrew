@@ -35,15 +35,23 @@ public class ExprReadFromBuffer extends SimpleExpression<Object> {
             "read long from %bytebuf%",
             "read angle from %bytebuf%",
             "read var[iable][ ]int[eger] from %bytebuf%",
-            "read var[iable][ ]long from %bytebuf%");
+            "read var[iable][ ]long from %bytebuf%",
+            "read utf[(-| )]8 [with [len[gth]]] %number% from %bytebuf%");
     }
     Expression<ByteBuf> buffer;
     int pattern;
+    Expression<Number> len;
     
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         pattern = matchedPattern;
-        buffer = (Expression<ByteBuf>)exprs[0];
+        
+        if(pattern == 13) {
+            len = (Expression<Number>)exprs[0];
+            buffer = (Expression<ByteBuf>)exprs[1];
+        } else {
+            buffer = (Expression<ByteBuf>)exprs[0];
+        }
         return true;
     }
 
@@ -76,8 +84,10 @@ public class ExprReadFromBuffer extends SimpleExpression<Object> {
                     return new Double[]{ByteBufManipulator.readAngle(buffer)};
                 case 11:
                     return new Integer[]{ByteBufManipulator.readVarInt(buffer)};
-                default:
+                case 12:
                     return new Long[]{ByteBufManipulator.readVarLong(buffer)};
+                default:
+                    return new String[]{ByteBufManipulator.readUTF8(buffer, len.getSingle(event).intValue())};
             }
         } catch (Exception ex) {
             Skript.warning(ex.getMessage());
@@ -116,8 +126,10 @@ public class ExprReadFromBuffer extends SimpleExpression<Object> {
                 return Double.class;
             case 11:
                 return Integer.class;
-            default:
+            case 12:
                 return Long.class;
+            default:
+                return String.class;
         }
     }
 
