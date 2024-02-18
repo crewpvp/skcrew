@@ -68,9 +68,9 @@ public class BasePacket implements AbstractPacket {
     }
     
     public void creationError() {
-        Skript.warning("Something wrong with buffer when you create packet.");
-        Skript.warning("Go to https://wiki.vg/Protocol_version_numbers#Release and read fields of packet: ");
-        Skript.warning("id '0x" + Integer.toHexString(id) + "', state '"+state+"' and bound '"+bound+"'");
+        Skript.warning("Something wrong with buffer when you create packet '" + packet.getSimpleName() + "'." + System.lineSeparator() +
+        "Go to https://wiki.vg/Protocol_version_numbers#Release and read fields of packet: " + System.lineSeparator() +
+        "id '0x" + Integer.toHexString(id) + "', state '"+state+"' and bound '"+bound+"'");
     }
     
 }
