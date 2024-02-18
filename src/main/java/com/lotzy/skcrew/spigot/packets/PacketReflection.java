@@ -467,7 +467,8 @@ public class PacketReflection {
             if (method.getParameterCount()!=1) continue;
             if (!method.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
             try {
-                method.invoke(packetInstance, PacketDataSerializerConstructor.newInstance(Unpooled.buffer()));      
+                method.invoke(packetInstance, PacketDataSerializerConstructor.newInstance(Unpooled.buffer()));
+                continue;
             } catch ( InstantiationException | IllegalAccessException | IllegalArgumentException ex) {
                 continue;
             } catch (InvocationTargetException ex ) {
