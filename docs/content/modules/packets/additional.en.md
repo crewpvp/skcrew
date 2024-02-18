@@ -30,3 +30,13 @@ skin signature of %player%
 %player%'s skin signature
 ```
 
+#### Get text bytes
+Returns a list of bytes.\
+It is also possible to specify the required encoding. Default is `UTF-8`
+```vb
+bytes of %string% [with charset %string%]
+```
+```vb
+%string%'s bytes [with charset %string%]
+```
+

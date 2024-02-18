@@ -30,3 +30,12 @@ skin signature of %player%
 %player%'s skin signature
 ```
 
+#### Получить байты текста
+Возвращает список байтов.\
+Возможно также указать необходимую кодировку. По умолчанию `UTF-8`
+```vb
+bytes of %string% [with charset %string%]
+```
+```vb
+%string%'s bytes [with charset %string%]
+```
