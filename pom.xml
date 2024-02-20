@@ -88,12 +88,6 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.21</version>            
         </dependency>
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.21</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

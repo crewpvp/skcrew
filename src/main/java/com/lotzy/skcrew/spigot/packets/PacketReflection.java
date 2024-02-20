@@ -8,7 +8,6 @@ import com.lotzy.skcrew.spigot.packets.packetWrappers.MethodPacket;
 import com.lotzy.skcrew.spigot.packets.packetWrappers.BasePacket;
 import com.lotzy.skcrew.spigot.packets.packetWrappers.MethodPacketDataWatcher;
 import com.lotzy.skcrew.spigot.packets.packetWrappers.ConstructorPacket;
-import com.mojang.authlib.GameProfile;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -18,6 +17,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -70,7 +70,13 @@ public class PacketReflection {
     public static Object DataWatcherInstance = null;
     
     public static Method GetGameProfileMethod = null;
-    
+    public static Method GetPropertiesOfGameProfileMethod = null;
+    public static Method GetPropertyFromPropertyMapMethod = null;
+    public static Method PutPropertyToPropertyMapMethod = null;
+    public static Class PropertyClass = null;
+    public static Constructor PropertyConstructor = null;
+    public static Field ValueOfPropertyField = null;
+    public static Field SignatureOfPropertyField = null;
     
     public static void INITIATE() throws Exception {
         getEntityPlayerClass();
@@ -136,9 +142,20 @@ public class PacketReflection {
     private static void getGameProfileMethod() {
         try {
             GetGameProfileMethod = CraftPlayerClass.getMethod("getProfile");
+            GetPropertiesOfGameProfileMethod = GetGameProfileMethod.getReturnType().getDeclaredMethod("getProperties");
+            GetPropertiesOfGameProfileMethod.setAccessible(true);
+            GetPropertyFromPropertyMapMethod = GetPropertiesOfGameProfileMethod.getReturnType().getMethod("get", Object.class);
+            PutPropertyToPropertyMapMethod = GetPropertiesOfGameProfileMethod.getReturnType().getMethod("put", Object.class, Object.class);
+            ParameterizedType parameterizedType = (ParameterizedType)GetPropertiesOfGameProfileMethod.getReturnType().getGenericSuperclass();
+            PropertyClass = (Class)parameterizedType.getActualTypeArguments()[1];
+            PropertyConstructor = PropertyClass.getConstructor(String.class,String.class,String.class);
+            ValueOfPropertyField = PropertyClass.getDeclaredField("value");
+            ValueOfPropertyField.setAccessible(true);
+            SignatureOfPropertyField = PropertyClass.getDeclaredField("signature");
+            SignatureOfPropertyField.setAccessible(true);
         } catch (Exception ex) {
-            
         }
+        
     }
     
     private static void getPlayerConnectionClassAndField() {
@@ -570,9 +587,70 @@ public class PacketReflection {
             }
     }
     
-    public static GameProfile getGameProfile(Player player) {
+    public static Object getGameProfile(Player player) {
         try {
-            return (GameProfile)GetGameProfileMethod.invoke(player);
+            return GetGameProfileMethod.invoke(player);
+        } catch (Exception ex) {
+            return null;
+        } 
+    }
+    
+    public static Object getProperties(Object gameProfile) {
+        try {
+            return GetPropertiesOfGameProfileMethod.invoke(gameProfile);
+        } catch (Exception ex) {
+            return null;
+        } 
+    }
+    
+    public static boolean removeProperty(Object properties, Object property, String key) {
+        try {
+            Collection col = (Collection) GetPropertyFromPropertyMapMethod.invoke(properties,key);
+            return col.remove(property);
+        } catch (Exception ex) {
+            return false;
+        } 
+    }
+    
+    public static Object getProperty(Object properties, String key) {
+        try {
+            Collection col = (Collection) GetPropertyFromPropertyMapMethod.invoke(properties,key);
+            if (col.isEmpty()) {
+                return null;
+            }
+            return col.iterator().next();
+        } catch (Exception ex) {
+            return null;
+        } 
+    }
+    
+    public static Object putProperty(Object properties,String key, Object property) {
+        try {
+            return PutPropertyToPropertyMapMethod.invoke(properties,key, property);
+        } catch (Exception ex) {
+            return null;
+        } 
+    }
+    
+    public static Object createProperty(String name, String value, String signature) {
+         try {
+            return PropertyConstructor.newInstance(name, value, signature);
+        } catch (Exception ex) {
+            return null;
+        } 
+    }
+    
+    public static String getValueOfProperty(Object property) {
+        try {
+            return (String)ValueOfPropertyField.get(property);
+        } catch (Exception ex) {
+            return null;
+        } 
+    }
+    
+    public static String getSignatureOfProperty(Object property) {
+        try {
+            return (String)SignatureOfPropertyField.get(property);
         } catch (Exception ex) {
             return null;
         } 

@@ -13,16 +13,14 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.spigot.packets.PacketReflection;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import java.util.Collection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 @Name("Packets - GameProfile skin")
 @Description("Allow to get/set skin value or signature from player")
 @Examples({"set {_signature} to player's skin signature",
-            "set player's skin value to \"<Some Base64 data>\""})
+            "set player's skin value to \"<Some Base64 data>\"",
+            "delete player's skin properties"})
 @Since("3.4")
 public class ExprGameProfileSkin extends SimpleExpression<String> {
 
@@ -31,7 +29,8 @@ public class ExprGameProfileSkin extends SimpleExpression<String> {
             "skin signature of %player%",
             "%player%'s skin signature",
             "skin value of %player%",
-            "%player%'s skin value");
+            "%player%'s skin value",
+            "%player%'s skin properties");
     }
     
     Expression<Player> player;
@@ -46,36 +45,41 @@ public class ExprGameProfileSkin extends SimpleExpression<String> {
 
     @Override
     protected String[] get(Event event) {
-        GameProfile profile = PacketReflection.getGameProfile(player.getSingle(event));
-        Collection<Property> properties = profile.getProperties().get("textures");
-        if (properties == null) return null;
-        Property property = properties.iterator().next();
-        String result = pattern < 2 ? property.getSignature() : property.getValue();
+        Object profile = PacketReflection.getGameProfile(player.getSingle(event));
+        Object property = PacketReflection.getProperty(PacketReflection.getProperties(profile),"textures");
+        if (property == null || pattern == 4) return null;
+        String result = pattern < 2 ? PacketReflection.getSignatureOfProperty(property) : PacketReflection.getValueOfProperty(property);
         return new String[] { result };
         
     }
     
     @Override
     public Class<? extends String>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET)
+        if (mode == Changer.ChangeMode.SET && pattern < 4)
             return CollectionUtils.array(String.class);
+        if (mode == Changer.ChangeMode.DELETE && pattern == 4)
+            return CollectionUtils.array();
         return null; 
     }
 
     @Override
     public void change(Event event,  Object[] delta, Changer.ChangeMode mode) {
-        GameProfile profile = PacketReflection.getGameProfile(player.getSingle(event));
-        Collection<Property> properties = profile.getProperties().get("textures");
-        String value = (String)delta[0];
-        if (properties == null)         
-            profile.getProperties().put("textures", new Property("textures","",""));
-        Property property = properties.iterator().next();
-        if (pattern < 2) {
-            profile.getProperties().put("textures", new Property("textures",property.getValue(),value));
-        } else {
-            profile.getProperties().put("textures", new Property("textures",value,property.getSignature()));
-        }
+        Object profile = PacketReflection.getGameProfile(player.getSingle(event));
+        Object properties = PacketReflection.getProperties(profile);
+        Object property = PacketReflection.getProperty(properties, "textures");
         
+        if (property == null) {
+            property = PacketReflection.createProperty("textures", "", "");
+        } else {
+            PacketReflection.removeProperty(properties, property, "textures");
+        }
+        if (mode == Changer.ChangeMode.DELETE) return;
+        String value = (String)delta[0];
+        if (pattern < 2) {
+            PacketReflection.putProperty(properties,"textures", PacketReflection.createProperty("textures", PacketReflection.getValueOfProperty(property), value));
+        } else {
+            PacketReflection.putProperty(properties,"textures", PacketReflection.createProperty("textures", value, PacketReflection.getSignatureOfProperty(property)));
+        }
     }
     
     @Override
