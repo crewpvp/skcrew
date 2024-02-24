@@ -1,6 +1,7 @@
 package com.lotzy.skcrew.spigot.packets;
 
 import com.lotzy.skcrew.spigot.packets.events.PacketEvent;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelOutboundHandler;
@@ -15,13 +16,19 @@ public class ChannelPacketHandler implements ChannelInboundHandler, ChannelOutbo
     final Player player;
     boolean outcomingEnabled = true;
     boolean incomingEnabled = true;
+    public Channel channel;
     
-    public ChannelPacketHandler(Player player) {
+    public ChannelPacketHandler(Player player, Channel channel) {
         this.player = player;
+        this.channel = channel;
     }
     
     public Player getPlayer() {
-        return player;
+        return this.player;
+    }
+    
+    public Channel getChannel() {
+        return this.channel;
     }
     
     public boolean isOutcomingEnabled() {
@@ -135,14 +142,14 @@ public class ChannelPacketHandler implements ChannelInboundHandler, ChannelOutbo
         if (incomingEnabled) {
             if(o.getClass().equals(PacketReflection.ClientboundBundlePacketClass)) {
                 ArrayList<Object> iterable = new ArrayList();
-                for(Object packet : (Iterable)PacketReflection.ClientboundBundlePacketDecoder.invoke(o)) {
-                    PacketEvent event = new PacketEvent(player,o);
+                for(Object packet : (Iterable)PacketReflection.BundlePacketDecoderMethod.invoke(o)) {
+                    PacketEvent event = new PacketEvent(player,packet);
                     Bukkit.getPluginManager().callEvent(event);
                     if(event.isCancelled()) continue;
                     iterable.add(event.getPacket());
                 }
                 if(iterable.isEmpty()) return;
-                chc.write(PacketReflection.ClientboundBundlePacketConstructor.newInstance(iterable));
+                chc.write(PacketReflection.BundlePacketConstructor.newInstance(iterable));
             } else {
                 PacketEvent event = new PacketEvent(player,o);
                 Bukkit.getPluginManager().callEvent(event);

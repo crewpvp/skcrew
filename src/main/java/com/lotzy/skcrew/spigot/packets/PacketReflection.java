@@ -11,13 +11,20 @@ import com.lotzy.skcrew.spigot.packets.packetWrappers.ConstructorPacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import java.lang.reflect.AnnotatedParameterizedType;
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -56,9 +63,10 @@ public class PacketReflection {
     public static Field PacketDataSerializerByteBufField = null;
     public static ArrayList<String> PacketDataSerializerDeserializers = null;
     
+    public static Class BundlePacketClass = null;
     public static Class ClientboundBundlePacketClass = null;
-    public static Constructor ClientboundBundlePacketConstructor = null;
-    public static Method ClientboundBundlePacketDecoder = null;
+    public static Constructor BundlePacketConstructor = null;
+    public static Method BundlePacketDecoderMethod = null;
     
     public static Class BlockPositionClass = null;
     public static Constructor BlockPositionConstructor = null;
@@ -522,22 +530,67 @@ public class PacketReflection {
     }
     
     private static void getBundlePacket() {
-        if(!PACKETS.containsKey("ClientboundBundlePacket")) return;
-        Class BundlePacketClass = PACKETS.get("ClientboundBundlePacket").getClass();
-        for(Constructor constructor : BundlePacketClass.getConstructors()) {
+        outerloop: for(Class cls : EnumProtocolClass.getDeclaredClasses()) {
+            for(Method method : cls.getDeclaredMethods()) {
+                if (method.getParameterCount() != 2) continue;
+                Type type = method.getGenericParameterTypes()[0];
+                if (!(type instanceof ParameterizedType)) continue;
+                ParameterizedType ptype = (ParameterizedType)type;
+                Type[] types = ptype.getActualTypeArguments();
+                if (types.length != 1) continue;
+                if (!(types[0] instanceof TypeVariable)) continue;
+                TypeVariable typev = (TypeVariable) types[0];
+                AnnotatedType[] atypes = typev.getAnnotatedBounds();
+                if (atypes.length != 1) continue;
+                if (!(atypes[0] instanceof AnnotatedParameterizedType)) continue;
+                AnnotatedParameterizedType apt = (AnnotatedParameterizedType)atypes[0];
+                if (!(apt.getType() instanceof ParameterizedType)) continue;
+                BundlePacketClass = (Class)((ParameterizedType)apt.getType()).getRawType();
+                break outerloop;
+            }
+        }
+	if (BundlePacketClass == null) return;
+        
+        outerloop: for(AbstractPacket apacket : PACKETS.values()) {
+            Type[] itypes = apacket.getPacket().getGenericInterfaces();
+            if(itypes.length != 1) continue;
+            if (!(itypes[0] instanceof ParameterizedType)) continue;
+            ParameterizedType ptype = (ParameterizedType)itypes[0]; 
+            if (!ptype.getRawType().equals(PacketClass)) continue;
+            Class packetListenerPlayOut = (Class)ptype.getActualTypeArguments()[0];
+            if(!packetListenerPlayOut.getSimpleName().equals("PacketListenerPlayOut")) continue;
+            for(Method method : packetListenerPlayOut.getDeclaredMethods()) {
+                if (method.getParameterCount()!=1) continue;
+                Class cls = method.getParameterTypes()[0];
+                if (!BundlePacketClass.isAssignableFrom(cls)) continue;
+                ClientboundBundlePacketClass = cls;
+                break outerloop;
+            }
+        }
+        if (ClientboundBundlePacketClass == null) return;
+        
+        for(Constructor constructor : ClientboundBundlePacketClass.getDeclaredConstructors()) {
             if(constructor.getParameterCount()!=1) continue;
             if(!constructor.getParameterTypes()[0].equals(Iterable.class)) continue;
-            ClientboundBundlePacketConstructor = constructor;
+            constructor.setAccessible(true);
+            BundlePacketConstructor = constructor;
             break;
         }
-        for(Method method : BundlePacketClass.getSuperclass().getDeclaredMethods()) {
-            if(method.getParameterCount()!=1) continue;
+        
+        for(Method method : BundlePacketClass.getDeclaredMethods()) {
             if(!method.getReturnType().equals(Iterable.class)) continue;
-            ClientboundBundlePacketDecoder = method;
+            BundlePacketDecoderMethod = method;
             break;
         }
-        if(ClientboundBundlePacketDecoder!=null && ClientboundBundlePacketConstructor != null)
-            ClientboundBundlePacketClass = BundlePacketClass;
+        
+    }
+    public static Channel getChannelOfPlayer(Player player) {
+        try {
+            return (Channel)ChannelField.get(NetworkManagerField.get(PlayerConnectionField.get(GetHandleMethod.invoke(player))));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
     
     public static void insertHandlerInPipeline(Player player, String before, String name, ChannelHandler handler) {
@@ -559,7 +612,7 @@ public class PacketReflection {
     }
     
     public static void injectHandlerIntoPlayerPipeline(Player player) {
-        insertHandlerInPipeline(player,"packet_handler","skcrew_packet_handler", new ChannelPacketHandler(player));
+        insertHandlerInPipeline(player,"packet_handler","skcrew_packet_handler", new ChannelPacketHandler(player, getChannelOfPlayer(player)));
     }
     
     public static ChannelPacketHandler getInjectedHandlerFromPlayer(Player player) {
@@ -577,7 +630,7 @@ public class PacketReflection {
     }
     
     public static void sendPacket(Collection<Player> players, Collection<Object> packets) {
-        for(Player player : players)
+        for(Player player : players) {
             for(Object packet : packets) {
                 try {
                     SendPacketMethod.invoke(NetworkManagerField.get(PlayerConnectionField.get(GetHandleMethod.invoke(player))),packet);
@@ -585,6 +638,22 @@ public class PacketReflection {
                     continue;
                 }
             }
+        }
+    }
+    
+    public static void sendPacketWithoutEvent(Collection<Player> players, Collection<Object> packets) {
+        for(Player player : players) {
+            try {
+                Channel channel = (Channel)ChannelField.get(NetworkManagerField.get(PlayerConnectionField.get(GetHandleMethod.invoke(player))));
+                ChannelHandlerContext chc = channel.pipeline().context("skcrew_packet_handler");
+                for(Object packet : packets) {
+                    ChannelFuture channelfuture = chc.writeAndFlush(packet);
+                    channelfuture.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
+                }
+            } catch (Exception ex) {
+                continue;
+            }
+        }
     }
     
     public static Object getGameProfile(Player player) {
