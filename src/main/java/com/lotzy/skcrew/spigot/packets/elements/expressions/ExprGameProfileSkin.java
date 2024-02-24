@@ -30,7 +30,8 @@ public class ExprGameProfileSkin extends SimpleExpression<String> {
             "%player%'s skin signature",
             "skin value of %player%",
             "%player%'s skin value",
-            "%player%'s skin properties");
+            "%player%'s skin properties",
+            "skin properties of %player%");
     }
     
     Expression<Player> player;
@@ -47,7 +48,7 @@ public class ExprGameProfileSkin extends SimpleExpression<String> {
     protected String[] get(Event event) {
         Object profile = PacketReflection.getGameProfile(player.getSingle(event));
         Object property = PacketReflection.getProperty(PacketReflection.getProperties(profile),"textures");
-        if (property == null || pattern == 4) return null;
+        if (property == null || pattern > 3) return null;
         String result = pattern < 2 ? PacketReflection.getSignatureOfProperty(property) : PacketReflection.getValueOfProperty(property);
         return new String[] { result };
         
@@ -57,7 +58,7 @@ public class ExprGameProfileSkin extends SimpleExpression<String> {
     public Class<? extends String>[] acceptChange(Changer.ChangeMode mode) {
         if (mode == Changer.ChangeMode.SET && pattern < 4)
             return CollectionUtils.array(String.class);
-        if (mode == Changer.ChangeMode.DELETE && pattern == 4)
+        if (mode == Changer.ChangeMode.DELETE && pattern > 3)
             return CollectionUtils.array();
         return null; 
     }
