@@ -43,39 +43,39 @@ public class ByteBufType {
                             ", capacity: "+buffer.capacity()+")";
                 }
             }).serializer(new Serializer<ByteBuf>() {
-                    @Override
-                    public Fields serialize(final ByteBuf buffer) {
-                        final Fields f = new Fields();
-                        f.putObject("bytes", ByteBufUtil.getBytes(buffer));
-                        return f;
-                    }
-					
-                    @Override
-                    public void deserialize(final ByteBuf o, final Fields f) {
-                        assert false;
-                    }
-					
-                    @Override
-                    public ByteBuf deserialize(final Fields f) throws StreamCorruptedException {
-                        try {
-                            byte[] bytes = f.getObject("bytes", byte[].class);
-                            ByteBuf buffer = Unpooled.buffer();
-                            buffer.writeBytes(bytes);
-                            return buffer;
-                        } catch (Exception ex) {
-                            return null;
-                        }
-                    }
-					
-                    @Override
-                    public boolean canBeInstantiated() {
-                        return false; // no nullary constructor - also, saving the location manually prevents errors should Location ever be changed
-                    }
+                @Override
+                public Fields serialize(final ByteBuf buffer) {
+                    final Fields f = new Fields();
+                    f.putObject("bytes", ByteBufUtil.getBytes(buffer));
+                    return f;
+                }
 
-                    @Override
-                    public boolean mustSyncDeserialization() {
-                        return true;
+                @Override
+                public void deserialize(final ByteBuf o, final Fields f) {
+                    assert false;
+                }
+
+                @Override
+                public ByteBuf deserialize(final Fields f) throws StreamCorruptedException {
+                    try {
+                        byte[] bytes = f.getObject("bytes", byte[].class);
+                        ByteBuf buffer = Unpooled.buffer();
+                        buffer.writeBytes(bytes);
+                        return buffer;
+                    } catch (Exception ex) {
+                        return null;
                     }
+                }
+
+                @Override
+                public boolean canBeInstantiated() {
+                    return false; // no nullary constructor - also, saving the location manually prevents errors should Location ever be changed
+                }
+
+                @Override
+                public boolean mustSyncDeserialization() {
+                    return true;
+                }
             }));
     }  
 }
