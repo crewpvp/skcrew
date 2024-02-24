@@ -1,7 +1,6 @@
 package com.lotzy.skcrew.spigot.packets.elements.expressions;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -13,12 +12,10 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import ch.njol.util.coll.CollectionUtils;
 import com.lotzy.skcrew.spigot.packets.PacketReflection;
 import com.lotzy.skcrew.spigot.packets.elements.events.EvtPacket;
 import com.lotzy.skcrew.spigot.packets.events.PacketEvent;
 import org.bukkit.event.Event;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
 @Name("Packets - Event packet")
 @Description("Return handled packet in packet event")
@@ -58,7 +55,7 @@ public class ExprEventPacket extends SimpleExpression<Object> {
         }
 
         if (mode == ChangeMode.SET) {
-            return CollectionUtils.array(PacketReflection.PacketClass);
+            return new Class[]{ PacketReflection.PacketClass };
         }
 
         return null;
@@ -69,7 +66,7 @@ public class ExprEventPacket extends SimpleExpression<Object> {
         if (delta == null || !(event instanceof PacketEvent)) {
             return;
         }
-        ((PacketEvent) event).setPacket(mode);
+        ((PacketEvent) event).setPacket(delta[0]);
     }
 
     @Override
