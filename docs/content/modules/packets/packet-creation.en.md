@@ -5,7 +5,7 @@ weight = 1
 +++
 # Creating packets
 #### Learning wiki.vg
-[This site <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers#Release) contains a description of the packets used in the Minecraft backend.\
+[This site <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers) contains a description of the packets used in the Minecraft backend.\
 Select the core version on the website on which the server is located and click on the link of this version.\
 First, we need to find the packet that we need. All packets located in the `SERVERBOUND` section - packets are sent to the server players in the `CLIENTBOUND` section - from the server to the player.
 We are obviously interested in the packets section `CLIENTBOUND`.\
@@ -115,6 +115,15 @@ The following expression is used to send packets:
 ```vb
 send packet %packets% to %players%
 ```
+
+The expressions below allow you to send a packet without calling event [on packet <i class="fas fa-link"></i>](./packet-handling/#the-event-of-receiving-or-sending-a-packet)
+```vb
+send packet %packets%  without [(trigger|call)[ing]] [the] event to %players%
+```
+```vb
+send packet %packets% to %players%  without [(trigger|call)[ing]] [the] event
+```
+{{% expand title="Example" %}}
 ```vb
 command packet_example:
   trigger:
@@ -125,7 +134,7 @@ command packet_example:
     set {_packet} to create packet "PacketPlayOutCamera" with {_buffer}
     send packet {_packet} to player
 ```
-
+{{% /expand %}}
 To check the operability of the code above, aim the scope at any entity, and then write the command `/packet_example`.\
 After executing the command, you will be looking from the entity's face, even if you are not in observer mode.
 \

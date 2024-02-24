@@ -5,7 +5,7 @@ weight = 1
 +++
 # Создание пакета
 #### Изучение wiki.vg
-[Данный сайт <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers#Release) содержит в себе описание пакетов, использующихся в серверной части Minecraft.\
+[Данный сайт <i class="fas fa-link"></i>](https://wiki.vg/Protocol_version_numbers) содержит в себе описание пакетов, использующихся в серверной части Minecraft.\
 Выбираем на сайте версию ядра, на которой стоит сервер и переходим по ссылке этой версии.\
 Для начала требуется найти пакет, который нам необходим. Все пакеты, находящиеся в разделе `SERVERBOUND` - отправляются игроком - серверу, пакеты в разделе `CLIENTBOUND` - от сервера к игроку.
 Нас, очевидно интересует раздел пакетов `CLIENTBOUND`.\
@@ -115,6 +115,15 @@ command packet_example:
 ```vb
 send packet %packets% to %players%
 ```
+
+Выражения ниже позволяют отправить пакет, без вызова события [on packet <i class="fas fa-link"></i>](./packet-handling/#событие-получения-или-отправки-пакета)
+```vb
+send packet %packets%  without [(trigger|call)[ing]] [the] event to %players%
+```
+```vb
+send packet %packets% to %players%  without [(trigger|call)[ing]] [the] event
+```
+{{% expand title="Пример" %}}
 ```vb
 command packet_example:
   trigger:
@@ -125,7 +134,7 @@ command packet_example:
     set {_packet} to create packet "PacketPlayOutCamera" with {_buffer}
     send packet {_packet} to player
 ```
-
+{{% /expand %}}
 Для проверки работоспособности кода выше, направьте прицел на любую сущность, а затем пропишите команду `/packet_example`.\
 После выполнения команды, вы будете смотреть от лица сущности, даже если вы не в режиме наблюдателя.
 \
