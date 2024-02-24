@@ -68,7 +68,7 @@ public class TypeMap {
 
                     @Override
                     public boolean mustSyncDeserialization() {
-                            return true;
+                        return true;
                     }
             }));
 
