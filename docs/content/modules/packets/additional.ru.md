@@ -30,6 +30,14 @@ skin signature of %player%
 %player%'s skin signature
 ```
 
+#### Очистить signature и value скина игрока
+```vb
+delete skin properties of %player%
+```
+```vb
+delete %player%'s skin properties
+```
+
 #### Получить байты текста
 Возвращает список байтов.\
 Возможно также указать необходимую кодировку. По умолчанию `UTF-8`

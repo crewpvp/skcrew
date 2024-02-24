@@ -30,6 +30,14 @@ skin signature of %player%
 %player%'s skin signature
 ```
 
+#### Clear player's skin signature and value
+```vb
+delete skin properties of %player%
+```
+```vb
+delete %player%'s skin properties
+```
+
 #### Get text bytes
 Returns a list of bytes.\
 It is also possible to specify the required encoding. Default is `UTF-8`
