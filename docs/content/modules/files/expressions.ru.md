@@ -109,3 +109,35 @@ parent [(file|dir[ectory])] of %path%
 set {_file} to parent of file "eula.txt"
 ```
 {{% /expand %}}
+
+#### Получить размер файла в байтах
+```vb
+file size of %path%
+```
+```vb
+%path%'s file size
+```
+
+#### Получить дату последнего доступа к файлу
+```vb
+[last] access (date|time) of %path%
+```
+```vb
+%path%'s [last] access (date|time)
+```
+
+#### Получить дату последнего изменения файла
+```vb
+[last] modified (date|time) of %path%
+```
+```vb
+%path%'s [last] modified (date|time)
+```
+
+#### Получить дату создания файла
+```vb
+create[d] (date|time) of %path%
+```
+```vb
+%path%'s create[d] (date|time)
+```

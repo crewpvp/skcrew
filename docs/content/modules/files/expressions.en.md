@@ -109,3 +109,35 @@ parent [(file|dir[ectory])] of %path%
 set {_file} to parent of file "eula.txt"
 ```
 {{% /expand %}}
+
+#### Get file size in bytes
+```vb
+file size of %path%
+```
+```vb
+%path%'s file size
+```
+
+#### Get the last access date of a file
+```vb
+[last] access (date|time) of %path%
+```
+```vb
+%path%'s [last] access (date|time)
+```
+
+#### Get the last modified date of a file
+```vb
+[last] modified (date|time) of %path%
+```
+```vb
+%path%'s [last] modified (date|time)
+```
+
+#### Get file creation date
+```vb
+create[d] (date|time) of %path%
+```
+```vb
+%path%'s create[d] (date|time)
+```
