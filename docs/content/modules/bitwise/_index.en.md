@@ -60,7 +60,7 @@ The value of the left operands is moved to the right by the number of bits speci
 #### Binary complement operation (reflection)
 Each bit of the number will be inverted.
 ```vb
-~~%number% 
+~%number% 
 ```
 
 #### A number in binary notation
