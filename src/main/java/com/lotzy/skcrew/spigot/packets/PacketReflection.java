@@ -545,7 +545,9 @@ public class PacketReflection {
                 if (!(atypes[0] instanceof AnnotatedParameterizedType)) continue;
                 AnnotatedParameterizedType apt = (AnnotatedParameterizedType)atypes[0];
                 if (!(apt.getType() instanceof ParameterizedType)) continue;
-                BundlePacketClass = (Class)((ParameterizedType)apt.getType()).getRawType();
+                Class tmp = (Class)((ParameterizedType)apt.getType()).getRawType();
+                if (!tmp.getSimpleName().equals("BundlePacket")) continue;
+                BundlePacketClass = tmp;
                 break outerloop;
             }
         }
