@@ -122,7 +122,7 @@ public class SocketClientListener implements ClientListener {
             this.servers = infoPacket.getServers().entrySet().stream().map(entry -> 
             new SpigotServer(entry.getKey().getName(),entry.getKey().getInetSocketAddress(), entry.getValue().stream().map(player -> 
                 new SpigotPlayer(player.getName(),player.getUUID())).collect(Collectors.toCollection(HashSet::new)),entry.getKey().isConnected()))
-            .collect(Collectors.toCollection(HashSet::new));
+            .collect(Collectors.toSet());
             name = infoPacket.getName();
             Bukkit.getScheduler().runTask(Skcrew.getInstance(),() -> Bukkit.getPluginManager().callEvent(new ProxyConnectEvent(this.address)));
             isConnected = true;
