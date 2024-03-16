@@ -67,7 +67,7 @@ public class SocketClientListener implements ClientListener {
             .map(server -> server.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
     public Set<SpigotPlayer> getPlayers(Collection<BaseServer> servers) {
-         return this.getOnlineServers().stream().filter(server -> servers.contains(server))
+        return this.getOnlineServers().stream().filter(server -> servers.contains(server))
             .map(server -> server.getPlayers()).flatMap(players -> players.stream()).collect(Collectors.toSet());
     }
     public Set<SpigotPlayer> getPlayers(BaseServer server) {
@@ -119,10 +119,11 @@ public class SocketClientListener implements ClientListener {
         if (!isConnected) {
             if (p.getType() != PacketType.SERVERS_INFO) return;
             PacketServersInfo infoPacket = (PacketServersInfo)p;
-            this.servers = infoPacket.getServers().entrySet().stream().map(entry -> 
-            new SpigotServer(entry.getKey().getName(),entry.getKey().getInetSocketAddress(), entry.getValue().stream().map(player -> 
-                new SpigotPlayer(player.getName(),player.getUUID())).collect(Collectors.toCollection(HashSet::new)),entry.getKey().isConnected()))
-            .collect(Collectors.toSet());
+            this.servers = infoPacket.getServers().entrySet().stream().map(entry -> {
+                BaseServer baseServer = entry.getKey();
+                return new SpigotServer(baseServer.getName(), baseServer.getInetSocketAddress(), entry.getValue().stream().map(player -> 
+                    new SpigotPlayer(player.getName(),player.getUUID())).collect(Collectors.toCollection(HashSet::new)), baseServer.isConnected());
+            }).collect(Collectors.toSet());
             name = infoPacket.getName();
             Bukkit.getScheduler().runTask(Skcrew.getInstance(),() -> Bukkit.getPluginManager().callEvent(new ProxyConnectEvent(this.address)));
             isConnected = true;
