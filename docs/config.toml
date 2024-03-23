@@ -162,7 +162,7 @@ defaultContentLanguage = "ru"
 [params]
   disableExplicitIndexURLs = true
   editURL = "https://github.com/crewpvp/skcrew/edit/main/docs/content/"
-  description = "Wiki of crewpvp.xyz minecraft server"
+  description = "Documentation of Skcrew Skript addon"
   author = "Lotzy, w0w0"
   showVisitedLinks = true
   collapsibleMenu = true
