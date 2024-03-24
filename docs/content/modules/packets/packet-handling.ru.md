@@ -66,19 +66,18 @@ read utf[(-| )]8 [with [len[gth]]] %number% from %bytebuf%
 {{% notice style="note" %}}
 Для чтения utf-8 необходимо так же указать длину текста в байтах
 {{% /notice %}}
-Чтение происходит в обратном порядке от записи. То есть, если мы записываем с начала, то чтение происходит с конца.\
+Чтение происходит в том же порядке, что и запись пакета, при условии, что этот пакет не был создан вами. Если же вы создали пакет, и хотите его прочитать (не известно по какой причине), то сместите его reader index в позицию нуля.\
 Рассмотрим пакет [PacketPlayOutOpenSignEditor <i class="fas fa-link"></i>](https://wiki.vg/Protocol#Open_Sign_Editor)
 | Packet ID          |   State   |   Bound To   |   Field Name   |     Field Type    | Notes      |
 |:------------------:|:---------:|:------------:|:--------------:|:-----------------:|:-----------|
 |       0x32         |   Play    |    Client    |    Location    |     Position      |            |
 |                    |           |              | Is Front Text  |     Boolean       | Whether the opened editor is for the front or on the back of the sign |
 
-То есть, чтобы добраться до поля локации, которое описывает координаты открытой таблички, нам необходимо прочитать поле `Is Front Text`:
 ```vb
 on packet PacketPlayOutOpenSignEditor:
   set {_buffer} to buffer from event-packet
-  set {_isFrontText} to read boolean from {_buffer}
   set {_position} to read position from {_buffer}
+  set {_isFrontText} to read boolean from {_buffer}
   broadcast "%{_position}%"
   cancel event
 ```
