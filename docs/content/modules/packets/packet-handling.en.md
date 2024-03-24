@@ -66,19 +66,18 @@ read utf[(-| )]8 [with [len[gth]]] %number% from %bytebuf%
 {{% notice style="note" %}}
 To read utf-8 you must also specify the length of the text in bytes
 {{% /notice %}}
-Reading occurs in the reverse order from writing. That is, if we write from the beginning, then reading occurs from the end.\
+Reading occurs in the same order as writing a packet, provided that the packet was not created by you. If you created a package and want to read it (it is not known for what reason), then move its reader index to position zero.\
 Consider the packet [PacketPlayOutOpenSignEditor <i class="fas fa-link"></i>](https://wiki.vg/Protocol#Open_Sign_Editor)
 | Packet ID          |   State   |   Bound To   |   Field Name   |     Field Type    | Notes      |
 |:------------------:|:---------:|:------------:|:--------------:|:-----------------:|:-----------|
 |       0x32         |   Play    |    Client    |    Location    |     Position      |            |
 |                    |           |              | Is Front Text  |     Boolean       | Whether the opened editor is for the front or on the back of the sign |
 
-That is, to get to the location field, which describes the coordinates of the open plate, we need to read the field `Is Front Text`:
 ```vb
 on packet PacketPlayOutOpenSignEditor:
   set {_buffer} to buffer from event-packet
-  set {_isFrontText} to read boolean from {_buffer}
   set {_position} to read position from {_buffer}
+  set {_isFrontText} to read boolean from {_buffer}
   broadcast "%{_position}%"
   cancel event
 ```
