@@ -15,8 +15,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import java.lang.reflect.AnnotatedParameterizedType;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -24,20 +22,31 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class PacketReflection {
+    private static final String CRAFTBUKKIT_PACKAGE = Bukkit.getServer().getClass().getPackage().getName();
+
+    public static String cbClass(String clazz) {
+        return CRAFTBUKKIT_PACKAGE + "." + clazz;
+    }
+
+    public static ArrayList<Class<?>> PACKET_CLASSES = new ArrayList();
     public static HashMap<String,AbstractPacket> PACKETS = new HashMap();
     public static HashSet<String> States = new HashSet();
     public static HashSet<String> Bounds = new HashSet();
     public static PacketReflection instance;
+    
+    public static Function<?, ?> EMPTY_FUNCTION = input -> input;
     
     public static Class CraftPlayerClass = null;
     public static Method GetHandleMethod = null;
@@ -132,19 +141,11 @@ public class PacketReflection {
     }
 
     private static void getEntityPlayerClass() {
-        for (Package pkg : getPackages()) {
-            if (!pkg.getName().startsWith("org.bukkit.craftbukkit")) continue;
-	    if (!pkg.getName().endsWith(".entity")) continue;
-            try {
-                Class CraftPlayer = Class.forName(pkg.getName()+".CraftPlayer");
-                CraftPlayerClass = CraftPlayer;
-                GetHandleMethod = CraftPlayer.getMethod("getHandle");
-                EntityPlayerClass = GetHandleMethod.getReturnType();
-                return;
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
+        try {
+            CraftPlayerClass = Class.forName(cbClass("entity.CraftPlayer"));
+            GetHandleMethod = CraftPlayerClass.getMethod("getHandle");
+            EntityPlayerClass = GetHandleMethod.getReturnType();
+        } catch (Exception ex) { }
     }
     
     private static void getGameProfileMethod() {
@@ -161,45 +162,28 @@ public class PacketReflection {
             ValueOfPropertyField.setAccessible(true);
             SignatureOfPropertyField = PropertyClass.getDeclaredField("signature");
             SignatureOfPropertyField.setAccessible(true);
-        } catch (Exception ex) {
-        }
-        
+        } catch (Exception ex) {}
     }
     
     private static void getPlayerConnectionClassAndField() {
-        for(Field field : EntityPlayerClass.getDeclaredFields()) {
-            if(!field.getType().getSimpleName().equals("PlayerConnection")) continue;
-            field.setAccessible(true);
-            PlayerConnectionField = field;
-	    PlayerConnectionClass = field.getType();
-            return;
-        }
+        Field field = getFieldByTypeNames(EntityPlayerClass, "PlayerConnection", "ServerGamePacketListenerImpl");
+        if (field == null) return;
+        PlayerConnectionField = field;
+        PlayerConnectionClass = field.getType();
     }
 
     private static void getNetworkManagerClassAndField() {
-        for(Field field : PlayerConnectionClass.getDeclaredFields()) {
-            if(!field.getType().getSimpleName().equals("NetworkManager")) continue;
-            field.setAccessible(true);
-            NetworkManagerField = field;
-	    NetworkManagerClass = field.getType();
-            return;
-        }
-        for(Field field : PlayerConnectionClass.getSuperclass().getDeclaredFields()) {
-            if(!field.getType().getSimpleName().equals("NetworkManager")) continue;
-            field.setAccessible(true);
-            NetworkManagerField = field;
-	    NetworkManagerClass = field.getType();	
-            return;
-        }
+        Field field = getFieldByTypeNames(PlayerConnectionClass, "NetworkManager", "Connection");
+        if (field == null) field = getFieldByTypeNames(PlayerConnectionClass.getSuperclass(), "NetworkManager", "Connection");
+        if (field == null) return;
+        NetworkManagerField = field;
+        NetworkManagerClass = field.getType();
     }
 
     private static void getChannelField() {
-        for(Field field : NetworkManagerClass.getDeclaredFields()) {
-            if(!field.getType().getSimpleName().equals("Channel")) continue;
-            field.setAccessible(true);
-            ChannelField = field;
-            return;
-        }
+        Field field = getFieldByTypeNames(NetworkManagerClass, "Channel");
+        if (field == null) return;
+        ChannelField = field;
     }
     
     private static void getPacketClassAndSendPacketMethod() {
@@ -217,41 +201,52 @@ public class PacketReflection {
     private static void getEnumProtocolClass() {
         for(Method method : NetworkManagerClass.getDeclaredMethods()) {
             for(Class type : method.getParameterTypes()) {
-                if(!type.getSimpleName().equals("EnumProtocol")) continue;
+                if(!(type.getSimpleName().equals("EnumProtocol") || type.getSimpleName().equals("ConnectionProtocol"))) continue;
                 EnumProtocolClass = type;
                 return;
             }
         }
-        Class PacketListenerClass = null;
-        for(Field field : NetworkManagerClass.getDeclaredFields()) {
-            if (!field.getType().getSimpleName().equals("PacketListener")) continue;
-            PacketListenerClass = field.getType();
-            break;
-        }
-        if(PacketListenerClass == null) return;
-        for(Method method : PacketListenerClass.getDeclaredMethods()) {
-            if(!method.getReturnType().getSimpleName().equals("EnumProtocol")) continue;
-            EnumProtocolClass = method.getReturnType();
-            return;
-        }
+        Field field = getFieldByTypeNames(NetworkManagerClass, "PacketListener");
+        if (field == null) return;
+        Class PacketListenerClass = field.getType();
+        Method method = getMethodByReturnTypeNames(PacketListenerClass, "EnumProtocol","ConnectionProtocol");
+        if (method == null) return;
+        EnumProtocolClass = method.getReturnType();
     }
     
     private static void getEnumProtocolDirectionClass() {
-        for(Field field : NetworkManagerClass.getDeclaredFields()) {
-            if(!field.getType().getSimpleName().equals("EnumProtocolDirection")) continue;
-            EnumProtocolDirectionClass = field.getType();
-            return;  
-        }
+        Field field = getFieldByTypeNames(NetworkManagerClass, "EnumProtocolDirection", "PacketFlow");
+        if (field == null) return;
+        EnumProtocolDirectionClass = field.getType();
     }
     
     private static void getPacketDataSerializerClass() {
         for(Method method : PacketClass.getDeclaredMethods()) {
             if(method.getParameterCount()!=1) continue;
             Class paramType = method.getParameterTypes()[0];
-            if(!paramType.getSimpleName().equals("PacketDataSerializer")) continue;
+            if(!(paramType.getSimpleName().equals("PacketDataSerializer") || paramType.getSimpleName().equals("FriendlyByteBuf"))) continue;
             PacketDataSerializerClass = paramType;
             return;
         }
+        try {
+            Class CraftWorld = Class.forName(cbClass("CraftWorld"));
+            Class WorldServer = CraftWorld.getMethod("getHandle").getReturnType();
+            Class Chunk = null;
+            for(Method method : WorldServer.getDeclaredMethods()) {
+               if(method.getParameterCount()==0) continue;
+               Class paramType = method.getParameterTypes()[0];
+               if(!(paramType.getSimpleName().equals("Chunk") || paramType.getSimpleName().equals("LevelChunk"))) continue;
+               Chunk = paramType;
+            }
+            if (Chunk == null) return;
+            for(Method method : Chunk.getDeclaredMethods()) {
+                if(method.getParameterCount()==0) continue;
+                Class paramType = method.getParameterTypes()[0];
+                if(!(paramType.getSimpleName().equals("PacketDataSerializer") || paramType.getSimpleName().equals("FriendlyByteBuf"))) continue;
+                PacketDataSerializerClass = paramType;
+                return;
+            }
+        } catch (Exception e) {}
     }
     
     private static void getPacketDataSerializerConstructor() {
@@ -284,13 +279,10 @@ public class PacketReflection {
     }
     
     private static void getBlockPositionClass() {
-        Class tBlockPositionClass = null;
-        for(Method method : PacketDataSerializerClass.getDeclaredMethods()) {
-            if(!method.getReturnType().getSimpleName().equals("BlockPosition")) continue;
-            tBlockPositionClass = method.getReturnType();
-            break;
-        }
-        if (tBlockPositionClass == null) return;
+        Method getBlockPosMethod = getMethodByReturnTypeNames(PacketDataSerializerClass, "BlockPosition", "BlockPos");
+        if (getBlockPosMethod == null) return;
+        Class tBlockPositionClass = getBlockPosMethod.getReturnType();
+        
         int i = 0;
         ArrayList<Field> fields = new ArrayList();
         
@@ -366,7 +358,7 @@ public class PacketReflection {
         BlockPositionFromLongMethod = tBlockPositionFromLongMethod;
     }
     
-    private static void getPacketClasses() {
+    private static boolean getPacketsFor1_20_4() {
         Field statesMapField = null; 
         for(Field field : EnumProtocolClass.getDeclaredFields()) {
             if(Modifier.isStatic(field.getModifiers())) continue;
@@ -374,14 +366,12 @@ public class PacketReflection {
             field.setAccessible(true);
             statesMapField = field;
         }
-        
+        if (statesMapField == null) return false;
         for(Object state : EnumProtocolClass.getEnumConstants()) {
             Map currentStatesMap;
             try {
                 currentStatesMap = (Map)statesMapField.get(state);
-            } catch (Exception ex) {
-                continue;
-            }
+            } catch (Exception ex) { continue; }
             for(Object bound : EnumProtocolDirectionClass.getEnumConstants()) {
                 Map<Object,Object> finalMap = null;
                 Object currentBoundsMap = null;
@@ -437,19 +427,114 @@ public class PacketReflection {
                         packet = (Class)entry.getKey();
                         id = (int)entry.getValue();
                     }
+                    PACKET_CLASSES.add(packet);
                     States.add(((Enum)state).name().toLowerCase());
                     Bounds.add(((Enum)bound).name().toLowerCase());
                     PACKETS.put(packet.getSimpleName(), new BasePacket(packet,id,((Enum)state).name().toLowerCase(),((Enum)bound).name().toLowerCase()));
                 }
             } 
-        }  
+        }
+        return true;
+    }
+    
+    private static boolean getPacketsFor1_20_5() {
+        String[] protocolClassNames = new String[]{
+            "net.minecraft.network.protocol.configuration.ConfigurationProtocols",
+            "net.minecraft.network.protocol.game.GameProtocols",
+            "net.minecraft.network.protocol.handshake.HandshakeProtocols",
+            "net.minecraft.network.protocol.login.LoginProtocols",
+            "net.minecraft.network.protocol.status.StatusProtocols"
+        };
+        
+        Class<?>[] protocolClasses = getClassesByNames(protocolClassNames);
+        if (protocolClasses.length == 0) return false;
+        Class<?> protocolInfoUnboundClass = getClassByNames("net.minecraft.network.ProtocolInfo$a", "net.minecraft.network.ProtocolInfo$Unbound");
+        if (protocolInfoUnboundClass == null) return false;
+        Class<?> streamCodecClass = getClassByNames("net.minecraft.network.codec.StreamCodec");
+        if (streamCodecClass == null) return false;
+        Class<?> idDispatchCodecClass = getClassByNames("net.minecraft.network.codec.IdDispatchCodec");
+        if (idDispatchCodecClass == null) return false;
+        Class<?> idDispatchCodecEntryClass = getClassByNames("net.minecraft.network.codec.IdDispatchCodec$Entry", "net.minecraft.network.codec.IdDispatchCodec$b");
+        if (idDispatchCodecEntryClass == null) return false;
+        Class<?> protocolInfoClass = getClassByNames("net.minecraft.network.ProtocolInfo");
+        if (protocolInfoClass == null) return false;
+        Method bindCodecFunctionMethod = getMethodByReturnTypes(protocolInfoUnboundClass, protocolInfoClass);
+        if (bindCodecFunctionMethod == null) return false;
+        Method codecOfProtocolInfoMethod = getMethodByReturnTypes(protocolInfoClass, streamCodecClass);
+        if (codecOfProtocolInfoMethod == null) return false;
+        Field toIdField = getFieldByTypeNames(idDispatchCodecClass, "Object2IntMap");
+        if (toIdField == null) return false;
+        Class<?> packetTypeClass = getClassByNames("net.minecraft.network.protocol.PacketType");
+        if (packetTypeClass == null) return false;
+        
+        HashMap<Object, Object[]> packetIdMap = new HashMap();
+        for(Class protocolClass : protocolClasses) {
+            for(Field field : protocolClass.getDeclaredFields()) {
+                if (!Modifier.isFinal(field.getModifiers()) || !Modifier.isStatic(field.getModifiers())) continue;
+                try {
+                    Object protocolInfo = field.get(null);
+                    if (!protocolInfoUnboundClass.isInstance(protocolInfo)) continue;
+                    protocolInfo = bindCodecFunctionMethod.invoke(protocolInfo, EMPTY_FUNCTION);
+                    if (!protocolInfoClass.isInstance(protocolInfo)) continue;
+                    Method getStateMethod = getMethodByReturnTypes(protocolInfoClass, EnumProtocolClass);
+                    Object codec = codecOfProtocolInfoMethod.invoke(protocolInfo);
+                    Object state = getStateMethod.invoke(protocolInfo);
+                    Map<Object,Object> packetMap = (Map) toIdField.get(codec);
+                    packetMap.entrySet().forEach(entry -> packetIdMap.put(entry.getKey(), new Object[] {entry.getValue(), state}));
+                } catch (Exception e) { continue; }
+            }
+        }
+        
+        if (packetIdMap.isEmpty()) return false;
+        String[] packetTypesClassNames = new String[] {
+                "net.minecraft.network.protocol.common.CommonPacketTypes",
+                "net.minecraft.network.protocol.configuration.ConfigurationPacketTypes",
+                "net.minecraft.network.protocol.cookie.CookiePacketTypes",
+                "net.minecraft.network.protocol.game.GamePacketTypes",
+                "net.minecraft.network.protocol.handshake.HandshakePacketTypes",
+                "net.minecraft.network.protocol.login.LoginPacketTypes",
+                "net.minecraft.network.protocol.ping.PingPacketTypes",
+                "net.minecraft.network.protocol.status.StatusPacketTypes"
+        };
+        Class<?>[] packetTypesClasses = getClassesByNames(packetTypesClassNames);
+        for(Class zpacketTypeClass : packetTypesClasses) {
+            for(Field field : zpacketTypeClass.getDeclaredFields()) {
+                Object packetType;
+                try {
+                    packetType = field.get(null);
+                } catch (Exception ex) { continue; } 
+                
+                if (!packetTypeClass.isInstance(packetType)) continue;
+                Class<?> packetClass = (Class<?>)(((ParameterizedType)field.getGenericType()).getActualTypeArguments()[0]);
+                PACKET_CLASSES.add(packetClass);
+                
+                try {
+                    Method getEnumProtocolDirection = getMethodByReturnTypes(packetTypeClass,EnumProtocolDirectionClass);
+                    Object bound = getEnumProtocolDirection.invoke(packetType);
+                    Integer id = (Integer)(packetIdMap.get(packetType)[0]);
+                    Object state = packetIdMap.get(packetType)[1];
+                    
+                    States.add(((Enum)state).name().toLowerCase());
+                    Bounds.add(((Enum)bound).name().toLowerCase());
+                    PACKETS.put(packetClass.getSimpleName(), new BasePacket(packetClass,id,((Enum)state).name().toLowerCase(),((Enum)bound).name().toLowerCase()));
+                } catch (Exception ex) {
+                    continue;
+                }
+            }
+        }
+        return true;
+    }
+    
+    private static void getPacketClasses() {
+        if (getPacketsFor1_20_5()) return;
+        if (getPacketsFor1_20_4()) return;
     }
     
     private static AbstractPacket getPacketEncoder(AbstractPacket packet) {
         Class cls = packet.getPacket();
         Field dataWatcherField = null;
         for(Field field : cls.getDeclaredFields()){
-            if (!field.getType().getSimpleName().equals("DataWatcher")) continue;
+            if (!(field.getType().getSimpleName().equals("DataWatcher") || field.getType().getSimpleName().equals("SynchedEntityData"))) continue;
             if(DataWatcherClass==null) {
                 DataWatcherClass = field.getType();
                 try {
@@ -461,12 +546,13 @@ public class PacketReflection {
             dataWatcherField = field;
             break;
         }
-        for(Constructor cnst : cls.getConstructors()) {
+        for(Constructor cnst : cls.getDeclaredConstructors()) {
             if(cnst.getParameterCount() != 1) continue;
             if(!cnst.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
             if(dataWatcherField!=null) {
                 return ConstructorPacketDataWatcher.fromAbstractPacket(packet,cnst,dataWatcherField);
             }
+            cnst.setAccessible(true);
             return ConstructorPacket.fromAbstractPacket(packet,cnst);
         }
 	for(Method method : cls.getDeclaredMethods()){
@@ -530,37 +616,17 @@ public class PacketReflection {
     }
     
     private static void getBundlePacket() {
-        outerloop: for(Class cls : EnumProtocolClass.getDeclaredClasses()) {
-            for(Method method : cls.getDeclaredMethods()) {
-                if (method.getParameterCount() != 2) continue;
-                Type type = method.getGenericParameterTypes()[0];
-                if (!(type instanceof ParameterizedType)) continue;
-                ParameterizedType ptype = (ParameterizedType)type;
-                Type[] types = ptype.getActualTypeArguments();
-                if (types.length != 1) continue;
-                if (!(types[0] instanceof TypeVariable)) continue;
-                TypeVariable typev = (TypeVariable) types[0];
-                AnnotatedType[] atypes = typev.getAnnotatedBounds();
-                if (atypes.length != 1) continue;
-                if (!(atypes[0] instanceof AnnotatedParameterizedType)) continue;
-                AnnotatedParameterizedType apt = (AnnotatedParameterizedType)atypes[0];
-                if (!(apt.getType() instanceof ParameterizedType)) continue;
-                Class tmp = (Class)((ParameterizedType)apt.getType()).getRawType();
-                if (!tmp.getSimpleName().equals("BundlePacket")) continue;
-                BundlePacketClass = tmp;
-                break outerloop;
-            }
-        }
+        BundlePacketClass = getClassByNames("net.minecraft.network.protocol.BundlePacket");
 	if (BundlePacketClass == null) return;
         
-        outerloop: for(AbstractPacket apacket : PACKETS.values()) {
-            Type[] itypes = apacket.getPacket().getGenericInterfaces();
+        outerloop: for(Class<?> packet : PACKET_CLASSES) {
+            Type[] itypes = packet.getGenericInterfaces();
             if(itypes.length != 1) continue;
             if (!(itypes[0] instanceof ParameterizedType)) continue;
             ParameterizedType ptype = (ParameterizedType)itypes[0]; 
             if (!ptype.getRawType().equals(PacketClass)) continue;
             Class packetListenerPlayOut = (Class)ptype.getActualTypeArguments()[0];
-            if(!packetListenerPlayOut.getSimpleName().equals("PacketListenerPlayOut")) continue;
+            if(!(packetListenerPlayOut.getSimpleName().equals("PacketListenerPlayOut") || packetListenerPlayOut.getSimpleName().equals("ClientGamePacketListener"))) continue;
             for(Method method : packetListenerPlayOut.getDeclaredMethods()) {
                 if (method.getParameterCount()!=1) continue;
                 Class cls = method.getParameterTypes()[0];
@@ -584,8 +650,8 @@ public class PacketReflection {
             BundlePacketDecoderMethod = method;
             break;
         }
-        
     }
+    
     public static Channel getChannelOfPlayer(Player player) {
         try {
             return (Channel)ChannelField.get(NetworkManagerField.get(PlayerConnectionField.get(GetHandleMethod.invoke(player))));
@@ -725,5 +791,60 @@ public class PacketReflection {
         } catch (Exception ex) {
             return null;
         } 
+    }
+
+    public static Class<?> getClassByNames(String ...names) {
+        for(String name : names) {
+            try {
+                return Class.forName(name);
+            } catch (Exception e) {}
+        }
+        return null;
+    }
+    
+    public static Class<?>[] getClassesByNames(String ...names) {
+        ArrayList<Class<?>> classes = new ArrayList();
+        for(String name : names) {
+            try {
+                classes.add(Class.forName(name));
+            } catch (Exception e) {}
+        }
+        return classes.toArray(new Class<?>[0]);
+    }
+
+    public static Field getFieldByTypeNames(Class<?> cls, String ...typeNames) {
+        for(Field field : cls.getDeclaredFields()) {
+            if(!Arrays.asList(typeNames).contains(field.getType().getSimpleName())) continue;
+            field.setAccessible(true);
+            return field;
+        }
+        return null;
+    }
+    
+    public static Field getFieldByTypes(Class<?> cls, Class<?> ...typeNames) {
+        for(Field field : cls.getDeclaredFields()) {
+            if(!Arrays.asList(typeNames).contains(field.getType())) continue;
+            field.setAccessible(true);
+            return field;
+        }
+        return null;
+    }
+    
+    public static Method getMethodByReturnTypeNames(Class<?> cls, String ...typeNames) {
+        for(Method method : cls.getDeclaredMethods()) {
+            if(!Arrays.asList(typeNames).contains(method.getReturnType().getSimpleName())) continue;
+            method.setAccessible(true);
+            return method;
+        }
+        return null;
+    }
+    
+    public static Method getMethodByReturnTypes(Class<?> cls, Class<?> ...typeNames) {
+        for(Method method : cls.getDeclaredMethods()) {
+            if(!Arrays.asList(typeNames).contains(method.getReturnType())) continue;
+            method.setAccessible(true);
+            return method;
+        }
+        return null;
     }
 }
