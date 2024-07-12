@@ -48,3 +48,9 @@ bytes of %string% [with charset %string%]
 %string%'s bytes [with charset %string%]
 ```
 
+#### Create Bundle packet
+This is a packet that allows you to create a sequence of packets and send them to the client at once, which provides greater speed and stability. \
+If you are sending many packets at once, put them in a Bundle.
+```vb
+bundle packet (from|of|with) %packets%
+```
