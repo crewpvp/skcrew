@@ -12,13 +12,15 @@ Special thanks to the btk5h (Bryan Terce), FranKusmiruk, Govindas, TPGamesNL for
 #### Connecting to a DBMS
 Initializes the connection to the DBMS and returns this connection.
 Returns an object of the type **datasource** (com.zaxxer.hikari.HikariDataSource class).
+You can also optionally specify a driver for interaction with the DBMS. \
+If the driver is not specified, the addon will try to select a driver from the list of available ones (mysql, mssql, oraclesql, sqllite, postgres)
 ```vb
-[the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%]
+[the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%] [(with|and) driver [class] [name] %-string%]
 ```
 
 {{% expand title="Example" %}}
 ```vb
-set {_database} to "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
+set {_database} to database of "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
 ```
 {{% /expand %}}
 

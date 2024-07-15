@@ -40,7 +40,6 @@ sockets:
   client-autoreconnect-time: 5
 sql:
   enabled: true
-  driver-class-name: "default"
 string-utils:
   enabled: true
 viaversion:

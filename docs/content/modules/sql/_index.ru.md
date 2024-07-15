@@ -10,15 +10,17 @@ weight = 13
 {{% /notice %}}
 
 #### Подключение к СУБД
-Инициализирует подключение к СУБД и возвращает это подключение.
-Возвращает объект типа **datasource** (com.zaxxer.hikari.HikariDataSource class).
+Инициализирует подключение к СУБД и возвращает это подключение. \
+Возвращает объект типа **datasource** (com.zaxxer.hikari.HikariDataSource class). \
+Вы так же можете опционально указать драйвер для взаимодействия с СУБД. \
+Если драйвер не указан, аддон постарается выбрать драйвер из списка имеющихся (mysql, mssql, oraclesql, sqllite, postgres)
 ```vb
-[the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%]
+[the] data(base|[ ]source) [(of|at)] %string% [with [a] [max[imum]] [connection] life[ ]time of %timespan%] [(with|and) driver [class] [name] %-string%]
 ```
 
 {{% expand title="Пример" %}}
 ```vb
-set {_database} to "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
+set {_database} to database of "mysql://IP:3306/DATABASENAME?user=USERNAME&password=PASSWORD&useSSL=false"
 ```
 {{% /expand %}}
 
