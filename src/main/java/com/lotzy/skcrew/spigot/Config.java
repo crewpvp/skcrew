@@ -1,6 +1,5 @@
 package com.lotzy.skcrew.spigot;
 
-import ch.njol.skript.Skript;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
 import com.lotzy.skcrew.spigot.gui.GUIManager;
@@ -14,14 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.yaml.snakeyaml.Yaml;
 
 public class Config {
     private static boolean SQL_ENABLED = true;
-    private static String SQL_DRIVER_CLASS = "default";
     
     private static boolean BITWISE_ENABLED = true;
     private static boolean GUI_ENABLED = true;
@@ -60,8 +56,6 @@ public class Config {
                 Map<String,Object> settings = (Map<String,Object>)data.get("sql");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
                     Config.SQL_ENABLED = (boolean) settings.get("enabled");
-                if (settings.containsKey("driver-class") && settings.get("driver-class") instanceof String)
-                    Config.SQL_DRIVER_CLASS = (String) settings.get("driver-class");
             }
             
             if (data.containsKey("bitwise") && data.get("bitwise") instanceof Map) {
@@ -170,9 +164,7 @@ public class Config {
     public static boolean isSQLEnabled() {
         return Config.SQL_ENABLED;
     }
-    public static String getSQLDriverClass() {
-        return Config.SQL_DRIVER_CLASS;
-    }
+
     public static void loadSQLModule() {
         try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.sql");
         } catch (IOException ex) {}
