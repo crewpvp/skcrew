@@ -23,7 +23,6 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
@@ -31,6 +30,7 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 public class PacketReflection {
@@ -95,6 +95,12 @@ public class PacketReflection {
     public static Field ValueOfPropertyField = null;
     public static Field SignatureOfPropertyField = null;
     
+    public static Object IRegistry = null;
+    public static Class<?> RegistryFriendlyByteBufClass = null;
+    public static Constructor RegistryFriendlyByteBufConstructor = null;
+    
+    public static Function<ByteBuf,?> createFriendlyBuffer = null;
+    
     public static void INITIATE() throws Exception {
         getEntityPlayerClass();
         if(EntityPlayerClass==null) throw new Exception("EntityPlayer class not matched");
@@ -114,6 +120,27 @@ public class PacketReflection {
         if(PacketDataSerializerClass==null) throw new Exception("PacketDataSerializer class not matched");
         getPacketDataSerializerConstructor();
         if(PacketDataSerializerConstructor==null) throw new Exception("PacketDataSerializer constructor not matched");
+        createFriendlyBuffer = (ByteBuf buffer) -> { 
+            try {
+                return PacketReflection.PacketDataSerializerConstructor.newInstance(buffer);
+            } catch (Exception ex) {
+                return null;
+            }
+        };
+        
+        getIRegistry();
+        if (IRegistry != null) {
+            getRegistryFriendlyByteBuf();
+            if (RegistryFriendlyByteBufConstructor != null) {
+                createFriendlyBuffer = (ByteBuf buffer) -> {
+                    try {
+                        return PacketReflection.RegistryFriendlyByteBufConstructor.newInstance(buffer, IRegistry);
+                    } catch (Exception ex) {
+                        return null;
+                    }
+                };
+            }
+        }
         getPacketDataDeserializers();
         if(PacketDataSerializerDeserializers==null) throw new Exception("PacketDataSerializer deserializer methods not matched");
         getPacketDataSeriealizerButebufField();
@@ -166,22 +193,22 @@ public class PacketReflection {
     }
     
     private static void getPlayerConnectionClassAndField() {
-        Field field = getFieldByTypeNames(EntityPlayerClass, "PlayerConnection", "ServerGamePacketListenerImpl");
+        Field field = PowerfulReflection.getFieldByTypeNames(EntityPlayerClass, "PlayerConnection", "ServerGamePacketListenerImpl");
         if (field == null) return;
         PlayerConnectionField = field;
         PlayerConnectionClass = field.getType();
     }
 
     private static void getNetworkManagerClassAndField() {
-        Field field = getFieldByTypeNames(PlayerConnectionClass, "NetworkManager", "Connection");
-        if (field == null) field = getFieldByTypeNames(PlayerConnectionClass.getSuperclass(), "NetworkManager", "Connection");
+        Field field = PowerfulReflection.getFieldByTypeNames(PlayerConnectionClass, "NetworkManager", "Connection");
+        if (field == null) field = PowerfulReflection.getFieldByTypeNames(PlayerConnectionClass.getSuperclass(), "NetworkManager", "Connection");
         if (field == null) return;
         NetworkManagerField = field;
         NetworkManagerClass = field.getType();
     }
 
     private static void getChannelField() {
-        Field field = getFieldByTypeNames(NetworkManagerClass, "Channel");
+        Field field = PowerfulReflection.getFieldByTypeNames(NetworkManagerClass, "Channel");
         if (field == null) return;
         ChannelField = field;
     }
@@ -206,16 +233,16 @@ public class PacketReflection {
                 return;
             }
         }
-        Field field = getFieldByTypeNames(NetworkManagerClass, "PacketListener");
+        Field field = PowerfulReflection.getFieldByTypeNames(NetworkManagerClass, "PacketListener");
         if (field == null) return;
         Class PacketListenerClass = field.getType();
-        Method method = getMethodByReturnTypeNames(PacketListenerClass, "EnumProtocol","ConnectionProtocol");
+        Method method = PowerfulReflection.getMethodByReturnTypeNames(PacketListenerClass, "EnumProtocol","ConnectionProtocol");
         if (method == null) return;
         EnumProtocolClass = method.getReturnType();
     }
     
     private static void getEnumProtocolDirectionClass() {
-        Field field = getFieldByTypeNames(NetworkManagerClass, "EnumProtocolDirection", "PacketFlow");
+        Field field = PowerfulReflection.getFieldByTypeNames(NetworkManagerClass, "EnumProtocolDirection", "PacketFlow");
         if (field == null) return;
         EnumProtocolDirectionClass = field.getType();
     }
@@ -258,6 +285,24 @@ public class PacketReflection {
         }
     }
     
+    private static void getIRegistry() {
+        Server server = Bukkit.getServer();
+        try {
+            Method getServerMethod = server.getClass().getDeclaredMethod("getServer");
+            getServerMethod.setAccessible(true);
+            Object nmsServer = getServerMethod.invoke(server);
+            Method getIRegistryMethod = PowerfulReflection.getMethodByReturnTypeNames(nmsServer.getClass().getSuperclass(), "Frozen", "Dimension");
+            getIRegistryMethod.setAccessible(true);
+            IRegistry = getIRegistryMethod.invoke(nmsServer);
+        } catch (Exception ex) {}
+    }
+    
+    private static void getRegistryFriendlyByteBuf() {
+        RegistryFriendlyByteBufClass = PowerfulReflection.getClassByNames("net.minecraft.network.RegistryFriendlyByteBuf");
+        if (RegistryFriendlyByteBufClass == null) return;
+        RegistryFriendlyByteBufConstructor = RegistryFriendlyByteBufClass.getDeclaredConstructors()[0];
+    }
+    
     private static void getPacketDataDeserializers() {
         ArrayList<String> decoders = new ArrayList();
         for(Method method : PacketClass.getDeclaredMethods()) {
@@ -279,7 +324,7 @@ public class PacketReflection {
     }
     
     private static void getBlockPositionClass() {
-        Method getBlockPosMethod = getMethodByReturnTypeNames(PacketDataSerializerClass, "BlockPosition", "BlockPos");
+        Method getBlockPosMethod = PowerfulReflection.getMethodByReturnTypeNames(PacketDataSerializerClass, "BlockPosition", "BlockPos");
         if (getBlockPosMethod == null) return;
         Class tBlockPositionClass = getBlockPosMethod.getReturnType();
         
@@ -446,25 +491,25 @@ public class PacketReflection {
             "net.minecraft.network.protocol.status.StatusProtocols"
         };
         
-        Class<?>[] protocolClasses = getClassesByNames(protocolClassNames);
+        Class<?>[] protocolClasses = PowerfulReflection.getClassesByNames(protocolClassNames);
         if (protocolClasses.length == 0) return false;
-        Class<?> protocolInfoUnboundClass = getClassByNames("net.minecraft.network.ProtocolInfo$a", "net.minecraft.network.ProtocolInfo$Unbound");
+        Class<?> protocolInfoUnboundClass = PowerfulReflection.getClassByNames("net.minecraft.network.ProtocolInfo$a", "net.minecraft.network.ProtocolInfo$Unbound");
         if (protocolInfoUnboundClass == null) return false;
-        Class<?> streamCodecClass = getClassByNames("net.minecraft.network.codec.StreamCodec");
+        Class<?> streamCodecClass = PowerfulReflection.getClassByNames("net.minecraft.network.codec.StreamCodec");
         if (streamCodecClass == null) return false;
-        Class<?> idDispatchCodecClass = getClassByNames("net.minecraft.network.codec.IdDispatchCodec");
+        Class<?> idDispatchCodecClass = PowerfulReflection.getClassByNames("net.minecraft.network.codec.IdDispatchCodec");
         if (idDispatchCodecClass == null) return false;
-        Class<?> idDispatchCodecEntryClass = getClassByNames("net.minecraft.network.codec.IdDispatchCodec$Entry", "net.minecraft.network.codec.IdDispatchCodec$b");
+        Class<?> idDispatchCodecEntryClass = PowerfulReflection.getClassByNames("net.minecraft.network.codec.IdDispatchCodec$Entry", "net.minecraft.network.codec.IdDispatchCodec$b");
         if (idDispatchCodecEntryClass == null) return false;
-        Class<?> protocolInfoClass = getClassByNames("net.minecraft.network.ProtocolInfo");
+        Class<?> protocolInfoClass = PowerfulReflection.getClassByNames("net.minecraft.network.ProtocolInfo");
         if (protocolInfoClass == null) return false;
-        Method bindCodecFunctionMethod = getMethodByReturnTypes(protocolInfoUnboundClass, protocolInfoClass);
+        Method bindCodecFunctionMethod = PowerfulReflection.getMethodByReturnTypes(protocolInfoUnboundClass, protocolInfoClass);
         if (bindCodecFunctionMethod == null) return false;
-        Method codecOfProtocolInfoMethod = getMethodByReturnTypes(protocolInfoClass, streamCodecClass);
+        Method codecOfProtocolInfoMethod = PowerfulReflection.getMethodByReturnTypes(protocolInfoClass, streamCodecClass);
         if (codecOfProtocolInfoMethod == null) return false;
-        Field toIdField = getFieldByTypeNames(idDispatchCodecClass, "Object2IntMap");
+        Field toIdField = PowerfulReflection.getFieldByTypeNames(idDispatchCodecClass, "Object2IntMap");
         if (toIdField == null) return false;
-        Class<?> packetTypeClass = getClassByNames("net.minecraft.network.protocol.PacketType");
+        Class<?> packetTypeClass = PowerfulReflection.getClassByNames("net.minecraft.network.protocol.PacketType");
         if (packetTypeClass == null) return false;
         
         HashMap<Object, Object[]> packetIdMap = new HashMap();
@@ -476,7 +521,7 @@ public class PacketReflection {
                     if (!protocolInfoUnboundClass.isInstance(protocolInfo)) continue;
                     protocolInfo = bindCodecFunctionMethod.invoke(protocolInfo, EMPTY_FUNCTION);
                     if (!protocolInfoClass.isInstance(protocolInfo)) continue;
-                    Method getStateMethod = getMethodByReturnTypes(protocolInfoClass, EnumProtocolClass);
+                    Method getStateMethod = PowerfulReflection.getMethodByReturnTypes(protocolInfoClass, EnumProtocolClass);
                     Object codec = codecOfProtocolInfoMethod.invoke(protocolInfo);
                     Object state = getStateMethod.invoke(protocolInfo);
                     Map<Object,Object> packetMap = (Map) toIdField.get(codec);
@@ -496,7 +541,7 @@ public class PacketReflection {
                 "net.minecraft.network.protocol.ping.PingPacketTypes",
                 "net.minecraft.network.protocol.status.StatusPacketTypes"
         };
-        Class<?>[] packetTypesClasses = getClassesByNames(packetTypesClassNames);
+        Class<?>[] packetTypesClasses = PowerfulReflection.getClassesByNames(packetTypesClassNames);
         for(Class zpacketTypeClass : packetTypesClasses) {
             for(Field field : zpacketTypeClass.getDeclaredFields()) {
                 Object packetType;
@@ -509,7 +554,7 @@ public class PacketReflection {
                 PACKET_CLASSES.add(packetClass);
                 
                 try {
-                    Method getEnumProtocolDirection = getMethodByReturnTypes(packetTypeClass,EnumProtocolDirectionClass);
+                    Method getEnumProtocolDirection = PowerfulReflection.getMethodByReturnTypes(packetTypeClass,EnumProtocolDirectionClass);
                     Object bound = getEnumProtocolDirection.invoke(packetType);
                     Integer id = (Integer)(packetIdMap.get(packetType)[0]);
                     Object state = packetIdMap.get(packetType)[1];
@@ -538,7 +583,7 @@ public class PacketReflection {
             if(DataWatcherClass==null) {
                 DataWatcherClass = field.getType();
                 try {
-                    DataWatcherClass.getConstructors()[0].newInstance(null);
+                    DataWatcherClass.getDeclaredConstructors()[0].newInstance(null);
                 } catch (Exception ex) {
                     break;
                 } 
@@ -548,17 +593,17 @@ public class PacketReflection {
         }
         for(Constructor cnst : cls.getDeclaredConstructors()) {
             if(cnst.getParameterCount() != 1) continue;
-            if(!cnst.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
+            if(!(cnst.getParameterTypes()[0].equals(PacketDataSerializerClass) || cnst.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
+            cnst.setAccessible(true);
             if(dataWatcherField!=null) {
                 return ConstructorPacketDataWatcher.fromAbstractPacket(packet,cnst,dataWatcherField);
             }
-            cnst.setAccessible(true);
             return ConstructorPacket.fromAbstractPacket(packet,cnst);
         }
 	for(Method method : cls.getDeclaredMethods()){
             if(!Modifier.isStatic(method.getModifiers())) continue;
             if(method.getParameterCount() != 1) continue;
-            if(!method.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
+            if(!(method.getParameterTypes()[0].equals(PacketDataSerializerClass) || method.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
             if(!method.getReturnType().equals(cls)) continue;
             if(dataWatcherField!=null) {
                 return MethodPacketDataWatcher.fromAbstractPacket(packet,method,dataWatcherField);
@@ -568,7 +613,8 @@ public class PacketReflection {
         Object packetInstance;
         Constructor constructor;
         try {
-            constructor = cls.getConstructor();
+            constructor = cls.getDeclaredConstructors()[0];
+            constructor.setAccessible(true);
             packetInstance = constructor.newInstance();
         } catch (Exception ex) {
             return packet;
@@ -576,11 +622,11 @@ public class PacketReflection {
         for(Method method : cls.getDeclaredMethods()){
             if (Modifier.isStatic(method.getModifiers())) continue;
             if (method.getParameterCount()!=1) continue;
-            if (!method.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
+            if (!(method.getParameterTypes()[0].equals(PacketDataSerializerClass) || method.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
             try {
-                method.invoke(packetInstance, PacketDataSerializerConstructor.newInstance(Unpooled.buffer()));
+                method.invoke(packetInstance, createFriendlyBuffer.apply(Unpooled.buffer()));
                 continue;
-            } catch ( InstantiationException | IllegalAccessException | IllegalArgumentException ex) {
+            } catch ( IllegalAccessException | IllegalArgumentException ex) {
                 continue;
             } catch (InvocationTargetException ex ) {
                 if(ex.getCause() == null) continue;
@@ -600,7 +646,7 @@ public class PacketReflection {
             for(Method method : cls.getDeclaredMethods()){
                 if (Modifier.isStatic(method.getModifiers())) continue;
                 if (method.getParameterCount()!=1) continue;
-                if (!method.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
+                if (!(method.getParameterTypes()[0].equals(PacketDataSerializerClass) || method.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
                 if (method.equals(((ConstructorPacketMethod)packet).getMethod())) continue;
                 packet.setDecoder(method);
                 return packet;
@@ -609,14 +655,14 @@ public class PacketReflection {
         for(Method method : cls.getDeclaredMethods()){
             if (Modifier.isStatic(method.getModifiers())) continue;
             if (method.getParameterCount()!=1) continue;
-            if (!method.getParameterTypes()[0].equals(PacketDataSerializerClass)) continue;
+            if (!(method.getParameterTypes()[0].equals(PacketDataSerializerClass) || method.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
             packet.setDecoder(method);
         }
         return packet;
     }
     
     private static void getBundlePacket() {
-        BundlePacketClass = getClassByNames("net.minecraft.network.protocol.BundlePacket");
+        BundlePacketClass = PowerfulReflection.getClassByNames("net.minecraft.network.protocol.BundlePacket");
 	if (BundlePacketClass == null) return;
         
         outerloop: for(Class<?> packet : PACKET_CLASSES) {
@@ -791,60 +837,5 @@ public class PacketReflection {
         } catch (Exception ex) {
             return null;
         } 
-    }
-
-    public static Class<?> getClassByNames(String ...names) {
-        for(String name : names) {
-            try {
-                return Class.forName(name);
-            } catch (Exception e) {}
-        }
-        return null;
-    }
-    
-    public static Class<?>[] getClassesByNames(String ...names) {
-        ArrayList<Class<?>> classes = new ArrayList();
-        for(String name : names) {
-            try {
-                classes.add(Class.forName(name));
-            } catch (Exception e) {}
-        }
-        return classes.toArray(new Class<?>[0]);
-    }
-
-    public static Field getFieldByTypeNames(Class<?> cls, String ...typeNames) {
-        for(Field field : cls.getDeclaredFields()) {
-            if(!Arrays.asList(typeNames).contains(field.getType().getSimpleName())) continue;
-            field.setAccessible(true);
-            return field;
-        }
-        return null;
-    }
-    
-    public static Field getFieldByTypes(Class<?> cls, Class<?> ...typeNames) {
-        for(Field field : cls.getDeclaredFields()) {
-            if(!Arrays.asList(typeNames).contains(field.getType())) continue;
-            field.setAccessible(true);
-            return field;
-        }
-        return null;
-    }
-    
-    public static Method getMethodByReturnTypeNames(Class<?> cls, String ...typeNames) {
-        for(Method method : cls.getDeclaredMethods()) {
-            if(!Arrays.asList(typeNames).contains(method.getReturnType().getSimpleName())) continue;
-            method.setAccessible(true);
-            return method;
-        }
-        return null;
-    }
-    
-    public static Method getMethodByReturnTypes(Class<?> cls, Class<?> ...typeNames) {
-        for(Method method : cls.getDeclaredMethods()) {
-            if(!Arrays.asList(typeNames).contains(method.getReturnType())) continue;
-            method.setAccessible(true);
-            return method;
-        }
-        return null;
     }
 }
