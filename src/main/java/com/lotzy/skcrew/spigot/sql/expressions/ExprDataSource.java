@@ -11,7 +11,6 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import com.lotzy.skcrew.spigot.Config;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.event.Event;
 import java.util.HashMap;
@@ -28,11 +27,12 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
     static {
         Skript.registerExpression(ExprDataSource.class, HikariDataSource.class,
                 ExpressionType.COMBINED, "[the] data(base|[ ]source) [(of|at)] %string% " +
-                        "[with [a] [max[imum]] [connection] life[ ]time of %-timespan%]");
+                        "[with [a] [max[imum]] [connection] life[ ]time of %-timespan%] [(with|and) driver [class] [name] %-string%]");
     }
 
     private Expression<String> url;
     private Expression<Timespan> maxLifetime;
+    private Expression<String> driverClassName;
 
     @Override
     protected HikariDataSource[] get(Event e) {
@@ -40,9 +40,11 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
         if (jdbcUrl == null) {
             return null;
         }
-
-        if (!jdbcUrl.startsWith("jdbc:")) {
+        String rawUrl = jdbcUrl.toLowerCase();
+        if (!jdbcUrl.toLowerCase().startsWith("jdbc:")) {
             jdbcUrl = "jdbc:" + jdbcUrl;
+        } else {
+            rawUrl = rawUrl.substring(5);
         }
 
         if (connectionCache.containsKey(jdbcUrl)) {
@@ -50,10 +52,34 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
         }
 
         HikariDataSource ds = new HikariDataSource();
-
+        
+        
         //allow specifying of own sql driver class name
-        if (!Config.getSQLDriverClass().toUpperCase().equals("DEFAULT"))
-            ds.setDriverClassName(Config.getSQLDriverClass());
+        if (driverClassName != null)
+            ds.setDriverClassName(driverClassName.getSingle(e));
+        else {
+            //auto proceed jdbc driver
+            if (rawUrl.startsWith("postgresql")) {
+                ds.setDriverClassName("org.postgresql.Driver");
+            } else if (rawUrl.startsWith("mariadb")) {
+                ds.setDriverClassName("org.mariadb.jdbc.Driver");
+            } else if (rawUrl.startsWith("mysql")) {
+                ds.setDriverClassName("com.mysql.cj.jdbc");
+            } else if (rawUrl.startsWith("sqlite")) {
+                ds.setDriverClassName("org.sqlite.JDBC");
+            } else if (rawUrl.startsWith("sqlite")) {
+                ds.setDriverClassName("org.sqlite.JDBC");
+            } else if (rawUrl.startsWith("sqlserver")) {
+                ds.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            } else if (rawUrl.startsWith("oracle")) {
+                try {
+                    Class.forName("oracle.jdbc.driver.OracleDriver");
+                    ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+                } catch (ClassNotFoundException ex) {
+                    ds.setDriverClassName("oracle.jdbc.OracleDriver");
+                }
+            }
+        }
         ds.setJdbcUrl(jdbcUrl);
 
         if (maxLifetime != null) {
