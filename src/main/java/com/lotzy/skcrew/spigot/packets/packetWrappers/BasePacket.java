@@ -59,7 +59,7 @@ public class BasePacket implements AbstractPacket {
     
     public ByteBuf decodePacket(Object packet) {
         try {
-            Object buffer = PacketReflection.PacketDataSerializerConstructor.newInstance(Unpooled.buffer());
+            Object buffer = PacketReflection.createFriendlyBuffer.apply(Unpooled.buffer());
             this.decoder.invoke(packet,buffer);
             return (ByteBuf)PacketReflection.PacketDataSerializerByteBufField.get(buffer);
         } catch (Exception ex) {

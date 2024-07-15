@@ -30,7 +30,7 @@ public class ConstructorPacketDataWatcher extends ConstructorPacket implements A
     @Override
     public Object createPacket(ByteBuf buffer) {
         try {
-            Object pbuffer = PacketReflection.PacketDataSerializerConstructor.newInstance(buffer);
+            Object pbuffer = PacketReflection.createFriendlyBuffer.apply(buffer);
             Object packet = constructor.newInstance(pbuffer);
             dataWatcherField.set(packet, PacketReflection.DataWatcherInstance);
             return packet;

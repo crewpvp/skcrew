@@ -30,7 +30,7 @@ public class MethodPacketDataWatcher extends MethodPacket implements AbstractPac
     @Override
     public Object createPacket(ByteBuf buffer) {
         try {
-            Object pbuffer = PacketReflection.PacketDataSerializerConstructor.newInstance(buffer);
+            Object pbuffer = PacketReflection.createFriendlyBuffer.apply(buffer);
             Object packet = createMethod.invoke(null, pbuffer);
             dataWatcherField.set(packet, PacketReflection.DataWatcherInstance);
             return packet;

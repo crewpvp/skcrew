@@ -23,7 +23,7 @@ public class ConstructorPacket extends BasePacket implements AbstractPacket {
     @Override
     public Object createPacket(ByteBuf buffer) {
         try {
-            Object pbuffer = PacketReflection.PacketDataSerializerConstructor.newInstance(buffer);
+            Object pbuffer = PacketReflection.createFriendlyBuffer.apply(buffer);
             return constructor.newInstance(pbuffer);
         } catch (Exception ex) {
             creationError();
