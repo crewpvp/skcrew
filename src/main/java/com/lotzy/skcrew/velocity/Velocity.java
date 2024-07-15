@@ -28,7 +28,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.slf4j.Logger;
 
-@Plugin(id="skcrew", name="Skcrew", url = "https://skcrew.crewpvp.xyz", version = "3.0", description = "Socket based data transfer for Skript addon Skcrew", authors = {"Lotzy"})
+@Plugin(id="skcrew", name="Skcrew", url = "https://skcrew.crewpvp.xyz", version = "3.8", description = "Socket based data transfer for Skript addon Skcrew", authors = {"Lotzy"})
 public class Velocity implements SkcrewImpl {
 
     private final ProxyServer server;
