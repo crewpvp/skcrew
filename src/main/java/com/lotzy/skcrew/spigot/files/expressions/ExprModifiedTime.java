@@ -20,7 +20,7 @@ public class ExprModifiedTime extends SimplePropertyExpression<Path,Date> {
 
     static {
         register(ExprModifiedTime.class, Date.class,
-            "[last] modified (date|time)", "path");
+            "[last] modified (date|time)", "filepath");
     }
 
     @Override

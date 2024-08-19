@@ -26,8 +26,8 @@ public class EffMoveFileDir extends Effect {
 
     static {
         Skript.registerEffect(EffMoveFileDir.class,
-            "move %paths% to %path%",
-            "move %paths% to %path% with (overwrit|replac)(e|ing)");
+            "move %filepaths% to %filepath%",
+            "move %filepaths% to %filepath% with (overwrit|replac)(e|ing)");
     }
     
     private Expression<Path> paths;

@@ -24,7 +24,7 @@ public class CondFileIsDir extends Condition {
 
     static {
         Skript.registerCondition(CondFileIsDir.class,
-            "%path% is dir[ectory]","%path% is(n't| not) dir[ectory]");
+            "%filepath% is dir[ectory]","%filepath% is(n't| not) dir[ectory]");
     }
     private Expression<Path> path;
 

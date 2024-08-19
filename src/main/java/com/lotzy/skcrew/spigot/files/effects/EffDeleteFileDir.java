@@ -24,7 +24,7 @@ import org.bukkit.event.Event;
 public class EffDeleteFileDir extends Effect {
 
     static {
-        Skript.registerEffect(EffDeleteFileDir.class, "delete %paths%");
+        Skript.registerEffect(EffDeleteFileDir.class, "delete %filepaths%");
     }
     
     private Expression<Path> paths;

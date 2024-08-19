@@ -7,7 +7,7 @@ weight = 3
 #### Скопировать файл или директорию
 Позволяет так же указать параметр для перезаписи, если файл уже существует
 ```vb
-copy %path% to %path% [with (replac|overwrit)(e|ing)]
+copy %filepath% to %filepath% [with (replac|overwrit)(e|ing)]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -17,7 +17,7 @@ copy file "plugins/Skcrew.jar" to file "./"
 #### Создать простой файл
 Позволяет так же указать текстовое содержимое создаваемого файла
 ```vb
-create %paths% [with [(text|string|content)] %strings%]
+create %filepaths% [with [(text|string|content)] %strings%]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -26,7 +26,7 @@ create file "eula.txt" with content "eula=true"
 {{% /expand %}}
 #### Удалить файл или директорию
 ```vb
-delete %paths%
+delete %filepaths%
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -36,7 +36,7 @@ delete file "plugins/Skcrew.jar"
 #### Переместить файл или директорию
 Позволяет так же указать параметр для перезаписи, если файл уже существует
 ```vb
-move %paths% to %path% [with (overwrit|replac)(e|ing)]
+move %filepaths% to %filepath% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -46,7 +46,7 @@ move file "plugins" to file "disabled_plugins"
 #### Переименовать файл или директорию
 Позволяет так же указать параметр для перезаписи, если файл уже существует
 ```vb
-rename %paths% to %string% [with (overwrit|replac)(e|ing)]
+rename %filepaths% to %string% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -56,7 +56,7 @@ rename file "plugins/Skript/scripts/mycoolscript.sk" to "-mycoolscript.sk"
 #### Распаковать zip архив
 Позволяет так же указать параметр для перезаписи, если файл уже существует
 ```vb
-unzip %path% to %path% [with (overwrit|replac)(e|ing)]
+unzip %filepath% to %filepath% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -66,7 +66,7 @@ unzip file "myarchive.zip" to file "./"
 #### Создать zip архив
 Позволяет так же указать параметр для перезаписи, если файл уже существует
 ```vb
-zip %paths% to %path% [with (overwrit|replac)(e|ing)]
+zip %filepaths% to %filepath% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Пример" %}}
 ```vb

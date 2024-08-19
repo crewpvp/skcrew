@@ -6,7 +6,7 @@ weight = 2
 # CONDITIONS
 #### Проверка файла на его фактическое наличие
 ```vb
-%path% (is|does)[(n't| not)] exist[s]
+%filepath% (is|does)[(n't| not)] exist[s]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -16,7 +16,7 @@ if file "eula.txt" is exists:
 {{% /expand %}}
 #### Проверка что файл является директорией
 ```vb
-%path% is[(n't| not)] dir[ectory]
+%filepath% is[(n't| not)] dir[ectory]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -26,7 +26,7 @@ if file "eula.txt" is not directory:
 {{% /expand %}}
 #### Проверка что файл является файлом
 ```vb
-%path% is[(n't| not)] file
+%filepath% is[(n't| not)] file
 ```
 {{% expand title="Пример" %}}
 ```vb

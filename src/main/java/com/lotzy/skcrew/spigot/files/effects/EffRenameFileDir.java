@@ -24,8 +24,10 @@ import org.bukkit.event.Event;
 public class EffRenameFileDir extends Effect {
 
     static {
-        Skript.registerEffect(EffRenameFileDir.class, "rename %paths% to %string%",
-            "rename %paths% to %string% with (overwrit|replac)(e|ing)");
+        Skript.registerEffect(EffRenameFileDir.class, 
+            "rename %filepaths% to %string%",
+            "rename %filepaths% to %string% with (overwrit|replac)(e|ing)"
+        );
     }
     
     private Expression<Path> paths;

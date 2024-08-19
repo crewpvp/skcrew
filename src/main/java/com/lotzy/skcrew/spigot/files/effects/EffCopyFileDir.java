@@ -29,7 +29,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class EffCopyFileDir extends Effect {
 
     static {
-        Skript.registerEffect(EffCopyFileDir.class, "copy %path% to %path%", "copy %path% to %path% with (replac|overwrit)(e|ing)");
+        Skript.registerEffect(EffCopyFileDir.class, "copy %filepath% to %filepath%", "copy %filepath% to %filepath% with (replac|overwrit)(e|ing)");
     }
     private Expression<Path> sources;
     private Expression<Path> target;

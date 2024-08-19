@@ -28,7 +28,10 @@ import org.bukkit.event.Event;
 public class EffUnzipFileDir extends Effect {
 
     static {
-        Skript.registerEffect(EffUnzipFileDir.class,"unzip %path% to %path%","unzip %path% to %path% with (overwrit|replac)(e|ing)");
+        Skript.registerEffect(EffUnzipFileDir.class,
+            "unzip %filepath% to %filepath%",
+            "unzip %filepath% to %filepath% with (overwrit|replac)(e|ing)"
+        );
     }
 
     private Expression<Path> source;

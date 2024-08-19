@@ -17,10 +17,10 @@ set {_file} to file "eula.txt"
 #### Get an absolute file
 Absolute - that is, the one with the path starting from the root of the file system
 ```vb
-absolute [(file|dir[ectory])] of %path%
+absolute [(file|dir[ectory])] of %filepath%
 ```
 ```vb
-%path%'s absolute [(file|dir[ectory])] 
+%filepath%'s absolute [(file|dir[ectory])] 
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -31,25 +31,25 @@ set {_file} to absolute file of file "eula.txt"
 It also allows you to do this recursively, getting files in the directory and in all internal directories
 {{% expand title="Patterns" %}}
 ```vb
-all [the] files and [all] [the] dir[ectorie]s (in|of|from) %path%
+all [the] files and [all] [the] dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] files (in|of|from) %path%
+all [the] files (in|of|from) %filepath%
 ```
 ```vb
-all [the] dir[ectorie]s (in|of|from) %path%
+all [the] dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] sub[(-| )]files and [all] [the] sub[(-| )]dir[ectorie]s (in|of|from) %path%
+all [the] sub[(-| )]files and [all] [the] sub[(-| )]dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] sub[(-| )]dir[ectorie]s (in|of|from) %path%
+all [the] sub[(-| )]dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] sub[(-| )]files (in|of|from) %path%
+all [the] sub[(-| )]files (in|of|from) %filepath%
 ```
 ```vb
-glob (files|dir[ectorie]s) %string% (in|of|from) %path%
+glob (files|dir[ectorie]s) %string% (in|of|from) %filepath%
 ```
 {{% /expand %}}
 {{% expand title="Example" %}}
@@ -60,10 +60,10 @@ loop all files from file "plugins/":
 {{% /expand %}}
 #### Get the text content of the file
 ```vb
-[the] content of %path%
+[the] content of %filepath%
 ```
 ```vb
-[the] %path%'s content
+[the] %filepath%'s content
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -74,10 +74,10 @@ set content of file "eula.txt" to {_file}
 {{% /expand %}}
 #### Get the name of a file or directory
 ```vb
-[the] (file|dir[ectory])name of %path%
+[the] (file|dir[ectory])name of %filepath%
 ```
 ```vb
-[the] %path%'s (file|dir[ectory])name
+[the] %filepath%'s (file|dir[ectory])name
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -87,10 +87,10 @@ loop all files from file "plugins/":
 {{% /expand %}}
 #### Read a line/lines of a file or change them
 ```vb
-[the] line %number% (from|of|in) %path%
+[the] line %number% (from|of|in) %filepath%
 ```
 ```vb
-[all] [the] lines (from|of|in) %path%
+[all] [the] lines (from|of|in) %filepath%
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -99,10 +99,10 @@ set line 1 of file "eula.txt" to "eula=true"
 {{% /expand %}}
 #### Get the directory where the file/folder is located
 ```vb
-parent [(file|dir[ectory])] of %path%
+parent [(file|dir[ectory])] of %filepath%
 ```
 ```vb
-%path%'s parent [(file|dir[ectory])]
+%filepath%'s parent [(file|dir[ectory])]
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -112,32 +112,32 @@ set {_file} to parent of file "eula.txt"
 
 #### Get file size in bytes
 ```vb
-file size of %path%
+file size of %filepath%
 ```
 ```vb
-%path%'s file size
+%filepath%'s file size
 ```
 
 #### Get the last access date of a file
 ```vb
-[last] access (date|time) of %path%
+[last] access (date|time) of %filepath%
 ```
 ```vb
-%path%'s [last] access (date|time)
+%filepath%'s [last] access (date|time)
 ```
 
 #### Get the last modified date of a file
 ```vb
-[last] modified (date|time) of %path%
+[last] modified (date|time) of %filepath%
 ```
 ```vb
-%path%'s [last] modified (date|time)
+%filepath%'s [last] modified (date|time)
 ```
 
 #### Get file creation date
 ```vb
-create[d] (date|time) of %path%
+create[d] (date|time) of %filepath%
 ```
 ```vb
-%path%'s create[d] (date|time)
+%filepath%'s create[d] (date|time)
 ```

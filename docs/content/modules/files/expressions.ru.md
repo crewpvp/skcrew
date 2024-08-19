@@ -17,10 +17,10 @@ set {_file} to file "eula.txt"
 #### Получить абсолютный файл
 Абсолютный - то есть тот, у которого путь начинается с корня файловой системы
 ```vb
-absolute [(file|dir[ectory])] of %path%
+absolute [(file|dir[ectory])] of %filepath%
 ```
 ```vb
-%path%'s absolute [(file|dir[ectory])] 
+%filepath%'s absolute [(file|dir[ectory])] 
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -31,25 +31,25 @@ set {_file} to absolute file of file "eula.txt"
 Позволяет так же делать это рекурсивно, получая файлы в директории и во всех внутренних директориях
 {{% expand title="Паттерны" %}}
 ```vb
-all [the] files and [all] [the] dir[ectorie]s (in|of|from) %path%
+all [the] files and [all] [the] dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] files (in|of|from) %path%
+all [the] files (in|of|from) %filepath%
 ```
 ```vb
-all [the] dir[ectorie]s (in|of|from) %path%
+all [the] dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] sub[(-| )]files and [all] [the] sub[(-| )]dir[ectorie]s (in|of|from) %path%
+all [the] sub[(-| )]files and [all] [the] sub[(-| )]dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] sub[(-| )]dir[ectorie]s (in|of|from) %path%
+all [the] sub[(-| )]dir[ectorie]s (in|of|from) %filepath%
 ```
 ```vb
-all [the] sub[(-| )]files (in|of|from) %path%
+all [the] sub[(-| )]files (in|of|from) %filepath%
 ```
 ```vb
-glob (files|dir[ectorie]s) %string% (in|of|from) %path%
+glob (files|dir[ectorie]s) %string% (in|of|from) %filepath%
 ```
 {{% /expand %}}
 {{% expand title="Пример" %}}
@@ -60,10 +60,10 @@ loop all files from file "plugins/":
 {{% /expand %}}
 #### Получить текстовое содержимое файла
 ```vb
-[the] content of %path%
+[the] content of %filepath%
 ```
 ```vb
-[the] %path%'s content
+[the] %filepath%'s content
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -74,10 +74,10 @@ set content of file "eula.txt" to {_file}
 {{% /expand %}}
 #### Получить название файла или директории
 ```vb
-[the] (file|dir[ectory])name of %path%
+[the] (file|dir[ectory])name of %filepath%
 ```
 ```vb
-[the] %path%'s (file|dir[ectory])name
+[the] %filepath%'s (file|dir[ectory])name
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -87,10 +87,10 @@ loop all files from file "plugins/":
 {{% /expand %}}
 #### Прочитать строку/строки файла или изменить их
 ```vb
-[the] line %number% (from|of|in) %path%
+[the] line %number% (from|of|in) %filepath%
 ```
 ```vb
-[all] [the] lines (from|of|in) %path%
+[all] [the] lines (from|of|in) %filepath%
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -99,10 +99,10 @@ set line 1 of file "eula.txt" to "eula=true"
 {{% /expand %}}
 #### Получить директорию в которой находится файл/папка
 ```vb
-parent [(file|dir[ectory])] of %path%
+parent [(file|dir[ectory])] of %filepath%
 ```
 ```vb
-%path%'s parent [(file|dir[ectory])]
+%filepath%'s parent [(file|dir[ectory])]
 ```
 {{% expand title="Пример" %}}
 ```vb
@@ -112,32 +112,32 @@ set {_file} to parent of file "eula.txt"
 
 #### Получить размер файла в байтах
 ```vb
-file size of %path%
+file size of %filepath%
 ```
 ```vb
-%path%'s file size
+%filepath%'s file size
 ```
 
 #### Получить дату последнего доступа к файлу
 ```vb
-[last] access (date|time) of %path%
+[last] access (date|time) of %filepath%
 ```
 ```vb
-%path%'s [last] access (date|time)
+%filepath%'s [last] access (date|time)
 ```
 
 #### Получить дату последнего изменения файла
 ```vb
-[last] modified (date|time) of %path%
+[last] modified (date|time) of %filepath%
 ```
 ```vb
-%path%'s [last] modified (date|time)
+%filepath%'s [last] modified (date|time)
 ```
 
 #### Получить дату создания файла
 ```vb
-create[d] (date|time) of %path%
+create[d] (date|time) of %filepath%
 ```
 ```vb
-%path%'s create[d] (date|time)
+%filepath%'s create[d] (date|time)
 ```

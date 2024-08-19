@@ -33,13 +33,13 @@ public class ExprAllFileDirectory extends SimpleExpression<Path> implements File
 
     static {
         Skript.registerExpression(ExprAllFileDirectory.class, Path.class, ExpressionType.COMBINED,
-            "all [the] files and [all] [the] dir[ectorie]s (in|of|from) %path%",
-            "all [the] files (in|of|from) %path%",
-            "all [the] dir[ectorie]s (in|of|from) %path%",
-            "all [the] sub[(-| )]files and [all] [the] sub[(-| )]dir[ectorie]s (in|of|from) %path%",
-            "all [the] sub[(-| )]dir[ectorie]s (in|of|from) %path%",
-            "all [the] sub[(-| )]files (in|of|from) %path%",
-            "glob (files|dir[ectorie]s) %string% (in|of|from) %path%"
+            "all [the] files and [all] [the] dir[ectorie]s (in|of|from) %filepath%",
+            "all [the] files (in|of|from) %filepath%",
+            "all [the] dir[ectorie]s (in|of|from) %filepath%",
+            "all [the] sub[(-| )]files and [all] [the] sub[(-| )]dir[ectorie]s (in|of|from) %filepath%",
+            "all [the] sub[(-| )]dir[ectorie]s (in|of|from) %filepath%",
+            "all [the] sub[(-| )]files (in|of|from) %filepath%",
+            "glob (files|dir[ectorie]s) %string% (in|of|from) %filepath%"
         );
     }
 

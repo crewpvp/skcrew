@@ -20,7 +20,7 @@ public class ExprCreateTime extends SimplePropertyExpression<Path,Date> {
 
     static {
         register(ExprCreateTime.class, Date.class,
-            "create[d] (date|time)", "path");
+            "create[d] (date|time)", "filepath");
     }
 
     @Override

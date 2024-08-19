@@ -16,7 +16,7 @@ public class ExprParent extends SimplePropertyExpression<Path,Path> {
 
     static {
         register(ExprParent.class, Path.class,
-            "parent [(file|dir[ectory])]", "path");
+            "parent [(file|dir[ectory])]", "filepath");
     }
 
     @Override
