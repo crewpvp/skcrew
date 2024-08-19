@@ -64,9 +64,7 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
             } else if (rawUrl.startsWith("mariadb")) {
                 ds.setDriverClassName("org.mariadb.jdbc.Driver");
             } else if (rawUrl.startsWith("mysql")) {
-                ds.setDriverClassName("com.mysql.cj.jdbc");
-            } else if (rawUrl.startsWith("sqlite")) {
-                ds.setDriverClassName("org.sqlite.JDBC");
+                ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
             } else if (rawUrl.startsWith("sqlite")) {
                 ds.setDriverClassName("org.sqlite.JDBC");
             } else if (rawUrl.startsWith("sqlserver")) {
@@ -116,6 +114,7 @@ public class ExprDataSource extends SimpleExpression<HikariDataSource> {
                         SkriptParser.ParseResult parseResult) {
         url = (Expression<String>) exprs[0];
         maxLifetime = (Expression<Timespan>) exprs[1];
+        driverClassName = (Expression<String>) exprs[2];
         return true;
     }
 }
