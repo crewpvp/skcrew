@@ -1,11 +1,25 @@
 package com.lotzy.skcrew.spigot;
 
+import com.lotzy.skcrew.spigot.files.types.TypePath;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormEvents;
 import com.lotzy.skcrew.spigot.floodgate.forms.FormManager;
+import com.lotzy.skcrew.spigot.floodgate.forms.types.TypeCloseReason;
+import com.lotzy.skcrew.spigot.floodgate.forms.types.TypeForm;
+import com.lotzy.skcrew.spigot.floodgate.forms.types.TypeFormType;
 import com.lotzy.skcrew.spigot.gui.GUIManager;
 import com.lotzy.skcrew.spigot.gui.GUIEvents;
+import com.lotzy.skcrew.spigot.gui.types.TypeGUI;
+import com.lotzy.skcrew.spigot.gui.types.TypeSlotType;
+import com.lotzy.skcrew.spigot.maps.types.TypeMap;
 import com.lotzy.skcrew.spigot.packets.events.JoinListener;
 import com.lotzy.skcrew.spigot.packets.PacketReflection;
+import com.lotzy.skcrew.spigot.packets.elements.types.ByteBufType;
+import com.lotzy.skcrew.spigot.packets.elements.types.TypePacket;
+import com.lotzy.skcrew.spigot.requests.TypeRequestProperty;
+import com.lotzy.skcrew.spigot.sockets.elements.types.TypeNetworkPlayer;
+import com.lotzy.skcrew.spigot.sockets.elements.types.TypeServer;
+import com.lotzy.skcrew.spigot.sockets.elements.types.TypeSignal;
+import com.lotzy.skcrew.spigot.sql.types.TypeDataSource;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,22 +28,23 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.yaml.snakeyaml.Yaml;
 
 public class Config {
-    private static boolean SQL_ENABLED = true;
+    private static boolean SQL_ENABLED = true && !PluginIsReady("skript-db");
     
-    private static boolean BITWISE_ENABLED = true;
-    private static boolean GUI_ENABLED = true;
+    private static boolean BITWISE_ENABLED = true && !PluginIsReady("Bitshift");
+    private static boolean GUI_ENABLED = true && !PluginIsReady("skript-gui");
     private static boolean RUNTIME_ENABLED = true;
     private static boolean REQUESTS_ENABLED = true;
-    private static boolean FILES_ENABLED = true;
+    private static boolean FILES_ENABLED = true && !PluginIsReady("Skent");
     private static boolean WORLD_ENABLED = true;
     private static boolean PERMISSIONS_ENABLED = true;
     private static boolean INTERPRETATE_ENABLED = true;
     private static boolean STRING_UTILS_ENABLED = true;
-    private static boolean FLOODGATE_ENABLED = true;
-    private static boolean VIAVERSION_ENABLED = true;
+    private static boolean FLOODGATE_ENABLED = true && PluginIsReady("Floodgate");
+    private static boolean VIAVERSION_ENABLED = true && PluginIsReady("ViaVersion");
     private static boolean OTHER_ENABLED = true;
     private static boolean PACKETS_ENABLED = true;
     private static boolean MAPS_ENABLED = true;
@@ -38,6 +53,11 @@ public class Config {
     private static String SOCKETS_SERVER_ADDRESS = "127.0.0.1";
     private static int SOCKETS_SERVER_PORT = 1337;
     private static int SOCKETS_CLIENT_AUTORECONNECT_TIME = 5;
+    
+    public static boolean PluginIsReady(String name) {
+        Plugin plugin = Bukkit.getPluginManager().getPlugin(name);
+        return plugin != null && Bukkit.getPluginManager().isPluginEnabled(plugin);
+    }
     
     public static void UPDATE_CONFIG(Path dataDirectory) {
         if (!Files.exists(dataDirectory.resolve("config.yml"))) {
@@ -52,13 +72,13 @@ public class Config {
         }
         try {  
             Map<String, Object> data = new Yaml().load(new FileInputStream(dataDirectory.resolve("config.yml").toFile()));
-            if (data.containsKey("sql") && data.get("sql") instanceof Map) {
+            if (data.containsKey("sql") && data.get("sql") instanceof Map && !PluginIsReady("skript-db")) {
                 Map<String,Object> settings = (Map<String,Object>)data.get("sql");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
                     Config.SQL_ENABLED = (boolean) settings.get("enabled");
             }
             
-            if (data.containsKey("bitwise") && data.get("bitwise") instanceof Map) {
+            if (data.containsKey("bitwise") && data.get("bitwise") instanceof Map && !PluginIsReady("Bitshift")) {
                 Map<String,Object> settings = (Map<String,Object>)data.get("bitwise");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
                     Config.BITWISE_ENABLED = (boolean) settings.get("enabled");
@@ -66,7 +86,7 @@ public class Config {
             
             if (data.containsKey("gui") && data.get("gui") instanceof Map) {
                 Map<String,Object> settings = (Map<String,Object>)data.get("gui");
-                if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
+                if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean && !PluginIsReady("skript-gui"))
                     Config.GUI_ENABLED = (boolean) settings.get("enabled");
             }
             
@@ -82,7 +102,7 @@ public class Config {
                     Config.REQUESTS_ENABLED = (boolean) settings.get("enabled");
             }
             
-            if (data.containsKey("files") && data.get("files") instanceof Map) {
+            if (data.containsKey("files") && data.get("files") instanceof Map && !PluginIsReady("Skent")) {
                 Map<String,Object> settings = (Map<String,Object>)data.get("files");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
                     Config.FILES_ENABLED = (boolean) settings.get("enabled");
@@ -112,20 +132,16 @@ public class Config {
                     Config.STRING_UTILS_ENABLED = (boolean) settings.get("enabled");
             }
             
-            if (data.containsKey("floodgate") && data.get("floodgate") instanceof Map) {
+            if (data.containsKey("floodgate") && data.get("floodgate") instanceof Map && PluginIsReady("Floodgate")) {
                 Map<String,Object> settings = (Map<String,Object>)data.get("floodgate");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
-                    Config.FLOODGATE_ENABLED = ((boolean) settings.get("enabled")) 
-                            && Bukkit.getPluginManager().getPlugin("Floodgate")!=null 
-                            && Bukkit.getPluginManager().getPlugin("Floodgate").isEnabled();
+                    Config.FLOODGATE_ENABLED = (boolean) settings.get("enabled");
             }
             
-            if (data.containsKey("viaversion") && data.get("viaversion") instanceof Map) {
+            if (data.containsKey("viaversion") && data.get("viaversion") instanceof Map && PluginIsReady("ViaVersion")) {
                 Map<String,Object> settings = (Map<String,Object>)data.get("viaversion");
                 if (settings.containsKey("enabled") && settings.get("enabled") instanceof Boolean)
-                    Config.VIAVERSION_ENABLED = (boolean) settings.get("enabled")
-                            && Bukkit.getPluginManager().getPlugin("ViaVersion")!=null 
-                            && Bukkit.getPluginManager().getPlugin("ViaVersion").isEnabled();
+                    Config.VIAVERSION_ENABLED = (boolean) settings.get("enabled");
             }
             
             if (data.containsKey("other") && data.get("other") instanceof Map) {
@@ -166,7 +182,9 @@ public class Config {
     }
 
     public static void loadSQLModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.sql");
+        try { 
+            TypeDataSource.register();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.sql");
         } catch (IOException ex) {}
     }
     
@@ -182,6 +200,8 @@ public class Config {
     }
     public static void loadGUIModule() {
         try { 
+            TypeGUI.register();
+            TypeSlotType.register();
             Bukkit.getServer().getPluginManager().registerEvents(new GUIEvents(), Skcrew.getInstance());
             new GUIManager();
             Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.gui");
@@ -198,14 +218,18 @@ public class Config {
         return Config.REQUESTS_ENABLED;
     }
     public static void loadRequestsModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.requests");
+        try { 
+            TypeRequestProperty.register();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.requests");
         } catch (IOException ex) {}
     }
     public static boolean isFilesEnabled() {
         return Config.FILES_ENABLED;
     }
     public static void loadFilesModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.files");
+        try { 
+            TypePath.register();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.files");
         } catch (IOException ex) {}
     }
     public static boolean isWorldEnabled() {
@@ -241,6 +265,9 @@ public class Config {
     }
     public static void loadFloodgateModule() {
         try { 
+            TypeCloseReason.register();
+            TypeForm.register();
+            TypeFormType.register();
             Bukkit.getServer().getPluginManager().registerEvents(new FormEvents(), Skcrew.getInstance());
             new FormManager();
             Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.floodgate");
@@ -266,6 +293,8 @@ public class Config {
     public static void loadPacketsModule() {
         try {
             PacketReflection.INITIATE();
+            ByteBufType.register();
+            TypePacket.register();
             Bukkit.getPluginManager().registerEvents(new JoinListener(),Skcrew.getInstance());
             Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.packets");
         } catch (Exception ex) {
@@ -281,7 +310,9 @@ public class Config {
         return Config.MAPS_ENABLED;
     }
     public static void loadMapsModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.maps");
+        try { 
+            TypeMap.register();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.maps");
         } catch (IOException ex) {}
     }   
     
@@ -298,7 +329,11 @@ public class Config {
         return Config.SOCKETS_CLIENT_AUTORECONNECT_TIME;
     }
     public static void loadSocketsModule() {
-        try { Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.sockets");
+        try { 
+            TypeNetworkPlayer.register();
+            TypeServer.register();
+            TypeSignal.register();
+            Skcrew.getAddonInstance().loadClasses("com.lotzy.skcrew.spigot.sockets");
         } catch (IOException ex) {}
     }
     
