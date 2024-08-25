@@ -10,7 +10,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.io.StreamCorruptedException;
 
 public class TypeDataSource {
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(HikariDataSource.class, "datasource")
                 .user("datasources?")
                 .description("Represents datasource (com.zaxxer.hikari.HikariDataSource class)")

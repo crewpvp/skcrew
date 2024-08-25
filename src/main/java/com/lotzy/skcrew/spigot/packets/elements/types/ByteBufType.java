@@ -12,7 +12,7 @@ import io.netty.buffer.Unpooled;
 import java.io.StreamCorruptedException;
 
 public class ByteBufType {
-      static {
+      static public void register() {
         Classes.registerClass(new ClassInfo<>(ByteBuf.class, "bytebuf")
             .user("bytebuf?")
             .name("ByteBuf")

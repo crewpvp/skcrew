@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 
 public class TypeGUI {
 
-    static {
+    static public void register() {
         Converters.registerConverter(GUI.class, Inventory.class, GUI::getInventory);
         Classes.registerClass(new ClassInfo<>(GUI.class, "guiinventory")
         .user("gui inventor(y|ies)?")

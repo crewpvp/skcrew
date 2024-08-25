@@ -7,7 +7,7 @@ import ch.njol.skript.registrations.Classes;
 import org.geysermc.cumulus.form.util.FormType;
 
 public class TypeFormType {
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(FormType.class, "formtype")
             .user("form ?types?")
             .name("Form Type")

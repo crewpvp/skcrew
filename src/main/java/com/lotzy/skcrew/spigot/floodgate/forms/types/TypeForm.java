@@ -7,7 +7,7 @@ import ch.njol.skript.registrations.Classes;
 import com.lotzy.skcrew.spigot.floodgate.forms.Form;
 
 public class TypeForm {
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(Form.class, "form")
             .user("forms?")
             .name("Form")

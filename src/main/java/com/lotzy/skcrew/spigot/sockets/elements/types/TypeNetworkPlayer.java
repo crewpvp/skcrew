@@ -13,7 +13,7 @@ import org.bukkit.OfflinePlayer;
 
 public class TypeNetworkPlayer {
 
-    static {
+    static public void register() {
         Converters.registerConverter(SpigotPlayer.class, OfflinePlayer.class, SpigotPlayer::toOfflinePlayer);
         Converters.registerConverter(OfflinePlayer.class, SpigotPlayer.class, new Converter() {
             @Override

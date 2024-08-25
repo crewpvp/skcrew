@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryType;
 
 public class TypeSlotType {
     
-    static {
+    static public void register() {
         if (Classes.getExactClassInfo(InventoryType.SlotType.class) == null) {
             EnumUtils<InventoryType.SlotType> slotTypes = new EnumUtils<>(InventoryType.SlotType.class, "slot types");
             Classes.registerClass(new ClassInfo<>(InventoryType.SlotType.class, "slottype")

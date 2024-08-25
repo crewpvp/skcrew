@@ -5,9 +5,9 @@ import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.registrations.Classes;
 
-public class TypeRequestPropery {
+public class TypeRequestProperty {
 
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(RequestProperty.class, "requestproperty")
         .user("request propert(y|ies)?")
         .name("requestproperty")

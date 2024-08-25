@@ -9,7 +9,7 @@ import com.lotzy.skcrew.shared.sockets.data.SpigotServer;
 
 public class TypeServer {
 
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(SpigotServer.class, "server")
             .defaultExpression(new EventValueExpression<>(SpigotServer.class))
             .user("servers?")

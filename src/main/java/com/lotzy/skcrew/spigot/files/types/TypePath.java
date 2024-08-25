@@ -13,11 +13,11 @@ import java.nio.file.Paths;
 
 public class TypePath {
 
-    static {
-        Classes.registerClass(new ClassInfo<>(Path.class, "filepath")
+    static public void register() {
+        Classes.registerClass(new ClassInfo<>(Path.class, "path")
             .defaultExpression(new EventValueExpression<>(Path.class))
-            .user("filepaths?")
-            .name("filepath")
+            .user("paths?")
+            .name("path")
             .description("Represents a abstract file (java.nio.file.Path class)")
             .since("1.0")
             .parser(new Parser<Path>() {
@@ -46,7 +46,7 @@ public class TypePath {
                 @Override
                 public Fields serialize(final Path path) {
                     final Fields f = new Fields();
-                    f.putObject("filepath", path.toString());
+                    f.putObject("path", path.toString());
                     return f;
                 }
 
@@ -58,7 +58,7 @@ public class TypePath {
                 @Override
                 public Path deserialize(final Fields f) throws StreamCorruptedException {
                     try {
-                        String name = f.getObject("filepath", String.class);
+                        String name = f.getObject("path", String.class);
                         return Paths.get(name);
                     } catch (Exception ex) {
                         return null;

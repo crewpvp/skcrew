@@ -7,7 +7,7 @@ import ch.njol.skript.registrations.Classes;
 import com.lotzy.skcrew.spigot.floodgate.forms.events.FormCloseEvent.CloseReason;
 
 public class TypeCloseReason {
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(CloseReason.class, "closereason")
             .user("close ?reasons?")
             .name("Close Reason")

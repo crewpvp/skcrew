@@ -15,7 +15,7 @@ import java.io.StreamCorruptedException;
 
 public class TypeMap {
 
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(Map.class, "map")
                 .user("map")
                 .name("map")

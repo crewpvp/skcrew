@@ -13,7 +13,7 @@ import io.netty.buffer.Unpooled;
 import java.io.StreamCorruptedException;
 
 public class TypePacket {
-      static {
+      static public void register() {
         Classes.registerClass(new ClassInfo<>(PacketReflection.PacketClass, "packet")
             .user("packet?")
             .name("Packet")

@@ -9,7 +9,7 @@ import com.lotzy.skcrew.shared.sockets.data.Signal;
 
 public class TypeSignal {
 
-    static {
+    static public void register() {
         Classes.registerClass(new ClassInfo<>(Signal.class, "signal")
             .defaultExpression(new EventValueExpression<>(Signal.class))
             .user("signals?")
