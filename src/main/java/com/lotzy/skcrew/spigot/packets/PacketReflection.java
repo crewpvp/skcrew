@@ -648,6 +648,7 @@ public class PacketReflection {
                 if (method.getParameterCount()!=1) continue;
                 if (!(method.getParameterTypes()[0].equals(PacketDataSerializerClass) || method.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
                 if (method.equals(((ConstructorPacketMethod)packet).getMethod())) continue;
+                method.setAccessible(true);
                 packet.setDecoder(method);
                 return packet;
             } 
@@ -656,6 +657,7 @@ public class PacketReflection {
             if (Modifier.isStatic(method.getModifiers())) continue;
             if (method.getParameterCount()!=1) continue;
             if (!(method.getParameterTypes()[0].equals(PacketDataSerializerClass) || method.getParameterTypes()[0].equals(RegistryFriendlyByteBufClass))) continue;
+            method.setAccessible(true);
             packet.setDecoder(method);
         }
         return packet;
