@@ -24,7 +24,7 @@ public class CondFileIsFile extends Condition {
 
     static {
         Skript.registerCondition(CondFileIsFile.class,
-            "%filepath% is file","%filepath% is(n't| not) file");
+            "%path% is file","%path% is(n't| not) file");
     }
     private Expression<Path> path;
 

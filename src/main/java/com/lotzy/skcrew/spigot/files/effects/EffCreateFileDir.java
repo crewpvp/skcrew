@@ -28,8 +28,8 @@ public class EffCreateFileDir extends Effect {
 
     static {
         Skript.registerEffect(EffCreateFileDir.class,
-            "create %filepaths%",
-            "create %filepaths% with [(text|string|content)] %strings%");
+            "create %paths%",
+            "create %paths% with [(text|string|content)] %strings%");
     }
     
     private Expression<Path> paths;

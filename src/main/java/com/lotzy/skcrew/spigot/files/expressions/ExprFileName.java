@@ -23,7 +23,7 @@ public class ExprFileName extends SimpleExpression<String> {
 
     static {
         Skript.registerExpression(ExprFileName.class, String.class, ExpressionType.COMBINED,
-            "[the] (file|dir[ectory])name of %filepath%", "[the] %filepath%'s (file|dir[ectory])name");
+            "[the] (file|dir[ectory])name of %path%", "[the] %path%'s (file|dir[ectory])name");
     }
     
     private Expression<Path> path;

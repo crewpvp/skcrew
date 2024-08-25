@@ -30,8 +30,8 @@ public class EffZipFileDir extends Effect {
 
     static {
         Skript.registerEffect(EffZipFileDir.class,
-            "zip %filepaths% to %filepath%",
-            "zip %filepaths% to %filepath% with (replac|overwrit)(e|ing)"
+            "zip %paths% to %path%",
+            "zip %paths% to %path% with (replac|overwrit)(e|ing)"
         );
     }
 

@@ -17,7 +17,7 @@ public class ExprAbsolutePath extends SimplePropertyExpression<Path,Path> {
 
     static {
         register(ExprAbsolutePath.class, Path.class,
-            "absolute [(file|dir[ectory])]", "filepath");
+            "absolute [(file|dir[ectory])]", "path");
     }
 
     @Override

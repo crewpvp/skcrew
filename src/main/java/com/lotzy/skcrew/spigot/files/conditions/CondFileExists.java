@@ -23,7 +23,7 @@ public class CondFileExists extends Condition {
 
     static {
         Skript.registerCondition(CondFileExists.class,
-            "%filepath% (is|does) exist[s]","%filepath% (is|does)(n't| not) exist[s]");
+            "%path% (is|does) exist[s]","%path% (is|does)(n't| not) exist[s]");
     }
 
     private Expression<Path> path;

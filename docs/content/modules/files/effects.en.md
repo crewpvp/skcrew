@@ -7,7 +7,7 @@ weight = 3
 #### Copy a file or directory
 It also allows you to specify a parameter for overwriting if the file already exists
 ```vb
-copy %filepath% to %filepath% [with (replac|overwrit)(e|ing)]
+copy %path% to %path% [with (replac|overwrit)(e|ing)]
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -17,7 +17,7 @@ copy file "plugins/Skcrew.jar" to file "./"
 #### Create a simple file
 It also allows you to specify the text content of the file being created
 ```vb
-create %filepaths% [with [(text|string|content)] %strings%]
+create %paths% [with [(text|string|content)] %strings%]
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -26,7 +26,7 @@ create file "eula.txt" with content "eula=true"
 {{% /expand %}}
 #### Delete a file or directory
 ```vb
-delete %filepaths%
+delete %paths%
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -36,7 +36,7 @@ delete file "plugins/Skcrew.jar"
 #### Move a file or directory
 It also allows you to specify a parameter for overwriting if the file already exists
 ```vb
-move %filepaths% to %filepath% [with (overwrit|replac)(e|ing)]
+move %paths% to %path% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -46,7 +46,7 @@ move file "plugins" to file "disabled_plugins"
 #### Rename a file or directory
 It also allows you to specify a parameter for overwriting if the file already exists
 ```vb
-rename %filepaths% to %string% [with (overwrit|replac)(e|ing)]
+rename %paths% to %string% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -56,7 +56,7 @@ rename file "plugins/Skript/scripts/mycoolscript.sk" to "-mycoolscript.sk"
 #### Unpack the zip archive
 It also allows you to specify a parameter for overwriting if the file already exists
 ```vb
-unzip %filepath% to %filepath% [with (overwrit|replac)(e|ing)]
+unzip %path% to %path% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Example" %}}
 ```vb
@@ -66,7 +66,7 @@ unzip file "myarchive.zip" to file "./"
 #### Create a zip archive
 It also allows you to specify a parameter for overwriting if the file already exists
 ```vb
-zip %filepaths% to %filepath% [with (overwrit|replac)(e|ing)]
+zip %paths% to %path% [with (overwrit|replac)(e|ing)]
 ```
 {{% expand title="Example" %}}
 ```vb

@@ -30,8 +30,8 @@ public class ExprLine extends SimpleExpression<String> {
 
     static {
         Skript.registerExpression(ExprLine.class, String.class, ExpressionType.COMBINED,
-            "[the] line %number% (from|of|in) %filepath%",
-            "[all] [the] lines (from|of|in) %filepath%"
+            "[the] line %number% (from|of|in) %path%",
+            "[all] [the] lines (from|of|in) %path%"
         );
     }
 

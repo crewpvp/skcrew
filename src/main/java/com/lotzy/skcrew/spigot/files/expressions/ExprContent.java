@@ -32,8 +32,8 @@ public class ExprContent extends SimpleExpression<String> {
 
     static {
         Skript.registerExpression(ExprContent.class, String.class, ExpressionType.COMBINED,
-            "[the] content of %filepath%",
-            "[the] %filepath%'s content"
+            "[the] content of %path%",
+            "[the] %path%'s content"
         );
     }
 

@@ -16,7 +16,7 @@ public class ExprFileSize extends SimplePropertyExpression<Path,Number> {
 
     static {
         register(ExprFileSize.class, Number.class,
-            "file size", "filepath");
+            "file size", "path");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ExprLastAccessTime extends SimplePropertyExpression<Path,Date> {
 
     static {
         register(ExprLastAccessTime.class, Date.class,
-            "[last] access (date|time)", "filepath");
+            "[last] access (date|time)", "path");
     }
 
     @Override
